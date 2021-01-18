@@ -5,7 +5,7 @@ using System;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {
-    internal static class SwaggerExtention
+    public static class SwaggerExtention
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
