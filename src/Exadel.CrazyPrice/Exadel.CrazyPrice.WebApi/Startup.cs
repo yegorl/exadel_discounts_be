@@ -46,7 +46,7 @@ namespace Exadel.CrazyPrice.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwaggerCP();
+                app.UseSwaggerCrazyPrice();
             }
 
             app.UseRouting();
