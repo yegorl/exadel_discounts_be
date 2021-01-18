@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Exadel.CrazyPrice.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Exadel.CrazyPrice.WebApi.Program">
+            <summary>
+            Determines the entry point into the program.
+            </summary>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Program.Main(System.String[])">
+            <summary>
+            Starts web application.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates HostBuilder using the default Builder.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Exadel.CrazyPrice.WebApi.Startup">
+            <summary>
+            Determines Startup configuration.
+            </summary>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Creates Startup configuration.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:Exadel.CrazyPrice.WebApi.Startup.Configuration">
+            <summary>
+            Gets Configuration
+            </summary>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
