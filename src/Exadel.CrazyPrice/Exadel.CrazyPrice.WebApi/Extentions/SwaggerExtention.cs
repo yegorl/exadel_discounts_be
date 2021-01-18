@@ -27,7 +27,7 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
             return services;
         }
 
-        public static IApplicationBuilder UseSwaggerCP(this IApplicationBuilder app)
+        public static IApplicationBuilder UseSwaggerCrazyPrice(this IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CrazyPrice WebApi v1"));
