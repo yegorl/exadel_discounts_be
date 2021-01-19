@@ -5,8 +5,16 @@ using System;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {
+    /// <summary>
+    /// Determines Swagger Extentions.
+    /// </summary>
     public static class SwaggerExtention
     {
+        /// <summary>
+        /// Adds Swagger with base description Web API for the site Crazy Price.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -27,6 +35,11 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
             return services;
         }
 
+        /// <summary>
+        /// Uses Swagger and UseSwaggerUI Middleware.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseSwaggerCrazyPrice(this IApplicationBuilder app)
         {
             app.UseSwagger();
