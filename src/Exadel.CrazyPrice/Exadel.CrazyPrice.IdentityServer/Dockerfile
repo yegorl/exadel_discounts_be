@@ -5,7 +5,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["Exadel.CrazyPrice.IdentityServer/Exadel.CrazyPrice.IdentityServer.csproj", "Exadel.CrazyPrice.IdentityServer/"]
 RUN dotnet restore "Exadel.CrazyPrice.IdentityServer/Exadel.CrazyPrice.IdentityServer.csproj"
