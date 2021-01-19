@@ -4,6 +4,25 @@
         <name>Exadel.CrazyPrice.WebApi</name>
     </assembly>
     <members>
+        <member name="T:Exadel.CrazyPrice.WebApi.Extentions.SwaggerExtention">
+            <summary>
+            Determines Swagger Extentions.
+            </summary>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Extentions.SwaggerExtention.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Swagger with base description Web API for the site Crazy Price.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Exadel.CrazyPrice.WebApi.Extentions.SwaggerExtention.UseSwaggerCrazyPrice(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Uses Swagger and UseSwaggerUI Middleware.
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
         <member name="T:Exadel.CrazyPrice.WebApi.Program">
             <summary>
             Determines the entry point into the program.
