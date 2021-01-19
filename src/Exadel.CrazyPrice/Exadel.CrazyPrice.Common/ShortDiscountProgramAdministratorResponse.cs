@@ -5,7 +5,7 @@ namespace Exadel.CrazyPrice.Common
     /// <summary>
     /// Gets short information for an Administrator
     /// </summary>
-    public class ShortDiscountProgramWithDateModify
+    public class ShortDiscountProgramAdministratorResponse
     {
         public string Id { get; set; }
 

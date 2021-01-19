@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Exadel.CrazyPrice.Common
 {
     /// <summary>
-    /// Gets/sets information for a Moderator
+    /// Gets full information for an Administrator.
     /// </summary>
-    public class NewDiscountProgram
+    public class DiscountProgramAdministratorResponse
     {
         public string Id { get; set; }
 
@@ -17,9 +17,7 @@ namespace Exadel.CrazyPrice.Common
         public DateTime EndDate { get; set; }
 
         public DateTime StartDate { get; set; }
-
-        public Location Location { get; set; }
-
+       
         public Address Address { get; set; }
 
         public Company Company { get; set; }
@@ -27,5 +25,19 @@ namespace Exadel.CrazyPrice.Common
         public IEnumerable<string> Tags { get; set; }
 
         public string WorkingHours { get; set; }
+
+        public float RatingTotal { get; set; }
+
+        public int ViewTotal { get; set; }
+
+        public int ReservationTotal { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public Person PersonCreateDate { get; set; }
+
+        public DateTime LastChangeDate { get; set; }
+
+        public Person PersonLastChangeDate { get; set; }
     }
 }
