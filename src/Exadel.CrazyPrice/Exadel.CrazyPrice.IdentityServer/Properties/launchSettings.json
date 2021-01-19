@@ -1,0 +1,23 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Exadel.CrazyPrice.IdentityServer",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "https://localhost:5000",
+      "sslPort": 44339
+    }
+  },
+  "profiles": {
+    "SelfHost": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:44339/"
+    }
+  }
+}
