@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\Exadel.CrazyPrice.WebApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
