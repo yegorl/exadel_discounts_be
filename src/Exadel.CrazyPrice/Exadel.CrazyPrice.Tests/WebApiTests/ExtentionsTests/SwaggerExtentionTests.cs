@@ -10,9 +10,19 @@ namespace Exadel.CrazyPrice.Tests
         [Fact]
         public void AddSwaggerTest()
         {
+            const string nameSwaggerGenerator = "SwaggerGenerator";
+
             var service = new ServiceCollection();
             var addSwagger = service.AddSwagger();
-            addSwagger.Count.Should().Be(service.Count);
+            foreach (var serviceDescriptor in addSwagger)
+            {
+                if (serviceDescriptor?.ImplementationType?.Name == nameSwaggerGenerator)
+                {
+                    serviceDescriptor.ImplementationType.Name.Should().Be(nameSwaggerGenerator);
+                    return;
+                }
+            }
+            Assert.True(false, $"ServiceCollection is not contains {nameSwaggerGenerator}.");
         }
     }
 }
