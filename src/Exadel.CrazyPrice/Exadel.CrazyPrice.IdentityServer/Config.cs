@@ -12,7 +12,8 @@ namespace Exadel.CrazyPrice.IdentityServer
         public static IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
             { 
-                new IdentityResources.OpenId()
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile()
             };
 
         public static IEnumerable<ApiResource> ApiResources =>

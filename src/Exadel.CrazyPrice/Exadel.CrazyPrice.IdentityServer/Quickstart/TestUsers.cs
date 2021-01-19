@@ -13,54 +13,30 @@ namespace IdentityServerHost.Quickstart.UI
 {
     public class TestUsers
     {
-        public static List<TestUser> Users
+        public static List<TestUser> Users = new List<TestUser>
         {
-            get
+            new TestUser
             {
-                var address = new
+                SubjectId = "c3e2ac9d-66d5-4872-8486-293cba3c6d61",
+                Username = "Frank",
+                Password = "password1",
+                Claims =
                 {
-                    street_address = "One Hacker Way",
-                    locality = "Heidelberg",
-                    postal_code = 69118,
-                    country = "Germany"
-                };
-                
-                return new List<TestUser>
+                    new Claim("given_name", "Frank"),
+                    new Claim("family_name", "Underwood"),
+                }
+            },
+            new TestUser
+            {
+                SubjectId = "7556abe5-c2cb-4321-87e6-3d96f7186001",
+                Username = "Claire",
+                Password = "password2",
+                Claims =
                 {
-                    new TestUser
-                    {
-                        SubjectId = "818727",
-                        Username = "alice",
-                        Password = "alice",
-                        Claims =
-                        {
-                            new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Alice"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
-                            new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
-                        }
-                    },
-                    new TestUser
-                    {
-                        SubjectId = "88421113",
-                        Username = "bob",
-                        Password = "bob",
-                        Claims =
-                        {
-                            new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Bob"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
-                            new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
-                        }
-                    }
-                };
+                    new Claim("given_name", "Claire"),
+                    new Claim("family_name", "Underwood"),
+                }
             }
-        }
+        };
     }
 }
