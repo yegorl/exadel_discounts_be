@@ -1,45 +1,45 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models.Request;
+﻿using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
-    public interface ICrazyPriceRepository
-    {        
+    public interface IDiscountRepository
+    {
 
         /// <summary>
         /// Gets all Discount Programs.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<DiscountResponse>> GetAllDiscountProgramsAsync();
-                
+        Task<List<DiscountResponse>> GetAllDiscountsAsync();
+
         /// <summary>
         /// Gets a Discount Program by id.
         /// </summary>
         /// <param name="id">The id Discount Program.</param>
         /// <returns></returns>
-        Task<DiscountResponse> GetDiscountProgramAsync(string id);
+        Task<DiscountResponse> GetDiscountAsync(string id);
 
         /// <summary>
-        /// Gets a Discount for Moderator Program by id Discount Program.
+        /// Upserts a Discount Program for Moderator by id Discount Program.
         /// </summary>
         /// <param name="id">The id Discount Program.</param>
         /// <returns></returns>
-        Task<UpsertDiscountRequest> GetDiscountProgramForModeratorAsync(string id);
+        Task<UpsertDiscountRequest> UpsertDiscountAsync(string id);
 
         /// <summary>
-        /// Creates or updates a Discount Program by Moderator.
+        /// Upserts a Discount Program by Moderator.
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        Task UpdateDiscountProgramAsync(UpsertDiscountRequest item);
+        Task UpsertDiscountAsync(UpsertDiscountRequest item);
 
         /// <summary>
         /// Removes Discount Program by id Discount Program.
         /// </summary>
         /// <param name="id">The id Discount Program.</param>
         /// <returns></returns>
-        Task RemoveDiscountProgramAsync(string id);       
+        Task RemoveDiscountAsync(string id);
     }
 }
