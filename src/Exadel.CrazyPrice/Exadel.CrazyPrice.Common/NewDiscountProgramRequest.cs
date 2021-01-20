@@ -6,7 +6,7 @@ namespace Exadel.CrazyPrice.Common
     /// <summary>
     /// Gets/sets information for a Moderator
     /// </summary>
-    public class NewDiscountProgram
+    public class NewDiscountProgramRequest
     {
         public string Id { get; set; }
 
