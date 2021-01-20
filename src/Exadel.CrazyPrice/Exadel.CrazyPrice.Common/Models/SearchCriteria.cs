@@ -28,5 +28,25 @@ namespace Exadel.CrazyPrice.Common.Models
         /// Gets or sets a search Person Id.
         /// </summary>
         public Guid SearchPersonId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a sort field for search.
+        /// </summary>
+        public SortFieldOption SearchSortFieldOption { get; set; }
+
+        /// <summary>
+        /// Gets or sets a sort option for search.
+        /// </summary>
+        public SortOption SearchSortOption { get; set; }
+
+        /// <summary>
+        /// Gets or sets a number page.
+        /// </summary>
+        public int SearchPageNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets a Count Element per Page.
+        /// </summary>
+        public int SearchCountElementPerPage { get; set; }
     }
 }
