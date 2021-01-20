@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
@@ -10,6 +11,6 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// </summary>
         /// <param name="id">The id Person</param>
         /// <returns></returns>
-        Task<Person> GetPersonAsync(string id);
+        Task<Person> GetPersonAsync(Guid id);
     }
 }

@@ -1,7 +1,9 @@
-﻿using Exadel.CrazyPrice.Common.Models.Request;
+﻿using System;
+using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
@@ -9,37 +11,30 @@ namespace Exadel.CrazyPrice.Common.Interfaces
     {
 
         /// <summary>
-        /// Gets all Discount Programs.
+        /// Gets Discount Programs by SearchCriteria.
         /// </summary>
         /// <returns></returns>
-        Task<List<DiscountResponse>> GetAllDiscountsAsync();
+        Task<List<DiscountResponse>> GetDiscountsAsync(SearchCriteria searchCriteria);
 
         /// <summary>
         /// Gets a Discount Program by id.
         /// </summary>
         /// <param name="id">The id Discount Program.</param>
         /// <returns></returns>
-        Task<DiscountResponse> GetDiscountAsync(string id);
+        Task<DiscountResponse> GetDiscountAsync(Guid id);
 
         /// <summary>
         /// Upserts a Discount Program for Moderator by id Discount Program.
         /// </summary>
-        /// <param name="id">The id Discount Program.</param>
-        /// <returns></returns>
-        Task<UpsertDiscountRequest> UpsertDiscountAsync(string id);
-
-        /// <summary>
-        /// Upserts a Discount Program by Moderator.
-        /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        Task UpsertDiscountAsync(UpsertDiscountRequest item);
+        Task<UpsertDiscountRequest> UpsertDiscountAsync(UpsertDiscountRequest item);
 
         /// <summary>
         /// Removes Discount Program by id Discount Program.
         /// </summary>
         /// <param name="id">The id Discount Program.</param>
         /// <returns></returns>
-        Task RemoveDiscountAsync(string id);
+        Task RemoveDiscountAsync(Guid id);
     }
 }

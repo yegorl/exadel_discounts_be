@@ -8,7 +8,7 @@ namespace Exadel.CrazyPrice.Common.Models.Request
     /// </summary>
     public class UpsertDiscountRequest
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -22,7 +22,7 @@ namespace Exadel.CrazyPrice.Common.Models.Request
 
         public Company Company { get; set; }
 
-        public IEnumerable<string> Tags { get; set; }
+        public List<string> Tags { get; set; }
 
         public string WorkingHours { get; set; }
     }

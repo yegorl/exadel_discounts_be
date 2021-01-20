@@ -8,7 +8,7 @@ namespace Exadel.CrazyPrice.Common.Models.Response
     /// </summary>
     public class DiscountResponse
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -22,15 +22,19 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public Company Company { get; set; }
 
-        public IEnumerable<string> Tags { get; set; }
-
         public string WorkingHours { get; set; }
+
+        public List<string> Tags { get; set; }
 
         public float RatingTotal { get; set; }
 
         public int ViewTotal { get; set; }
 
+        public List<string> ViewPersonsId { get; set; }
+
         public int ReservationTotal { get; set; }
+
+        public List<string> ReservationPersonsId { get; set; }
 
         public DateTime CreateDate { get; set; }
 
