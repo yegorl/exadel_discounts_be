@@ -34,6 +34,10 @@ namespace Exadel.CrazyPrice.IdentityServer
                     {
                         "https://localhost:44333/signin-oidc"
                     },
+                    PostLogoutRedirectUris = new List<string>()
+                    {
+                        "https://localhost:44333/signout-callback-oidc"
+                    },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
