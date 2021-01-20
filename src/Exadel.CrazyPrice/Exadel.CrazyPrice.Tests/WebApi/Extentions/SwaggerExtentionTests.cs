@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Exadel.CrazyPrice.Tests
+namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 {
     public class SwaggerExtentionTests
     {

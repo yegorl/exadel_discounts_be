@@ -1,7 +1,8 @@
-﻿using FluentAssertions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using FluentAssertions;
 using Xunit;
 
-namespace Exadel.CrazyPrice.Common.Extentions.Tests
+namespace Exadel.CrazyPrice.Tests.Common.Extentions
 {
     public class StringExtentionTests
     {
