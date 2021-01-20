@@ -2,6 +2,7 @@
 {
     public enum DiscountProgramOption
     {
+        All,
         Favorites,
         Reservations
     }
