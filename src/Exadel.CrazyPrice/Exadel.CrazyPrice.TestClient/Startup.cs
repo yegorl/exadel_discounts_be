@@ -6,12 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using IdentityModel;
 
 namespace Exadel.CrazyPrice.TestClient
 {
@@ -20,6 +24,7 @@ namespace Exadel.CrazyPrice.TestClient
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
         }
 
         public IConfiguration Configuration { get; }
@@ -42,7 +47,10 @@ namespace Exadel.CrazyPrice.TestClient
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.AccessDeniedPath = "/Authorization/AccessDenied";
+                })
                 .AddOpenIdConnect(
                     OpenIdConnectDefaults.AuthenticationScheme, options =>
                     {
@@ -53,11 +61,23 @@ namespace Exadel.CrazyPrice.TestClient
                         options.ResponseType = "code";
                         //options.UsePkce = false;
                         //options.CallbackPath = new PathString("...");
-                        
-                        options.Scope.Add("openid");
-                        options.Scope.Add("profile");
+                        options.Scope.Add("roles");
+                        //options.Scope.Add("profile");
+                        //Claim transformations are optionally
+                        options.ClaimActions.DeleteClaim("sid");
+                        options.ClaimActions.DeleteClaim("idp");
+                        options.ClaimActions.DeleteClaim("s_hash");
+                        options.ClaimActions.DeleteClaim("auth_time");
+
+                        options.ClaimActions.MapUniqueJsonKey("role", "role");
                         options.SaveTokens = true;
                         options.ClientSecret = "secret";
+                        options.GetClaimsFromUserInfoEndpoint = true;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            NameClaimType = JwtClaimTypes.GivenName,
+                            RoleClaimType = JwtClaimTypes.Role
+                        };
                     });
         }
 

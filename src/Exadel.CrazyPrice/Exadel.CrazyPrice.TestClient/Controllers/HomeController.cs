@@ -26,15 +26,11 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             _logger = logger;
             _httpClientFactory = httpClientFactory;
         }
-
+        [Authorize(Roles = "moderator, employee")]
         public async Task<IActionResult> Index()
         {
             await WriteOutIdentityInformation();
-            var data = _httpClientFactory.CreateClient("CrazyPriceAPI");
-            //API
-            var response = await data.GetAsync("https://localhost:44389/tags");
-            var message = await response.Content.ReadAsStringAsync();
-            ViewBag.Message = message;
+            
             return View();
         }
 
@@ -42,6 +38,17 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+        }
+        
+        [Authorize(Roles = "moderator")]
+        public async Task<IActionResult> Exclusive()
+        {
+            var data = _httpClientFactory.CreateClient("CrazyPriceAPI");
+            //API
+            var response = await data.GetAsync("https://localhost:44389/tags");
+            var message = await response.Content.ReadAsStringAsync();
+            
+            return Ok(message);
         }
         public IActionResult Privacy()
         {
