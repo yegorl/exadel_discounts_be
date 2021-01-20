@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Exadel.CrazyPrice.Common
 {
     /// <summary>
-    /// Gets full information for an Administrator.
+    /// Gets full information.
     /// </summary>
     public class DiscountProgramResponse
     {
