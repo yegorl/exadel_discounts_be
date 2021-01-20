@@ -20,7 +20,7 @@ namespace IdentityServerHost.Quickstart.UI
                 SubjectId = "c3e2ac9d-66d5-4872-8486-293cba3c6d61",
                 Username = "Frank",
                 Password = "password1",
-                Claims =
+                Claims = new List<Claim>
                 {
                     new Claim("given_name", "Frank"),
                     new Claim("family_name", "Underwood"),
@@ -31,7 +31,7 @@ namespace IdentityServerHost.Quickstart.UI
                 SubjectId = "7556abe5-c2cb-4321-87e6-3d96f7186001",
                 Username = "Claire",
                 Password = "password2",
-                Claims =
+                Claims = new List<Claim>
                 {
                     new Claim("given_name", "Claire"),
                     new Claim("family_name", "Underwood"),

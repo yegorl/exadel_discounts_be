@@ -4,6 +4,7 @@
 
 using IdentityServer4.Models;
 using System.Collections.Generic;
+using IdentityServer4;
 
 namespace Exadel.CrazyPrice.IdentityServer
 {
@@ -21,7 +22,28 @@ namespace Exadel.CrazyPrice.IdentityServer
             { };
 
         public static IEnumerable<Client> Clients =>
-            new Client[] 
-            { };
+            new Client[]
+            {
+                new Client
+                {
+                    ClientName = "Crazy Price",
+                    ClientId = "crazypriceclient",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RedirectUris = new List<string>()
+                    {
+                        "https://localhost:44333/signin-oidc"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    },
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                }
+            };
     }
 }
