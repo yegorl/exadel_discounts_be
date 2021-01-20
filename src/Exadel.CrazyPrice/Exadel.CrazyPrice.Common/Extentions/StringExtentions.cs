@@ -3,9 +3,9 @@
 namespace Exadel.CrazyPrice.Common.Extentions
 {
     /// <summary>
-    /// Represents correcting string.
+    /// Represents extentions for correcting string.
     /// </summary>
-    public static class StringExtention
+    public static class StringExtentions
     {
 
         /// <summary>
@@ -15,12 +15,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ReplaceTwoAndMoreSpaceByOne(this string s)
         {
-            if (string.IsNullOrEmpty(s))
-            {
-                return s;
-            }
-
-            return Regex.Replace(s, " {2,}", " ").Trim();
+            return string.IsNullOrEmpty(s) ? s : Regex.Replace(s, " {2,}", " ").Trim();
         }
 
     }
