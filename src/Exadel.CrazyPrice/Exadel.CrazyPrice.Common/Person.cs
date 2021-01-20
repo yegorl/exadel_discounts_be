@@ -11,7 +11,5 @@
         public string PhoneNumber { get; set; }
 
         public string Mail { get; set; }
-
-        public string PasswordHash { get; set; }
     }
 }
