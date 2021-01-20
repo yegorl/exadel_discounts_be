@@ -1,4 +1,4 @@
-﻿namespace Exadel.CrazyPrice.Common
+﻿namespace Exadel.CrazyPrice.Common.Configurations
 {
     public interface IDbConfiguration
     {

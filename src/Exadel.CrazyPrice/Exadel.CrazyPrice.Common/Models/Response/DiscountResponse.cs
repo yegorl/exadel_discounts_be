@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Exadel.CrazyPrice.Common
+namespace Exadel.CrazyPrice.Common.Models.Response
 {
     /// <summary>
-    /// Gets/sets information for a Moderator
+    /// Gets full information.
     /// </summary>
-    public class NewDiscountProgramRequest
+    public class DiscountResponse
     {
         public string Id { get; set; }
 
@@ -25,5 +25,19 @@ namespace Exadel.CrazyPrice.Common
         public IEnumerable<string> Tags { get; set; }
 
         public string WorkingHours { get; set; }
+
+        public float RatingTotal { get; set; }
+
+        public int ViewTotal { get; set; }
+
+        public int ReservationTotal { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public Person PersonCreateDate { get; set; }
+
+        public DateTime LastChangeDate { get; set; }
+
+        public Person PersonLastChangeDate { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Exadel.CrazyPrice.Common
+﻿namespace Exadel.CrazyPrice.Common.Models
 {
     public class Address
     {
