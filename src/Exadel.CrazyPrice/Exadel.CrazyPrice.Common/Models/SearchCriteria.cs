@@ -10,16 +10,16 @@
         /// <summary>
         /// Gets or sets a Country.
         /// </summary>
-        public string Country { get; set; }
+        public string SearchCountry { get; set; }
 
         /// <summary>
         /// Gets or sets a City.
         /// </summary>
-        public string City { get; set; }
+        public string SearchCity { get; set; }
 
         /// <summary>
         /// Gets or sets a Discount Program option.
         /// </summary>
-        public DiscountOption DiscountOption { get; set; }
+        public DiscountOption SearchDiscountOption { get; set; }
     }
 }
