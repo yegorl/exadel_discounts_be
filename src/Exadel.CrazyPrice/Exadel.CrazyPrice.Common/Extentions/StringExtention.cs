@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Exadel.CrazyPrice.Common.Ensure
+namespace Exadel.CrazyPrice.Common.Extentions
 {
     /// <summary>
     /// Represents correcting string.
@@ -13,7 +13,7 @@ namespace Exadel.CrazyPrice.Common.Ensure
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string ReplaceSpace(this string s)
+        public static string ReplaceTwoAndMoreSpaceByOne(this string s)
         {
             if (string.IsNullOrEmpty(s))
             {
