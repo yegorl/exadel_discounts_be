@@ -4,11 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/tags")]
+    [Authorize]
     public class TagsController : ControllerBase
     {
         private static readonly string[] _tags = new[]
@@ -26,6 +28,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {            
+            
             return _tags;
         }
     }

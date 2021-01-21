@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -30,8 +31,33 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
         public async Task<IActionResult> Index()
         {
             await WriteOutIdentityInformation();
+
+            var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
+            var request = new HttpRequestMessage(
+                HttpMethod.Get, "/api/tags/");
+
+            var response = await httpClient.SendAsync(
+                request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                return View();
+            }
+            else if (response.StatusCode == HttpStatusCode.Forbidden ||
+                      response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                return RedirectToAction("AccessDenied", "Authorization");
+            }
+
+            throw new Exception("Problem accessing the API");
             
-            return View();
+            
+            //using (var responseStream = await  response.Content.ReadAsStreamAsync())
+            //{
+            //    ViewBag.Message = responseStream.;
+            //    return View();
+            //}
         }
 
         public async Task Logout()

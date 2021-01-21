@@ -12,7 +12,7 @@ namespace Exadel.CrazyPrice.IdentityServer
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
-            { 
+            {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResource(
@@ -23,7 +23,21 @@ namespace Exadel.CrazyPrice.IdentityServer
 
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
-            { };
+            {
+                new ApiResource("crazypriceapi", 
+                    "Crazy Price API", 
+                    new List<string>() { "role" })
+                {
+                    Scopes = { "crazypriceapi"},
+                    ApiSecrets = { new Secret("apisecret".Sha256())}
+                }
+            };
+
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new ApiScope[]
+            {
+                new ApiScope("crazypriceapi", "Crazy Price API scope")
+            };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
@@ -46,7 +60,8 @@ namespace Exadel.CrazyPrice.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "roles"
+                        "roles",
+                        "crazypriceapi"
                     },
                     ClientSecrets =
                     {

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.TestClient.HttpHandlers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Net.Http.Headers;
@@ -33,52 +34,50 @@ namespace Exadel.CrazyPrice.TestClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddHttpContextAccessor();
+            services.AddTransient<BearerTokenHandler>();
             services.AddHttpClient("CrazyPriceAPI", client =>
             {
                 //API
                 client.BaseAddress = new Uri("https://localhost:44389/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-            });
+            }).AddHttpMessageHandler<BearerTokenHandler>();
 
             services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {
-                    options.AccessDeniedPath = "/Authorization/AccessDenied";
-                })
-                .AddOpenIdConnect(
-                    OpenIdConnectDefaults.AuthenticationScheme, options =>
-                    {
-                        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                        //IDP
-                        options.Authority = "https://localhost:44339/";
-                        options.ClientId = "crazypriceclient";
-                        options.ResponseType = "code";
-                        //options.UsePkce = false;
-                        //options.CallbackPath = new PathString("...");
-                        options.Scope.Add("roles");
-                        //options.Scope.Add("profile");
-                        //Claim transformations are optionally
-                        options.ClaimActions.DeleteClaim("sid");
-                        options.ClaimActions.DeleteClaim("idp");
-                        options.ClaimActions.DeleteClaim("s_hash");
-                        options.ClaimActions.DeleteClaim("auth_time");
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            {
+                options.AccessDeniedPath = "/Authorization/AccessDenied";
+            })
+            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+            {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                //IDP
+                options.Authority = "https://localhost:44339";
+                options.ClientId = "crazypriceclient";
+                options.ResponseType = "code";
+                options.Scope.Add("roles");
+                options.Scope.Add("crazypriceapi");
+                //Claim transformations are optionally
+                options.ClaimActions.DeleteClaim("sid");
+                options.ClaimActions.DeleteClaim("idp");
+                options.ClaimActions.DeleteClaim("s_hash");
+                options.ClaimActions.DeleteClaim("auth_time");
 
-                        options.ClaimActions.MapUniqueJsonKey("role", "role");
-                        options.SaveTokens = true;
-                        options.ClientSecret = "secret";
-                        options.GetClaimsFromUserInfoEndpoint = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            NameClaimType = JwtClaimTypes.GivenName,
-                            RoleClaimType = JwtClaimTypes.Role
-                        };
-                    });
+                options.ClaimActions.MapUniqueJsonKey("role", "role");
+                options.SaveTokens = true;
+                options.ClientSecret = "secret";
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = JwtClaimTypes.GivenName,
+                    RoleClaimType = JwtClaimTypes.Role
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
