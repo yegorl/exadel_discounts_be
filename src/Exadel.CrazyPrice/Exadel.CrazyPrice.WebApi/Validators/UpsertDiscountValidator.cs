@@ -39,9 +39,9 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Tags)
                     .Transform(t => string.Join(" ", t).GetOnlyLettersDigitsAndOneSpace())
                     .NotEmpty();
-                
+
                 RuleFor(x => x.Company)
-                    .InjectValidator((services, context) => (IValidator<Company>) services.GetService(typeof(IValidator<Company>)));
+                    .InjectValidator((services, context) => (IValidator<Company>)services.GetService(typeof(IValidator<Company>)));
 
                 RuleFor(x => x.Address)
                     .InjectValidator((services, context) => (IValidator<Address>)services.GetService(typeof(IValidator<Address>)));
