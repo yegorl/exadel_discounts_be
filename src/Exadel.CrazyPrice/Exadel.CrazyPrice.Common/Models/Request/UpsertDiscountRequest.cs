@@ -14,9 +14,9 @@ namespace Exadel.CrazyPrice.Common.Models.Request
 
         public string Description { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
        
         public Address Address { get; set; }
 

@@ -1,4 +1,5 @@
 using Exadel.CrazyPrice.WebApi.Extentions;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,8 @@ namespace Exadel.CrazyPrice.WebApi
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddControllers();
             services.AddSwagger();
         }

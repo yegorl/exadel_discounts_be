@@ -10,7 +10,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
         {
             CascadeMode = CascadeMode.Stop;
 
-            RuleSet("Search", () =>
+            RuleSet("SearchCriteria", () =>
             {
                 RuleFor(x => x.SearchText)
                     .Transform(n => n.GetOnlyLettersDigitsAndOneSpace())
