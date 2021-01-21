@@ -24,11 +24,14 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .MinimumLength(3)
                     .MaximumLength(20);
 
-                RuleFor(x => x.City)
+                RuleFor(x => x.Street)
                     .Transform(d => d.ReplaceTwoAndMoreSpaceByOne())
                     .NotEmpty()
                     .MinimumLength(3)
                     .MaximumLength(40);
+
+                RuleFor(x => x.Location)
+                    .InjectValidator((services, context) => (IValidator<Location>)services.GetService(typeof(IValidator<Location>)));
             });
         }
     }
