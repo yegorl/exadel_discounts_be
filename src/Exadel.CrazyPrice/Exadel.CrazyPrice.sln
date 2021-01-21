@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.Data", "Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj", "{2AFCFADF-22FF-495E-B216-1C49E85C9A25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.IdentityServer", "Exadel.CrazyPrice.IDP\Exadel.CrazyPrice.IdentityServer.csproj", "{611BA737-44AE-421F-ADE6-1893ECA7F651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.IdentityServer", "Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj", "{611BA737-44AE-421F-ADE6-1893ECA7F651}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

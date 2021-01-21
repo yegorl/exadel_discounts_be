@@ -1,4 +1,4 @@
-﻿namespace Exadel.CrazyPrice.Common
+﻿namespace Exadel.CrazyPrice.Common.Models
 {
     public class Address
     {
@@ -7,5 +7,7 @@
         public string City { get; set; }
 
         public string Street { get; set; }
+
+        public Location Location { get; set; }
     }
 }

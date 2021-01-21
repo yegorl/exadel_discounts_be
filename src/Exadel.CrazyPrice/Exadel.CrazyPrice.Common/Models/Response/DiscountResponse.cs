@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Exadel.CrazyPrice.Common
+namespace Exadel.CrazyPrice.Common.Models.Response
 {
     /// <summary>
-    /// Gets full information for an Administrator.
+    /// Gets full information.
     /// </summary>
-    public class DiscountProgramWithDateModify
+    public class DiscountResponse
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -17,22 +17,24 @@ namespace Exadel.CrazyPrice.Common
         public DateTime EndDate { get; set; }
 
         public DateTime StartDate { get; set; }
-
-        public Location Location { get; set; }
-
+       
         public Address Address { get; set; }
 
         public Company Company { get; set; }
 
-        public IEnumerable<string> Tags { get; set; }
-
         public string WorkingHours { get; set; }
+
+        public List<string> Tags { get; set; }
 
         public float RatingTotal { get; set; }
 
         public int ViewTotal { get; set; }
 
+        public List<string> ViewPersonsId { get; set; }
+
         public int ReservationTotal { get; set; }
+
+        public List<string> ReservationPersonsId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

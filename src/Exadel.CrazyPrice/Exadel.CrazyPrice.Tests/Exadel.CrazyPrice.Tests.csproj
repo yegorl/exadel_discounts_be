@@ -25,7 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
     <ProjectReference Include="..\Exadel.CrazyPrice.WebApi\Exadel.CrazyPrice.WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="WebApi\Controllers\" />
   </ItemGroup>
 
 </Project>

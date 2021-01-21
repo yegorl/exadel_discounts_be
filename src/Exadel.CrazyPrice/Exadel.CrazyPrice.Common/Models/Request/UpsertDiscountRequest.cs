@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Exadel.CrazyPrice.Common
+namespace Exadel.CrazyPrice.Common.Models.Request
 {
     /// <summary>
     /// Gets/sets information for a Moderator
     /// </summary>
-    public class NewDiscountProgram
+    public class UpsertDiscountRequest
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -17,14 +17,12 @@ namespace Exadel.CrazyPrice.Common
         public DateTime EndDate { get; set; }
 
         public DateTime StartDate { get; set; }
-
-        public Location Location { get; set; }
-
+       
         public Address Address { get; set; }
 
         public Company Company { get; set; }
 
-        public IEnumerable<string> Tags { get; set; }
+        public List<string> Tags { get; set; }
 
         public string WorkingHours { get; set; }
     }
