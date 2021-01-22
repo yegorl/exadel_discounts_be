@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.Data", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.IdentityServer", "Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj", "{611BA737-44AE-421F-ADE6-1893ECA7F651}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exadel.CrazyPrice.TestClient", "Exadel.CrazyPrice.TestClient\Exadel.CrazyPrice.TestClient.csproj", "{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +37,14 @@ Global
 		{2AFCFADF-22FF-495E-B216-1C49E85C9A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AFCFADF-22FF-495E-B216-1C49E85C9A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AFCFADF-22FF-495E-B216-1C49E85C9A25}.Release|Any CPU.Build.0 = Release|Any CPU
-		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962BC501-80BA-4684-B130-1B7F82C5169E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962BC501-80BA-4684-B130-1B7F82C5169E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962BC501-80BA-4684-B130-1B7F82C5169E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962BC501-80BA-4684-B130-1B7F82C5169E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

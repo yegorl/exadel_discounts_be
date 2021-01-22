@@ -1,4 +1,5 @@
 using Exadel.CrazyPrice.WebApi.Extentions;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,14 @@ namespace Exadel.CrazyPrice.WebApi
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "https://localhost:44339";
+                    options.ApiName = "crazypriceapi";
+                    options.ApiSecret = "apisecret";
+                });
             services.AddSwagger();
         }
 
@@ -49,9 +57,12 @@ namespace Exadel.CrazyPrice.WebApi
                 app.UseSwaggerCrazyPrice();
             }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
