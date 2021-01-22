@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -62,6 +63,43 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
 
         public async Task Logout()
         {
+
+            var client = _httpClientFactory.CreateClient("IdentityServer");
+
+            var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync();
+            if (discoveryDocumentResponse.IsError)
+            {
+                throw new Exception(discoveryDocumentResponse.Error);
+            }
+
+            var accessTokenRevocationResponse = await client.RevokeTokenAsync(
+                new TokenRevocationRequest
+                {
+                    Address = discoveryDocumentResponse.RevocationEndpoint,
+                    ClientId = "crazypriceclient",
+                    ClientSecret = "secret",
+                    Token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken)
+                });
+
+            if (accessTokenRevocationResponse.IsError)
+            {
+                throw new Exception(accessTokenRevocationResponse.Error);
+            }
+
+            var refreshTokenRevocationResponse = await client.RevokeTokenAsync(
+                new TokenRevocationRequest
+                {
+                    Address = discoveryDocumentResponse.RevocationEndpoint,
+                    ClientId = "crazypriceclient",
+                    ClientSecret = "secret",
+                    Token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken)
+                });
+
+            if (refreshTokenRevocationResponse.IsError)
+            {
+                throw new Exception(accessTokenRevocationResponse.Error);
+            }
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
@@ -69,12 +107,25 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
         [Authorize(Roles = "moderator")]
         public async Task<IActionResult> Exclusive()
         {
-            var data = _httpClientFactory.CreateClient("CrazyPriceAPI");
-            //API
-            var response = await data.GetAsync("https://localhost:44389/tags");
-            var message = await response.Content.ReadAsStringAsync();
-            
-            return Ok(message);
+            var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
+            var request = new HttpRequestMessage(
+                HttpMethod.Get, "/api/tags/");
+
+            var response = await httpClient.SendAsync(
+                request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var message = response.Content.ReadAsStringAsync().Result;
+                return Ok(message);
+            }
+            else if (response.StatusCode == HttpStatusCode.Forbidden ||
+                     response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                return RedirectToAction("AccessDenied", "Authorization");
+            }
+
+            throw new Exception("Problem accessing the API");
         }
         public IActionResult Privacy()
         {

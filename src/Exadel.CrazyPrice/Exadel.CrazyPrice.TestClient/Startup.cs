@@ -44,6 +44,14 @@ namespace Exadel.CrazyPrice.TestClient
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<BearerTokenHandler>();
 
+            services.AddHttpClient("IdentityServer", client =>
+            {
+                //IDP
+                client.BaseAddress = new Uri("https://localhost:44339/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -62,6 +70,9 @@ namespace Exadel.CrazyPrice.TestClient
                 options.ResponseType = "code";
                 options.Scope.Add("roles");
                 options.Scope.Add("crazypriceapi");
+
+                options.Scope.Add("offline_access");
+
                 //Claim transformations are optionally
                 options.ClaimActions.DeleteClaim("sid");
                 options.ClaimActions.DeleteClaim("idp");

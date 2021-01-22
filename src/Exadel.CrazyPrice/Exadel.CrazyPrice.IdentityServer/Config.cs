@@ -44,6 +44,10 @@ namespace Exadel.CrazyPrice.IdentityServer
             {
                 new Client
                 {
+                    AccessTokenType = AccessTokenType.Reference,
+                    AccessTokenLifetime = 120,
+                    AllowOfflineAccess = true,
+                    UpdateAccessTokenClaimsOnRefresh = true,
                     ClientName = "Crazy Price",
                     ClientId = "crazypriceclient",
                     AllowedGrantTypes = GrantTypes.Code,
