@@ -54,5 +54,18 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             Action act = () => value.GetDateTimeInvariant();
             act.Should().Throw<FormatException>();
         }
+
+        [Theory]
+        [InlineData("0101111", true)]
+        [InlineData("0000100", true)]
+        [InlineData("111111", false)]
+        [InlineData("11 1111", false)]
+        [InlineData("01010101", false)]
+        [InlineData("dfg3443", false)]
+        [InlineData("dfg\n43", false)]
+        public void IsValidWorkingDaysTest(string value, bool expectedResult)
+        {
+            value.IsValidWorkingDays().Should().Be(expectedResult);
+        }
     }
 }

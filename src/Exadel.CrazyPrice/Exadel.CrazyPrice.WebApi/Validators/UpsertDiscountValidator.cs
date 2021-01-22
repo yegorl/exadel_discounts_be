@@ -45,6 +45,11 @@ namespace Exadel.CrazyPrice.WebApi.Validators
 
                 RuleFor(x => x.Address)
                     .InjectValidator((services, context) => (IValidator<Address>)services.GetService(typeof(IValidator<Address>)));
+
+                RuleFor(x => x.WorkingHours)
+                    .NotEmpty()
+                    .Must(x => x.IsValidWorkingDays())
+                    .WithMessage("The WorkingHours musts be format 0101010. First is monday etc. 7 digits. 1 is open, 0 is closed.");
             });
         }
     }
