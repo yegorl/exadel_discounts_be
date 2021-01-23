@@ -1,8 +1,8 @@
 ﻿using IdentityServer4.Configuration;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
-using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Exadel.CrazyPrice.Common.Configurations
 {
@@ -20,6 +20,6 @@ namespace Exadel.CrazyPrice.Common.Configurations
 
         public List<TestUser> TestUsers { get; }
 
-        public SigningCredentials SigningCredentials { get; }
+        public X509Certificate2 Certificate { get; }
     }
 }
