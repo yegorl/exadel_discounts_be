@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Exadel.CrazyPrice.Common.Extentions
@@ -49,5 +51,36 @@ namespace Exadel.CrazyPrice.Common.Extentions
             s
                 .Where(c => char.IsLetter(c) || char.IsDigit(c) || c == ' ')
                 .Aggregate(string.Empty, (current, c) => current + c).ReplaceTwoAndMoreSpaceByOne();
+
+        /// <summary>
+        /// Gets DateTime from a string with format "dd.MM.yyyy HH:mm:ss".
+        /// </summary>
+        /// <param name="stringDate"></param>
+        /// <returns></returns>
+        public static DateTime GetDateTimeInvariant(this string stringDate)
+        {
+            if (string.IsNullOrEmpty(stringDate))
+            {
+                throw new ArgumentNullException(nameof(stringDate));
+            }
+
+            return DateTime.ParseExact(stringDate, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// Gets true if string is valid WorkingDays otherwise false.
+        /// </summary>
+        /// <param name="stringWorkingDays"></param>
+        /// <returns></returns>
+        public static bool IsValidWorkingDays(this string stringWorkingDays)
+        {
+            if (string.IsNullOrEmpty(stringWorkingDays) || stringWorkingDays.Length != 7)
+            {
+                return false;
+            }
+
+            var chars = new[] { '0', '1' };
+            return stringWorkingDays.All(stringWorkingDay => chars.Contains(stringWorkingDay));
+        }
     }
 }
