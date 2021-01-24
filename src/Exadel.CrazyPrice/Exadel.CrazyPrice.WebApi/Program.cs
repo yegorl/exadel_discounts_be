@@ -1,3 +1,4 @@
+using Exadel.CrazyPrice.Common.Configurations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -14,7 +15,8 @@ namespace Exadel.CrazyPrice.WebApi
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            NLogLogger.CreateLoggerAndRunHost(CreateHostBuilder(args),
+                "Init WebApi", "Stopped WebApi because of exception.");
         }
 
         /// <summary>
