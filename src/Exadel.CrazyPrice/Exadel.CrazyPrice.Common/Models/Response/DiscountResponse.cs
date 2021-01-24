@@ -14,9 +14,11 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public string Description { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public decimal? AmountOfDiscount { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public DateTime? StartDate { get; set; }
        
         public Address Address { get; set; }
 
@@ -26,13 +28,13 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public List<string> Tags { get; set; }
 
-        public float RatingTotal { get; set; }
+        public decimal? RatingTotal { get; set; }
 
-        public int ViewTotal { get; set; }
+        public int? ViewTotal { get; set; }
 
         public List<string> ViewPersonsId { get; set; }
 
-        public int ReservationTotal { get; set; }
+        public int? ReservationTotal { get; set; }
 
         public List<string> ReservationPersonsId { get; set; }
 
@@ -40,7 +42,7 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public Person PersonCreateDate { get; set; }
 
-        public DateTime LastChangeDate { get; set; }
+        public DateTime? LastChangeDate { get; set; }
 
         public Person PersonLastChangeDate { get; set; }
     }
