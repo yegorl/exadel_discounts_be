@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models.Request
 {
@@ -14,10 +15,12 @@ namespace Exadel.CrazyPrice.Common.Models.Request
 
         public string Description { get; set; }
 
+        public decimal? AmountOfDiscount { get; set; }
+
         public DateTime? EndDate { get; set; }
 
         public DateTime? StartDate { get; set; }
-       
+
         public Address Address { get; set; }
 
         public Company Company { get; set; }
@@ -25,5 +28,7 @@ namespace Exadel.CrazyPrice.Common.Models.Request
         public List<string> Tags { get; set; }
 
         public string WorkingHours { get; set; }
+
+        public LanguageOption Language { get; set; }
     }
 }

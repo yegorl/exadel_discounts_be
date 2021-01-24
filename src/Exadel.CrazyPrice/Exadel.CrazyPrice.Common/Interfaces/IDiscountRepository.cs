@@ -24,11 +24,18 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         Task<DiscountResponse> GetDiscountAsync(Guid id);
 
         /// <summary>
-        /// Upserts a Discount Program for Moderator by id Discount Program.
+        /// Upserts a Discount Program.
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
         Task<UpsertDiscountRequest> UpsertDiscountAsync(UpsertDiscountRequest item);
+
+        /// <summary>
+        /// Upserts a Discount Programs.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        Task<UpsertDiscountRequest[]> UpsertDiscountAsync(UpsertDiscountRequest[] items);
 
         /// <summary>
         /// Removes Discount Program by ids Discount Program.
