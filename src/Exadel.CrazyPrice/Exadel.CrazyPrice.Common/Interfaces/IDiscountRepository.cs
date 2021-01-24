@@ -1,9 +1,9 @@
-﻿using System;
-using Exadel.CrazyPrice.Common.Models.Request;
+﻿using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
+using Exadel.CrazyPrice.Common.Models.SearchCriteria;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
