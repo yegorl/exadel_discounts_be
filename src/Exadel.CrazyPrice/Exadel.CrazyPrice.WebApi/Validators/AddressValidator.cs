@@ -1,5 +1,6 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 using FluentValidation;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
@@ -13,19 +14,19 @@ namespace Exadel.CrazyPrice.WebApi.Validators
             RuleSet("Address", () =>
             {
                 RuleFor(x => x.Country)
-                    .Transform(d => d.GetOnlyLettersDigitsAndOneSpace())
+                    .Transform(d => d.GetValidContent(CharOptions.Letter, " -"))
                     .NotEmpty()
                     .MinimumLength(3)
                     .MaximumLength(50);
 
                 RuleFor(x => x.City)
-                    .Transform(d => d.ReplaceTwoAndMoreSpaceByOne())
+                    .Transform(d => d.GetValidContent(CharOptions.Letter, " -"))
                     .NotEmpty()
                     .MinimumLength(3)
                     .MaximumLength(20);
 
                 RuleFor(x => x.Street)
-                    .Transform(d => d.ReplaceTwoAndMoreSpaceByOne())
+                    .Transform(d => d.GetValidContent(CharOptions.Letter | CharOptions.Number | CharOptions.Punctuation | CharOptions.Symbol, " "))
                     .NotEmpty()
                     .MinimumLength(3)
                     .MaximumLength(40);
