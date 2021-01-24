@@ -16,7 +16,7 @@ namespace Exadel.CrazyPrice.WebApi
         public static void Main(string[] args)
         {
             NLogLogger.CreateLoggerAndRunHost(CreateHostBuilder(args),
-                "Init WebApi", "Stopped WebApi because of exception.");
+                "Init WebApi.", "Stopped WebApi because of exception.");
         }
 
         /// <summary>

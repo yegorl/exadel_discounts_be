@@ -5,6 +5,6 @@ namespace Exadel.CrazyPrice.Common.Configurations
     public interface ILoggerConfiguration
     {
         public void UseLogger(IHostBuilder hostBuilder,
-            string initMessage, string errorInitMessage, string nLogConfig);
+            string initMessage, string errorInitMessage, string logConfig);
     }
 }

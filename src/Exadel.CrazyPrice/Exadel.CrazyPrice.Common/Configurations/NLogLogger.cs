@@ -8,9 +8,9 @@ namespace Exadel.CrazyPrice.Common.Configurations
     public class NLogLogger : ILoggerConfiguration
     {
         public void UseLogger(IHostBuilder hostBuilder,
-            string initMessage, string errorInitMessage, string nLogConfig)
+            string initMessage, string errorInitMessage, string logConfig)
         {
-            var logger = NLogBuilder.ConfigureNLog(nLogConfig).GetCurrentClassLogger();
+            var logger = NLogBuilder.ConfigureNLog(logConfig).GetCurrentClassLogger();
             try
             {
                 logger.Debug(initMessage);
