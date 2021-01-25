@@ -59,6 +59,63 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             value.GetValidContent(CharOptions.Symbol).Should().Be(expectedResult);
         }
 
+        [Theory]
+        [InlineData("Aб1  9 Separator \u0020 Control \u0001", "Aб1  9 Separator \u0020 Control \u0001")]
+        public void GetValidContentDifTest(string value, string expectedResult)
+        {
+            value.GetValidContent(CharOptions.Upper 
+                                  | CharOptions.Lower
+                                  | CharOptions.Digit
+                                  | CharOptions.Number
+                                  | CharOptions.Separator
+                                  | CharOptions.Control
+                                  | CharOptions.WhiteSpace).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("This is English.", LanguageOption.En)]
+        [InlineData("Это русский.", LanguageOption.Ru)]
+        [InlineData("5456544+94849-+ Это русский.", LanguageOption.Ru)]
+        [InlineData("This is Не русский.", LanguageOption.En)]
+        [InlineData("Это not English.", LanguageOption.Ru)]
+        [InlineData("2342314523*/*--*/`", LanguageOption.Unknown)]
+        [InlineData("", LanguageOption.Unknown)]
+        [InlineData(null, LanguageOption.Unknown)]
+        public void GetLanguageFromFirstLetterTest(string value, LanguageOption expectedResult)
+        {
+            value.GetLanguageFromFirstLetter().Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void ReplaceTwoAndMoreCharsBySomeOneNullExceptionTest()
+        {
+            const string value = "";
+            Action act = () => value.ReplaceTwoAndMoreCharsBySomeOne("");
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void ReplaceTwoAndMoreCharsBySomeOneCharsNullExceptionTest()
+        {
+            const string value = "s";
+            Action act = () => value.ReplaceTwoAndMoreCharsBySomeOne(new char[]{});
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData(null, null)]
+        public void ReplaceTwoAndMoreCharsBySomeOneEmptyTest(string value, string expectedResult)
+        {
+            value.ReplaceTwoAndMoreCharsBySomeOne(new char[] { }).Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void ReplaceTwoAndMoreCharsBySomeOneTrimTest()
+        {
+            "- -".ReplaceTwoAndMoreCharsBySomeOne(new[] {'-', ' '}).Should().Be(string.Empty);
+        }
+
         [Fact]
         public void GetDateTimeInvariantTest()
         {
