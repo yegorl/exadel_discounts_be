@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Exadel.CrazyPrice.Common.Models.Option;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Extentions
 {
@@ -42,7 +42,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             var chars = new[] { '0', '1' };
             return stringWorkingDays.All(stringWorkingDay => chars.Contains(stringWorkingDay));
         }
-        
+
         /// <summary>
         /// Gets string what two and more chars replaced by some one.
         /// </summary>
@@ -79,7 +79,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
 
             s = s.Trim(chars);
 
-            if (s.Length == 1 && chars.Contains(s[0]))
+            if (s.Length == 0)
             {
                 return string.Empty;
             }
@@ -113,6 +113,34 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
+        /// Gets language from first letter.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static LanguageOption GetLanguageFromFirstLetter(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return LanguageOption.Unknown;
+            }
+
+            var str = s.GetValidContent(CharOptions.Letter);
+
+            if (str.Length == 0)
+            {
+                return LanguageOption.Unknown;
+            }
+
+            var firstChar = str.ToLowerInvariant()[0];
+            if (firstChar >= 'a' && firstChar <= 'z')
+            {
+                return LanguageOption.En;
+            }
+
+            return LanguageOption.Ru;
+        }
+
+        /// <summary>
         /// Gets valid content with chars from CharOptions and specialChars.
         /// </summary>
         /// <param name="s"></param>
@@ -121,8 +149,11 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string GetValidContent(this string s, CharOptions charOptions, string specialChars = null)
         {
-            if (string.IsNullOrEmpty(s)) return string.Empty;
-            
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+
             var rulesForChar = BuildRulesForChar(charOptions);
             if (!string.IsNullOrEmpty(specialChars))
             {
