@@ -1,6 +1,8 @@
 using Exadel.CrazyPrice.Common.Configurations;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -15,8 +17,29 @@ namespace Exadel.CrazyPrice.WebApi
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            NLogLogger.CreateLoggerAndRunHost(CreateHostBuilder(args),
-                "Init WebApi.", "Stopped WebApi because of exception.");
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var usedLogger = configuration.GetSection("UsedLogger").Value.ToLowerInvariant();
+
+            ICrazyPriceLogger logger = usedLogger switch
+            {
+                "nlog" => new NLogLogger(CreateHostBuilder(args), configuration),
+                "serilog" => new SerilogLogger(CreateHostBuilder(args), configuration),
+                _ => null
+            };
+
+            if (logger != null)
+            {
+                logger.UseLogger();
+                logger.HostRun("WebApi started.", "WebApi stopped of because error.");
+            }
+            else
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
         }
 
         /// <summary>
