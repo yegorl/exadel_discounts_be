@@ -51,7 +51,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ReplaceTwoAndMoreCharsBySomeOne(this string s, string chars)
         {
-            if (string.IsNullOrEmpty(s))
+            if (string.IsNullOrEmpty(chars))
             {
                 throw new ArgumentNullException(nameof(chars));
             }
