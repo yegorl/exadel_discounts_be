@@ -20,6 +20,8 @@ namespace Exadel.CrazyPrice.Common.Configurations
 
         public IHostBuilder UseLogger()
         {
+            Environment.SetEnvironmentVariable("BASEDIR", AppDomain.CurrentDomain.BaseDirectory);
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(_configuration)
                 .CreateLogger();
