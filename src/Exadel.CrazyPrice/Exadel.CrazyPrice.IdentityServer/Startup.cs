@@ -63,12 +63,12 @@ namespace Exadel.CrazyPrice.IdentityServer
                 .AddTestUsers(TestUsers.Users);
 
             // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
+            //builder.AddDeveloperSigningCredential();
             
             var clientCertificate =
                 new X509Certificate2(Path.Combine(Environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
 
-            //builder.AddSigningCredential(clientCertificate);
+            builder.AddSigningCredential(clientCertificate);
         }
 
         public void Configure(IApplicationBuilder app)

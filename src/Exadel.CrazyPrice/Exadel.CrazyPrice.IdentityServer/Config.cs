@@ -46,40 +46,6 @@ namespace Exadel.CrazyPrice.IdentityServer
             {
                 new Client
                 {
-                    AccessTokenType = AccessTokenType.Reference,
-                    AccessTokenLifetime = 120,
-                    AllowOfflineAccess = true,
-                    UpdateAccessTokenClaimsOnRefresh = true,
-                    ClientName = "Crazy Price",
-                    ClientId = "crazypriceclient1",
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RedirectUris = new List<string>()
-                    {
-                        
-                        "https://localhost:44357",
-                        "https://localhost:44357/callback.html",
-                        "https://localhost:44357/silent-renew.html"
-                    },
-                    PostLogoutRedirectUris = new List<string>()
-                    {
-                        "https://localhost:44357/",
-                        "https://localhost:44357"
-                    },
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "role",
-                        "crazypriceapi"
-                    },
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    }
-                },
-                new Client
-                {
                     ClientName = "vuejs_code_client",
                     ClientId = "crazypriceclient",
                     AccessTokenType = AccessTokenType.Reference,
