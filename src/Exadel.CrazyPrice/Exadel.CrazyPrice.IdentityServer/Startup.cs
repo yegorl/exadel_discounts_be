@@ -6,6 +6,8 @@ using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.IdentityServer.Services;
+using IdentityServer4.Services;
 using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,8 +44,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                 options.AddPolicy("AllowAllOrigins",
                     builder =>
                     {
-                        builder
-                            .AllowCredentials()
+                        builder.AllowCredentials()
                             .WithOrigins("https://localhost:44301", "https://localhost:44357")
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
@@ -52,21 +53,24 @@ namespace Exadel.CrazyPrice.IdentityServer
             });
 
             var builder = services.AddIdentityServer(options =>
-            {
-                // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-                options.EmitStaticAudienceClaim = true;
-            })
+                {
+                    // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+                    options.EmitStaticAudienceClaim = true;
+                })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(Config.ApiResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddTestUsers(TestUsers.Users);
 
+
             // not recommended for production - you need to store your key material somewhere secure
             //builder.AddDeveloperSigningCredential();
             
             var clientCertificate =
-                new X509Certificate2(Path.Combine(Environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+                new X509Certificate2(Path.Combine(
+                    Environment.ContentRootPath, Configuration["Certificate:Name"]), 
+                    Configuration["Certificate:Password"]);
 
             builder.AddSigningCredential(clientCertificate);
         }
