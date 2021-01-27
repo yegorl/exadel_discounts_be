@@ -1,10 +1,7 @@
-using System;
-using Exadel.CrazyPrice.Common.Configurations;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.IO;
-using Exadel.CrazyPrice.Common;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -19,9 +16,7 @@ namespace Exadel.CrazyPrice.WebApi
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            CrazyPriceHost.CheckLoggerAndStartHost(CreateHostBuilder(args), 
-                "WebApi started", 
-                "WebApi stopped of because error.");
+            CreateHostBuilder(args).Build().Run();
         }
 
         /// <summary>
@@ -31,6 +26,12 @@ namespace Exadel.CrazyPrice.WebApi
         /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddNLog();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
