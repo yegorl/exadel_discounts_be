@@ -18,7 +18,7 @@
 		<PackageReference Include="FluentValidation.AspNetCore" Version="9.4.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-		<PackageReference Include="NLog.Extensions.Logging" Version="1.7.0" />
+		<PackageReference Include="NSubstitute" Version="4.2.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.1" />
@@ -32,10 +32,20 @@
 		<ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="appsettings.Development.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="nlog.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 	<ProjectExtensions>
-		<VisualStudio>
-			<UserProperties appsettings_1json__JsonSchema="" />
-		</VisualStudio>
+		<VisualStudio><UserProperties /></VisualStudio>
 	</ProjectExtensions>
 
 
