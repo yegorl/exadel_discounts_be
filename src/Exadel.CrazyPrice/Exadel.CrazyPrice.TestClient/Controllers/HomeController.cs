@@ -35,7 +35,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
 
             var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
             var request = new HttpRequestMessage(
-                HttpMethod.Get, "/api/tags/");
+                HttpMethod.Get, "/tags/");
 
             var response = await httpClient.SendAsync(
                 request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
@@ -76,7 +76,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
                 new TokenRevocationRequest
                 {
                     Address = discoveryDocumentResponse.RevocationEndpoint,
-                    ClientId = "crazypriceclient",
+                    ClientId = "crazypricetestclient",
                     ClientSecret = "secret",
                     Token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken)
                 });
@@ -109,7 +109,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
         {
             var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
             var request = new HttpRequestMessage(
-                HttpMethod.Get, "/api/tags/");
+                HttpMethod.Get, "/tags/");
 
             var response = await httpClient.SendAsync(
                 request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);

@@ -16,21 +16,11 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
-    "Exadel.CrazyPrice.WebApi": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:5000"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/tags",
-      "publishAllPorts": true
     }
+  },
+  "Auth": {
+    "ApiName": "crazypriceapi",
+    "ApiSecret": "apisecret",
+    "Authority": "https://identity-server:44301"
   }
 }

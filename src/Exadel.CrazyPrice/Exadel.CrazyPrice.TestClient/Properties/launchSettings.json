@@ -10,6 +10,7 @@
   "profiles": {
     "Start": {
       "commandName": "IISExpress",
+      "launchBrowser": true,
       "ErrorString": "Invalid property identifier character: <. Path 'profiles['IIS Express']', line 18, position 0."
     }
   }

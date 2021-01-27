@@ -34,12 +34,27 @@ namespace Exadel.CrazyPrice.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder
+                            .AllowCredentials()
+                            .WithOrigins("https://localhost:44357")
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "https://localhost:44339";
-                    options.ApiName = "crazypriceapi";
-                    options.ApiSecret = "apisecret";
+                    options.Authority = this.Configuration["Auth:Authority"];
+                    options.ApiName = this.Configuration["Auth:ApiName"];
+                    options.ApiSecret = this.Configuration["Auth:ApiSecret"];
                 });
             services.AddSwagger();
         }
@@ -56,6 +71,8 @@ namespace Exadel.CrazyPrice.WebApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerCrazyPrice();
             }
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseHttpsRedirection();
             app.UseRouting();

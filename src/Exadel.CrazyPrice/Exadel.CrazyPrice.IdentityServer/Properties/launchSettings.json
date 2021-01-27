@@ -8,16 +8,17 @@
     },
     "iisExpress": {
       "applicationUrl": "https://localhost:5000",
-      "sslPort": 44339
+      "sslPort": 44301
     }
   },
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
+      "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:44301/"
     },
     "Exadel.CrazyPrice.IdentityServer": {
       "commandName": "Project",

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/tags")]
+    [Route("tags")]
     [Authorize]
     public class TagsController : ControllerBase
     {
