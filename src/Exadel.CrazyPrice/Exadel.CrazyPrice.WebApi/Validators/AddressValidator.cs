@@ -1,5 +1,6 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.Common.Models;
+﻿using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
@@ -13,25 +14,29 @@ namespace Exadel.CrazyPrice.WebApi.Validators
             RuleSet("Address", () =>
             {
                 RuleFor(x => x.Country)
-                    .Transform(d => d.GetOnlyLettersDigitsAndOneSpace())
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(50);
+                    .MaximumLength(50)
+                    .ValidCharacters(CharOptions.Letter, " -");
 
                 RuleFor(x => x.City)
-                    .Transform(d => d.ReplaceTwoAndMoreSpaceByOne())
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(20);
+                    .MaximumLength(20)
+                    .ValidCharacters(CharOptions.Letter, " -");
 
                 RuleFor(x => x.Street)
-                    .Transform(d => d.ReplaceTwoAndMoreSpaceByOne())
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(40);
+                    .MaximumLength(40)
+                    .FirstLetter()
+                    .ValidCharacters(CharOptions.Letter |
+                                     CharOptions.Number |
+                                     CharOptions.Punctuation |
+                                     CharOptions.Symbol, " ");
 
                 RuleFor(x => x.Location)
-                    .InjectValidator((services, context) => (IValidator<Location>)services.GetService(typeof(IValidator<Location>)));
+                    .Location();
             });
         }
     }

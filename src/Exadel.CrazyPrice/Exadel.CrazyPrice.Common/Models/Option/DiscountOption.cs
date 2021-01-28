@@ -1,4 +1,4 @@
-﻿namespace Exadel.CrazyPrice.Common.Models
+﻿namespace Exadel.CrazyPrice.Common.Models.Option
 {
     public enum DiscountOption
     {

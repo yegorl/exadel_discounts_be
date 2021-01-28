@@ -1,5 +1,6 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.Common.Models;
+﻿using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
@@ -13,16 +14,20 @@ namespace Exadel.CrazyPrice.WebApi.Validators
             RuleSet("Company", () =>
             {
                 RuleFor(x => x.Name)
-                    .Transform(d => d.GetOnlyLettersDigitsAndOneSpace())
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(30);
+                    .MaximumLength(30)
+                    .ValidCharacters(CharOptions.Letter, " -");
 
                 RuleFor(x => x.Description)
-                    .Transform(d => d.ReplaceTwoAndMoreSpaceByOne())
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(200);
+                    .MaximumLength(200)
+                    .FirstLetter()
+                    .ValidCharacters(CharOptions.Letter |
+                                     CharOptions.Number |
+                                     CharOptions.Punctuation |
+                                     CharOptions.Symbol, " ");
             });
         }
     }
