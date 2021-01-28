@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 //TestUsers
-using IdentityServerHost.Quickstart.UI;
+using Exadel.CrazyPrice.IdentityServer.UI;
 using Microsoft.Extensions.Configuration;
 
 namespace Exadel.CrazyPrice.IdentityServer
