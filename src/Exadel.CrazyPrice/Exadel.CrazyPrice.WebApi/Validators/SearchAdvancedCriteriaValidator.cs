@@ -1,27 +1,33 @@
 ﻿using Exadel.CrazyPrice.Common.Models.SearchCriteria;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
 {
     public class SearchAdvancedCriteriaValidator : AbstractValidator<SearchAdvancedCriteria>
     {
-        public SearchAdvancedCriteriaValidator()
+        public SearchAdvancedCriteriaValidator(IValidator<SearchAmountOfDiscountCriteria> searchAmountOfDiscountCriteriaValidator,
+            IValidator<SearchRatingTotalCriteria> searchRatingTotalCriteriaValidator)
         {
             CascadeMode = CascadeMode.Stop;
 
             RuleSet("SearchAdvanced", () =>
             {
+                RuleFor(x => x.CompanyName)
+                    .Must(x => x == null || x.Length > 2)
+                    .WithMessage("The CompanyName musts be null or their length great than 2.");
+
                 RuleFor(x => x.SearchStartDate)
-                    .InjectValidator((services, context) => (IValidator<SearchDateCriteria>)services.GetService(typeof(IValidator<SearchDateCriteria>)));
+                    .ValidSearchDate();
 
                 RuleFor(x => x.SearchEndDate)
-                    .InjectValidator((services, context) => (IValidator<SearchDateCriteria>)services.GetService(typeof(IValidator<SearchDateCriteria>)));
+                    .ValidSearchDate();
 
                 RuleFor(x => x.SearchAmountOfDiscount)
-                    .InjectValidator((services, context) => (IValidator<SearchAmountOfDiscountCriteria>)services.GetService(typeof(IValidator<SearchAmountOfDiscountCriteria>)));
+                    .SetValidator(searchAmountOfDiscountCriteriaValidator);
 
                 RuleFor(x => x.SearchRatingTotal)
-                    .InjectValidator((services, context) => (IValidator<SearchRatingTotalCriteria>)services.GetService(typeof(IValidator<SearchRatingTotalCriteria>)));
+                    .SetValidator(searchRatingTotalCriteriaValidator);
             });
         }
     }

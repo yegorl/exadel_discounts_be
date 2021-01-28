@@ -4,12 +4,13 @@ using Exadel.CrazyPrice.Common.Models.Request;
 using FluentValidation;
 using System;
 using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.WebApi.Extentions;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
 {
     public class UpsertDiscountValidator : AbstractValidator<UpsertDiscountRequest>
     {
-        public UpsertDiscountValidator()
+        public UpsertDiscountValidator(IValidator<Company> companyValidator, IValidator<Address> addressValidator)
         {
             CascadeMode = CascadeMode.Stop;
 
@@ -19,21 +20,26 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .NotEmpty();
 
                 RuleFor(x => x.Name)
-                    .Transform(d => d.GetValidContent(CharOptions.Letter | CharOptions.Number | CharOptions.Symbol, " "))
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(50);
+                    .MaximumLength(50)
+                    .ValidCharacters(CharOptions.Letter |
+                                     CharOptions.Number |
+                                     CharOptions.Symbol, " ");
 
                 RuleFor(x => x.Description)
-                    .Transform(d => d.GetValidContent(CharOptions.Letter | CharOptions.Number | CharOptions.Punctuation | CharOptions.Symbol, " "))
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(1000);
+                    .MaximumLength(1000)
+                    .ValidCharacters(CharOptions.Letter |
+                                     CharOptions.Number |
+                                     CharOptions.Punctuation |
+                                     CharOptions.Symbol, " ");
 
                 RuleFor(x => x.AmountOfDiscount)
                     .Transform(d => d == null ? null : (decimal?)(Math.Truncate((decimal)d * 100) / 100))
                     .Must(x => x == null || x >= 0)
-                    .WithMessage("The AmountOfDiscount musts be null or great than 0 or equals 0.");
+                    .WithMessage("The AmountOfDiscount musts be null or great than 0 or equals 0 and less than 100 or equals 100.");
 
                 RuleFor(x => x.StartDate)
                     .Must(x => x == null || x > "01.01.2010 00:00:00".GetDateTimeInvariant())
@@ -44,19 +50,19 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .WithMessage("The EndDate musts be null or great than StartDate");
 
                 RuleFor(x => x.Tags)
-                    .Transform(t => string.Join(" ", t).GetValidContent(CharOptions.Letter, " "))
-                    .NotEmpty();
+                    .Transform(t => string.Join(" ", t))
+                    .NotEmpty()
+                    .ValidCharacters(CharOptions.Letter | CharOptions.Number, " ");
 
                 RuleFor(x => x.Company)
-                    .InjectValidator((services, context) => (IValidator<Company>)services.GetService(typeof(IValidator<Company>)));
+                    .SetValidator(companyValidator);
 
                 RuleFor(x => x.Address)
-                    .InjectValidator((services, context) => (IValidator<Address>)services.GetService(typeof(IValidator<Address>)));
+                    .SetValidator(addressValidator);
 
                 RuleFor(x => x.WorkingHours)
                     .NotEmpty()
-                    .Must(x => x.IsValidWorkingDays())
-                    .WithMessage("The WorkingHours musts be format 0101010. First is monday etc. 7 digits. 1 is open, 0 is closed.");
+                    .ValidWorkingDays();
             });
         }
     }

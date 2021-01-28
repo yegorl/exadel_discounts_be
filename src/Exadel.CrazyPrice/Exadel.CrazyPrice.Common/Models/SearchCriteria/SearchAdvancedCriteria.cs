@@ -2,6 +2,8 @@
 {
     public class SearchAdvancedCriteria
     {
+        public string CompanyName { get; set; }
+
         public SearchDateCriteria SearchStartDate { get; set; }
 
         public SearchDateCriteria SearchEndDate { get; set; }
