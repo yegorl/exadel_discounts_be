@@ -8,7 +8,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
 {
     public static class HostBuilderExtentions
     {
-        public static IHostBuilder UseLogger(this IHostBuilder hostBuilder)
+        public static IHostBuilder SetupLogger(this IHostBuilder hostBuilder)
         {
             return hostBuilder.ConfigureLogging((hostingContext, logging) =>
             {

@@ -29,6 +29,6 @@ namespace Exadel.CrazyPrice.WebApi
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                .UseLogger();
+                .SetupLogger();
     }
 }
