@@ -22,8 +22,6 @@ namespace IdentityServerHost.Quickstart.UI
                 Password = "1111",
                 Claims = new List<Claim>
                 {
-                    new Claim("given_name", "Frank"),
-                    new Claim("family_name", "Underwood"),
                     new Claim("role", "employee")
                 }
             },
@@ -34,8 +32,6 @@ namespace IdentityServerHost.Quickstart.UI
                 Password = "2222",
                 Claims = new List<Claim>
                 {
-                    new Claim("given_name", "Claire"),
-                    new Claim("family_name", "Underwood"),
                     new Claim("role", "moderator")
                 }
             }

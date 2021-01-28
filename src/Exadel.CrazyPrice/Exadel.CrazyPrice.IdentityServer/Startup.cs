@@ -39,13 +39,17 @@ namespace Exadel.CrazyPrice.IdentityServer
 
             Config.Configuration = Configuration;
 
+
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins",
                     builder =>
                     {
                         builder.AllowCredentials()
-                            .WithOrigins("https://localhost:44301", "https://localhost:44357")
+                            .WithOrigins(
+                                Configuration["AuthConfiguration:IdentityServerUrl"],
+                                Configuration["AuthConfiguration:ClientUrl"])
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
@@ -62,11 +66,12 @@ namespace Exadel.CrazyPrice.IdentityServer
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddTestUsers(TestUsers.Users);
+                
 
 
             // not recommended for production - you need to store your key material somewhere secure
             //builder.AddDeveloperSigningCredential();
-            
+
             var clientCertificate =
                 new X509Certificate2(Path.Combine(
                     Environment.ContentRootPath, Configuration["Certificate:Name"]), 
