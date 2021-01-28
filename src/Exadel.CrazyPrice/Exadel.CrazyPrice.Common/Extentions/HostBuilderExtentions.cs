@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Serilog;
 using System;
+using NLog.Web;
 
 namespace Exadel.CrazyPrice.Common.Extentions
 {
@@ -25,7 +26,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
 
                 if (HasLog(hostingContext, "LogToNLog"))
                 {
-                    logging.AddNLog();
+                    logging.AddNLogWeb();
                 }
             });
         }
