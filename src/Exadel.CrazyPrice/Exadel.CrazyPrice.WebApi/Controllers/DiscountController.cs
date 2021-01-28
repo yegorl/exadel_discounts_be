@@ -51,13 +51,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Route("get/{id}")]
         public async Task<IActionResult> GetDiscount(Guid id)
         {
+            _logger.LogInformation("Guid incoming: {@id}", id);
             var discount = await _repository.GetDiscountAsync(id);
 
             if (discount == null)
             {
+                _logger.LogWarning("Discount get: {@discount}", discount);
                 return StatusCode(StatusCodes.Status404NotFound);
             }
 
+            _logger.LogInformation("Discount get: {@discount}", discount);
             return Ok(discount);
         }
 
@@ -80,13 +83,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Route("search")]
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
+            _logger.LogInformation("SearchCriteria incoming: {@searchCriteria}", searchCriteria);
             var discounts = await _repository.GetDiscountsAsync(searchCriteria);
 
             if (discounts == null || discounts.Count == 0)
             {
+                _logger.LogWarning("Discounts get: {@discounts}", discounts);
                 return StatusCode(StatusCodes.Status404NotFound);
             }
 
+            _logger.LogInformation("Discounts get: {@discounts}", discounts);
             return Ok(discounts);
         }
 
@@ -111,13 +117,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Route("update")]
         public async Task<IActionResult> UpdateDiscount([FromBody, CustomizeValidator(RuleSet = "UpsertDiscount")] UpsertDiscountRequest discount)
         {
+            _logger.LogInformation("UpsertDiscountRequest incoming: {@discount}", discount);
             var upsertDiscount = await _repository.UpsertDiscountAsync(discount);
 
             if (upsertDiscount == null)
             {
+                _logger.LogWarning("Discount upsert: {@upsertDiscount}", upsertDiscount);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
+            _logger.LogInformation("Discount upsert: {@upsertDiscount}", upsertDiscount);
             return Ok(upsertDiscount);
         }
 
@@ -140,13 +149,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Route("updatemany")]
         public async Task<IActionResult> UpdateManyDiscounts(UpsertDiscountRequest[] discounts)
         {
+            _logger.LogInformation("UpsertDiscountRequest[] incoming: {@discounts}", discounts);
             var upsertDiscounts = await _repository.UpsertDiscountAsync(discounts);
 
             if (upsertDiscounts == null || upsertDiscounts.Count == 0)
             {
+                _logger.LogWarning("UpsertDiscountRequest[] upsert: {@upsertDiscounts}", upsertDiscounts);
                 return StatusCode(500);
             }
 
+            _logger.LogInformation("UpsertDiscountRequest[] upsert: {@upsertDiscounts}", upsertDiscounts);
             return Ok(upsertDiscounts);
         }
 
@@ -168,6 +180,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> DeleteDiscounts(Guid[] ids)
         {
             await _repository.RemoveDiscountAsync(ids);
+            _logger.LogInformation("Discounts deleted: {@ids}", ids);
 
             return Ok();
         }

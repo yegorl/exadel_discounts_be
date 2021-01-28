@@ -25,10 +25,10 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public PersonsController(ILogger<PersonsController> logger/*, IPersonRepository repository*/)
+        public PersonsController(ILogger<PersonsController> logger, IPersonRepository repository)
         {
             _logger = logger;
-            //_repository = repository;
+            _repository = repository;
         }
 
         /// <summary>
@@ -60,13 +60,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Route("get/{id}")]
         public async Task<IActionResult> GetPerson(Guid id)
         {
+            _logger.LogInformation("Guid incoming: {@id}", id);
             var person = await _repository.GetPersonAsync(id);
 
             if (person == null)
             {
+                _logger.LogWarning("Person get: {@person}", person);
                 return StatusCode(StatusCodes.Status404NotFound);
             }
 
+            _logger.LogInformation("Person get: {@person}", person);
             return Ok(person);
         }
 
@@ -99,15 +102,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Route("update")]
         public async Task<IActionResult> UpdatePerson([FromBody, CustomizeValidator(RuleSet = "UpsertPerson")] Person person)
         {
-            var personResult = person;
-            //var personResult = await _repository.UpsertPersonAsync(person);
-            _logger.LogInformation("person: {@person}", personResult);
-
+            _logger.LogInformation("Person incoming: {@person}", person);
+            var personResult = await _repository.UpsertPersonAsync(person);
+            
             if (personResult == null)
             {
+                _logger.LogWarning("Person upsert: {@person}", personResult);
                 return StatusCode(204);
             }
 
+            _logger.LogInformation("Person upsert: {@person}", personResult);
             return Ok(personResult);
         }
     }

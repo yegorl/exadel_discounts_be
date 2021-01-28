@@ -57,16 +57,20 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             if (companyName.Length > 200)
             {
+                _logger.LogWarning("Company name incoming: {companyName}. Length > 200.", companyName);
                 return StatusCode(414);
             }
 
+            _logger.LogInformation("Company name incoming: {companyName}", companyName);
             var companies = await _repository.GetCompanyAsync(companyName);
 
             if (companies == null || companies.Count == 0)
             {
+                _logger.LogWarning("Companies get: {@companies}.", companies);
                 return StatusCode(204);
             }
 
+            _logger.LogInformation("Companies get: {@companies}", companies);
             return Ok(companies);
         }
     }

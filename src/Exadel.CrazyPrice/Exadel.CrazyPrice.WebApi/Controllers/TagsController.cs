@@ -51,16 +51,20 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             if (name.Length > 200)
             {
+                _logger.LogWarning("Tag name incoming: {name}. Length > 200.", name);
                 return StatusCode(414);
             }
 
+            _logger.LogInformation("Tag name incoming: {name}", name);
             var tags = await _repository.GetTagAsync(name);
 
             if (tags == null || tags.Count == 0)
             {
+                _logger.LogWarning("Tags get: {@tags}.", tags);
                 return StatusCode(204);
             }
 
+            _logger.LogInformation("Tags get: {@tags}.", tags);
             return Ok(tags);
         }
     }
