@@ -12,5 +12,12 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <param name="id">The id Person</param>
         /// <returns></returns>
         Task<Person> GetPersonAsync(Guid id);
+
+        /// <summary>
+        /// Upserts a Person.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        Task<Person> UpsertPersonAsync(Person item);
     }
 }

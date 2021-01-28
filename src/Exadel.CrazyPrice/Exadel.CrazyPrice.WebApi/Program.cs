@@ -1,3 +1,4 @@
+using Exadel.CrazyPrice.Common.Extentions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -27,6 +28,7 @@ namespace Exadel.CrazyPrice.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .SetupLogger();
     }
 }
