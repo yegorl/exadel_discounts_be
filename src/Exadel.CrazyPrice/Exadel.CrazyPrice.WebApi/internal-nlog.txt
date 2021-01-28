@@ -1,0 +1,1218 @@
+2021-01-26 11:16:30.2087 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:16:30.2244 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:16:30.2660 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 11:16:30.2788 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll succeeded!
+2021-01-26 11:16:30.2855 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:16:30.2925 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:16:30.3048 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 11:16:30.3122 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 11:16:30.3230 Info Message Template Auto Format enabled
+2021-01-26 11:16:30.3358 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 11:16:30.3863 Info Adding target FileTarget(Name=allfile)
+2021-01-26 11:16:30.3941 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 11:16:30.4195 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:16:30.4395 Info Closing old configuration.
+2021-01-26 11:16:30.4798 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:18:49.1097 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:18:49.1245 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:18:49.1646 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 11:18:49.1772 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll succeeded!
+2021-01-26 11:18:49.1846 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:18:49.1846 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:18:49.2034 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 11:18:49.2034 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 11:18:49.2186 Info Message Template Auto Format enabled
+2021-01-26 11:18:49.2303 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 11:18:49.2775 Info Adding target FileTarget(Name=allfile)
+2021-01-26 11:18:49.2934 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 11:18:49.3106 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:18:49.3297 Info Closing old configuration.
+2021-01-26 11:18:49.3675 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:26:38.3230 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:26:38.3392 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:26:38.3813 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 11:26:38.3937 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll succeeded!
+2021-01-26 11:26:38.3937 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:26:38.4084 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:26:38.4188 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 11:26:38.4263 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 11:26:38.4344 Info Message Template Auto Format enabled
+2021-01-26 11:26:38.4461 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 11:26:38.4927 Info Adding target FileTarget(Name=allfile)
+2021-01-26 11:26:38.5076 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 11:26:38.5252 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:26:38.5440 Info Closing old configuration.
+2021-01-26 11:26:38.5929 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:33:19.4402 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:33:19.4557 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll
+2021-01-26 11:33:19.4977 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 11:33:19.5105 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Extensions.Logging.dll succeeded!
+2021-01-26 11:33:19.5173 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:33:19.5247 Info Loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+2021-01-26 11:33:19.5361 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 11:33:19.5436 Info Auto loading assembly file: /app/bin/Debug/net5.0/NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 11:33:19.5436 Info Message Template Auto Format enabled
+2021-01-26 11:33:19.5646 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 11:33:19.6123 Info Adding target FileTarget(Name=allfile)
+2021-01-26 11:33:19.6280 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 11:33:19.6464 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 11:33:19.6647 Info Closing old configuration.
+2021-01-26 11:33:19.6942 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:05:59.1363 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:05:59.1657 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:05:59.1657 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:05:59.1903 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:05:59.1903 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:05:59.1988 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:05:59.1988 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:05:59.1988 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:05:59.2142 Info Message Template Auto Format enabled
+2021-01-26 15:05:59.2142 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:05:59.2762 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:05:59.2762 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:05:59.3052 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:05:59.3257 Info Closing old configuration.
+2021-01-26 15:05:59.3622 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:07:01.1330 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:07:01.1462 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:07:01.1585 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:07:01.1699 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:07:01.1699 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:07:01.1699 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:07:01.1834 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:07:01.1834 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:07:01.1834 Info Message Template Auto Format enabled
+2021-01-26 15:07:01.2034 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:07:01.2612 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:07:01.2732 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:07:01.2896 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:07:01.3094 Info Closing old configuration.
+2021-01-26 15:07:01.3490 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:09:43.2372 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:09:43.2506 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:09:43.2660 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:09:43.2773 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:09:43.2773 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:09:43.2773 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:09:43.2923 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:09:43.2923 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:09:43.2923 Info Message Template Auto Format enabled
+2021-01-26 15:09:43.3134 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:09:43.3561 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:09:43.3718 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:09:43.3923 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:09:43.4092 Info Closing old configuration.
+2021-01-26 15:09:43.4393 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:23:11.1490 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:23:11.1490 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:23:11.1752 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:23:11.1870 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:23:11.1870 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:23:11.1956 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:23:11.1956 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:23:11.1956 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:23:11.2114 Info Message Template Auto Format enabled
+2021-01-26 15:23:11.2114 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:23:11.2630 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:23:11.2781 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:23:11.2997 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:23:11.3168 Info Closing old configuration.
+2021-01-26 15:23:11.3468 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:26:09.6015 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:26:09.6015 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:26:09.6303 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:26:09.6450 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:26:09.6496 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:26:09.6496 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:26:09.6496 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:26:09.6709 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:26:09.6709 Info Message Template Auto Format enabled
+2021-01-26 15:26:09.6934 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:26:09.7587 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:26:09.7587 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:26:09.7902 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:26:09.8092 Info Closing old configuration.
+2021-01-26 15:26:09.8395 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:28:20.7902 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:28:20.7902 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:28:20.8160 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:28:20.8277 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:28:20.8277 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:28:20.8373 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:28:20.8373 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:28:20.8373 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:28:20.8527 Info Message Template Auto Format enabled
+2021-01-26 15:28:20.8527 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:28:20.9038 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:28:20.9186 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:28:20.9464 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:28:20.9630 Info Closing old configuration.
+2021-01-26 15:28:20.9970 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:33:03.9631 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:33:03.9994 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:33:04.0141 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:33:04.0257 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:33:04.0257 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:33:04.0257 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:33:04.0402 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:33:04.0402 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:33:04.0402 Info Message Template Auto Format enabled
+2021-01-26 15:33:04.0630 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:33:04.1042 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:33:04.1224 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:33:04.1479 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:33:04.1676 Info Closing old configuration.
+2021-01-26 15:33:04.2047 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:39:18.4511 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:39:18.4657 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:39:18.4799 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:39:18.4799 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:39:18.4961 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:39:18.4961 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:39:18.4961 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:39:18.5145 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:39:18.5145 Info Message Template Auto Format enabled
+2021-01-26 15:39:18.5314 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:39:18.5975 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:39:18.6043 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:39:18.6385 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:39:18.6625 Info Closing old configuration.
+2021-01-26 15:39:18.7015 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:48:25.6543 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:48:25.6671 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:48:25.6802 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:48:25.6802 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:48:25.6960 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:48:25.6960 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:48:25.6960 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:48:25.7129 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:48:25.7129 Info Message Template Auto Format enabled
+2021-01-26 15:48:25.7280 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:48:25.7810 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:48:25.7918 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:48:25.8087 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:48:25.8259 Info Closing old configuration.
+2021-01-26 15:48:25.8576 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:56:52.2963 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:56:52.3098 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 15:56:52.3246 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 15:56:52.3360 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 15:56:52.3360 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:56:52.3360 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 15:56:52.3521 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 15:56:52.3521 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 15:56:52.3521 Info Message Template Auto Format enabled
+2021-01-26 15:56:52.3747 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 15:56:52.4140 Info Adding target FileTarget(Name=allfile)
+2021-01-26 15:56:52.4362 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 15:56:52.4511 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 15:56:52.4674 Info Closing old configuration.
+2021-01-26 15:56:52.4968 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:12:59.5903 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:12:59.6035 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:12:59.6177 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 16:12:59.6177 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 16:12:59.6357 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:12:59.6357 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:12:59.6357 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 16:12:59.6514 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 16:12:59.6514 Info Message Template Auto Format enabled
+2021-01-26 16:12:59.6674 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 16:12:59.7110 Info Adding target FileTarget(Name=allfile)
+2021-01-26 16:12:59.7329 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 16:12:59.7481 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:12:59.7644 Info Closing old configuration.
+2021-01-26 16:12:59.7960 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:17:05.4523 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:17:05.4666 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:17:05.4813 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 16:17:05.4927 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 16:17:05.4927 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:17:05.4927 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:17:05.4927 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 16:17:05.5139 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 16:17:05.5139 Info Message Template Auto Format enabled
+2021-01-26 16:17:05.5288 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 16:17:05.5796 Info Adding target FileTarget(Name=allfile)
+2021-01-26 16:17:05.5871 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 16:17:05.6089 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:17:05.6258 Info Closing old configuration.
+2021-01-26 16:17:05.6587 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:19:30.5404 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:19:30.5565 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:19:30.5876 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 16:19:30.6025 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 16:19:30.6025 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:19:30.6025 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:19:30.6187 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 16:19:30.6187 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 16:19:30.6353 Info Message Template Auto Format enabled
+2021-01-26 16:19:30.6353 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 16:19:30.7025 Info Adding target FileTarget(Name=allfile)
+2021-01-26 16:19:30.7152 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 16:19:30.7337 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:19:30.7512 Info Closing old configuration.
+2021-01-26 16:19:30.7871 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:26:32.0251 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:26:32.0438 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 16:26:32.0646 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 16:26:32.0815 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 16:26:32.0896 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:26:32.0896 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 16:26:32.0896 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 16:26:32.1070 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 16:26:32.1070 Info Message Template Auto Format enabled
+2021-01-26 16:26:32.1260 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 16:26:32.1829 Info Adding target FileTarget(Name=allfile)
+2021-01-26 16:26:32.1829 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 16:26:32.2115 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 16:26:32.2301 Info Closing old configuration.
+2021-01-26 16:26:32.2643 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:07:39.5656 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:07:39.5791 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:07:39.5931 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:07:39.6048 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:07:39.6048 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:07:39.6048 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:07:39.6185 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:07:39.6185 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:07:39.6185 Info Message Template Auto Format enabled
+2021-01-26 17:07:39.6414 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:07:39.6854 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:07:39.7143 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:07:39.7304 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:07:39.7472 Info Closing old configuration.
+2021-01-26 17:07:39.7770 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:08:32.2872 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:08:32.3008 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:08:32.3245 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:08:32.3417 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:08:32.3417 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:08:32.3521 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:08:32.3521 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:08:32.3521 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:08:32.3679 Info Message Template Auto Format enabled
+2021-01-26 17:08:32.3679 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:08:32.4359 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:08:32.4497 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:08:32.4654 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:08:32.4845 Info Closing old configuration.
+2021-01-26 17:08:32.5185 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:11:04.7729 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:11:04.7873 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:11:04.8027 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:11:04.8168 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:11:04.8225 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:11:04.8225 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:11:04.8225 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:11:04.8407 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:11:04.8407 Info Message Template Auto Format enabled
+2021-01-26 17:11:04.8590 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:11:04.9191 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:11:04.9361 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:11:04.9536 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:11:04.9734 Info Closing old configuration.
+2021-01-26 17:11:05.0070 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:12:51.7865 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:12:51.8003 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:12:51.8173 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:12:51.8296 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:12:51.8296 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:12:51.8416 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:12:51.8416 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:12:51.8537 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:12:51.8537 Info Message Template Auto Format enabled
+2021-01-26 17:12:51.8687 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:12:51.9159 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:12:51.9317 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:12:51.9604 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:12:51.9833 Info Closing old configuration.
+2021-01-26 17:12:52.0169 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:13:31.9103 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:13:31.9255 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:13:31.9548 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:13:31.9661 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:13:31.9661 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:13:31.9661 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:13:31.9816 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:13:31.9927 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:13:31.9927 Info Message Template Auto Format enabled
+2021-01-26 17:13:32.0147 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:13:32.0562 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:13:32.0722 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:13:32.0981 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:13:32.1161 Info Closing old configuration.
+2021-01-26 17:13:32.1820 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:17:38.7585 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:17:38.7585 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:17:38.7848 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:17:38.8005 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:17:38.8054 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:17:38.8054 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:17:38.8202 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:17:38.8202 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:17:38.8202 Info Message Template Auto Format enabled
+2021-01-26 17:17:38.8447 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:17:38.8996 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:17:38.8996 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:17:38.9292 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:17:38.9479 Info Closing old configuration.
+2021-01-26 17:17:38.9792 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:18:41.3001 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:18:41.3149 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:18:41.3295 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:18:41.3453 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:18:41.3453 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:18:41.3573 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:18:41.3573 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:18:41.3709 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:18:41.3709 Info Message Template Auto Format enabled
+2021-01-26 17:18:41.3877 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:18:41.4467 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:18:41.4612 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:18:41.4784 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:18:41.4971 Info Closing old configuration.
+2021-01-26 17:18:41.5320 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:20:31.3170 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:20:31.3360 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:20:31.3584 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:20:31.3735 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:20:31.3735 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:20:31.3856 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:20:31.3856 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:20:31.3996 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:20:31.3996 Info Message Template Auto Format enabled
+2021-01-26 17:20:31.4221 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:20:31.4772 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:20:31.5286 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:20:31.5479 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:20:31.5662 Info Closing old configuration.
+2021-01-26 17:20:31.6038 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:23:54.1260 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:23:54.1416 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:23:54.1594 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:23:54.1749 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:23:54.1804 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:23:54.1804 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:23:54.1966 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:23:54.1966 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:23:54.1966 Info Message Template Auto Format enabled
+2021-01-26 17:23:54.2214 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:23:54.2860 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:23:54.2923 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:23:54.3147 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:23:54.3325 Info Closing old configuration.
+2021-01-26 17:23:54.3768 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:26:41.4255 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:26:41.4391 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:26:41.4527 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:26:41.4670 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:26:41.4670 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:26:41.4779 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:26:41.4779 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:26:41.4779 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:26:41.4963 Info Message Template Auto Format enabled
+2021-01-26 17:26:41.4963 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:26:41.5633 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:26:41.5753 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:26:41.5929 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:26:41.6123 Info Closing old configuration.
+2021-01-26 17:26:41.6464 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:28:46.5614 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:28:46.5776 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:28:46.5928 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:28:46.6063 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:28:46.6063 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:28:46.6063 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:28:46.6204 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:28:46.6204 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:28:46.6365 Info Message Template Auto Format enabled
+2021-01-26 17:28:46.6488 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:28:46.7045 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:28:46.7161 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:28:46.7362 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:28:46.7541 Info Closing old configuration.
+2021-01-26 17:28:46.7853 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:29:16.1232 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:29:16.1370 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:29:16.1522 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:29:16.1649 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:29:16.1649 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:29:16.1649 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:29:16.1827 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:29:16.1827 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:29:16.1955 Info Message Template Auto Format enabled
+2021-01-26 17:29:16.1955 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:29:16.2636 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:29:16.2928 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:29:16.3101 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:29:16.3314 Info Closing old configuration.
+2021-01-26 17:29:16.3657 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:39:25.5225 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:39:25.5457 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:39:25.5606 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:39:25.5728 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:39:25.5728 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:39:25.5728 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:39:25.5893 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:39:25.5893 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:39:25.5893 Info Message Template Auto Format enabled
+2021-01-26 17:39:25.6100 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:39:25.6646 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:39:25.6646 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:39:25.6943 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:39:25.7120 Info Closing old configuration.
+2021-01-26 17:39:25.7629 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:53:29.1892 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:53:29.2054 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:53:29.2218 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:53:29.2344 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:53:29.2344 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:53:29.2442 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:53:29.2442 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:53:29.2442 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:53:29.2626 Info Message Template Auto Format enabled
+2021-01-26 17:53:29.2768 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:53:29.3384 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:53:29.3526 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:53:29.3688 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:53:29.3875 Info Closing old configuration.
+2021-01-26 17:53:29.4235 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:56:35.2048 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:56:35.2203 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 17:56:35.2361 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 17:56:35.2486 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 17:56:35.2486 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:56:35.2585 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 17:56:35.2585 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 17:56:35.2585 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 17:56:35.2792 Info Message Template Auto Format enabled
+2021-01-26 17:56:35.2898 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 17:56:35.3434 Info Adding target FileTarget(Name=allfile)
+2021-01-26 17:56:35.3554 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 17:56:35.3745 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 17:56:35.3930 Info Closing old configuration.
+2021-01-26 17:56:35.4275 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:00:20.6351 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:00:20.6351 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:00:20.6617 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:00:20.6750 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:00:20.6815 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:00:20.6815 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:00:20.6815 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:00:20.7016 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:00:20.7016 Info Message Template Auto Format enabled
+2021-01-26 18:00:20.7186 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:00:20.7598 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:00:20.7902 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:00:20.8060 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:00:20.8245 Info Closing old configuration.
+2021-01-26 18:00:20.8626 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:00:55.9195 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:00:55.9337 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:00:55.9521 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:00:55.9683 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:00:55.9683 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:00:55.9783 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:00:55.9783 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:00:55.9942 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:00:55.9942 Info Message Template Auto Format enabled
+2021-01-26 18:00:56.0156 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:00:56.0712 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:00:56.0868 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:00:56.1073 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:00:56.1304 Info Closing old configuration.
+2021-01-26 18:00:56.1724 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:07:16.8935 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:07:16.9078 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:07:16.9202 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:07:16.9345 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:07:16.9345 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:07:16.9345 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:07:16.9491 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:07:16.9491 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:07:16.9620 Info Message Template Auto Format enabled
+2021-01-26 18:07:16.9620 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:07:17.0266 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:07:17.0400 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:07:17.0567 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:07:17.0790 Info Closing old configuration.
+2021-01-26 18:07:17.1282 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:08:59.4488 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:08:59.4629 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:08:59.4799 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:08:59.4931 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:08:59.4931 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:08:59.4931 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:08:59.4931 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:08:59.5134 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:08:59.5134 Info Message Template Auto Format enabled
+2021-01-26 18:08:59.5283 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:08:59.6078 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:08:59.6204 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:08:59.6368 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:08:59.6554 Info Closing old configuration.
+2021-01-26 18:08:59.6889 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:10:15.3409 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:10:15.3553 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:10:15.3729 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:10:15.3893 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:10:15.3893 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:10:15.3994 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:10:15.3994 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:10:15.3994 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:10:15.4180 Info Message Template Auto Format enabled
+2021-01-26 18:10:15.4180 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:10:15.4805 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:10:15.4942 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:10:15.5118 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:10:15.5304 Info Closing old configuration.
+2021-01-26 18:10:15.5661 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:19:06.5844 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:19:06.5997 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:19:06.6281 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:19:06.6399 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:19:06.6399 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:19:06.6514 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:19:06.6514 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:19:06.6659 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:19:06.6659 Info Message Template Auto Format enabled
+2021-01-26 18:19:06.6848 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:19:06.7493 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:19:06.7636 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:19:06.7804 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:19:06.7994 Info Closing old configuration.
+2021-01-26 18:19:06.8703 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:25:35.8134 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:25:35.8278 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:25:35.8494 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:25:35.8621 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:25:35.8621 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:25:35.8739 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:25:35.8739 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:25:35.8876 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:25:35.8876 Info Message Template Auto Format enabled
+2021-01-26 18:25:35.9045 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:25:35.9475 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:25:35.9658 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:25:35.9915 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:25:36.0098 Info Closing old configuration.
+2021-01-26 18:25:36.0453 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:27:01.3206 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:27:01.3375 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:27:01.3525 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:27:01.3703 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:27:01.3703 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:27:01.3703 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:27:01.3882 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:27:01.3882 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:27:01.4034 Info Message Template Auto Format enabled
+2021-01-26 18:27:01.4171 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:27:01.4872 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:27:01.4929 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:27:01.5216 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:27:01.5425 Info Closing old configuration.
+2021-01-26 18:27:01.6047 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:32:52.1111 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:32:52.1245 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:32:52.1387 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:32:52.1515 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:32:52.1515 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:32:52.1515 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:32:52.1663 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:32:52.1663 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:32:52.1663 Info Message Template Auto Format enabled
+2021-01-26 18:32:52.1881 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:32:52.2436 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:32:52.2436 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:32:52.2744 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:32:52.2914 Info Closing old configuration.
+2021-01-26 18:32:52.3527 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:34:45.6445 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:34:45.6592 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:34:45.6731 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:34:45.6861 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:34:45.6861 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:34:45.6962 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:34:45.6962 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:34:45.6962 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:34:45.7142 Info Message Template Auto Format enabled
+2021-01-26 18:34:45.7142 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:34:45.7815 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:34:45.7940 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:34:45.8105 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:34:45.8271 Info Closing old configuration.
+2021-01-26 18:34:45.8603 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:39:43.0668 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:39:43.0814 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:39:43.0949 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:39:43.1077 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:39:43.1077 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:39:43.1206 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:39:43.1206 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:39:43.1334 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:39:43.1334 Info Message Template Auto Format enabled
+2021-01-26 18:39:43.1505 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:39:43.2055 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:39:43.2123 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:39:43.2378 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:39:43.2562 Info Closing old configuration.
+2021-01-26 18:39:43.2958 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:46:17.9604 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:46:17.9859 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:46:18.0033 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:46:18.0033 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:46:18.0222 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:46:18.0222 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:46:18.0222 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:46:18.0425 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:46:18.0425 Info Message Template Auto Format enabled
+2021-01-26 18:46:18.0618 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:46:18.1224 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:46:18.1289 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:46:18.1560 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:46:18.1746 Info Closing old configuration.
+2021-01-26 18:46:18.2297 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:49:25.6088 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:49:25.6217 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:49:25.6517 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:49:25.6629 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:49:25.6629 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:49:25.6728 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:49:25.6728 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:49:25.6728 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:49:25.6893 Info Message Template Auto Format enabled
+2021-01-26 18:49:25.6893 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:49:25.7586 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:49:25.7720 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:49:25.7888 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:49:25.8062 Info Closing old configuration.
+2021-01-26 18:49:25.8378 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:54:41.4922 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:54:41.5056 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 18:54:41.5195 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 18:54:41.5319 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 18:54:41.5319 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:54:41.5446 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 18:54:41.5446 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 18:54:41.5592 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 18:54:41.5592 Info Message Template Auto Format enabled
+2021-01-26 18:54:41.5750 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 18:54:41.6305 Info Adding target FileTarget(Name=allfile)
+2021-01-26 18:54:41.6370 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 18:54:41.6605 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 18:54:41.6792 Info Closing old configuration.
+2021-01-26 18:54:41.7258 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:14:45.9206 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:14:45.9356 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:14:45.9545 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:14:45.9718 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:14:45.9793 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:14:45.9793 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:14:45.9948 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:14:45.9948 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:14:45.9948 Info Message Template Auto Format enabled
+2021-01-26 19:14:46.0193 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:14:46.0783 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:14:46.0911 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:14:46.1133 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:14:46.1329 Info Closing old configuration.
+2021-01-26 19:14:46.1672 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:24:27.0938 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:24:27.1090 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:24:27.1090 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:24:27.1382 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:24:27.1445 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:24:27.1445 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:24:27.1572 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:24:27.1572 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:24:27.1572 Info Message Template Auto Format enabled
+2021-01-26 19:24:27.1826 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:24:27.2437 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:24:27.2586 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:24:27.2756 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:24:27.2942 Info Closing old configuration.
+2021-01-26 19:24:27.3315 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:26:15.1047 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:26:15.1185 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:26:15.1404 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:26:15.1680 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:26:15.1734 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:26:15.1734 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:26:15.1734 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:26:15.1908 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:26:15.1908 Info Message Template Auto Format enabled
+2021-01-26 19:26:15.2077 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:26:15.2653 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:26:15.2810 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:26:15.3023 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:26:15.3210 Info Closing old configuration.
+2021-01-26 19:26:15.3847 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:27:33.2731 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:27:33.2887 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:27:33.3037 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:27:33.3200 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:27:33.3200 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:27:33.3297 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:27:33.3297 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:27:33.3422 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:27:33.3422 Info Message Template Auto Format enabled
+2021-01-26 19:27:33.3581 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:27:33.4280 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:27:33.4342 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:27:33.4601 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:27:33.4770 Info Closing old configuration.
+2021-01-26 19:27:33.5145 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:29:18.1272 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:29:18.1426 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:29:18.1564 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:29:18.1693 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:29:18.1693 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:29:18.1693 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:29:18.1854 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:29:18.1854 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:29:18.1986 Info Message Template Auto Format enabled
+2021-01-26 19:29:18.1986 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:29:18.2638 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:29:18.2788 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:29:18.3005 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:29:18.3195 Info Closing old configuration.
+2021-01-26 19:29:18.3535 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:29:47.2416 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:29:47.2552 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:29:47.2675 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:29:47.2793 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:29:47.2793 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:29:47.2793 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:29:47.2930 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:29:47.2930 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:29:47.2930 Info Message Template Auto Format enabled
+2021-01-26 19:29:47.3159 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:29:47.3580 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:29:47.3739 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:29:47.3947 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:29:47.4124 Info Closing old configuration.
+2021-01-26 19:29:47.4439 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:31:41.7585 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:31:41.7733 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 19:31:41.7891 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 19:31:41.8065 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 19:31:41.8065 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:31:41.8065 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 19:31:41.8216 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 19:31:41.8216 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 19:31:41.8216 Info Message Template Auto Format enabled
+2021-01-26 19:31:41.8421 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 19:31:41.8844 Info Adding target FileTarget(Name=allfile)
+2021-01-26 19:31:41.9012 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 19:31:41.9229 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 19:31:41.9410 Info Closing old configuration.
+2021-01-26 19:31:41.9910 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:01:49.3927 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:01:49.4172 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:01:49.4310 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:01:49.4427 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:01:49.4427 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:01:49.4427 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:01:49.4578 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:01:49.4578 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:01:49.4578 Info Message Template Auto Format enabled
+2021-01-26 20:01:49.4780 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:01:49.5283 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:01:49.5411 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:01:49.5579 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:01:49.5751 Info Closing old configuration.
+2021-01-26 20:01:49.6077 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:02:45.7209 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:02:45.7337 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:02:45.7467 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:02:45.7640 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:02:45.7640 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:02:45.7746 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:02:45.7746 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:02:45.7859 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:02:45.7859 Info Message Template Auto Format enabled
+2021-01-26 20:02:45.8020 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:02:45.8541 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:02:45.8699 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:02:45.8857 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:02:45.9028 Info Closing old configuration.
+2021-01-26 20:02:45.9372 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:04:36.4770 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:04:36.4896 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:04:36.4896 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:04:36.5164 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:04:36.5210 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:04:36.5210 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:04:36.5210 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:04:36.5372 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:04:36.5372 Info Message Template Auto Format enabled
+2021-01-26 20:04:36.5535 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:04:36.6070 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:04:36.6179 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:04:36.6363 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:04:36.6614 Info Closing old configuration.
+2021-01-26 20:04:36.6973 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:05:42.4231 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:05:42.4380 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:05:42.4689 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:05:42.5292 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:05:42.5369 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:05:42.5369 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:05:42.5369 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:05:42.5531 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:05:42.5531 Info Message Template Auto Format enabled
+2021-01-26 20:05:42.5701 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:05:42.6386 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:05:42.6517 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:05:42.6687 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:05:42.6889 Info Closing old configuration.
+2021-01-26 20:05:42.7361 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:06:36.9726 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:06:36.9726 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:06:37.0032 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:06:37.0032 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:06:37.0230 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:06:37.0230 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:06:37.0359 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:06:37.0359 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:06:37.0359 Info Message Template Auto Format enabled
+2021-01-26 20:06:37.0581 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:06:37.1136 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:06:37.1136 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:06:37.1431 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:06:37.1599 Info Closing old configuration.
+2021-01-26 20:06:37.2038 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:19:42.0321 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:19:42.0470 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:19:42.0629 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:19:42.0756 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:19:42.0811 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:19:42.0811 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:19:42.0811 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:19:42.1002 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:19:42.1002 Info Message Template Auto Format enabled
+2021-01-26 20:19:42.1190 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:19:42.1596 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:19:42.1758 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:19:42.1987 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:19:42.2167 Info Closing old configuration.
+2021-01-26 20:19:42.2501 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:28:37.6923 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:28:37.7091 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 20:28:37.7250 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 20:28:37.7382 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 20:28:37.7382 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:28:37.7382 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 20:28:37.7525 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 20:28:37.7525 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 20:28:37.7525 Info Message Template Auto Format enabled
+2021-01-26 20:28:37.7736 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 20:28:37.8147 Info Adding target FileTarget(Name=allfile)
+2021-01-26 20:28:37.8308 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 20:28:37.8529 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 20:28:37.8703 Info Closing old configuration.
+2021-01-26 20:28:37.9021 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 21:05:05.9706 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 21:05:05.9857 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 21:05:05.9997 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 21:05:06.0216 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 21:05:06.0216 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 21:05:06.0316 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 21:05:06.0316 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 21:05:06.0316 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 21:05:06.0518 Info Message Template Auto Format enabled
+2021-01-26 21:05:06.0518 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 21:05:06.1143 Info Adding target FileTarget(Name=allfile)
+2021-01-26 21:05:06.1287 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 21:05:06.1458 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 21:05:06.1648 Info Closing old configuration.
+2021-01-26 21:05:06.1970 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 21:06:09.6473 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 21:06:09.6772 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 21:06:09.6918 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 21:06:09.7045 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 21:06:09.7045 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 21:06:09.7045 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 21:06:09.7191 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 21:06:09.7191 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 21:06:09.7191 Info Message Template Auto Format enabled
+2021-01-26 21:06:09.7405 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 21:06:09.7847 Info Adding target FileTarget(Name=allfile)
+2021-01-26 21:06:09.8022 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 21:06:09.8262 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 21:06:09.8488 Info Closing old configuration.
+2021-01-26 21:06:09.8851 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 21:09:26.4640 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 21:09:26.4786 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-26 21:09:26.4952 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-26 21:09:26.5100 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-26 21:09:26.5100 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 21:09:26.5200 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-26 21:09:26.5200 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-26 21:09:26.5316 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-26 21:09:26.5316 Info Message Template Auto Format enabled
+2021-01-26 21:09:26.5472 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-26 21:09:26.6001 Info Adding target FileTarget(Name=allfile)
+2021-01-26 21:09:26.6117 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-26 21:09:26.6290 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-26 21:09:26.6482 Info Closing old configuration.
+2021-01-26 21:09:26.6825 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 07:56:56.8794 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 07:56:56.8985 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 07:56:56.9136 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 07:56:56.9280 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 07:56:56.9280 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 07:56:56.9370 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 07:56:56.9370 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 07:56:56.9370 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 07:56:56.9370 Info Message Template Auto Format enabled
+2021-01-27 07:56:56.9615 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 07:56:57.0194 Info Adding target FileTarget(Name=allfile)
+2021-01-27 07:56:57.0375 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 07:56:57.0537 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 07:56:57.0721 Info Closing old configuration.
+2021-01-27 07:56:57.1272 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 08:02:31.8903 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 08:02:31.8903 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 08:02:31.9207 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 08:02:31.9358 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 08:02:31.9409 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 08:02:31.9409 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 08:02:31.9409 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 08:02:31.9565 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 08:02:31.9565 Info Message Template Auto Format enabled
+2021-01-27 08:02:31.9714 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 08:02:32.0230 Info Adding target FileTarget(Name=allfile)
+2021-01-27 08:02:32.0514 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 08:02:32.0692 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 08:02:32.0861 Info Closing old configuration.
+2021-01-27 08:02:32.1497 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 08:10:24.4396 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 08:10:24.4549 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 08:10:24.4549 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 08:10:24.4800 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 08:10:24.4844 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 08:10:24.4844 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 08:10:24.4844 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 08:10:24.5009 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 08:10:24.5009 Info Message Template Auto Format enabled
+2021-01-27 08:10:24.5207 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 08:10:24.6014 Info Adding target FileTarget(Name=allfile)
+2021-01-27 08:10:24.6099 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 08:10:24.6370 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 08:10:24.6602 Info Closing old configuration.
+2021-01-27 08:10:24.6983 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:24:02.6507 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:24:02.6676 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:24:02.6823 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 09:24:02.6947 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 09:24:02.6947 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:24:02.7063 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:24:02.7063 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 09:24:02.7209 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 09:24:02.7209 Info Message Template Auto Format enabled
+2021-01-27 09:24:02.7373 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 09:24:02.7808 Info Adding target FileTarget(Name=allfile)
+2021-01-27 09:24:02.7984 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 09:24:02.8243 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:24:02.8416 Info Closing old configuration.
+2021-01-27 09:24:02.8746 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:25:51.8476 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:25:51.8743 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:25:51.8743 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 09:25:51.9029 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 09:25:51.9079 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:25:51.9079 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:25:51.9079 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 09:25:51.9282 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 09:25:51.9282 Info Message Template Auto Format enabled
+2021-01-27 09:25:51.9447 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 09:25:52.0008 Info Adding target FileTarget(Name=allfile)
+2021-01-27 09:25:52.0008 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 09:25:52.0310 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:25:52.0487 Info Closing old configuration.
+2021-01-27 09:25:52.0870 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:27:02.2342 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:27:02.2342 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:27:02.2613 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 09:27:02.2756 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 09:27:02.2826 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:27:02.2826 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:27:02.2826 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 09:27:02.3001 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 09:27:02.3001 Info Message Template Auto Format enabled
+2021-01-27 09:27:02.3165 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 09:27:02.3773 Info Adding target FileTarget(Name=allfile)
+2021-01-27 09:27:02.3943 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 09:27:02.4146 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:27:02.4327 Info Closing old configuration.
+2021-01-27 09:27:02.4695 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:27:44.3081 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:27:44.3329 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:27:44.3504 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 09:27:44.3659 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 09:27:44.3752 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:27:44.3752 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:27:44.3752 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 09:27:44.3900 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 09:27:44.3900 Info Message Template Auto Format enabled
+2021-01-27 09:27:44.4070 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 09:27:44.4529 Info Adding target FileTarget(Name=allfile)
+2021-01-27 09:27:44.4749 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 09:27:44.4906 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:27:44.5105 Info Closing old configuration.
+2021-01-27 09:27:44.5537 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:28:16.1579 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:28:16.1882 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 09:28:16.2031 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 09:28:16.2031 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 09:28:16.2206 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:28:16.2206 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 09:28:16.2206 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 09:28:16.2378 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 09:28:16.2378 Info Message Template Auto Format enabled
+2021-01-27 09:28:16.2551 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 09:28:16.2994 Info Adding target FileTarget(Name=allfile)
+2021-01-27 09:28:16.3308 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 09:28:16.3492 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 09:28:16.3703 Info Closing old configuration.
+2021-01-27 09:28:16.4173 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 10:42:35.9094 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 10:42:35.9484 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 10:42:35.9764 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 10:42:36.0008 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 10:42:36.0106 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 10:42:36.0106 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 10:42:36.0269 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 10:42:36.0269 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 10:42:36.0490 Info Message Template Auto Format enabled
+2021-01-27 10:42:36.0686 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 10:42:36.1641 Info Adding target FileTarget(Name=allfile)
+2021-01-27 10:42:36.1855 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 10:42:36.2076 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 10:42:36.2354 Info Closing old configuration.
+2021-01-27 10:42:36.2950 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 10:50:43.9509 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 10:50:43.9646 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 10:50:43.9774 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 10:50:43.9774 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 10:50:43.9940 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 10:50:43.9940 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 10:50:43.9940 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 10:50:44.0091 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 10:50:44.0091 Info Message Template Auto Format enabled
+2021-01-27 10:50:44.0091 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 10:50:44.0916 Info Adding target FileTarget(Name=allfile)
+2021-01-27 10:50:44.1031 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 10:50:44.1218 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 10:50:44.1398 Info Closing old configuration.
+2021-01-27 10:50:44.1749 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 10:51:02.2050 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 10:51:02.2186 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 10:51:02.2313 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 10:51:02.2437 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 10:51:02.2437 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 10:51:02.2437 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 10:51:02.2616 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 10:51:02.2616 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 10:51:02.2750 Info Message Template Auto Format enabled
+2021-01-27 10:51:02.2750 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 10:51:02.3427 Info Adding target FileTarget(Name=allfile)
+2021-01-27 10:51:02.3547 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 10:51:02.3702 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 10:51:02.3863 Info Closing old configuration.
+2021-01-27 10:51:02.4416 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 11:07:40.5809 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 11:07:40.5933 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 11:07:40.6061 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 11:07:40.6184 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 11:07:40.6184 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 11:07:40.6184 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 11:07:40.6184 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 11:07:40.6373 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 11:07:40.6373 Info Message Template Auto Format enabled
+2021-01-27 11:07:40.6530 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 11:07:40.6972 Info Adding target FileTarget(Name=allfile)
+2021-01-27 11:07:40.7143 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 11:07:40.7371 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 11:07:40.7542 Info Closing old configuration.
+2021-01-27 11:07:40.7900 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 11:09:58.3382 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 11:09:58.3382 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 11:09:58.3674 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 11:09:58.3807 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 11:09:58.3855 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 11:09:58.3855 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 11:09:58.3855 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 11:09:58.4042 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 11:09:58.4042 Info Message Template Auto Format enabled
+2021-01-27 11:09:58.4215 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 11:09:58.4801 Info Adding target FileTarget(Name=allfile)
+2021-01-27 11:09:58.4801 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 11:09:58.5096 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 11:09:58.5264 Info Closing old configuration.
+2021-01-27 11:09:58.5630 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 11:12:55.3983 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 11:12:55.4139 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 11:12:55.4323 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 11:12:55.4323 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 11:12:55.4508 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 11:12:55.4508 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+2021-01-27 11:12:55.4508 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.10.0.1841. Product version: 4.10.0. GlobalAssemblyCache: False
+2021-01-27 11:12:55.4667 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Web.AspNetCore.dll succeeded!
+2021-01-27 11:12:55.4667 Info Message Template Auto Format enabled
+2021-01-27 11:12:55.4823 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 11:12:55.5248 Info Adding target FileTarget(Name=allfile)
+2021-01-27 11:12:55.5406 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 11:12:55.5648 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 11:12:55.5825 Info Closing old configuration.
+2021-01-27 11:12:55.6155 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=46
+2021-01-27 16:00:02.5437 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 16:00:02.5696 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 16:00:02.5919 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 16:00:02.5919 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 16:00:02.6078 Info Message Template Auto Format enabled
+2021-01-27 16:00:02.6234 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 16:00:02.6431 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. Не удается найти указанный файл.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+   --- End of inner exception stack trace ---
+2021-01-27 16:00:02.7858 Info Adding target FileTarget(Name=allfile)
+2021-01-27 16:00:02.7981 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-01-27 16:00:02.8122 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-01-27 16:00:02.8285 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 16:00:02.8599 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=43
+2021-01-27 16:02:02.2044 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 16:02:02.2337 Info Loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-01-27 16:02:02.2627 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.0.1463. Product version: 1.7.0+53f8c72107ad200657b89638c4d236a0c9e351eb. GlobalAssemblyCache: False
+2021-01-27 16:02:02.2810 Info Auto loading assembly file: E:\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.WebApi\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-01-27 16:02:02.2938 Info Message Template Auto Format enabled
+2021-01-27 16:02:02.3135 Info Loading assembly: NLog.Web.AspNetCore
+2021-01-27 16:02:02.3321 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. Не удается найти указанный файл.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+   --- End of inner exception stack trace ---
+2021-01-27 16:02:02.4461 Info Adding target FileTarget(Name=allfile)
+2021-01-27 16:02:02.4621 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-01-27 16:02:02.4621 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-01-27 16:02:02.4917 Info Adding target FileTarget(Name=ownFile-web)
+2021-01-27 16:02:03.0133 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=43

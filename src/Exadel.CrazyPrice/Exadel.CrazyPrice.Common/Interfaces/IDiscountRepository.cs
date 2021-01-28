@@ -11,36 +11,36 @@ namespace Exadel.CrazyPrice.Common.Interfaces
     {
 
         /// <summary>
-        /// Gets Discount Programs by SearchCriteria.
+        /// Gets Discounts by SearchCriteria.
         /// </summary>
         /// <returns></returns>
         Task<List<DiscountResponse>> GetDiscountsAsync(SearchCriteria searchCriteria);
 
         /// <summary>
-        /// Gets a Discount Program by id.
+        /// Gets a Discount by id.
         /// </summary>
-        /// <param name="id">The id Discount Program.</param>
+        /// <param name="id">The id Discount.</param>
         /// <returns></returns>
         Task<DiscountResponse> GetDiscountAsync(Guid id);
 
         /// <summary>
-        /// Upserts a Discount Program.
+        /// Upserts a Discount.
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
         Task<UpsertDiscountRequest> UpsertDiscountAsync(UpsertDiscountRequest item);
 
         /// <summary>
-        /// Upserts a Discount Programs.
+        /// Upserts Discounts.
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        Task<UpsertDiscountRequest[]> UpsertDiscountAsync(UpsertDiscountRequest[] items);
+        Task<List<UpsertDiscountRequest>> UpsertDiscountAsync(UpsertDiscountRequest[] items);
 
         /// <summary>
-        /// Removes Discount Program by ids Discount Program.
+        /// Removes Discounts by ids.
         /// </summary>
-        /// <param name="ids">The id Discount Program.</param>
+        /// <param name="ids">The id Discounts.</param>
         /// <returns></returns>
         Task RemoveDiscountAsync(Guid[] ids);
     }
