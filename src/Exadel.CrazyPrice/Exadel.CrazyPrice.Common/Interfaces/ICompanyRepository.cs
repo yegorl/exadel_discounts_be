@@ -1,5 +1,4 @@
-﻿using Exadel.CrazyPrice.Common.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
@@ -11,6 +10,6 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        Task<List<Company>> GetCompanyAsync(string name);
+        Task<List<string>> GetCompanyNamesAsync(string name);
     }
 }
