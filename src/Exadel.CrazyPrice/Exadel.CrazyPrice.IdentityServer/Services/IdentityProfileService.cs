@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Models;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -14,30 +15,21 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
 {
     public class IdentityProfileService : IProfileService
     {
-        private readonly IUserClaimsPrincipalFactory<CustomUser> _claimsFactory;
-        private readonly UserManager<CustomUser> _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public IdentityProfileService(UserManager<CustomUser> userManager, IUserClaimsPrincipalFactory<CustomUser> claimsFactory)
+        public IdentityProfileService(IUserRepository userRepository)
         {
-            _userManager = userManager;
-            _claimsFactory = claimsFactory;
+            _userRepository = userRepository;
         }
-
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var sub = context.Subject.GetSubjectId();
-            var user = await _userManager.FindByIdAsync(sub);
-            var principal = await _claimsFactory.CreateAsync(user);
+            var user = await _userRepository.GetUserByUid(sub);
 
-            var claims = principal.Claims.ToList();
-            claims = claims.Where(claim => context.RequestedClaimTypes.Contains(claim.Type)).ToList();
+            var claims = new List<Claim>();
 
             // Add custom claims in token here based on user properties or any other source
-            claims.Add(new Claim(nameof(user.SubjectId), user.SubjectId ?? string.Empty));
-            claims.Add(new Claim(nameof(user.Username), user.Username ?? string.Empty));
-            claims.Add(new Claim(nameof(user.Email), user.Email ?? string.Empty));
-            claims.Add(new Claim(nameof(user.Password), user.Password ?? string.Empty));
-            claims.Add(new Claim(nameof(user.Role), user.Role ?? string.Empty));
+            claims.Add(new Claim("role", user.Role ?? string.Empty));
 
             context.IssuedClaims = claims;
         }
@@ -45,7 +37,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
         public async Task IsActiveAsync(IsActiveContext context)
         {
             var sub = context.Subject.GetSubjectId();
-            var user = await _userManager.FindByIdAsync(sub);
+            var user = await _userRepository.GetUserByUid(sub);
             context.IsActive = user != null;
         }
     }
