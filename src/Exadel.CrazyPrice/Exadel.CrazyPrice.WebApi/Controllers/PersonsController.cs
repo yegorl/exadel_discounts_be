@@ -1,4 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,31 +33,15 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <summary>
         /// Gets a person by id.
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     GET /api/v1.0/persons/get/50e97451-6c81-42b9-8d31-3e74b2ea1040
-        /// 
-        /// Sample response:
-        /// 
-        ///     {
-        ///         "id": "50e97451-6c81-42b9-8d31-3e74b2ea1040",
-        ///         "name": "Sam",
-        ///         "surname": "Vorington",
-        ///         "phoneNumber": "+375 29 852 78 94",
-        ///         "mail": "sam.v@mail.com"
-        ///     }
-        /// 
-        /// </remarks>
         /// <param name="id">The search id of person.</param>
         /// <returns></returns>
         /// <response code="200">Persons found.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="404">No persons.</response>
+        /// <response code="404">No persons found.</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Person), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [Route("get/{id}")]
         public async Task<IActionResult> GetPerson(Guid id)
         {
@@ -66,7 +51,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (person == null)
             {
                 _logger.LogWarning("Person get: {@person}", person);
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound("No persons found.");
             }
 
             _logger.LogInformation("Person get: {@person}", person);

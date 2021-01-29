@@ -1,5 +1,6 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models.Request;
+using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
@@ -36,21 +37,15 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <summary>
         /// Gets a discount by id.
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     GET /api/v1.0/discounts/get/50e97451-6c81-42b9-8d31-3e74b2ea1040
-        /// 
-        /// </remarks>
         /// <param name="id">The search id of discount.</param>
         /// <returns></returns>
         /// <response code="200">Discounts found.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="404">No discounts.</response>
+        /// <response code="404">No discounts found.</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(DiscountResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [Route("get/{id}")]
         public async Task<IActionResult> GetDiscount(Guid id)
         {
@@ -60,7 +55,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (discount == null)
             {
                 _logger.LogWarning("Discount get: {@discount}", discount);
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound("No discounts found.");
             }
 
             _logger.LogInformation("Discount get: {@discount}", discount);
@@ -70,21 +65,15 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <summary>
         /// Gets discounts by search criteria.
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     POST /api/v1.0/discounts/search
-        /// 
-        /// </remarks>
         /// <param name="searchCriteria">The search criteria.</param>
         /// <returns></returns>
         /// <response code="200">Discounts found.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="404">No discounts.</response>
+        /// <response code="404">No discounts found.</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<DiscountResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [Route("search")]
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
@@ -94,7 +83,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (discounts == null || discounts.Count == 0)
             {
                 _logger.LogWarning("Discounts get: {@discounts}", discounts);
-                return StatusCode(StatusCodes.Status404NotFound);
+                return NotFound("No discounts found.");
             }
 
             _logger.LogInformation("Discounts get: {@discounts}", discounts);
@@ -104,23 +93,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <summary>
         /// Creates or updates a discount.
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     POST /api/v1.0/discounts/update
-        /// 
-        /// Sample response:
-        /// 
-        /// </remarks>
         /// <param name="discount">The discount.</param>
         /// <returns></returns>
         /// <response code="200">Discount updated.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="500">Discount is not updated.</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(UpsertDiscountRequest), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [Route("upsert")]
         public async Task<IActionResult> UpsertDiscount([FromBody, CustomizeValidator(RuleSet = "UpsertDiscount")] UpsertDiscountRequest discount)
         {
@@ -130,7 +109,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (upsertDiscount == null)
             {
                 _logger.LogWarning("Discount upsert: {@upsertDiscount}", upsertDiscount);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return BadRequest("No discounts were created or updated.");
             }
 
             _logger.LogInformation("Discount upsert: {@upsertDiscount}", upsertDiscount);
@@ -140,19 +119,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <summary>
         /// Removes Discount by id.
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     DELETE /api/v1.0/discounts/delete 
-        /// 
-        /// </remarks>
         /// <param name="id">Discount id.</param>
         /// <returns></returns>
         /// <response code="200">Discounts deleted.</response>
         /// <response code="400">Bad request.</response>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [Route("delete")]
         public async Task<IActionResult> DeleteDiscount(Guid id)
         {
@@ -165,19 +138,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <summary>
         /// Removes Discounts by ids.
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     DELETE /api/v1.0/discounts/deletemany 
-        /// 
-        /// </remarks>
         /// <param name="ids">Discounts ids.</param>
         /// <returns></returns>
         /// <response code="200">Discounts deleted.</response>
         /// <response code="400">Bad request.</response>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [Route("deletemany")]
         public async Task<IActionResult> DeleteDiscounts(List<Guid> ids)
         {
