@@ -126,13 +126,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [Route("delete")]
+        [Route("delete/{id}")]
         public async Task<IActionResult> DeleteDiscount(Guid id)
         {
             await _repository.RemoveDiscountByUidAsync(id);
-            _logger.LogInformation("Discounts deleted: {@ids}", id);
+            _logger.LogInformation("Discounts deleted: {@id}", id);
 
-            return Ok();
+            return Ok(id);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [Route("deletemany")]
-        public async Task<IActionResult> DeleteDiscounts(List<Guid> ids)
+        public async Task<IActionResult> DeleteDiscounts([FromBody]List<Guid> ids)
         {
             await _repository.RemoveDiscountAsync(ids);
             _logger.LogInformation("Discounts deleted: {@ids}", ids);
