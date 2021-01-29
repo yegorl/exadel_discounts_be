@@ -6,6 +6,8 @@ using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.IdentityServer.Interfaces;
+using Exadel.CrazyPrice.IdentityServer.Repositories;
 using Exadel.CrazyPrice.IdentityServer.Services;
 using IdentityServer4.Services;
 using IdentityServer4.Test;
@@ -39,7 +41,7 @@ namespace Exadel.CrazyPrice.IdentityServer
 
             Config.Configuration = Configuration;
 
-
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddCors(options =>
             {
@@ -65,7 +67,8 @@ namespace Exadel.CrazyPrice.IdentityServer
                 .AddInMemoryApiResources(Config.ApiResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients);
-                
+
+            services.AddScoped<IProfileService, IdentityProfileService>();
 
 
             // not recommended for production - you need to store your key material somewhere secure
