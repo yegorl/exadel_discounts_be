@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {

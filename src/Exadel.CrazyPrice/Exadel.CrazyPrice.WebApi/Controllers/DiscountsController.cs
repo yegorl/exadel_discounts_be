@@ -18,9 +18,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/discounts")]
     [ApiController]
-    public class DiscountController : ControllerBase
+    public class DiscountsController : ControllerBase
     {
-        private readonly ILogger<DiscountController> _logger;
+        private readonly ILogger<DiscountsController> _logger;
         private readonly IDiscountRepository _repository;
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public DiscountController(ILogger<DiscountController> logger, IDiscountRepository repository)
+        public DiscountsController(ILogger<DiscountsController> logger, IDiscountRepository repository)
         {
             _logger = logger;
             _repository = repository;
@@ -41,7 +41,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">Discounts found.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="404">No discounts found.</response>
+        /// <response code="404">No discount found.</response>
         [HttpGet]
         [ProducesResponseType(typeof(DiscountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -55,7 +55,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (discount == null)
             {
                 _logger.LogWarning("Discount get: {@discount}", discount);
-                return NotFound("No discounts found.");
+                return NotFound("No discount found.");
             }
 
             _logger.LogInformation("Discount get: {@discount}", discount);
@@ -109,7 +109,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (upsertDiscount == null)
             {
                 _logger.LogWarning("Discount upsert: {@upsertDiscount}", upsertDiscount);
-                return BadRequest("No discounts were created or updated.");
+                return BadRequest("No discounts were create or update.");
             }
 
             _logger.LogInformation("Discount upsert: {@upsertDiscount}", upsertDiscount);
@@ -146,7 +146,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [Route("deletemany")]
-        public async Task<IActionResult> DeleteDiscounts([FromBody]List<Guid> ids)
+        public async Task<IActionResult> DeleteDiscounts([FromBody] List<Guid> ids)
         {
             await _repository.RemoveDiscountAsync(ids);
             _logger.LogInformation("Discounts deleted: {@ids}", ids);
