@@ -1,6 +1,4 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
-using Exadel.CrazyPrice.Common.Models;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -53,15 +51,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="id">The search id of person.</param>
         /// <returns></returns>
         /// <response code="200">Persons found.</response>
+        /// <response code="400">Bad request.</response>
         /// <response code="404">No persons.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("get/{id}")]
         public async Task<IActionResult> GetPerson(Guid id)
         {
             _logger.LogInformation("Guid incoming: {@id}", id);
-            var person = await _repository.GetPersonAsync(id);
+            var person = await _repository.GetPersonByUidAsync(id);
 
             if (person == null)
             {
@@ -71,48 +71,6 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             _logger.LogInformation("Person get: {@person}", person);
             return Ok(person);
-        }
-
-        /// <summary>
-        /// Creates or updates a person.
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     POST /api/v1.0/persons/update
-        /// 
-        /// Sample response:
-        /// 
-        ///     {
-        ///         "id": "50e97451-6c81-42b9-8d31-3e74b2ea1040",
-        ///         "name": "Sam",
-        ///         "surname": "Vorington",
-        ///         "phoneNumber": "+375 29 852 78 94",
-        ///         "mail": "sam.v@mail.com"
-        ///     }
-        /// 
-        /// </remarks>
-        /// <param name="person">The person.</param>
-        /// <returns></returns>
-        /// <response code="200">Person updated.</response>
-        /// <response code="204">Person is not updated.</response>
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(204)]
-        [Route("update")]
-        public async Task<IActionResult> UpdatePerson([FromBody, CustomizeValidator(RuleSet = "UpsertPerson")] Person person)
-        {
-            _logger.LogInformation("Person incoming: {@person}", person);
-            var personResult = await _repository.UpsertPersonAsync(person);
-            
-            if (personResult == null)
-            {
-                _logger.LogWarning("Person upsert: {@person}", personResult);
-                return StatusCode(204);
-            }
-
-            _logger.LogInformation("Person upsert: {@person}", personResult);
-            return Ok(personResult);
         }
     }
 }
