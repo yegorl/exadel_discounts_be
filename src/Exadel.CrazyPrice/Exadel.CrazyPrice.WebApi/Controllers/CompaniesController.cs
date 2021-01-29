@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
@@ -34,7 +35,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/v1.0/companies/appl
+        ///     GET /api/v1.0/companies/get/appl
         /// 
         /// Sample response:
         /// 
@@ -46,28 +47,22 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="companyName">The search string.</param>
         /// <returns></returns>
         /// <response code="200">Companies found.</response>
-        /// <response code="204">No companies.</response>
-        /// <response code="414">Input string is too long.</response>
+        /// <response code="400">Bad request.</response> 
+        /// <response code="404">No companies.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(414)]
-        [Route("{companyName}")]
-        public async Task<IActionResult> GetCompanyNames(string companyName)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("get/{companyName}")]
+        public async Task<IActionResult> GetCompanyNames([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string companyName)
         {
-            if (companyName.Length > 200)
-            {
-                _logger.LogWarning("Company name incoming: {companyName}. Length > 200.", companyName);
-                return StatusCode(414);
-            }
-
             _logger.LogInformation("Company name incoming: {companyName}", companyName);
             var companies = await _repository.GetCompanyAsync(companyName);
 
             if (companies == null || companies.Count == 0)
             {
                 _logger.LogWarning("Companies get: {@companies}.", companies);
-                return StatusCode(204);
+                return StatusCode(StatusCodes.Status404NotFound);
             }
 
             _logger.LogInformation("Companies get: {@companies}", companies);

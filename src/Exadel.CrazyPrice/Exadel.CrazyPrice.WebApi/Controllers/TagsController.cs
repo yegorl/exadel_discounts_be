@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
@@ -40,28 +41,22 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="name">The search string.</param>
         /// <returns></returns>
         /// <response code="200">Tags found.</response>
-        /// <response code="204">No tags.</response>
-        /// <response code="414">Input string is too long.</response>
+        /// <response code="400">Bad request.</response> 
+        /// <response code="404">No tags.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(414)]
-        [Route("{name}")]
-        public async Task<IActionResult> GetTags(string name)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("get/{name}")]
+        public async Task<IActionResult> GetTags([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string name)
         {
-            if (name.Length > 200)
-            {
-                _logger.LogWarning("Tag name incoming: {name}. Length > 200.", name);
-                return StatusCode(414);
-            }
-
             _logger.LogInformation("Tag name incoming: {name}", name);
             var tags = await _repository.GetTagAsync(name);
 
             if (tags == null || tags.Count == 0)
             {
                 _logger.LogWarning("Tags get: {@tags}.", tags);
-                return StatusCode(204);
+                return StatusCode(StatusCodes.Status404NotFound);
             }
 
             _logger.LogInformation("Tags get: {@tags}.", tags);
