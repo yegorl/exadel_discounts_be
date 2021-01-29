@@ -12,7 +12,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Repositories
         private readonly IEnumerable<CustomUser> _users;
         public UserRepository()
         {
-            
+            _users = CustomTestUsers.Users;
         }
 
         public async Task<bool> ValidateCredentials(string email, string password)
