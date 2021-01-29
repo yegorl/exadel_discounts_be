@@ -132,7 +132,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             await _repository.RemoveDiscountByUidAsync(id);
             _logger.LogInformation("Discounts deleted: {@id}", id);
 
-            return Ok(id);
+            return Ok();
         }
 
         /// <summary>
