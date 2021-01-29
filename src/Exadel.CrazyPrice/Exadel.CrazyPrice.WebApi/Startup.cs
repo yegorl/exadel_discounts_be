@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation.AspNetCore;
@@ -9,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -39,11 +40,21 @@ namespace Exadel.CrazyPrice.WebApi
         {
             services.AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>());
+
             services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var error = context.ModelState.Values.First().Errors[0].ErrorMessage;
+                    return new BadRequestObjectResult(error);
+                };
+            });
 
             services.AddApiVersioning(config =>
             {
