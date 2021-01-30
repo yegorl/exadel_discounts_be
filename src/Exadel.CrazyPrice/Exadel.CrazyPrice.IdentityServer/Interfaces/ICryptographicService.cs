@@ -13,7 +13,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Interfaces
         /// <param name="password">The password to be hashed</param>
         /// <param name="iterations">Count of iterations</param>
         /// <returns>Hashed string </returns>
-        string GenerateHash(string password, int iterations);
+        string GenerateHash(string password, int iterations = 8312);
         /// <summary>
         /// Checking if password and hash match after password hashing
         /// </summary>

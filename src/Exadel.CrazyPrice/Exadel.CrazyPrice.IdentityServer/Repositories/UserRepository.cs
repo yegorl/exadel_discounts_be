@@ -10,9 +10,11 @@ namespace Exadel.CrazyPrice.IdentityServer.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IEnumerable<CustomUser> _users;
-        public UserRepository()
+        private readonly ICryptographicService _cryptographicService;
+        public UserRepository(ICryptographicService cryptographicService)
         {
             _users = CustomTestUsers.Users;
+            _cryptographicService = cryptographicService;
         }
 
         public async Task<bool> ValidateCredentials(string email, string password)
@@ -21,11 +23,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Repositories
 
             if (user != null)
             {
-                if (string.IsNullOrWhiteSpace(user.Password) && string.IsNullOrWhiteSpace(password))
-                {
-                    return true;
-                }
-                return user.Password.Equals(password);
+                return _cryptographicService.IsValid(password, user.Password);
             }
             return false;
         }

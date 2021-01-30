@@ -42,6 +42,7 @@ namespace Exadel.CrazyPrice.IdentityServer
             Config.Configuration = Configuration;
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICryptographicService, CryptographicService>();
 
             services.AddCors(options =>
             {
