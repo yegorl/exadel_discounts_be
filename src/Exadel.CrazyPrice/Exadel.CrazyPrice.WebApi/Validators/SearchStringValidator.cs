@@ -12,7 +12,6 @@ namespace Exadel.CrazyPrice.WebApi.Validators
             {
                 RuleFor(x => x)
                     .NotEmpty()
-                    .MinimumLength(3)
                     .MaximumLength(50);
             });
         }
