@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Text.Json.Serialization;
+using Exadel.CrazyPrice.Data.Extentions;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -75,15 +76,21 @@ namespace Exadel.CrazyPrice.WebApi
                 };
             });
 
-            services.AddApiVersioning(config =>
+            services.AddApiVersioning(options =>
             {
-                config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
-                config.ReportApiVersions = true;
-                config.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
             services.AddSwagger();
+
+            services.AddMongoDb(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
+                options.Database = Configuration.GetSection("ConnectionStrings:Database").Value;
+            });
         }
 
         /// <summary>
