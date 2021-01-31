@@ -115,6 +115,8 @@ namespace Exadel.CrazyPrice.WebApi
             {
                 endpoints.MapControllers();
             });
+            
+            app.UseMongoDb();
         }
     }
 }
