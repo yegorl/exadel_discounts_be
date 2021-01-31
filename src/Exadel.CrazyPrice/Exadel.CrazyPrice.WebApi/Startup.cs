@@ -1,3 +1,4 @@
+using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation;
@@ -13,7 +14,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Text.Json.Serialization;
-using Exadel.CrazyPrice.Data.Extentions;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -86,11 +86,7 @@ namespace Exadel.CrazyPrice.WebApi
 
             services.AddSwagger();
 
-            services.AddMongoDb(options =>
-            {
-                options.ConnectionString = Configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
-                options.Database = Configuration.GetSection("ConnectionStrings:Database").Value;
-            });
+            services.AddMongoDb(Configuration);
         }
 
         /// <summary>

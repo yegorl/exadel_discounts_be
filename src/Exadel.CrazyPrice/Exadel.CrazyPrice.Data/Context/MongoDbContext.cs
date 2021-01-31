@@ -1,5 +1,6 @@
-﻿using Exadel.CrazyPrice.Common.Configurations;
+﻿using Exadel.CrazyPrice.Data.Configuration;
 using Exadel.CrazyPrice.Data.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Exadel.CrazyPrice.Data.Context
@@ -8,10 +9,10 @@ namespace Exadel.CrazyPrice.Data.Context
     {
         private readonly IMongoDatabase _db;
 
-        public MongoDbContext(IDbConfiguration configuration)
+        public MongoDbContext(IOptions<MongoDbConfiguration> configuration)
         {
-            var client = new MongoClient(configuration.ConnectionString);
-            _db = client.GetDatabase(configuration.Database);
+            var client = new MongoClient(configuration.Value.ConnectionString);
+            _db = client.GetDatabase(configuration.Value.Database);
         }
 
         public IMongoCollection<DbAddress> Addresses => _db.GetCollection<DbAddress>("Addresses");
