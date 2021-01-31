@@ -8,18 +8,11 @@ namespace Exadel.CrazyPrice.IdentityServer.Interfaces
     public interface ICryptographicService
     {
         /// <summary>
-        /// Generate hashed string
-        /// </summary>
-        /// <param name="password">The password to be hashed</param>
-        /// <param name="iterations">Count of iterations</param>
-        /// <returns>Hashed string </returns>
-        string GenerateHash(string password, int iterations = 8312);
-        /// <summary>
         /// Checking if password and hash match after password hashing
         /// </summary>
         /// <param name="password">password</param>
-        /// <param name="hash">Hashed password</param>
-        bool IsValid(string password, string hash);
-
+        /// <param name="hashPassword">Hashed password</param>
+        /// <param name="salt">Salt</param>
+        bool ComparePasswordHash(string password, string hashPassword, string salt);
     }
 }

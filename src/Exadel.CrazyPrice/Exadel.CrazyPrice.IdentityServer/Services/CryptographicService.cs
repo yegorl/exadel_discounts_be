@@ -12,42 +12,22 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
 {
     public class CryptographicService : ICryptographicService
     {
-        public string GenerateHash(string password, int iterations = 8312)
+        private const int SaltSize = 30;
+        private const int HashSize = 128;
+        private const int IterationCount = 20;
+        public bool ComparePasswordHash(string password, string hashedPassword, string salt)
         {
-            var salt = new byte[24];
-            byte[] hash;
-            //generate a random salt for hashing
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(salt);
-            }
-            //generate hash from password and salt and iterations
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt, iterations))
-            {
-                hash = rfc2898DeriveBytes.GetBytes(24);
-            }
-
-            //return delimited string with salt | #iterations | hash
-            return Convert.ToBase64String(salt) + "|" + iterations + "|" + Convert.ToBase64String(hash);
-        }
-
-        public bool IsValid(string password, string hashedPassword)
-        {
-            var splitHashPassword = hashedPassword.Split('|');
-            var salt = Convert.FromBase64String(splitHashPassword[0]);
-            var iterations = Int32.Parse(splitHashPassword[1]);
-            var hash = splitHashPassword[2];
+            var saltByte = Convert.FromBase64String(salt);
             byte[] testHash;
 
             //generate hash from test password and original salt and iterations
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt, iterations))
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltByte, IterationCount, HashAlgorithmName.SHA256))
             {
-                testHash = rfc2898DeriveBytes.GetBytes(24);
+                testHash = rfc2898DeriveBytes.GetBytes(HashSize);
             }
 
             //if hash values match then return success
-            if (Convert.ToBase64String(testHash) == hash)
-                return true;
+            if (Convert.ToBase64String(testHash) == hashedPassword) return true;
 
             //no match return false
             return false;

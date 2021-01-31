@@ -23,7 +23,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Repositories
 
             if (user != null)
             {
-                return _cryptographicService.IsValid(password, user.Password);
+                return _cryptographicService.ComparePasswordHash(password, user.HashPassword, user.Salt);
             }
             return false;
         }

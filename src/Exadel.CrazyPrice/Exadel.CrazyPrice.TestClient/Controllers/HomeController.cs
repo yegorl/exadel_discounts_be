@@ -28,7 +28,6 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             _logger = logger;
             _httpClientFactory = httpClientFactory;
         }
-        [Authorize(Roles = "moderator, employee")]
         public async Task<IActionResult> Index()
         {
             await WriteOutIdentityInformation();

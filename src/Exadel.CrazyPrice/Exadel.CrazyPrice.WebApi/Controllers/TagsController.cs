@@ -26,6 +26,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "moderator, admin")]
         public IEnumerable<string> Get()
         {            
             
