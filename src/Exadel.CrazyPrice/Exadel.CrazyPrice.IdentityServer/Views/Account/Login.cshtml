@@ -28,8 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Password"></label>
-                                <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
-                                <input type="password" class="form-control" id="hash" asp-for="Password" autocomplete="off" hidden>
+                                <input type="password" class="form-control" asp-for="Password" autocomplete="off" placeholder="Password" >
                             </div>
                             @if (Model.AllowRememberLogin)
                             {
@@ -43,7 +42,7 @@
                                 </div>
                             }
 
-                            <button class="btn btn-primary" id="but_login" name="button" value="login">Login</button>
+                            <button class="btn btn-primary" name="button" value="login">Login</button>
                             <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
                         </form>
                     </div>
