@@ -1,14 +1,18 @@
-using System.Text.Json.Serialization;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -17,6 +21,8 @@ namespace Exadel.CrazyPrice.WebApi
     /// </summary>
     public class Startup
     {
+        private ILogger<Startup> _logger;
+
         /// <summary>
         /// Creates Startup configuration.
         /// </summary>
@@ -24,6 +30,7 @@ namespace Exadel.CrazyPrice.WebApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         /// <summary>
@@ -39,11 +46,34 @@ namespace Exadel.CrazyPrice.WebApi
         {
             services.AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>());
+
             services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var (key, value) =
+                        context.ModelState.First(e => e.Value.ValidationState == ModelValidationState.Invalid);
+
+                    var error = value.Errors[0].ErrorMessage;
+
+                    #region ForPrimitiveType
+                    // Needed if the controller gets a primitive type like string or int etc.
+                    if (error.Contains("''"))
+                    {
+                        error = error.Replace("''", $"'{key}'");
+                    }
+                    #endregion
+
+                    _logger.LogError("Validation error: {error}", error);
+                    return new BadRequestObjectResult(error);
+                };
+            });
 
             services.AddApiVersioning(config =>
             {
@@ -61,8 +91,13 @@ namespace Exadel.CrazyPrice.WebApi
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="logger"></param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            _logger = logger;
+            // Force the default English messages to be used.
+            ValidatorOptions.Global.LanguageManager.Enabled = false;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

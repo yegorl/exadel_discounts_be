@@ -86,6 +86,13 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             value.GetLanguageFromFirstLetter().Should().Be(expectedResult);
         }
 
+        [Theory]
+        [InlineData("+375     29 852 78 94", "+375 29 852 78 94")]
+        public void GetValidContentNumberTest(string value, string expectedResult)
+        {
+            value.GetValidContent(CharOptions.Number | CharOptions.Punctuation | CharOptions.Symbol, " -#.").Should().Be(expectedResult);
+        }
+
         [Fact]
         public void ReplaceTwoAndMoreCharsBySomeOneNullExceptionTest()
         {

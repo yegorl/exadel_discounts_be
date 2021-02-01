@@ -7,17 +7,10 @@ namespace Exadel.CrazyPrice.Common.Interfaces
     public interface IPersonRepository
     {
         /// <summary>
-        /// Gets a Person by id.
+        /// Gets a Person by uid.
         /// </summary>
-        /// <param name="id">The id Person</param>
+        /// <param name="uid">The uid Person</param>
         /// <returns></returns>
-        Task<Person> GetPersonAsync(Guid id);
-
-        /// <summary>
-        /// Upserts a Person.
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        Task<Person> UpsertPersonAsync(Person item);
+        Task<Person> GetPersonByUidAsync(Guid uid);
     }
 }
