@@ -2,7 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
+using Exadel.CrazyPrice.IdentityServer.UI;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -10,14 +14,12 @@ using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
-using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Exadel.CrazyPrice.IdentityServer.UI
 {
@@ -35,13 +37,15 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly IHtmlLocalizer<AccountController> _localizer;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IUserRepository users)
+            IUserRepository users,
+            IHtmlLocalizer<AccountController> localizer)
         {
             // if the TestUserRepository is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
@@ -51,8 +55,16 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _localizer = localizer;
         }
 
+        [HttpPost]
+        public IActionResult CultureManagement(string culture, string returnUri)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),new CookieOptions{Expires = DateTimeOffset.Now.AddDays(30)});
+            return LocalRedirect(returnUri);
+        }
         /// <summary>
         /// Entry point into the login workflow
         /// </summary>
@@ -78,6 +90,8 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
+            var test = _localizer["My Login"];
+            ViewData["My Login"] = test;
             // check if we are in the context of an authorization request
             var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 

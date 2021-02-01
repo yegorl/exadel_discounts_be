@@ -15,7 +15,7 @@
             <img src="~/icon.png" class="icon-banner">
             IdentityServer4
         </a>
-
+        <partial name="_Culture" />
         @if (!string.IsNullOrWhiteSpace(name))
         {
             <ul class="navbar-nav mr-auto">
@@ -25,7 +25,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
                     </div>
-              </li>
+                </li>
             </ul>
         }
     

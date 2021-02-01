@@ -3,6 +3,8 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -17,7 +19,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 //TestUsers
 using Exadel.CrazyPrice.IdentityServer.UI;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Exadel.CrazyPrice.IdentityServer
 {
@@ -36,6 +41,22 @@ namespace Exadel.CrazyPrice.IdentityServer
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => { options.ResourcesPath = "Resources";});
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("ru")
+                };
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
 
@@ -100,6 +121,10 @@ namespace Exadel.CrazyPrice.IdentityServer
 
             // uncomment, if you want to add MVC
             app.UseAuthorization();
+
+            app.UseRequestLocalization(app.ApplicationServices
+                .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
