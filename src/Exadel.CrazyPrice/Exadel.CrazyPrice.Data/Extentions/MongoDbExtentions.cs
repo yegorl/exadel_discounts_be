@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Exadel.CrazyPrice.Data.Initial;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson.Serialization.Conventions;
 
 namespace Exadel.CrazyPrice.Data.Extentions
 {
@@ -24,6 +25,11 @@ namespace Exadel.CrazyPrice.Data.Extentions
             {
                 throw new ArgumentNullException(nameof(configuration));
             }
+
+            ConventionRegistry.Register("camelCase", new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            }, t => true);
 
             AddMongoDbServices(services);
             services.Configure<MongoDbConfiguration>(
