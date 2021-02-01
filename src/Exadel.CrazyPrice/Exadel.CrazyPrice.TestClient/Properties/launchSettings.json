@@ -1,0 +1,17 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:62157/",
+      "sslPort": 44325
+    }
+  },
+  "profiles": {
+    "Start": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "ErrorString": "Invalid property identifier character: <. Path 'profiles['IIS Express']', line 18, position 0."
+    }
+  }
+}

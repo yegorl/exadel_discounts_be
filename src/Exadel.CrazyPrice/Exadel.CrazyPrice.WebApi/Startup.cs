@@ -2,6 +2,7 @@ using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -83,6 +84,27 @@ namespace Exadel.CrazyPrice.WebApi
                 config.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder
+                            .AllowCredentials()
+                            .WithOrigins("https://localhost:44357")
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = this.Configuration["Auth:Authority"];
+                    options.ApiName = this.Configuration["Auth:ApiName"];
+                    options.ApiSecret = this.Configuration["Auth:ApiSecret"];
+                });
             services.AddSwagger();
         }
 
@@ -104,9 +126,14 @@ namespace Exadel.CrazyPrice.WebApi
                 app.UseSwaggerCrazyPrice();
             }
 
+            app.UseCors("AllowAllOrigins");
+
+            app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
