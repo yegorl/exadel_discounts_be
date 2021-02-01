@@ -2,51 +2,40 @@ using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 {
     public class SwaggerExtentionTests
     {
-        readonly IServiceCollection _service = new ServiceCollection();
+        private readonly IServiceCollection _service = new ServiceCollection();
+
+        public SwaggerExtentionTests()
+        {
+            _service.AddSwagger();
+        }
 
         [Fact]
         public void AddSwaggerTest()
         {
-            const string nameSwaggerGenerator = "SwaggerGenerator";
+            var nameSwaggerGenerator = "SwaggerGenerator";
+            var hasSwagger = _service.Any(serviceDescriptor => serviceDescriptor?.ImplementationType?.Name == nameSwaggerGenerator);
 
-            var addSwagger = _service.AddSwagger();
-            foreach (var serviceDescriptor in addSwagger)
-            {
-                if (serviceDescriptor?.ImplementationType?.Name == nameSwaggerGenerator)
-                {
-                    serviceDescriptor.ImplementationType.Name.Should().Be(nameSwaggerGenerator);
-                    return;
-                }
-            }
-            Assert.True(false, $"ServiceCollection is not contains {nameSwaggerGenerator}.");
+            hasSwagger.Should().BeTrue($"ServiceCollection is not contains {nameSwaggerGenerator}.");
         }
 
         [Fact]
         public void UseSwaggerCrazyPriceTest()
         {
-            _service.AddSwagger();
             var appBuilder = new ApplicationBuilder(_service.BuildServiceProvider());
             appBuilder.UseSwaggerCrazyPrice();
-            try
-            {
-                var app = appBuilder.Build();
-            }
-            catch (System.InvalidOperationException ex)
-            {
-                if (ex.Message.Contains("Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware"))
-                {
-                    Assert.True(true);
-                    return;
-                };
-            }
 
-            Assert.True(false, $"IApplicationBuilder is not contains SwaggerUIMiddleware.");
+            Action act = () => appBuilder.Build();
+
+            act.Should().Throw<InvalidOperationException>()
+                .WithMessage("Unable to resolve service for type 'Microsoft.AspNetCore.Hosting.IWebHostEnvironment' while attempting to activate 'Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware'.", $"IApplicationBuilder is not contains SwaggerUIMiddleware.");
         }
     }
 }
