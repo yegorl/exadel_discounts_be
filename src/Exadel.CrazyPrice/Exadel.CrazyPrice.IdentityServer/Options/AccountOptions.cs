@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.Options
 {
     public class AccountOptions
     {

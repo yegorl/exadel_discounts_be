@@ -4,7 +4,7 @@
 
 using IdentityServer4.Models;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.ViewModels
 {
     public class ProcessConsentResult
     {

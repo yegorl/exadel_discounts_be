@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.ViewModels
 {
     public class GrantsViewModel
     {

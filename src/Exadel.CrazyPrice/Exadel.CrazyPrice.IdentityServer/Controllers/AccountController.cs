@@ -6,7 +6,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
+using Exadel.CrazyPrice.IdentityServer.Options;
 using Exadel.CrazyPrice.IdentityServer.UI;
+using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -21,7 +23,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
     /// <summary>
     /// This sample controller implements a typical login/logout/provision workflow for local and external accounts.
@@ -37,15 +39,13 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
-        private readonly IHtmlLocalizer<AccountController> _localizer;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IUserRepository users,
-            IHtmlLocalizer<AccountController> localizer)
+            IUserRepository users)
         {
             // if the TestUserRepository is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
@@ -55,7 +55,6 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
-            _localizer = localizer;
         }
 
         [HttpPost]
@@ -90,8 +89,6 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
-            var test = _localizer["My Login"];
-            ViewData["My Login"] = test;
             // check if we are in the context of an authorization request
             var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 

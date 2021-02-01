@@ -3,8 +3,9 @@
 
 
 using System.Collections.Generic;
+using Exadel.CrazyPrice.IdentityServer.UI;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.ViewModels
 {
     public class ConsentViewModel : ConsentInputModel
     {

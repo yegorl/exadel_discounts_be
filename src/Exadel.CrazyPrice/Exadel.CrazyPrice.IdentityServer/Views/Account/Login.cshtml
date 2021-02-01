@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer 
-@model LoginViewModel
+@model Exadel.CrazyPrice.IdentityServer.ViewModels.LoginViewModel
 <div class="login-page">
     <div class="row align-items-center h-100">
         @if (Model.EnableLocalLogin)
@@ -35,7 +35,7 @@
 
                             <partial name="_ValidationSummary" />
 
-                            <button class="btn btn-primary" name="button" value="login">Login</button>
+                            <button class="btn btn-primary" name="button" value="login">@Localizer["Log_in"]</button>
                         </form>
                     </div>
                 </div>

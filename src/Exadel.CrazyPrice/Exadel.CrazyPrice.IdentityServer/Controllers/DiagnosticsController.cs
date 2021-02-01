@@ -4,11 +4,13 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.IdentityServer.UI;
+using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
     [SecurityHeaders]
     [Authorize]

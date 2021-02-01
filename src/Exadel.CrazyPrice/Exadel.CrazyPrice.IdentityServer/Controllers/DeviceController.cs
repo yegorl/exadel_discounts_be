@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.IdentityServer.Options;
+using Exadel.CrazyPrice.IdentityServer.UI;
+using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using IdentityServer4.Configuration;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -17,7 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Exadel.CrazyPrice.IdentityServer.UI
+namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
     [Authorize]
     [SecurityHeaders]
