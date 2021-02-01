@@ -15,7 +15,6 @@
             <img src="~/icon.png" class="icon-banner">
             IdentityServer4
         </a>
-
         @if (!string.IsNullOrWhiteSpace(name))
         {
             <ul class="navbar-nav mr-auto">
@@ -23,9 +22,9 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">@name <b class="caret"></b></a>
                     
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+                        <a class="dropdown-item" asp-action="CultureManagement" asp-controller="Account">Logout</a>
                     </div>
-              </li>
+                </li>
             </ul>
         }
     

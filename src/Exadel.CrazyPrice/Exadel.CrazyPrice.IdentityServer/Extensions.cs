@@ -1,4 +1,5 @@
 using System;
+using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Mvc;
 
