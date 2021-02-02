@@ -6,13 +6,13 @@
         @if (Model.EnableLocalLogin)
         {
             <div class="col-12 mx-auto">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>@Localizer["Welcome"]</h2>
+                <div class="card shadow">
+                    <div class="card-header text-center">
+                        <h3>@Localizer["Welcome"]</h3>
                     </div>
 
                     <div class="card-body">
-                        <form asp-route="Login">
+                        <form id="loginForm" asp-route="Login">
                             <input type="hidden" asp-for="ReturnUrl" />
 
                             <div class="form-group">
@@ -34,9 +34,11 @@
                             }
 
                             <partial name="_ValidationSummary" />
-
-                            <button class="btn btn-primary" name="button" value="login">@Localizer["Log_in"]</button>
                         </form>
+                        <div class="d-flex flex-row justify-content-between">
+                            <button class="btn btn-primary btn-color" name="button" value="login" form="loginForm">@Localizer["Log_in"]</button>
+                            <partial name="_Culture" />
+                        </div>
                     </div>
                 </div>
             </div>
