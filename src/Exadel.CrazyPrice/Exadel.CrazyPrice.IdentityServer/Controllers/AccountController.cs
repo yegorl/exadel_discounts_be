@@ -39,13 +39,15 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly IHtmlLocalizer<AccountController> _localizer;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IUserRepository users)
+            IUserRepository users,
+            IHtmlLocalizer<AccountController> localizer)
         {
             // if the TestUserRepository is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
@@ -55,6 +57,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _localizer = localizer;
         }
 
         [HttpPost]
@@ -182,7 +185,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials", clientId: context?.Client.ClientId));
-                ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
+                ModelState.AddModelError(string.Empty, _localizer["Invalid_email_or_password"].Value);
             }
 
             // something went wrong, show form with error
