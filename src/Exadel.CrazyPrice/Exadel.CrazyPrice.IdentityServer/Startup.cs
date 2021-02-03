@@ -51,8 +51,9 @@ namespace Exadel.CrazyPrice.IdentityServer
                 {
                     new CultureInfo("en"),
                     new CultureInfo("ru")
+
                 };
-                options.DefaultRequestCulture = new RequestCulture("en");
+                options.DefaultRequestCulture = new RequestCulture(Configuration["Localization:Default"]);
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
@@ -62,7 +63,8 @@ namespace Exadel.CrazyPrice.IdentityServer
 
             Config.Configuration = Configuration;
 
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserRepository, TestUserRepository>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptographicService, CryptographicService>();
 
             services.AddCors(options =>

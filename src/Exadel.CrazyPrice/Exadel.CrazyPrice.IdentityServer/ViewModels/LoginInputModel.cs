@@ -3,8 +3,6 @@
 
 
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Localization;
-using System.ComponentModel.DataAnnotations;
 
 namespace Exadel.CrazyPrice.IdentityServer.ViewModels
 {

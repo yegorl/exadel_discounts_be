@@ -34,7 +34,8 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly IUserRepository _users;
+        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -46,12 +47,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IUserRepository users,
+            IUserService userService,
+            IUserRepository userRepository,
             IHtmlLocalizer<AccountController> localizer)
         {
-            // if the TestUserRepository is not in DI, then we'll just use the global users collection
+            // if the TestUserRepository is not in DI, then we'll just use the global userService collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users;
+            _userService = userService;
+            _userRepository = userRepository;
 
             _interaction = interaction;
             _clientStore = clientStore;
@@ -124,14 +127,13 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             if (ModelState.IsValid)
             {
-                //var user = _users.FindByUsername(model.User);
-                var user = await _users.GetUserByEmail(model.Email);
+                var user = await _userRepository.GetUserByEmail(model.Email);
                 if (user != null)
                 {
-                    // validate username/password against in-memory store
-                    if (await _users.ValidateCredentials(model.Email, model.Password))
+                    //Validate found user
+                    if (_userService.ValidateCredentials(user, model.Password))
                     {
-                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
+                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectUid.ToString(), user.Username));
 
                         // only set explicit expiration here if user chooses "remember me". 
                         // otherwise we rely upon expiration configured in cookie middleware.
@@ -146,7 +148,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                         };
 
                         // issue authentication cookie with subject ID and username
-                        var isuser = new IdentityServerUser(user.SubjectId)
+                        var isuser = new IdentityServerUser(user.SubjectUid.ToString())
                         {
                             DisplayName = user.Username
                         };
