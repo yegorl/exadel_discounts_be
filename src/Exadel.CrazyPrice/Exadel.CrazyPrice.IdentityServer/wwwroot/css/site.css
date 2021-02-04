@@ -1,10 +1,28 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+body {
+    overflow: auto;
+    background-image: radial-gradient(circle, #68D4FF, #0150C2);
+    background-repeat: no-repeat;
+    background-size: 100%
+}
 .body-container {
-  margin-top: 60px;
-  padding-bottom: 40px; }
-
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-color {
+    background-color: #6200EE;
+}
 .welcome-page li {
-  list-style: none;
-  padding: 4px; }
+    list-style: none;
+    padding: 4px;
+}
 
 .logged-out-page iframe {
   display: none;

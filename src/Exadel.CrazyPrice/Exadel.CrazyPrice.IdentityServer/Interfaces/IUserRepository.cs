@@ -21,13 +21,5 @@ namespace Exadel.CrazyPrice.IdentityServer.Interfaces
         /// <param name="userUid">Uid of user</param>
         /// <returns>User or null if not found</returns>
         Task<CustomUser> GetUserByUid(string userUid);
-
-        /// <summary>
-        /// Validate credentials by checking email and password
-        /// </summary>
-        /// <param name="email">E-mail of user</param>
-        /// <param name="password">Password of user</param>
-        /// <returns></returns>
-        Task<bool> ValidateCredentials(string email, string password);
     }
 }

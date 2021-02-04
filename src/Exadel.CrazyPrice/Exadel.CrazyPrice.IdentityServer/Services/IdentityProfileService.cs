@@ -27,9 +27,8 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             var user = await _userRepository.GetUserByUid(sub);
 
             var claims = new List<Claim>();
-
             // Add custom claims in token here based on user properties or any other source
-            claims.Add(new Claim("role", user.Role ?? string.Empty));
+            claims.Add(new Claim("role", user.Role.ToString() ?? string.Empty));
 
             context.IssuedClaims = claims;
         }

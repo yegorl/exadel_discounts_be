@@ -4,13 +4,11 @@
     var version = FileVersionInfo.GetVersionInfo(typeof(IdentityServer4.Hosting.IdentityServerMiddleware).Assembly.Location).ProductVersion.Split('+').First();
 }
 
-<div class="welcome-page">
+<div class="welcome-page text-white">
     <h1>
-        <img src="~/icon.jpg">
-        Welcome to IdentityServer4
+        Welcome to CrazyPrice STS server
         <small class="text-muted">(version @version)</small>
     </h1>
-
     <ul>
         <li>
             IdentityServer publishes a
@@ -22,11 +20,6 @@
         </li>
         <li>
             Click <a href="~/grants">here</a> to manage your stored grants.
-        </li>
-        <li>
-            Here are links to the
-            <a href="https://github.com/identityserver/IdentityServer4">source code repository</a>,
-            and <a href="https://github.com/IdentityServer/IdentityServer4/tree/main/samples">ready to use samples</a>.
         </li>
     </ul>
 </div>

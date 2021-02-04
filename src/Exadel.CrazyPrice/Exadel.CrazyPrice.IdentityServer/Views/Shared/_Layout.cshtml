@@ -17,13 +17,13 @@
     @*<partial name="_Nav" />*@
    
     <div class="container body-container">
-        <partial name="_Culture" />
         @RenderBody()
     </div>
 
     <script src="~/lib/jquery/dist/jquery.slim.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/culture.js"></script>
+@RenderSection("scripts", required: false)
 
-    @RenderSection("scripts", required: false)
 </body>
 </html>

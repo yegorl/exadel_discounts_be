@@ -58,7 +58,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error" xml:space="preserve">
-    <value>Ошибка</value>
+  <data name="Logout" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Вернуться в систему</value>
+  </data>
+  <data name="You_are_logged_out" xml:space="preserve">
+    <value>Вы вышли из системы</value>
   </data>
 </root>

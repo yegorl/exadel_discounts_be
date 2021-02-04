@@ -10,8 +10,6 @@
 
 <div>
     <form id="form" asp-action="CultureManagement" asp-controller="Account" method="post" asp-route-returnUri="@returnUri">
-        <select name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="@cultureList" 
-                onchange="this.form.submit();"></select>
-        <button type="submit">ok</button>
+        <select class="form-control" id="culList" name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="@cultureList"></select>
     </form>
 </div>

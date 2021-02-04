@@ -1,21 +1,21 @@
 @model Exadel.CrazyPrice.IdentityServer.ViewModels.LoggedOutViewModel
-
-@{ 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
     // set this so the layout rendering sees an anonymous user
     ViewData["signed-out"] = true;
 }
 
 <div class="logged-out-page">
     <h1>
-        Logout
-        <small>You are now logged out</small>
+        @Localizer["Logout"]
+        <small>@Localizer["You_are_logged_out"]</small>
     </h1>
 
     @if (Model.PostLogoutRedirectUri != null)
     {
         <div>
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
+            <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">@Localizer["Return"]</a>
         </div>
     }
 
