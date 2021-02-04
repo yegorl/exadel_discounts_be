@@ -8,11 +8,11 @@ namespace Exadel.CrazyPrice.IdentityServer.Models
 {
     public class CustomUser
     {
-        public Guid SubjectUid { get; set; }
+        public Guid UserUid { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string HashPassword { get; set; }
         public string Salt { get; set; }
-        public string Role { get; set; }
+        public Roles Role { get; set; }
     }
 }

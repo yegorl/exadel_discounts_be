@@ -24,7 +24,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Repositories
         public Task<CustomUser> GetUserByUid(string userUid)
         {
             var giud = new Guid(userUid);
-            return Task.FromResult(_testUsers.FirstOrDefault(u => u.SubjectUid == giud));
+            return Task.FromResult(_testUsers.FirstOrDefault(u => u.UserUid == giud));
         }
     }
 }

@@ -133,7 +133,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                     //Validate found user
                     if (_userService.ValidateCredentials(user, model.Password))
                     {
-                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectUid.ToString(), user.Username));
+                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.UserUid.ToString(), user.Username));
 
                         // only set explicit expiration here if user chooses "remember me". 
                         // otherwise we rely upon expiration configured in cookie middleware.
@@ -148,7 +148,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                         };
 
                         // issue authentication cookie with subject ID and username
-                        var isuser = new IdentityServerUser(user.SubjectUid.ToString())
+                        var isuser = new IdentityServerUser(user.UserUid.ToString())
                         {
                             DisplayName = user.Username
                         };
