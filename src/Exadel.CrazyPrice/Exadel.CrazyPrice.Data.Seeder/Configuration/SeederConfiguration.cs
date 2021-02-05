@@ -40,6 +40,11 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
                 throw new ArgumentException("Database:CreateTags musts be the valid bool value.");
             }
 
+            if (!bool.TryParse(_configuration.GetSection("Database:CreateUsers").Value, out var createUsers))
+            {
+                throw new ArgumentException("Database:CreateUsers musts be the valid bool value.");
+            }
+
             if (!uint.TryParse(_configuration.GetSection("Database:DefaultCountSeed").Value, out var defaultCountSeed))
             {
                 throw new ArgumentException("Database:DefaultCountSeed musts be the valid uint value.");
@@ -53,6 +58,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
             DetailsInfo = detailsInfo;
             TimeReportSec = reportEverySec;
             CreateTags = createTags;
+            CreateUsers = createUsers;
 
             ConnectionString = _configuration.GetSection("Database:ConnectionStrings:DefaultConnection").Value;
             Database = _configuration.GetSection("Database:ConnectionStrings:Database").Value;
@@ -64,6 +70,8 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
         public bool DetailsInfo { get; set; }
 
         public bool CreateTags { get; set; }
+
+        public bool CreateUsers { get; set; }
 
         public string ConnectionString { get; set; }
 
@@ -128,6 +136,11 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
             if (argsNormalize.Contains("--tags"))
             {
                 CreateTags = seederConfiguration.CreateTags;
+            }
+
+            if (argsNormalize.Contains("--users"))
+            {
+                CreateUsers = seederConfiguration.CreateUsers;
             }
         }
     }

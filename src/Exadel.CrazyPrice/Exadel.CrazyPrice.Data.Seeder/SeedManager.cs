@@ -2,16 +2,18 @@
 using Exadel.CrazyPrice.Data.Seeder.Configuration;
 using Exadel.CrazyPrice.Data.Seeder.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder
 {
-    public class DbSeederManager
+    public class SeedManager
     {
         private readonly SeederConfiguration _configuration;
 
-        public DbSeederManager(SeederConfiguration configuration)
+        public SeedManager(SeederConfiguration configuration)
         {
             MongoDbConvention.SetCamelCaseElementNameConvention();
             _configuration = configuration;
@@ -26,24 +28,29 @@ namespace Exadel.CrazyPrice.Data.Seeder
 
             totalWatch.Start();
 
-            var dbDiscounts = new DbDiscountSeed(_configuration);
-            await dbDiscounts.CreateIndexesAsync();
-            await dbDiscounts.SeedAsync();
+            var collections = new List<ISeed>
+            {
+                new DbDiscountSeed(_configuration),
+                new DbTagSeed(_configuration),
+                new DbUserSeed(_configuration)
+            };
 
-            var dbTags = new DbTagSeed(_configuration);
-            await dbTags.CreateIndexesAsync();
-            await dbTags.SeedAsync();
+            var status = new StringBuilder();
+            foreach (var value in collections)
+            {
+                await value.DeleteIfSetAsync();
+                await value.CreateIndexesAsync();
+                await value.SeedAsync();
+                var currentStatus = await value.StatusTotalAsync();
+                status.Append(currentStatus + Environment.NewLine);
+            }
 
             totalWatch.Stop();
-
-            var discountsStatus = await dbDiscounts.StatusTotalAsync();
-            var tagStatus = await dbTags.StatusTotalAsync();
 
             var stopTime = DateTime.Now;
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine("Finished." + Environment.NewLine +
-                              discountsStatus + Environment.NewLine +
-                              tagStatus + Environment.NewLine +
+                              status +
                               $"Start time: {startTime}" + Environment.NewLine +
                               $"End time: {stopTime}" + Environment.NewLine +
                               $"TotalSeconds: {totalWatch.Elapsed.TotalSeconds:0.000000}");

@@ -32,6 +32,9 @@ namespace Exadel.CrazyPrice.Data.Seeder
         [Option("--tags", Description = "Create tags from discounts and indexes it.")]
         private bool CreateTags { get; }
 
+        [Option("--users", Description = "Create users and indexes it.")]
+        private bool CreateUsers { get; }
+
         private void DetailsInfoMongoDbConfiguration(SeederConfiguration seederConfiguration)
         {
             Console.WriteLine($"ConnectionString: {seederConfiguration.ConnectionString}");
@@ -41,6 +44,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
             Console.WriteLine($"DefaultCountSeed: {seederConfiguration.DefaultCountSeed}");
             Console.WriteLine($"TimeReportSec: {seederConfiguration.TimeReportSec}");
             Console.WriteLine($"CreateTags: {seederConfiguration.CreateTags}");
+            Console.WriteLine($"CreateUsers: {seederConfiguration.CreateUsers}");
         }
     }
 }

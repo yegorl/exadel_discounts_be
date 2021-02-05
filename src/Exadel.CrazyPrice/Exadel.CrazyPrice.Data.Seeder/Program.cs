@@ -26,6 +26,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     c.DefaultCountSeed = DefaultCountSeed;
                     c.TimeReportSec = TimeReportSec;
                     c.CreateTags = CreateTags;
+                    c.CreateUsers = CreateUsers;
                 });
             }
             catch (Exception e)
@@ -44,7 +45,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
            
             Task.Run(async () =>
             {
-                var seeder = new DbSeederManager(seederConfiguration);
+                var seeder = new SeedManager(seederConfiguration);
                 await seeder.Seed();
             });
 

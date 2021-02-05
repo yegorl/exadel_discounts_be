@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Models
 {
-    public abstract class AbstractSeed<TCollection> : IDisposable where TCollection : class
+    public abstract class AbstractSeed<TCollection> : IDisposable, ISeed where TCollection : class
     {
         private readonly bool _clearDbBeforeSeed;
         private readonly bool _rewriteIndexes;
@@ -40,7 +40,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
             {
                 await Collection.Indexes.DropAllAsync();
                 Console.WriteLine($"Indexes of {CollectionName} removed.");
-                Console.WriteLine($"Indexes of {CollectionName} is creating. Please wait..");
+                Console.WriteLine($"Indexes of {CollectionName} creating. Please wait..");
             }
 
             await Collection.Indexes.CreateManyAsync(IndexModels);
@@ -51,13 +51,20 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
             }
         }
 
-        public virtual async Task SeedAsync()
+        public virtual async Task DeleteIfSetAsync()
         {
             if (_clearDbBeforeSeed)
             {
+                TimerStart();
+                Console.WriteLine($"Documents of {CollectionName} deleting. Please wait..");
                 await DeleteAsync();
+                Console.WriteLine($"{CollectionName} is empty.");
+                await TimerDisposeAsync();
             }
+        }
 
+        public virtual async Task SeedAsync()
+        {
             if (ReportEverySec > 0)
             {
                 TimerStart();
