@@ -34,7 +34,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
 
             var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
             var request = new HttpRequestMessage(
-                HttpMethod.Get, "/tags/");
+                HttpMethod.Get, "/api/v1/addresses/get/countries/A");
 
             var response = await httpClient.SendAsync(
                 request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);

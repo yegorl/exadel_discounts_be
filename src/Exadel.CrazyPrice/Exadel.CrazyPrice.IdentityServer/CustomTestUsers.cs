@@ -35,7 +35,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                     Mail = "Bob@gmail.com",
                     HashPassword = "voWfJR7QxiT3sTuLZMu+iuYswOika7FU+VTtRhATkhSdzznn7pOnSH1VEsZbNlqWOaRpvTskIlBUmvXwct5KZ94cg3T93dVLmSCenh8VjPmFKTiGHxP+dboJLXjeKQ6BUNoNwn3w5v16OFRH+QgGesrdkWsLi2V5QQ/+BO9VDVA=",
                     Salt = "wQFhWPjNcYukdImNixjiATqeQLemqaJA55jQkfgg",
-                    Roles = RoleOption.Admin | RoleOption.Moderator | RoleOption.Employee
+                    Roles = RoleOption.Administrator | RoleOption.Moderator | RoleOption.Employee
                 }
             };
     }

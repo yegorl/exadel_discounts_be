@@ -9,6 +9,7 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.Data.Repositories;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Repositories;
@@ -106,6 +107,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                     Configuration["Certificate:Password"]);
 
             builder.AddSigningCredential(clientCertificate);
+            services.AddMongoDb(Configuration);
         }
 
         public void Configure(IApplicationBuilder app)
