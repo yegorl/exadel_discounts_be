@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Exadel.CrazyPrice.Common.Models.Option;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Exadel.CrazyPrice.Data.Models
 {
@@ -14,8 +15,13 @@ namespace Exadel.CrazyPrice.Data.Models
 
         [BsonIgnoreIfNull]
         public string PhoneNumber { get; set; }
-
-        [BsonIgnoreIfNull]
+        
         public string Mail { get; set; }
+
+        public string HashPassword { get; set; }
+
+        public string Salt { get; set; }
+
+        public RoleOption Roles { get; set; }
     }
 }

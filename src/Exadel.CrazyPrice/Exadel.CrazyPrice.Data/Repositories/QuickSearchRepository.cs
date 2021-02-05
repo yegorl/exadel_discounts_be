@@ -1,6 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
-using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.Data.Configuration;
 using Exadel.CrazyPrice.Data.Extentions;
@@ -15,10 +14,9 @@ using DbTag = Exadel.CrazyPrice.Data.Models.DbTag;
 
 namespace Exadel.CrazyPrice.Data.Repositories
 {
-    public class QuickSearchRepository : IAddressRepository, ICompanyRepository, IPersonRepository, ITagRepository
+    public class QuickSearchRepository : IAddressRepository, ICompanyRepository, ITagRepository
     {
         private readonly IMongoCollection<DbDiscount> _discounts;
-        private readonly IMongoCollection<DbUser> _users;
         private readonly IMongoCollection<DbTag> _tags;
 
         public QuickSearchRepository(IOptions<MongoDbConfiguration> configuration)
@@ -26,7 +24,6 @@ namespace Exadel.CrazyPrice.Data.Repositories
             var client = new MongoClient(configuration.Value.ConnectionString);
             var db = client.GetDatabase(configuration.Value.Database);
             _discounts = db.GetCollection<DbDiscount>("Discounts");
-            _users = db.GetCollection<DbUser>("Users");
             _tags = db.GetCollection<DbTag>("Tags");
         }
 
@@ -122,7 +119,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             return list;
         }
-        
+
         public async Task<List<string>> GetTagAsync(string searchValue)
         {
             var queryCompile = new Dictionary<string, string>
@@ -142,7 +139,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
                     return field == null || list.Contains(field);
                 }
-                : l => l.Name == null || list.Contains(l.Name);
+            : l => l.Name == null || list.Contains(l.Name);
 
             Action<DbTag> addToList = LanguageOption.En == queryCompile["searchValue"].GetLanguageFromFirstLetter()
                 ? l => list.Add(l.Translations.Where(t => t.Language == "english").Select(t => t.Name).First())
@@ -151,11 +148,6 @@ namespace Exadel.CrazyPrice.Data.Repositories
             await GetListFromTagsAsync(queryCompile["query"], isIgnoredField, addToList);
 
             return list;
-        }
-        
-        public async Task<Person> GetPersonByUidAsync(Guid uid)
-        {
-            throw new NotImplementedException();
         }
 
         private async Task GetListFromDiscountsAsync(string query, Func<DbDiscount, bool> isIgnoredField, Action<DbDiscount> addToList)

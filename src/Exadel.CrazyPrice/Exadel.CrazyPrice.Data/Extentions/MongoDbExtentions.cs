@@ -78,7 +78,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
             services.AddSingleton<IDiscountRepository, DiscountRepository>();
             services.AddSingleton<IAddressRepository, QuickSearchRepository>();
             services.AddSingleton<ICompanyRepository, QuickSearchRepository>();
-            services.AddSingleton<IPersonRepository, QuickSearchRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ITagRepository, QuickSearchRepository>();
         }
     }

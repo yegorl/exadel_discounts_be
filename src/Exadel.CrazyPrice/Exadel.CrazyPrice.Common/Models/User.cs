@@ -1,8 +1,9 @@
 ﻿using System;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models
 {
-    public class Person
+    public class User
     {
         public Guid Id { get; set; }
 
@@ -13,5 +14,11 @@ namespace Exadel.CrazyPrice.Common.Models
         public string PhoneNumber { get; set; }
 
         public string Mail { get; set; }
+
+        public string HashPassword { get; set; }
+
+        public string Salt { get; set; }
+
+        public RoleOption Roles { get; set; }
     }
 }
