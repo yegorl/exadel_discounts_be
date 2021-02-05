@@ -8,9 +8,9 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <summary>
         /// Gets countries by string.
         /// </summary>
-        /// <param name="searchCountry">The part name country.</param>
+        /// <param name="searchValue">The part name country.</param>
         /// <returns></returns>
-        Task<List<string>> GetCountriesAsync(string searchCountry);
+        Task<List<string>> GetCountriesAsync(string searchValue);
 
         /// <summary>
         /// Gets cities from string by country.
