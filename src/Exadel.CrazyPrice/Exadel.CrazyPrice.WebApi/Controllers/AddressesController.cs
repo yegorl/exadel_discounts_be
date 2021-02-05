@@ -52,22 +52,6 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets all countries.
-        /// </summary>
-        /// <returns></returns>
-        /// <response code="200">Countries found.</response>
-        /// <response code="400">Bad request.</response> 
-        /// <response code="404">No countries found.</response>
-        [HttpGet, Route("get/countries"),
-        ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
-        ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
-        ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCountries()
-        {
-            return await GetCountries(string.Empty);
-        }
-
-        /// <summary>
         /// Gets cities from string by country.
         /// </summary>
         /// <param name="searchCountry">The country.</param>
@@ -95,23 +79,6 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             _logger.LogInformation("Cities get: {@cities}. Country: {searchCountry}.", cities, searchCountry);
             return Ok(cities);
-        }
-
-        /// <summary>
-        /// Gets all cities by country.
-        /// </summary>
-        /// <returns></returns>
-        /// <param name="searchCountry">The country.</param>
-        /// <response code="200">Cities found.</response>
-        /// <response code="400">Bad request.</response> 
-        /// <response code="404">No cities found.</response>
-        [HttpGet, Route("get/cities/{searchCountry}"),
-        ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
-        ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
-        ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCities([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string searchCountry)
-        {
-            return await GetCities(searchCountry, string.Empty);
         }
     }
 }
