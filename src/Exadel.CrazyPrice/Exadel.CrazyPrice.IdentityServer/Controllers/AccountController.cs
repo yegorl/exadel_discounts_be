@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Options;
 using Exadel.CrazyPrice.IdentityServer.UI;
@@ -127,13 +128,13 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = await _userRepository.GetUserByEmail(model.Email);
+                var user = await _userRepository.GetUserByEmailAsync(model.Email);
                 if (user != null)
                 {
                     //Validate found user
                     if (_userService.ValidateCredentials(user, model.Password))
                     {
-                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.UserUid.ToString(), user.Username));
+                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.Name, user.Id.ToString(), user.Name));
 
                         // only set explicit expiration here if user chooses "remember me". 
                         // otherwise we rely upon expiration configured in cookie middleware.
@@ -148,9 +149,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                         };
 
                         // issue authentication cookie with subject ID and username
-                        var isuser = new IdentityServerUser(user.UserUid.ToString())
+                        var isuser = new IdentityServerUser(user.Id.ToString())
                         {
-                            DisplayName = user.Username
+                            DisplayName = user.Name
                         };
 
                         await HttpContext.SignInAsync(isuser, props);

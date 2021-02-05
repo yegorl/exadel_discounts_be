@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
-using Exadel.CrazyPrice.IdentityServer.Models;
 
 namespace Exadel.CrazyPrice.IdentityServer.Services
 {
@@ -14,7 +12,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             _cryptographicService = cryptographicService;
         }
 
-        public bool ValidateCredentials(CustomUser user, string password)
+        public bool ValidateCredentials(User user, string password)
         {
             return _cryptographicService.ComparePasswordHash(password, user.HashPassword, user.Salt);
         }

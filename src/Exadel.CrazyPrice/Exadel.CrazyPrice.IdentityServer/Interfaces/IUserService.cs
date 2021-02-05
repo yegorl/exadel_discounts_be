@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.IdentityServer.Models;
+﻿using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.IdentityServer.Interfaces
 {
@@ -11,9 +7,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Interfaces
         /// <summary>
         /// Validate credentials by checking email and password
         /// </summary>
-        /// <param name="email">E-mail of user</param>
+        /// <param name="user"></param>
         /// <param name="password">Password of user</param>
         /// <returns></returns>
-        bool ValidateCredentials(CustomUser user, string password);
+        bool ValidateCredentials(User user, string password);
     }
 }

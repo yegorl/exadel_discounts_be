@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.IdentityServer.Interfaces;
-using Exadel.CrazyPrice.IdentityServer.Models;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
-using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 
 namespace Exadel.CrazyPrice.IdentityServer.Services
@@ -23,20 +20,20 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
         }
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var sub = context.Subject.GetSubjectId();
-            var user = await _userRepository.GetUserByUid(sub);
+            var sub = new Guid(context.Subject.GetSubjectId()); //!!! TRY
+            var user = await _userRepository.GetUserByUidAsync(sub);
 
             var claims = new List<Claim>();
             // Add custom claims in token here based on user properties or any other source
-            claims.Add(new Claim("role", user.Role.ToString() ?? string.Empty));
+            claims.Add(new Claim("role", user.Roles.ToString() ?? string.Empty)); //!!! NOT VALID
 
             context.IssuedClaims = claims;
         }
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
-            var sub = context.Subject.GetSubjectId();
-            var user = await _userRepository.GetUserByUid(sub);
+            var sub = new Guid(context.Subject.GetSubjectId()); //!!! TRY
+            var user = await _userRepository.GetUserByUidAsync(sub);
             context.IsActive = user != null;
         }
     }

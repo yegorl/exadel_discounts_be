@@ -8,6 +8,8 @@ using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Data.Repositories;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Repositories;
 using Exadel.CrazyPrice.IdentityServer.Services;
@@ -63,7 +65,7 @@ namespace Exadel.CrazyPrice.IdentityServer
 
             Config.Configuration = Configuration;
 
-            services.AddTransient<IUserRepository, TestUserRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptographicService, CryptographicService>();
 
