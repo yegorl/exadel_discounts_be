@@ -1,3 +1,4 @@
+using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation;
@@ -75,15 +76,17 @@ namespace Exadel.CrazyPrice.WebApi
                 };
             });
 
-            services.AddApiVersioning(config =>
+            services.AddApiVersioning(options =>
             {
-                config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
-                config.ReportApiVersions = true;
-                config.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
             services.AddSwagger();
+
+            services.AddMongoDb(Configuration);
         }
 
         /// <summary>

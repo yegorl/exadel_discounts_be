@@ -30,6 +30,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+		<ProjectReference Include="..\Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
