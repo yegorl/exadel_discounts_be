@@ -47,7 +47,7 @@ namespace Exadel.CrazyPrice.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SearchCriteriaValidator>());
 
             services.AddControllers()
                 .AddJsonOptions(opts =>

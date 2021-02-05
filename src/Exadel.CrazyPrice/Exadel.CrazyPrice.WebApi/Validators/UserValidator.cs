@@ -5,13 +5,13 @@ using FluentValidation;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
 {
-    public class PersonValidator : AbstractValidator<Person>
+    public class UserValidator : AbstractValidator<User>
     {
-        public PersonValidator()
+        public UserValidator()
         {
             CascadeMode = CascadeMode.Stop;
 
-            RuleSet("UpsertPerson", () =>
+            RuleSet("UpsertUser", () =>
             {
                 RuleFor(x => x.Id)
                     .NotEmpty();

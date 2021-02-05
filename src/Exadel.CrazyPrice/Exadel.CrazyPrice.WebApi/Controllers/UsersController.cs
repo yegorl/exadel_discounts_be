@@ -12,50 +12,50 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
     /// An example controller performs operations on persons.
     /// </summary>
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/persons")]
+    [Route("api/v{version:apiVersion}/users")]
     [ApiController]
-    public class PersonsController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly ILogger<PersonsController> _logger;
-        private readonly IPersonRepository _repository;
+        private readonly ILogger<UsersController> _logger;
+        private readonly IUserRepository _repository;
 
         /// <summary>
-        /// Creates Person Controller.
+        /// Creates User Controller.
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public PersonsController(ILogger<PersonsController> logger, IPersonRepository repository)
+        public UsersController(ILogger<UsersController> logger, IUserRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
 
         /// <summary>
-        /// Gets a person by id.
+        /// Gets a user by id.
         /// </summary>
-        /// <param name="id">The search id of person.</param>
+        /// <param name="id">The search id of user.</param>
         /// <returns></returns>
-        /// <response code="200">Persons found.</response>
+        /// <response code="200">User found.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="404">No persons found.</response>
+        /// <response code="404">No user found.</response>
         [HttpGet]
-        [ProducesResponseType(typeof(Person), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [Route("get/{id}")]
-        public async Task<IActionResult> GetPerson(Guid id)
+        public async Task<IActionResult> GetUser(Guid id)
         {
             _logger.LogInformation("Guid incoming: {@id}", id);
-            var person = await _repository.GetPersonByUidAsync(id);
+            var user = await _repository.GetUserByUidAsync(id);
 
-            if (person == null)
+            if (user == null)
             {
-                _logger.LogWarning("Person get: {@person}", person);
+                _logger.LogWarning("User get: {@user}", user);
                 return NotFound("No persons found.");
             }
 
-            _logger.LogInformation("Person get: {@person}", person);
-            return Ok(person);
+            _logger.LogInformation("User get: {@user}", user);
+            return Ok(user);
         }
     }
 }

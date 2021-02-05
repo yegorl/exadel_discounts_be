@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Xunit;
-using Person = Exadel.CrazyPrice.Common.Models.Person;
 
 namespace Exadel.CrazyPrice.Tests
 {
@@ -24,7 +23,7 @@ namespace Exadel.CrazyPrice.Tests
                 ? "понедельник 09:00–18:00 вторник 09:00–18:00 среда 09:00–18:00 четверг 09:00–18:00 пятница 09:00–18:00 суббота Закрыто воскресенье Закрыто"
                 : "Monday 09:00–18:00 Tuesday 09:00–18:00 Wednesday 09:00–18:00 Thursday 09:00–18:00 Friday 09:00–18:00 Saturday Closed Sunday Closed";
 
-            var personGenerator = new Faker<Person>(local)
+            var personGenerator = new Faker<User>(local)
                     .RuleFor(x => x.Id, f => Guid.NewGuid())
                     .RuleFor(x => x.Name, f => f.Person.FirstName)
                     .RuleFor(x => x.Surname, f => f.Person.LastName)
@@ -71,8 +70,8 @@ namespace Exadel.CrazyPrice.Tests
                 .RuleFor(x => x.ReservationTotal, f => f.Random.Int(0, 50))
                 .RuleFor(x => x.CreateDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(700), DateTime.Now - TimeSpan.FromDays(60)))
                 .RuleFor(x => x.LastChangeDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(60), DateTime.Now))
-                .RuleFor(x => x.PersonCreateDate, f => personGenerator.Generate())
-                .RuleFor(x => x.PersonLastChangeDate, f => personGenerator.Generate())
+                .RuleFor(x => x.UserCreateDate, f => personGenerator.Generate())
+                .RuleFor(x => x.UserLastChangeDate, f => personGenerator.Generate())
                 .RuleFor(x => x.ReservationPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                 .RuleFor(x => x.ViewPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                 ;
