@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
@@ -32,6 +33,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <response code="200">Countries found.</response>
         /// <response code="400">Bad request.</response> 
         /// <response code="404">No countries found.</response>
+        [Authorize(Roles = "Moderator")]
         [HttpGet, Route("get/countries/{searchCountry}"),
         ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),

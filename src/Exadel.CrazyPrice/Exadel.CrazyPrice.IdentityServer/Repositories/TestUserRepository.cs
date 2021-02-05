@@ -15,25 +15,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Repositories
         {
             _testUsers = CustomTestUsers.Users;
         }
-        public Task<User> GetUserByEmail(string email)
-        {
-            return Task.FromResult(_testUsers.FirstOrDefault(u => u.Mail == email));
-        }
-
-        public Task<User> GetUserByUid(string userUid)
-        {
-            var giud = new Guid(userUid);
-            return Task.FromResult(_testUsers.FirstOrDefault(u => u.Id == giud));
-        }
-
         public Task<User> GetUserByUidAsync(Guid uid)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(_testUsers.FirstOrDefault(u => u.Id == uid));
         }
 
         public Task<User> GetUserByEmailAsync(string mail)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(_testUsers.FirstOrDefault(u => u.Mail == mail));
         }
     }
 }
