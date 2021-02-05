@@ -24,7 +24,7 @@ namespace Exadel.CrazyPrice.Tests.IdentityServer.Repository
         public async void GetUserByEmail_ShouldWork()
         {
             //Arrange 
-            var email = "Frank@gmail.com";
+            var email = "frank@gmail.com";
             //Acr
             var result = await _userRepository.GetUserByEmailAsync(email);
             //Assert

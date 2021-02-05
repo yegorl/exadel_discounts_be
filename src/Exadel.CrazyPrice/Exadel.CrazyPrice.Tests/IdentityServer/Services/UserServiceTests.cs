@@ -23,7 +23,7 @@ namespace Exadel.CrazyPrice.Tests.IdentityServer.Services
         {
             //Arrange
             var userService = new UserService(_cryptographicService);
-            var user = CustomTestUsers.Users.FirstOrDefault(u => u.Mail == "Frank@gmail.com");
+            var user = CustomTestUsers.Users.FirstOrDefault(u => u.Mail == "frank@gmail.com");
             //Act
             var result = userService.ValidateCredentials(user, "1111");
             //Assert
@@ -36,7 +36,7 @@ namespace Exadel.CrazyPrice.Tests.IdentityServer.Services
         {
             //Arrange
             var userService = new UserService(_cryptographicService);
-            var user = CustomTestUsers.Users.FirstOrDefault(u => u.Mail == "Frank@gmail.com");
+            var user = CustomTestUsers.Users.FirstOrDefault(u => u.Mail == "frank@gmail.com");
             //Act
             var result = userService.ValidateCredentials(user, password);
             //Assert

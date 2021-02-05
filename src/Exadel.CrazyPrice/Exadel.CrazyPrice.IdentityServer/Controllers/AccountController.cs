@@ -128,7 +128,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = await _userRepository.GetUserByEmailAsync(model.Email);
+                var user = await _userRepository.GetUserByEmailAsync(model.Email.ToLower());
                 if (user != null)
                 {
                     //Validate found user
