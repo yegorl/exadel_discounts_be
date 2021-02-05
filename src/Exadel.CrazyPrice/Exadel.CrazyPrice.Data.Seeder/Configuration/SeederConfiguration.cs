@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 
@@ -6,8 +7,6 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 {
     public class SeederConfiguration
     {
-        private readonly IConfiguration _configuration;
-
         public SeederConfiguration()
         {
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -17,54 +16,21 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
                 .AddJsonFile($"appsettings.{environmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-            _configuration = builder.Build();
+            var configuration = builder.Build();
 
-            var temp = _configuration.GetSection("Database:ClearDatabaseBeforeSeed").Value;
-            if (!bool.TryParse(temp, out var clearDatabaseBeforeSeed))
-            {
-                throw new ArgumentException("Database:ClearDatabaseBeforeSeed musts be the valid bool value.");
-            }
+            string GetSection(string s) => configuration.GetSection($"Database:{s}").Value;
 
-            if (!bool.TryParse(_configuration.GetSection("Database:RewriteIndexes").Value, out var rewriteIndexes))
-            {
-                throw new ArgumentException("Database:RewriteIndexes musts be the valid bool value.");
-            }
+            ConnectionString = GetSection("ConnectionStrings:DefaultConnection").ToStringWithValue();
+            Database = GetSection("ConnectionStrings:Database").ToStringWithValue();
 
-            if (!bool.TryParse(_configuration.GetSection("Database:DetailsInfo").Value, out var detailsInfo))
-            {
-                throw new ArgumentException("Database:DetailsInfo musts be the valid bool value.");
-            }
+            DetailsInfo = GetSection("DetailsInfo").ToBool();
+            RewriteIndexes = GetSection("RewriteIndexes").ToBool();
+            ClearDatabaseBeforeSeed = GetSection("ClearDatabaseBeforeSeed").ToBool();
+            CreateTags = GetSection("CreateTags").ToBool();
+            CreateUsers = GetSection("CreateUsers").ToBool();
 
-            if (!bool.TryParse(_configuration.GetSection("Database:CreateTags").Value, out var createTags))
-            {
-                throw new ArgumentException("Database:CreateTags musts be the valid bool value.");
-            }
-
-            if (!bool.TryParse(_configuration.GetSection("Database:CreateUsers").Value, out var createUsers))
-            {
-                throw new ArgumentException("Database:CreateUsers musts be the valid bool value.");
-            }
-
-            if (!uint.TryParse(_configuration.GetSection("Database:DefaultCountSeed").Value, out var defaultCountSeed))
-            {
-                throw new ArgumentException("Database:DefaultCountSeed musts be the valid uint value.");
-            }
-
-            if (!uint.TryParse(_configuration.GetSection("Database:TimeReportSec").Value, out var reportEverySec))
-            {
-                throw new ArgumentException("Database:TimeReportSec musts be the valid uint value.");
-            }
-
-            DetailsInfo = detailsInfo;
-            TimeReportSec = reportEverySec;
-            CreateTags = createTags;
-            CreateUsers = createUsers;
-
-            ConnectionString = _configuration.GetSection("Database:ConnectionStrings:DefaultConnection").Value;
-            Database = _configuration.GetSection("Database:ConnectionStrings:Database").Value;
-            ClearDatabaseBeforeSeed = clearDatabaseBeforeSeed;
-            RewriteIndexes = rewriteIndexes;
-            DefaultCountSeed = defaultCountSeed;
+            TimeReportSec = GetSection("TimeReportSec").ToUint();
+            DefaultCountSeed = GetSection("DefaultCountSeed").ToUint();
         }
 
         public bool DetailsInfo { get; set; }
@@ -98,50 +64,19 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 
             var argsNormalize = string.Join("(|)", Environment.GetCommandLineArgs()).ToLowerInvariant().Split("(|)");
 
-            if (argsNormalize.Contains("-i") || argsNormalize.Contains("--info"))
-            {
-                DetailsInfo = seederConfiguration.DetailsInfo;
-            }
+            bool KeysExist(params string[] keys) => keys.Any(k => argsNormalize.Contains(k));
 
-            if (argsNormalize.Contains("-s") || argsNormalize.Contains("--connectionStrings"))
-            {
-                ConnectionString = seederConfiguration.ConnectionString;
-            }
+            ConnectionString = KeysExist("-s", "--connectionStrings") ? seederConfiguration.ConnectionString : ConnectionString;
+            Database = KeysExist("-d", "--database") ? seederConfiguration.Database : Database;
 
-            if (argsNormalize.Contains("-d") || argsNormalize.Contains("--database"))
-            {
-                Database = seederConfiguration.Database;
-            }
+            DetailsInfo = KeysExist("-i", "--info") ? seederConfiguration.DetailsInfo : DetailsInfo;
+            RewriteIndexes = KeysExist("-r", "--rewrite") ? seederConfiguration.RewriteIndexes : RewriteIndexes;
+            ClearDatabaseBeforeSeed = KeysExist("-c", "--clear") ? seederConfiguration.ClearDatabaseBeforeSeed : ClearDatabaseBeforeSeed;
+            CreateTags = KeysExist("--tags") ? seederConfiguration.CreateTags : CreateTags;
+            CreateUsers = KeysExist("--users") ? seederConfiguration.CreateUsers : CreateUsers;
 
-            if (argsNormalize.Contains("-c") || argsNormalize.Contains("--clear"))
-            {
-                ClearDatabaseBeforeSeed = seederConfiguration.ClearDatabaseBeforeSeed;
-            }
-
-            if (argsNormalize.Contains("-n") || argsNormalize.Contains("--number"))
-            {
-                DefaultCountSeed = seederConfiguration.DefaultCountSeed;
-            }
-
-            if (argsNormalize.Contains("-r") || argsNormalize.Contains("--rewrite"))
-            {
-                RewriteIndexes = seederConfiguration.RewriteIndexes;
-            }
-
-            if (argsNormalize.Contains("-t") || argsNormalize.Contains("--time"))
-            {
-                TimeReportSec = seederConfiguration.TimeReportSec;
-            }
-
-            if (argsNormalize.Contains("--tags"))
-            {
-                CreateTags = seederConfiguration.CreateTags;
-            }
-
-            if (argsNormalize.Contains("--users"))
-            {
-                CreateUsers = seederConfiguration.CreateUsers;
-            }
+            TimeReportSec = KeysExist("-t", "--time") ? seederConfiguration.TimeReportSec : TimeReportSec;
+            DefaultCountSeed = KeysExist("-n", "--number") ? seederConfiguration.DefaultCountSeed : DefaultCountSeed;
         }
     }
 }
