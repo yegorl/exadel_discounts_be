@@ -26,7 +26,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                     Mail = "Claire@gmail.com",
                     HashPassword = "+fs8G3LGPEg3HFHyJNfv4jAe+a9zKCj4AgZDBVatsGcHW625Ce+QO6cTcI/oLFn2ArUvvYPs7Hs664OPojKm3A6kPAQ77ysqzigxg75xbKS2Cel5Un7BaIBMN+BFRU5CnaXnPQ4rmOENf8p70FbdwWr359pvmTttFWsQAG2iCjI=",
                     Salt = "sOVqvk4NWiJ4gbTeVJ19M3V2gG5jOdootBQbTv6v",
-                    Roles = RoleOption.Moderator | RoleOption.Employee
+                    Roles = RoleOption.Moderator
                 },
                 new User
                 {
@@ -35,7 +35,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                     Mail = "Bob@gmail.com",
                     HashPassword = "voWfJR7QxiT3sTuLZMu+iuYswOika7FU+VTtRhATkhSdzznn7pOnSH1VEsZbNlqWOaRpvTskIlBUmvXwct5KZ94cg3T93dVLmSCenh8VjPmFKTiGHxP+dboJLXjeKQ6BUNoNwn3w5v16OFRH+QgGesrdkWsLi2V5QQ/+BO9VDVA=",
                     Salt = "wQFhWPjNcYukdImNixjiATqeQLemqaJA55jQkfgg",
-                    Roles = RoleOption.Administrator | RoleOption.Moderator | RoleOption.Employee
+                    Roles = RoleOption.Administrator
                 }
             };
     }
