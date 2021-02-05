@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Exadel.CrazyPrice.Data.Seeder": {
+      "commandName": "Project",
+      "commandLineArgs": "-n 0 --tags",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
