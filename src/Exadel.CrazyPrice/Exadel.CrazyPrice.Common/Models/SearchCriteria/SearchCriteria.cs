@@ -16,7 +16,7 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         public DiscountOption SearchDiscountOption { get; set; }
 
         /// <summary>
-        /// Gets or sets a search Person Id.
+        /// Gets or sets a search User Id.
         /// </summary>
         public Guid SearchPersonId { get; set; }
 

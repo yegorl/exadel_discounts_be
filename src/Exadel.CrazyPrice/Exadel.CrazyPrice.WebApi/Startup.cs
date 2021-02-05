@@ -1,3 +1,4 @@
+using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation;
@@ -46,7 +47,7 @@ namespace Exadel.CrazyPrice.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SearchCriteriaValidator>());
 
             services.AddControllers()
                 .AddJsonOptions(opts =>
@@ -76,12 +77,12 @@ namespace Exadel.CrazyPrice.WebApi
                 };
             });
 
-            services.AddApiVersioning(config =>
+            services.AddApiVersioning(options =>
             {
-                config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
-                config.ReportApiVersions = true;
-                config.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
             services.AddCors(options =>
@@ -106,6 +107,8 @@ namespace Exadel.CrazyPrice.WebApi
                     options.ApiSecret = this.Configuration["Auth:ApiSecret"];
                 });
             services.AddSwagger();
+
+            services.AddMongoDb(Configuration);
         }
 
         /// <summary>

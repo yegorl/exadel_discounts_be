@@ -1,14 +1,13 @@
 ﻿using Bogus;
 using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json;
 using Xunit;
-using Person = Exadel.CrazyPrice.Common.Models.Person;
 
 namespace Exadel.CrazyPrice.Tests
 {
@@ -17,14 +16,14 @@ namespace Exadel.CrazyPrice.Tests
         [Fact]
         public void GetDiscountFakeTest()
         {
-            var local = "en";
+            var local = "ru";
 
             var workingHours = string.Empty;
             workingHours = local == "ru"
                 ? "понедельник 09:00–18:00 вторник 09:00–18:00 среда 09:00–18:00 четверг 09:00–18:00 пятница 09:00–18:00 суббота Закрыто воскресенье Закрыто"
                 : "Monday 09:00–18:00 Tuesday 09:00–18:00 Wednesday 09:00–18:00 Thursday 09:00–18:00 Friday 09:00–18:00 Saturday Closed Sunday Closed";
 
-            var personGenerator = new Faker<Person>(local)
+            var personGenerator = new Faker<User>(local)
                     .RuleFor(x => x.Id, f => Guid.NewGuid())
                     .RuleFor(x => x.Name, f => f.Person.FirstName)
                     .RuleFor(x => x.Surname, f => f.Person.LastName)
@@ -36,6 +35,7 @@ namespace Exadel.CrazyPrice.Tests
                     .RuleFor(x => x.Name, f => f.Company.CompanyName())
                     .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
                     .RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("+!!! !! !!!-!!-!!"))
+                    .RuleFor(x => x.Mail, f => f.Person.Email)
                 ;
 
             var locationGenerator = new Faker<Location>(local)
@@ -58,7 +58,7 @@ namespace Exadel.CrazyPrice.Tests
                 .RuleFor(x => x.Id, f => Guid.NewGuid())
                 .RuleFor(x => x.Name, f => f.Commerce.ProductName())
                 .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
-                .RuleFor(x => x.AmountOfDiscount, f => f.Random.Int(5000, 10000)/100)
+                .RuleFor(x => x.AmountOfDiscount, f => f.Random.Int(5000, 10000) / 100)
                 .RuleFor(x => x.StartDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(700), DateTime.Now))
                 .RuleFor(x => x.EndDate, f => f.Date.Between(DateTime.Now + TimeSpan.FromDays(1), DateTime.Now + TimeSpan.FromDays(700)))
                 .RuleFor(x => x.Address, f => addressGenerator.Generate())
@@ -67,15 +67,14 @@ namespace Exadel.CrazyPrice.Tests
                 .RuleFor(x => x.Tags, f => f.Commerce.Categories(7).Distinct().ToList())
                 .RuleFor(x => x.RatingTotal, f => f.Random.Int(0, 4) + f.Random.Int(1, 9) / 10)
                 .RuleFor(x => x.ViewTotal, f => f.Random.Int(0, 100))
-                .RuleFor(x => x.ViewPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                 .RuleFor(x => x.ReservationTotal, f => f.Random.Int(0, 50))
-                .RuleFor(x => x.ReservationPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                 .RuleFor(x => x.CreateDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(700), DateTime.Now - TimeSpan.FromDays(60)))
                 .RuleFor(x => x.LastChangeDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(60), DateTime.Now))
-                .RuleFor(x => x.PersonCreateDate, f => personGenerator.Generate())
-                .RuleFor(x => x.PersonLastChangeDate, f => personGenerator.Generate())
+                .RuleFor(x => x.UserCreateDate, f => personGenerator.Generate())
+                .RuleFor(x => x.UserLastChangeDate, f => personGenerator.Generate())
+                .RuleFor(x => x.ReservationPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                .RuleFor(x => x.ViewPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                 ;
-
 
             var discountData = new List<DiscountResponse>();
 

@@ -11,34 +11,34 @@ using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
 {
-    public class PersonsControllerTests
+    public class UsersControllerTests
     {
-        private readonly Mock<ILogger<PersonsController>> _mockLogger;
-        private readonly Mock<IPersonRepository> _mockRepository;
-        private Person _resultValues;
+        private readonly Mock<ILogger<UsersController>> _mockLogger;
+        private readonly Mock<IUserRepository> _mockRepository;
+        private User _resultValues;
         private readonly Guid _searchValue;
 
-        public PersonsControllerTests()
+        public UsersControllerTests()
         {
             _searchValue = Guid.NewGuid();
-            _mockLogger = new Mock<ILogger<PersonsController>>();
-            _mockRepository = new Mock<IPersonRepository>();
+            _mockLogger = new Mock<ILogger<UsersController>>();
+            _mockRepository = new Mock<IUserRepository>();
         }
 
         [Fact]
         public async Task GetPersonsOkTest()
         {
-            _resultValues = new Person();
+            _resultValues = new User();
 
-            _mockRepository.Setup(r => r.GetPersonByUidAsync(_searchValue))
+            _mockRepository.Setup(r => r.GetUserByUidAsync(_searchValue))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new PersonsController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new UsersController(_mockLogger.Object, _mockRepository.Object);
 
-            var actionResult = await controller.GetPerson(_searchValue);
+            var actionResult = await controller.GetUser(_searchValue);
 
             var result = Assert.IsType<OkObjectResult>(actionResult);
-            var returnValue = Assert.IsType<Person>(result.Value);
+            var returnValue = Assert.IsType<User>(result.Value);
 
             returnValue.Should().NotBeNull();
         }
@@ -48,12 +48,12 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         {
             _resultValues = null;
 
-            _mockRepository.Setup(r => r.GetPersonByUidAsync(_searchValue))
+            _mockRepository.Setup(r => r.GetUserByUidAsync(_searchValue))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new PersonsController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new UsersController(_mockLogger.Object, _mockRepository.Object);
 
-            var actionResult = await controller.GetPerson(_searchValue);
+            var actionResult = await controller.GetUser(_searchValue);
 
             var result = Assert.IsType<NotFoundObjectResult>(actionResult);
             var returnValue = Assert.IsType<string>(result.Value);

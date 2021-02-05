@@ -32,6 +32,13 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         }
 
         [Theory]
+        [InlineData("Магазин чик", "Магазинчик")]
+        public void GetValidContentNospaceTest(string value, string expectedResult)
+        {
+            value.GetValidContent(CharOptions.Letter).Should().Be(expectedResult);
+        }
+
+        [Theory]
         [InlineData("Магазин`чик & Company", "Магазин`чик & Company")]
         public void GetValidContentLetterSymbolPunctuationTest(string value, string expectedResult)
         {

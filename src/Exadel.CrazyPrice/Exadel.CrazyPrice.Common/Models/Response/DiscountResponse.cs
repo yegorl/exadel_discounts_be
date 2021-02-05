@@ -40,10 +40,10 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public DateTime CreateDate { get; set; }
 
-        public Person PersonCreateDate { get; set; }
+        public User UserCreateDate { get; set; }
 
         public DateTime? LastChangeDate { get; set; }
 
-        public Person PersonLastChangeDate { get; set; }
+        public User UserLastChangeDate { get; set; }
     }
 }

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.Data", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.IdentityServer", "Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj", "{611BA737-44AE-421F-ADE6-1893ECA7F651}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exadel.CrazyPrice.Data.Seeder", "Exadel.CrazyPrice.Data.Seeder\Exadel.CrazyPrice.Data.Seeder.csproj", "{785992C3-3FE3-4D03-92BD-84674E28A01D}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.TestClient", "Exadel.CrazyPrice.TestClient\Exadel.CrazyPrice.TestClient.csproj", "{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}"
 EndProject
 Global
@@ -41,6 +43,10 @@ Global
 		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{611BA737-44AE-421F-ADE6-1893ECA7F651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785992C3-3FE3-4D03-92BD-84674E28A01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785992C3-3FE3-4D03-92BD-84674E28A01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785992C3-3FE3-4D03-92BD-84674E28A01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785992C3-3FE3-4D03-92BD-84674E28A01D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -28,6 +28,13 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                                      CharOptions.Number |
                                      CharOptions.Punctuation |
                                      CharOptions.Symbol, " ");
+
+                RuleFor(x => x.Mail)
+                    .NotEmpty()
+                    .MinimumLength(6)
+                    .MaximumLength(50)
+                    .EmailAddress()
+                    .NotContainsSpace();
             });
         }
     }
