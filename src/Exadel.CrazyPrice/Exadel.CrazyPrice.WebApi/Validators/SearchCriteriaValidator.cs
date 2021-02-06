@@ -28,7 +28,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .MaximumLength(20)
                     .ValidCharacters(CharOptions.Letter, " -");
 
-                RuleFor(x => x.SearchPersonId)
+                RuleFor(x => x.SearchUserId)
                     .NotEmpty();
 
                 RuleFor(x => x.SearchDiscountOption)

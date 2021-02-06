@@ -167,6 +167,66 @@ namespace Exadel.CrazyPrice.Common.Extentions
             return string.IsNullOrEmpty(specialChars) ? result : result.ReplaceTwoAndMoreCharsBySomeOne(specialChars);
         }
 
+        /// <summary>
+        /// Converts string to bool. When exceptionOrDefault is true and is cast error throws exception otherwise returns false.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="exceptionOrDefault"></param>
+        /// <returns></returns>
+        public static bool ToBool(this string key, bool exceptionOrDefault = true)
+        {
+            if (bool.TryParse(key, out var value))
+            {
+                return value;
+            }
+
+            if (exceptionOrDefault)
+            {
+                throw new ArgumentException($"{key} is not bool value.");
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Converts string to uint. When exceptionOrDefault is true and is cast error throws exception otherwise returns 0. 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="exceptionOrDefault"></param>
+        /// <returns></returns>
+        public static uint ToUint(this string key, bool exceptionOrDefault = true)
+        {
+            if (uint.TryParse(key, out var value))
+            {
+                return value;
+            }
+
+            if (exceptionOrDefault)
+            {
+                throw new ArgumentException($"{key} is not uint value.");
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Converts string to string with value. When exceptionOrDefault is true and is cast error throws exception otherwise returns string.Empty. 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="exceptionOrDefault"></param>
+        /// <returns></returns>
+        public static string ToStringWithValue(this string key, bool exceptionOrDefault = true)
+        {
+            if (!string.IsNullOrEmpty(key)) return key.Trim();
+
+            if (exceptionOrDefault)
+            {
+                throw new ArgumentException($"{key} is null or empty.");
+            }
+
+            return string.Empty;
+        }
+
         private static List<Func<char, bool>> BuildRulesForChar(CharOptions charOptions)
         {
             var rulesForChar = new List<Func<char, bool>>();

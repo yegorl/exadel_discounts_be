@@ -1,10 +1,9 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Configurations;
+using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models.Option;
-using Exadel.CrazyPrice.Data.Configuration;
 using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.Data.Models;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -19,10 +18,10 @@ namespace Exadel.CrazyPrice.Data.Repositories
         private readonly IMongoCollection<DbDiscount> _discounts;
         private readonly IMongoCollection<DbTag> _tags;
 
-        public QuickSearchRepository(IOptions<MongoDbConfiguration> configuration)
+        public QuickSearchRepository(IDbConfiguration configuration)
         {
-            var client = new MongoClient(configuration.Value.ConnectionString);
-            var db = client.GetDatabase(configuration.Value.Database);
+            var client = new MongoClient(configuration.ConnectionString);
+            var db = client.GetDatabase(configuration.Database);
             _discounts = db.GetCollection<DbDiscount>("Discounts");
             _tags = db.GetCollection<DbTag>("Tags");
         }

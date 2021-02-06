@@ -72,8 +72,8 @@ namespace Exadel.CrazyPrice.Tests
                 .RuleFor(x => x.LastChangeDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(60), DateTime.Now))
                 .RuleFor(x => x.UserCreateDate, f => personGenerator.Generate())
                 .RuleFor(x => x.UserLastChangeDate, f => personGenerator.Generate())
-                .RuleFor(x => x.ReservationPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
-                .RuleFor(x => x.ViewPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                .RuleFor(x => x.ReservationUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                .RuleFor(x => x.ViewUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                 ;
 
             var discountData = new List<DiscountResponse>();

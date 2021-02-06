@@ -18,7 +18,7 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         /// <summary>
         /// Gets or sets a search User Id.
         /// </summary>
-        public Guid SearchPersonId { get; set; }
+        public Guid SearchUserId { get; set; }
 
         /// <summary>
         /// Gets or sets a search Country.

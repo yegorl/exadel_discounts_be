@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Exadel.CrazyPrice.Common.Models.Option
+﻿namespace Exadel.CrazyPrice.Common.Models.Option
 {
     public enum RoleOption
     {
