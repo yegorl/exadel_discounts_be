@@ -1,38 +1,11 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Data.Seeder.Extentions;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Linq;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 {
     public class SeederConfiguration
     {
-        public SeederConfiguration()
-        {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{environmentName}.json", true, true)
-                .AddEnvironmentVariables();
-
-            var configuration = builder.Build();
-
-            string GetSection(string s) => configuration.GetSection($"Database:{s}").Value;
-
-            ConnectionString = GetSection("ConnectionStrings:DefaultConnection").ToStringWithValue();
-            Database = GetSection("ConnectionStrings:Database").ToStringWithValue();
-
-            DetailsInfo = GetSection("DetailsInfo").ToBool();
-            RewriteIndexes = GetSection("RewriteIndexes").ToBool();
-            ClearDatabaseBeforeSeed = GetSection("ClearDatabaseBeforeSeed").ToBool();
-            CreateTags = GetSection("CreateTags").ToBool();
-            CreateUsers = GetSection("CreateUsers").ToBool();
-
-            TimeReportSec = GetSection("TimeReportSec").ToUint();
-            DefaultCountSeed = GetSection("DefaultCountSeed").ToUint();
-        }
-
         public bool DetailsInfo { get; set; }
 
         public bool CreateTags { get; set; }
@@ -62,21 +35,47 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 
             action.Invoke(seederConfiguration);
 
-            var argsNormalize = string.Join("(|)", Environment.GetCommandLineArgs()).ToLowerInvariant().Split("(|)");
+            var args = Environment.GetCommandLineArgs();
 
-            bool KeysExist(params string[] keys) => keys.Any(k => argsNormalize.Contains(k));
+            ConnectionString = ConnectionString.OverLoadString(seederConfiguration.ConnectionString, args, "-s", "--connectionStrings");
+            Database = Database.OverLoadString(seederConfiguration.Database, args, "-d", "--database");
 
-            ConnectionString = KeysExist("-s", "--connectionStrings") ? seederConfiguration.ConnectionString : ConnectionString;
-            Database = KeysExist("-d", "--database") ? seederConfiguration.Database : Database;
+            DetailsInfo = DetailsInfo.OverLoadBool(seederConfiguration.DetailsInfo, args, "-i", "--info");
+            RewriteIndexes = RewriteIndexes.OverLoadBool(seederConfiguration.RewriteIndexes, args, "-r", "--rewrite");
+            ClearDatabaseBeforeSeed = ClearDatabaseBeforeSeed.OverLoadBool(seederConfiguration.ClearDatabaseBeforeSeed, args, "-c", "--clear");
+            CreateTags = CreateTags.OverLoadBool(seederConfiguration.CreateTags, args, "--tags");
+            CreateUsers = CreateUsers.OverLoadBool(seederConfiguration.CreateUsers, args, "--users");
 
-            DetailsInfo = KeysExist("-i", "--info") ? seederConfiguration.DetailsInfo : DetailsInfo;
-            RewriteIndexes = KeysExist("-r", "--rewrite") ? seederConfiguration.RewriteIndexes : RewriteIndexes;
-            ClearDatabaseBeforeSeed = KeysExist("-c", "--clear") ? seederConfiguration.ClearDatabaseBeforeSeed : ClearDatabaseBeforeSeed;
-            CreateTags = KeysExist("--tags") ? seederConfiguration.CreateTags : CreateTags;
-            CreateUsers = KeysExist("--users") ? seederConfiguration.CreateUsers : CreateUsers;
+            TimeReportSec = TimeReportSec.OverLoadUint(seederConfiguration.TimeReportSec, args, "-t", "--time");
+            DefaultCountSeed = DefaultCountSeed.OverLoadUint(seederConfiguration.DefaultCountSeed, args, "-n", "--number");
+        }
 
-            TimeReportSec = KeysExist("-t", "--time") ? seederConfiguration.TimeReportSec : TimeReportSec;
-            DefaultCountSeed = KeysExist("-n", "--number") ? seederConfiguration.DefaultCountSeed : DefaultCountSeed;
+        public SeederConfiguration Default
+        {
+            get
+            {
+                var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+                var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json", true, true)
+                    .AddJsonFile($"appsettings.{environmentName}.json", true, true)
+                    .AddEnvironmentVariables()
+                    .Build();
+
+                ConnectionString = configuration.ToStringWithValue("Database:ConnectionStrings:DefaultConnection");
+                Database = configuration.ToStringWithValue("Database:ConnectionStrings:Database");
+
+                DetailsInfo = configuration.ToBool("Database:DetailsInfo");
+                RewriteIndexes = configuration.ToBool("Database:RewriteIndexes");
+                ClearDatabaseBeforeSeed = configuration.ToBool("Database:ClearDatabaseBeforeSeed");
+                CreateTags = configuration.ToBool("Database:CreateTags");
+                CreateUsers = configuration.ToBool("Database:CreateUsers");
+
+                TimeReportSec = configuration.ToUint("Database:TimeReportSec");
+                DefaultCountSeed = configuration.ToUint("Database:DefaultCountSeed");
+
+                return this;
+            }
         }
     }
 }
