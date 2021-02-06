@@ -28,7 +28,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         [Fact]
         public async Task GetPersonsOkTest()
         {
-            _resultValues = new User();
+            _resultValues = new Employee();
 
             _mockRepository.Setup(r => r.GetUserByUidAsync(_searchValue))
                 .ReturnsAsync(_resultValues);
@@ -38,7 +38,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var actionResult = await controller.GetUser(_searchValue);
 
             var result = Assert.IsType<OkObjectResult>(actionResult);
-            var returnValue = Assert.IsType<User>(result.Value);
+            var returnValue = Assert.IsType<Employee>(result.Value);
 
             returnValue.Should().NotBeNull();
         }
@@ -58,7 +58,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var result = Assert.IsType<NotFoundObjectResult>(actionResult);
             var returnValue = Assert.IsType<string>(result.Value);
 
-            returnValue.Should().BeEquivalentTo("No persons found.");
+            returnValue.Should().BeEquivalentTo("No employee found.");
         }
     }
 }
