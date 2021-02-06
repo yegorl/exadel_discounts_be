@@ -168,12 +168,13 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
-        /// Converts string to bool. When exceptionOrDefault is true and is cast error throws exception otherwise returns false.
+        /// Converts string to bool. When exceptionOrDefault is true and is cast error throws exception otherwise returns defaultValue.
         /// </summary>
         /// <param name="key"></param>
         /// <param name="exceptionOrDefault"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static bool ToBool(this string key, bool exceptionOrDefault = true)
+        public static bool ToBool(this string key, bool exceptionOrDefault = true, bool defaultValue = false)
         {
             if (bool.TryParse(key, out var value))
             {
@@ -185,16 +186,17 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 throw new ArgumentException($"{key} is not bool value.");
             }
 
-            return false;
+            return defaultValue;
         }
 
         /// <summary>
-        /// Converts string to uint. When exceptionOrDefault is true and is cast error throws exception otherwise returns 0. 
+        /// Converts string to uint. When exceptionOrDefault is true and is cast error throws exception otherwise returns defaultValue. 
         /// </summary>
         /// <param name="key"></param>
         /// <param name="exceptionOrDefault"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static uint ToUint(this string key, bool exceptionOrDefault = true)
+        public static uint ToUint(this string key, bool exceptionOrDefault = true, uint defaultValue = 0)
         {
             if (uint.TryParse(key, out var value))
             {
@@ -206,25 +208,29 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 throw new ArgumentException($"{key} is not uint value.");
             }
 
-            return 0;
+            return defaultValue;
         }
 
         /// <summary>
-        /// Converts string to string with value. When exceptionOrDefault is true and is cast error throws exception otherwise returns string.Empty. 
+        /// Converts string to string with value. When exceptionOrDefault is true and is cast error throws exception otherwise returns defaultValue. 
         /// </summary>
         /// <param name="key"></param>
         /// <param name="exceptionOrDefault"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static string ToStringWithValue(this string key, bool exceptionOrDefault = true)
+        public static string ToStringWithValue(this string key, bool exceptionOrDefault = true, string defaultValue = "")
         {
-            if (!string.IsNullOrEmpty(key)) return key.Trim();
+            if (!string.IsNullOrEmpty(key))
+            {
+                return key.Trim();
+            }
 
             if (exceptionOrDefault)
             {
                 throw new ArgumentException($"{key} is null or empty.");
             }
 
-            return string.Empty;
+            return defaultValue;
         }
 
         private static List<Func<char, bool>> BuildRulesForChar(CharOptions charOptions)
