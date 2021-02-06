@@ -31,31 +31,31 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets a user by id.
+        /// Gets an employee by id.
         /// </summary>
-        /// <param name="id">The search id of user.</param>
+        /// <param name="id">The search id of employee.</param>
         /// <returns></returns>
-        /// <response code="200">User found.</response>
+        /// <response code="200">Employee found.</response>
         /// <response code="400">Bad request.</response>
-        /// <response code="404">No user found.</response>
+        /// <response code="404">No employee found.</response>
         [HttpGet]
-        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [Route("get/{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
             _logger.LogInformation("Guid incoming: {@id}", id);
-            var user = await _repository.GetUserByUidAsync(id);
+            var employee = (Employee)await _repository.GetUserByUidAsync(id);
 
-            if (user == null)
+            if (employee == null)
             {
-                _logger.LogWarning("User get: {@user}", user);
-                return NotFound("No persons found.");
+                _logger.LogWarning("Employee get: {@employee}", (Employee)null);
+                return NotFound("No employee found.");
             }
 
-            _logger.LogInformation("User get: {@user}", user);
-            return Ok(user);
+            _logger.LogInformation("Employee get: {@employee}", employee);
+            return Ok(employee);
         }
     }
 }

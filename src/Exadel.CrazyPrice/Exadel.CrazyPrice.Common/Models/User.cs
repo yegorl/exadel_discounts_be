@@ -5,20 +5,20 @@ namespace Exadel.CrazyPrice.Common.Models
 {
     public class User
     {
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Surname { get; set; }
+        public virtual string Surname { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public virtual string PhoneNumber { get; set; }
 
-        public string Mail { get; set; }
+        public virtual string Mail { get; set; }
 
-        public string HashPassword { get; set; }
+        public virtual string HashPassword { get; set; }
 
-        public string Salt { get; set; }
+        public virtual string Salt { get; set; }
 
-        public RoleOption Roles { get; set; }
+        public virtual RoleOption Roles { get; set; }
     }
 }

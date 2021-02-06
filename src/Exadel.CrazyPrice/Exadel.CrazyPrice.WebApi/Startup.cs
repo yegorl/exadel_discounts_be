@@ -53,6 +53,7 @@ namespace Exadel.CrazyPrice.WebApi
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
                 });
 
             services.Configure<ApiBehaviorOptions>(options =>
