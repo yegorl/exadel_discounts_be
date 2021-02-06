@@ -64,14 +64,20 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
 
             await base.SeedAsync();
 
-            await InsertAsync(users);
+            foreach (var dbUser in users)
+            {
+                await Collection.UpdateOneAsync(
+                    u => u.Id == dbUser.Id,
+                    Builders<DbUser>.Update
+                        .Set(f => f.Name, dbUser.Name)
+                        .Set(f => f.Mail, dbUser.Mail)
+                        .Set(f => f.HashPassword, dbUser.HashPassword)
+                        .Set(f => f.Salt, dbUser.Salt)
+                        .Set(f => f.Roles, dbUser.Roles),
+                    new UpdateOptions { IsUpsert = true });
+            }
 
             await TimerDisposeAsync();
-        }
-
-        private async Task InsertAsync(List<DbUser> dbUsers)
-        {
-            await Collection.InsertManyAsync(dbUsers);
         }
     }
 }
