@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Extentions
 {
@@ -10,42 +10,42 @@ namespace Exadel.CrazyPrice.Data.Seeder.Extentions
     public static class ConfigurationExtentions
     {
         /// <summary>
-        /// Gets string value from сonfiguration. When exceptionOrDefault is true and is cast error throws exception otherwise returns defaultValue.
+        /// Gets string value from сonfiguration. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="key"></param>
-        /// <param name="exceptionOrDefault"></param>
+        /// <param name="raiseException"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static string ToStringWithValue(this IConfiguration configuration, string key, bool exceptionOrDefault = true, string defaultValue = "")
+        public static string ToStringWithValue(this IConfiguration configuration, string key, string defaultValue = "", bool raiseException = true)
         {
-            return configuration.GetSection(key).Value.ToStringWithValue(exceptionOrDefault, defaultValue);
+            return configuration.GetSection(key).Value.ToStringWithValue(defaultValue, raiseException);
         }
 
         /// <summary>
-        /// Gets bool value from сonfiguration. When exceptionOrDefault is true and is cast error throws exception otherwise returns defaultValue.
+        /// Gets bool value from сonfiguration. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="key"></param>
-        /// <param name="exceptionOrDefault"></param>
+        /// <param name="raiseException"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static bool ToBool(this IConfiguration configuration, string key, bool exceptionOrDefault = true, bool defaultValue = false)
+        public static bool ToBool(this IConfiguration configuration, string key, bool defaultValue = false, bool raiseException = true)
         {
-            return configuration.GetSection(key).Value.ToBool(exceptionOrDefault, defaultValue);
+            return configuration.GetSection(key).Value.ToBool(defaultValue, raiseException);
         }
 
         /// <summary>
-        /// Gets uint value from сonfiguration. When exceptionOrDefault is true and is cast error throws exception otherwise returns defaultValue.
+        /// Gets uint value from сonfiguration. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="key"></param>
-        /// <param name="exceptionOrDefault"></param>
+        /// <param name="raiseException"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static uint ToUint(this IConfiguration configuration, string key, bool exceptionOrDefault = true, uint defaultValue = 0)
+        public static uint ToUint(this IConfiguration configuration, string key, uint defaultValue = 0, bool raiseException = true)
         {
-            return configuration.GetSection(key).Value.ToUint(exceptionOrDefault, defaultValue);
+            return configuration.GetSection(key).Value.ToUint(defaultValue, raiseException);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Extentions
 
         private static bool KeysExist(string[] possibleValues, params string[] keys)
         {
-            
+
             return keys.Any(k => string.Join("(|)", possibleValues).ToLowerInvariant().Split("(|)").Contains(k.ToLowerInvariant()));
         }
     }
