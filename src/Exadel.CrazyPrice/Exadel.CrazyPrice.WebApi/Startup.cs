@@ -108,7 +108,7 @@ namespace Exadel.CrazyPrice.WebApi
                 });
             services.AddSwagger();
 
-            services.AddMongoDb(Configuration);
+            services.AddMongoDb();
         }
 
         /// <summary>

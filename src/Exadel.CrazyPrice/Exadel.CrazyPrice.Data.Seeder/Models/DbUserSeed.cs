@@ -33,7 +33,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
                         Id = "97b248a1-c706-4987-9b31-101429ec2aff",
                         Name = "Frank",
                         Mail = "frank@gmail.com",
-                        HashPassword = 
+                        HashPassword =
                             "+SzcAYCGZcD+eov22e4GpybKoLsaoguAIPS0D3Ntj2ATCpcQvvbsitFLFT1IZOTEzjvxTOQ/ISdxSW9x+VmtV1UFTGgIgKPZPKMtkWmyL7SOza6iuFbikXRr6olGNkdRK6KEOSyY0d+S1VZ9RbcGl9eYfppPM5s8xVc7w0FsODw=",
                         Salt = "IZmh6o3UgDIHs5rXD3L5hD2momUnLQdyJUrpQNW/",
                         Roles = RoleOption.Employee
@@ -47,7 +47,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
                         HashPassword =
                             "+fs8G3LGPEg3HFHyJNfv4jAe+a9zKCj4AgZDBVatsGcHW625Ce+QO6cTcI/oLFn2ArUvvYPs7Hs664OPojKm3A6kPAQ77ysqzigxg75xbKS2Cel5Un7BaIBMN+BFRU5CnaXnPQ4rmOENf8p70FbdwWr359pvmTttFWsQAG2iCjI=",
                         Salt = "sOVqvk4NWiJ4gbTeVJ19M3V2gG5jOdootBQbTv6v",
-                        Roles = RoleOption.Moderator | RoleOption.Employee
+                        Roles = RoleOption.Moderator
                     },
                     // password: 3333
                     new DbUser
@@ -58,20 +58,26 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
                         HashPassword =
                             "voWfJR7QxiT3sTuLZMu+iuYswOika7FU+VTtRhATkhSdzznn7pOnSH1VEsZbNlqWOaRpvTskIlBUmvXwct5KZ94cg3T93dVLmSCenh8VjPmFKTiGHxP+dboJLXjeKQ6BUNoNwn3w5v16OFRH+QgGesrdkWsLi2V5QQ/+BO9VDVA=",
                         Salt = "wQFhWPjNcYukdImNixjiATqeQLemqaJA55jQkfgg",
-                        Roles = RoleOption.Administrator | RoleOption.Moderator | RoleOption.Employee
+                        Roles = RoleOption.Administrator
                     }
                 };
 
             await base.SeedAsync();
 
-            await InsertAsync(users);
+            foreach (var dbUser in users)
+            {
+                await Collection.UpdateOneAsync(
+                    u => u.Id == dbUser.Id,
+                    Builders<DbUser>.Update
+                        .Set(f => f.Name, dbUser.Name)
+                        .Set(f => f.Mail, dbUser.Mail)
+                        .Set(f => f.HashPassword, dbUser.HashPassword)
+                        .Set(f => f.Salt, dbUser.Salt)
+                        .Set(f => f.Roles, dbUser.Roles),
+                    new UpdateOptions { IsUpsert = true });
+            }
 
             await TimerDisposeAsync();
-        }
-
-        private async Task InsertAsync(List<DbUser> dbUsers)
-        {
-            await Collection.InsertManyAsync(dbUsers);
         }
     }
 }

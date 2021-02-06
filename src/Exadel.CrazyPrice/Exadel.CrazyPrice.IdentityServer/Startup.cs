@@ -107,7 +107,8 @@ namespace Exadel.CrazyPrice.IdentityServer
                     Configuration["Certificate:Password"]);
 
             builder.AddSigningCredential(clientCertificate);
-            services.AddMongoDb(Configuration);
+
+            services.AddMongoDb();
         }
 
         public void Configure(IApplicationBuilder app)

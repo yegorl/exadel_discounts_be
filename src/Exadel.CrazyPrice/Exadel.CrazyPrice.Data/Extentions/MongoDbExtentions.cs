@@ -8,35 +8,22 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exadel.CrazyPrice.Common.Configurations;
 
 namespace Exadel.CrazyPrice.Data.Extentions
 {
     public static class MongoDbExtentions
     {
-        public static IServiceCollection AddMongoDb(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddMongoDb(this IServiceCollection services)
         {
-            if (services == null)
-            {
-                throw new ArgumentNullException(nameof(services));
-            }
-
-            if (configuration == null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-
             MongoDbConvention.SetCamelCaseElementNameConvention();
 
-            AddMongoDbServices(services);
-            services.Configure<MongoDbConfiguration>(
-                dbConfiguration =>
-                {
-                    dbConfiguration.ConnectionString =
-                        configuration.GetSection("Database:ConnectionStrings:DefaultConnection").Value;
-
-                    dbConfiguration.Database =
-                        configuration.GetSection("Database:ConnectionStrings:Database").Value;
-                });
+            services.AddSingleton<IDbConfiguration, MongoDbConfiguration>();
+            services.AddSingleton<IDiscountRepository, DiscountRepository>();
+            services.AddSingleton<IAddressRepository, QuickSearchRepository>();
+            services.AddSingleton<ICompanyRepository, QuickSearchRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ITagRepository, QuickSearchRepository>();
 
             return services;
         }
@@ -71,15 +58,6 @@ namespace Exadel.CrazyPrice.Data.Extentions
             }
 
             return queryParams;
-        }
-
-        private static void AddMongoDbServices(IServiceCollection services)
-        {
-            services.AddSingleton<IDiscountRepository, DiscountRepository>();
-            services.AddSingleton<IAddressRepository, QuickSearchRepository>();
-            services.AddSingleton<ICompanyRepository, QuickSearchRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<ITagRepository, QuickSearchRepository>();
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Configurations;
+using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models;
-using Exadel.CrazyPrice.Data.Configuration;
 using Exadel.CrazyPrice.Data.Models;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
@@ -13,10 +12,10 @@ namespace Exadel.CrazyPrice.Data.Repositories
     {
         private readonly IMongoCollection<DbUser> _users;
 
-        public UserRepository(IOptions<MongoDbConfiguration> configuration)
+        public UserRepository(IDbConfiguration configuration)
         {
-            var client = new MongoClient(configuration.Value.ConnectionString);
-            var db = client.GetDatabase(configuration.Value.Database);
+            var client = new MongoClient(configuration.ConnectionString);
+            var db = client.GetDatabase(configuration.Database);
             _users = db.GetCollection<DbUser>("Users");
         }
 

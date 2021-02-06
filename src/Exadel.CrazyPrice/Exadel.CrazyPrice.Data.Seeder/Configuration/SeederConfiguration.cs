@@ -1,72 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Exadel.CrazyPrice.Data.Seeder.Extentions;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Linq;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 {
     public class SeederConfiguration
     {
-        private readonly IConfiguration _configuration;
-
-        public SeederConfiguration()
-        {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{environmentName}.json", true, true)
-                .AddEnvironmentVariables();
-
-            _configuration = builder.Build();
-
-            var temp = _configuration.GetSection("Database:ClearDatabaseBeforeSeed").Value;
-            if (!bool.TryParse(temp, out var clearDatabaseBeforeSeed))
-            {
-                throw new ArgumentException("Database:ClearDatabaseBeforeSeed musts be the valid bool value.");
-            }
-
-            if (!bool.TryParse(_configuration.GetSection("Database:RewriteIndexes").Value, out var rewriteIndexes))
-            {
-                throw new ArgumentException("Database:RewriteIndexes musts be the valid bool value.");
-            }
-
-            if (!bool.TryParse(_configuration.GetSection("Database:DetailsInfo").Value, out var detailsInfo))
-            {
-                throw new ArgumentException("Database:DetailsInfo musts be the valid bool value.");
-            }
-
-            if (!bool.TryParse(_configuration.GetSection("Database:CreateTags").Value, out var createTags))
-            {
-                throw new ArgumentException("Database:CreateTags musts be the valid bool value.");
-            }
-
-            if (!bool.TryParse(_configuration.GetSection("Database:CreateUsers").Value, out var createUsers))
-            {
-                throw new ArgumentException("Database:CreateUsers musts be the valid bool value.");
-            }
-
-            if (!uint.TryParse(_configuration.GetSection("Database:DefaultCountSeed").Value, out var defaultCountSeed))
-            {
-                throw new ArgumentException("Database:DefaultCountSeed musts be the valid uint value.");
-            }
-
-            if (!uint.TryParse(_configuration.GetSection("Database:TimeReportSec").Value, out var reportEverySec))
-            {
-                throw new ArgumentException("Database:TimeReportSec musts be the valid uint value.");
-            }
-
-            DetailsInfo = detailsInfo;
-            TimeReportSec = reportEverySec;
-            CreateTags = createTags;
-            CreateUsers = createUsers;
-
-            ConnectionString = _configuration.GetSection("Database:ConnectionStrings:DefaultConnection").Value;
-            Database = _configuration.GetSection("Database:ConnectionStrings:Database").Value;
-            ClearDatabaseBeforeSeed = clearDatabaseBeforeSeed;
-            RewriteIndexes = rewriteIndexes;
-            DefaultCountSeed = defaultCountSeed;
-        }
-
         public bool DetailsInfo { get; set; }
 
         public bool CreateTags { get; set; }
@@ -96,51 +35,46 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 
             action.Invoke(seederConfiguration);
 
-            var argsNormalize = string.Join("(|)", Environment.GetCommandLineArgs()).ToLowerInvariant().Split("(|)");
+            var args = Environment.GetCommandLineArgs();
 
-            if (argsNormalize.Contains("-i") || argsNormalize.Contains("--info"))
-            {
-                DetailsInfo = seederConfiguration.DetailsInfo;
-            }
+            ConnectionString = ConnectionString.OverLoadString(seederConfiguration.ConnectionString, args, "-s", "--connectionStrings");
+            Database = Database.OverLoadString(seederConfiguration.Database, args, "-d", "--database");
 
-            if (argsNormalize.Contains("-s") || argsNormalize.Contains("--connectionStrings"))
-            {
-                ConnectionString = seederConfiguration.ConnectionString;
-            }
+            DetailsInfo = DetailsInfo.OverLoadBool(seederConfiguration.DetailsInfo, args, "-i", "--info");
+            RewriteIndexes = RewriteIndexes.OverLoadBool(seederConfiguration.RewriteIndexes, args, "-r", "--rewrite");
+            ClearDatabaseBeforeSeed = ClearDatabaseBeforeSeed.OverLoadBool(seederConfiguration.ClearDatabaseBeforeSeed, args, "-c", "--clear");
+            CreateTags = CreateTags.OverLoadBool(seederConfiguration.CreateTags, args, "--tags");
+            CreateUsers = CreateUsers.OverLoadBool(seederConfiguration.CreateUsers, args, "--users");
 
-            if (argsNormalize.Contains("-d") || argsNormalize.Contains("--database"))
-            {
-                Database = seederConfiguration.Database;
-            }
+            TimeReportSec = TimeReportSec.OverLoadUint(seederConfiguration.TimeReportSec, args, "-t", "--time");
+            DefaultCountSeed = DefaultCountSeed.OverLoadUint(seederConfiguration.DefaultCountSeed, args, "-n", "--number");
+        }
 
-            if (argsNormalize.Contains("-c") || argsNormalize.Contains("--clear"))
+        public SeederConfiguration Default
+        {
+            get
             {
-                ClearDatabaseBeforeSeed = seederConfiguration.ClearDatabaseBeforeSeed;
-            }
+                var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            if (argsNormalize.Contains("-n") || argsNormalize.Contains("--number"))
-            {
-                DefaultCountSeed = seederConfiguration.DefaultCountSeed;
-            }
+                var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json", true, true)
+                    .AddJsonFile($"appsettings.{environmentName}.json", true, true)
+                    .AddEnvironmentVariables()
+                    .Build();
 
-            if (argsNormalize.Contains("-r") || argsNormalize.Contains("--rewrite"))
-            {
-                RewriteIndexes = seederConfiguration.RewriteIndexes;
-            }
+                ConnectionString = configuration.ToStringWithValue("Database:ConnectionStrings:DefaultConnection");
+                Database = configuration.ToStringWithValue("Database:ConnectionStrings:Database");
 
-            if (argsNormalize.Contains("-t") || argsNormalize.Contains("--time"))
-            {
-                TimeReportSec = seederConfiguration.TimeReportSec;
-            }
+                DetailsInfo = configuration.ToBool("Database:DetailsInfo");
+                RewriteIndexes = configuration.ToBool("Database:RewriteIndexes");
+                ClearDatabaseBeforeSeed = configuration.ToBool("Database:ClearDatabaseBeforeSeed");
+                CreateTags = configuration.ToBool("Database:CreateTags");
+                CreateUsers = configuration.ToBool("Database:CreateUsers");
 
-            if (argsNormalize.Contains("--tags"))
-            {
-                CreateTags = seederConfiguration.CreateTags;
-            }
+                TimeReportSec = configuration.ToUint("Database:TimeReportSec");
+                DefaultCountSeed = configuration.ToUint("Database:DefaultCountSeed");
 
-            if (argsNormalize.Contains("--users"))
-            {
-                CreateUsers = seederConfiguration.CreateUsers;
+                return this;
             }
         }
     }
