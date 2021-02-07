@@ -14,5 +14,7 @@ namespace Exadel.CrazyPrice.Common.Models
 
         [JsonIgnore, DefaultValue(RoleOption.Unknown)]
         public override RoleOption Roles => RoleOption.Unknown;
+
+        public override bool IsEmpty => Equals(new Employee());
     }
 }

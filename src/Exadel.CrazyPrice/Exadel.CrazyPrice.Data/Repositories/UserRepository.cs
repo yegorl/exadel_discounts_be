@@ -36,27 +36,30 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             if (users == null || users.Count == 0)
             {
-                return new User();
+                return User.Empty;
             }
 
-            var isGuid = Guid.TryParse(users[0].Id, out var guid);
-
-            if (!isGuid)
+            User user;
+            try
             {
-                return new User();
+                user = new User
+                {
+                    Id = new Guid(users[0].Id),
+                    Name = users[0].Name,
+                    Surname = users[0].Surname,
+                    PhoneNumber = users[0].PhoneNumber,
+                    Mail = users[0].Mail,
+                    HashPassword = users[0].HashPassword,
+                    Salt = users[0].Salt,
+                    Roles = users[0].Roles
+                };
+            }
+            catch
+            {
+                user = User.Empty;
             }
 
-            return new User
-            {
-                Id = guid,
-                Name = users[0].Name,
-                Surname = users[0].Surname,
-                PhoneNumber = users[0].PhoneNumber,
-                Mail = users[0].Mail,
-                HashPassword = users[0].HashPassword,
-                Salt = users[0].Salt,
-                Roles = users[0].Roles
-            };
+            return user;
         }
     }
 }

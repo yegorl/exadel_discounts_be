@@ -28,7 +28,10 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         [Fact]
         public async Task GetPersonsOkTest()
         {
-            _resultValues = new Employee();
+            _resultValues = new Employee()
+            {
+                Name = "Same"
+            };
 
             _mockRepository.Setup(r => r.GetUserByUidAsync(_searchValue))
                 .ReturnsAsync(_resultValues);
@@ -46,7 +49,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         [Fact]
         public async Task GetPersonsNotFoundTest()
         {
-            _resultValues = null;
+            _resultValues = new Employee();
 
             _mockRepository.Setup(r => r.GetUserByUidAsync(_searchValue))
                 .ReturnsAsync(_resultValues);

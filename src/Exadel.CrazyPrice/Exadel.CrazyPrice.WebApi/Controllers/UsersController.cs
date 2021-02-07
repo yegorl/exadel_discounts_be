@@ -48,9 +48,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             _logger.LogInformation("Guid incoming: {@id}", id);
             var employee = (Employee)await _repository.GetUserByUidAsync(id);
 
-            if (employee == null)
+            if (employee.IsEmpty)
             {
-                _logger.LogWarning("Employee get: {@employee}", (Employee)null);
+                _logger.LogWarning("Employee get: Empty.");
                 return NotFound("No employee found.");
             }
 
