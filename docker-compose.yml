@@ -1,0 +1,42 @@
+﻿version: '3.8'
+
+services:
+  identity-server:
+    build: 
+      context: ./src/Exadel.CrazyPrice
+      dockerfile: Exadel.CrazyPrice.IdentityServer/Dockerfile
+    ports:
+      - '8000:80'
+      - '8001:443'
+    volumes:
+      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer:/root/IdentityServer:cached
+      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer/certs:/https/
+      - type: bind
+        source: ./certs/aspnetapp-root-cert.cer
+        target: /https-root/aspnetapp-root-cert.cer
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_HTTPS_PORT=8001
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-identity-server.pfx
+
+  web-api:
+    build:
+      context: ./src/Exadel.CrazyPrice
+      dockerfile: Exadel.CrazyPrice.WebApi/Dockerfile
+    ports:
+      - '9000:80'
+      - '9001:443'
+    volumes:
+      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
+      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi/certs:/https/
+      - type: bind
+        source: ./certs/aspnetapp-root-cert.cer
+        target: /https-root/aspnetapp-root-cert.cer
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_HTTPS_PORT=9001
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx

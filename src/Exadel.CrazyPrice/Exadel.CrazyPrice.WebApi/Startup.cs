@@ -102,7 +102,7 @@ namespace Exadel.CrazyPrice.WebApi
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = this.Configuration["Auth:Authority"];
+                    options.Authority = "https://identity-server:44301";
                     options.ApiName = this.Configuration["Auth:ApiName"];
                     options.ApiSecret = this.Configuration["Auth:ApiSecret"];
                 });

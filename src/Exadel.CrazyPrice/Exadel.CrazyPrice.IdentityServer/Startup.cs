@@ -20,8 +20,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//TestUsers
-using Exadel.CrazyPrice.IdentityServer.UI;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
@@ -89,6 +87,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                 {
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
+                    options.IssuerUri = "https://identity-server:44301";
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(Config.ApiResources)
@@ -99,14 +98,14 @@ namespace Exadel.CrazyPrice.IdentityServer
 
 
             // not recommended for production - you need to store your key material somewhere secure
-            //builder.AddDeveloperSigningCredential();
+            builder.AddDeveloperSigningCredential();
 
-            var clientCertificate =
-                new X509Certificate2(Path.Combine(
-                    Environment.ContentRootPath, Configuration["Certificate:Name"]), 
-                    Configuration["Certificate:Password"]);
+            //var clientCertificate =
+            //    new X509Certificate2(Path.Combine(
+            //        Environment.ContentRootPath, Configuration["Certificate:Name"]), 
+            //        Configuration["Certificate:Password"]);
 
-            builder.AddSigningCredential(clientCertificate);
+            //builder.AddSigningCredential(clientCertificate);
             services.AddMongoDb(Configuration);
         }
 
