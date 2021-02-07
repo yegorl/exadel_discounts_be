@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,9 +47,11 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> GetUser(Guid id)
         {
             _logger.LogInformation("Guid incoming: {@id}", id);
-            var employee = (Employee)await _repository.GetUserByUidAsync(id);
 
-            if (employee.IsEmpty)
+            var user = await _repository.GetUserByUidAsync(id);
+            var employee = user.ToEmployee();
+
+            if (employee.IsEmpty())
             {
                 _logger.LogWarning("Employee get: Empty.");
                 return NotFound("No employee found.");

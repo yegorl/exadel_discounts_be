@@ -1,20 +1,17 @@
-﻿using System.ComponentModel;
-using System.Text.Json.Serialization;
-using Exadel.CrazyPrice.Common.Models.Option;
+﻿using System;
 
 namespace Exadel.CrazyPrice.Common.Models
 {
-    public class Employee: User
+    public class Employee
     {
-        [JsonIgnore, DefaultValue(null)]
-        public override string HashPassword => null;
+        public Guid Id { get; init; }
 
-        [JsonIgnore, DefaultValue(null)]
-        public override string Salt => null;
+        public string Name { get; init; }
 
-        [JsonIgnore, DefaultValue(RoleOption.Unknown)]
-        public override RoleOption Roles => RoleOption.Unknown;
+        public string Surname { get; init; }
 
-        public override bool IsEmpty => Equals(new Employee());
+        public string PhoneNumber { get; init; }
+
+        public string Mail { get; init; }
     }
 }
