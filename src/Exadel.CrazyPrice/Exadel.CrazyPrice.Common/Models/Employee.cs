@@ -4,14 +4,14 @@ namespace Exadel.CrazyPrice.Common.Models
 {
     public class Employee
     {
-        public Guid Id { get; init; }
+        public Guid Id { get; set; }
 
-        public string Name { get; init; }
+        public string Name { get; set; }
 
-        public string Surname { get; init; }
+        public string Surname { get; set; }
 
-        public string PhoneNumber { get; init; }
+        public string PhoneNumber { get; set; }
 
-        public string Mail { get; init; }
+        public string Mail { get; set; }
     }
 }

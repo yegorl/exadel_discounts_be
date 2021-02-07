@@ -16,7 +16,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static Employee ToEmployee(this User user)
         {
-            return new()
+            return user == null ? null : new Employee
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -33,7 +33,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static bool IsEmpty(this Employee employee)
         {
-            return employee == null || employee.Id == new Guid()
+            return employee == null || employee.Id == Guid.Empty
                 && string.IsNullOrEmpty(employee.Name)
                 && string.IsNullOrEmpty(employee.Surname)
                 && string.IsNullOrEmpty(employee.Mail)
