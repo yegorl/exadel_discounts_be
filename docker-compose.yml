@@ -1,6 +1,23 @@
 ﻿version: '3.8'
 
 services:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always
+    volumes: 
+      - ./datadir:/data/db/
+
+  # mongo_seed:
+  #   image: mongo
+  #   links:
+  #     - mongo
+  #   volumes:
+  #     - ./mongo-seed:/mongo-seed/
+  #   command:
+  #     /mongo-seed/import.sh
+
   identity-server:
     build: 
       context: ./src/Exadel.CrazyPrice
@@ -9,6 +26,7 @@ services:
       - '8000:80'
       - '8001:443'
     volumes:
+      - ./logs/identityServer:/app/Logs/
       - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer:/root/IdentityServer:cached
       - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer/certs:/https/
       - type: bind
@@ -29,6 +47,7 @@ services:
       - '9000:80'
       - '9001:443'
     volumes:
+      - ./logs/api:/app/Logs/
       - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
       - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi/certs:/https/
       - type: bind
