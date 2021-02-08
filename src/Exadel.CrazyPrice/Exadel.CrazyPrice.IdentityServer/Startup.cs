@@ -87,7 +87,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                 {
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
-                    options.IssuerUri = "https://identity-server:8001";
+                    //options.IssuerUri = "https://identity-server:8001";
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(Config.ApiResources)
