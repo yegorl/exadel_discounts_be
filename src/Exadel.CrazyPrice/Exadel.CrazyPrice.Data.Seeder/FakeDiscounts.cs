@@ -37,7 +37,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.Location, f => locationGenerator.Generate())
                 ;
 
-           var personGenerator = new Faker<DbUser>(local)
+           var dbUserGenerator = new Faker<DbUser>(local)
                     .RuleFor(x => x.Id, f => Guid.NewGuid().ToString())
                     .RuleFor(x => x.Name, f => f.Person.FirstName)
                     .RuleFor(x => x.Surname, f => f.Person.LastName)
@@ -85,8 +85,8 @@ namespace Exadel.CrazyPrice.Data.Seeder
                             f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1)))
                     .RuleFor(x => x.Tags, f => f.Commerce.Categories(15).Distinct().ToList())
                     .RuleFor(x => x.RatingTotal, f => f.Random.Int(0, 4) + f.Random.Int(1, 9) / 10)
-                    .RuleFor(x => x.ViewTotal, f => f.Random.Int(0, 100))
-                    .RuleFor(x => x.ReservationTotal, f => f.Random.Int(0, 50))
+                    .RuleFor(x => x.ViewsTotal, f => f.Random.Int(0, 100))
+                    .RuleFor(x => x.SubscriptionsTotal, f => f.Random.Int(0, 50))
                     .RuleFor(x => x.Language, f => languages[local])
                     .RuleFor(x => x.Hidden, f => false)
 
@@ -95,12 +95,12 @@ namespace Exadel.CrazyPrice.Data.Seeder
                             DateTime.Now - TimeSpan.FromDays(60)))
                     .RuleFor(x => x.LastChangeDate,
                         f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(60), DateTime.Now))
-                    .RuleFor(x => x.PersonCreateDate, f => personGenerator.Generate())
-                    .RuleFor(x => x.PersonLastChangeDate, f => personGenerator.Generate())
+                    .RuleFor(x => x.UserCreateDate, f => dbUserGenerator.Generate())
+                    .RuleFor(x => x.UserLastChangeDate, f => dbUserGenerator.Generate())
 
-                    .RuleFor(x => x.ReservationPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
-                    .RuleFor(x => x.ViewPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
-                    .RuleFor(x => x.FavoritePersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.SubscriptionsUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.ViewsUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.FavoritesUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
 
                     .RuleFor(x => x.Translations, f => translationGenerator.Generate(1)) // !!!!
 
