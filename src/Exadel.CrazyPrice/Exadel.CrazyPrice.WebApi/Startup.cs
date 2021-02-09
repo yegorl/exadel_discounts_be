@@ -95,7 +95,7 @@ namespace Exadel.CrazyPrice.WebApi
                     {
                         builder
                             .AllowCredentials()
-                            .WithOrigins("https://localhost:44357")
+                            .WithOrigins(this.Configuration["Auth:JsClient"])
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();

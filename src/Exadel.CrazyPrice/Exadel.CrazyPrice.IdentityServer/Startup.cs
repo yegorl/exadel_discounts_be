@@ -87,7 +87,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                 {
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
-                    options.IssuerUri = "https://identity-server:443";
+                    options.IssuerUri = Configuration["AuthConfiguration:IdentityServerUrl"];
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(Config.ApiResources)
@@ -106,7 +106,7 @@ namespace Exadel.CrazyPrice.IdentityServer
             //        Configuration["Certificate:Password"]);
 
             //builder.AddSigningCredential(clientCertificate);
-            services.AddMongoDb(Configuration);
+            services.AddMongoDb();
         }
 
         public void Configure(IApplicationBuilder app)
