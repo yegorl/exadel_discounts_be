@@ -32,11 +32,11 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public int? ViewTotal { get; set; }
 
-        public List<string> ViewPersonsId { get; set; }
+        public List<string> ViewUsersId { get; set; }
 
         public int? ReservationTotal { get; set; }
 
-        public List<string> ReservationPersonsId { get; set; }
+        public List<string> ReservationUsersId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

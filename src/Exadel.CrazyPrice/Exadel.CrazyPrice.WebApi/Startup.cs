@@ -55,6 +55,7 @@ namespace Exadel.CrazyPrice.WebApi
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
                 });
 
             services.Configure<ApiBehaviorOptions>(options =>
@@ -112,7 +113,7 @@ namespace Exadel.CrazyPrice.WebApi
                 
             services.AddSwagger();
 
-            services.AddMongoDb(Configuration);
+            services.AddMongoDb();
         }
 
         /// <summary>

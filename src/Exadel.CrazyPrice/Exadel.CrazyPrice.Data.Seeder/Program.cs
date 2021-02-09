@@ -14,7 +14,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
             SeederConfiguration seederConfiguration;
             try
             {
-                seederConfiguration = new SeederConfiguration();
+                seederConfiguration = new SeederConfiguration().Default;
                 seederConfiguration.Configure(c =>
                 {
                     c.DetailsInfo = DetailsInfo;
