@@ -24,11 +24,13 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 namespace Exadel.CrazyPrice.IdentityServer
 {
     public class Startup
     {
+        private ILogger<Startup> _logger;
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
@@ -109,8 +111,9 @@ namespace Exadel.CrazyPrice.IdentityServer
             services.AddMongoDb();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILogger<Startup> logger)
         {
+            _logger = logger;
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
