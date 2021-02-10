@@ -37,7 +37,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.Location, f => locationGenerator.Generate())
                 ;
 
-           var personGenerator = new Faker<DbUser>(local)
+           var dbUserGenerator = new Faker<DbUser>(local)
                     .RuleFor(x => x.Id, f => Guid.NewGuid().ToString())
                     .RuleFor(x => x.Name, f => f.Person.FirstName)
                     .RuleFor(x => x.Surname, f => f.Person.LastName)

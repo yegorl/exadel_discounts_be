@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Text.Json.Serialization;
+using IdentityModel.Client;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -93,7 +95,7 @@ namespace Exadel.CrazyPrice.WebApi
                     {
                         builder
                             .AllowCredentials()
-                            .WithOrigins("https://localhost:44357")
+                            .WithOrigins(this.Configuration["Auth:JsClient"])
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
@@ -106,7 +108,9 @@ namespace Exadel.CrazyPrice.WebApi
                     options.Authority = this.Configuration["Auth:Authority"];
                     options.ApiName = this.Configuration["Auth:ApiName"];
                     options.ApiSecret = this.Configuration["Auth:ApiSecret"];
+                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy {ValidateEndpoints = false};
                 });
+                
             services.AddSwagger();
 
             services.AddMongoDb();

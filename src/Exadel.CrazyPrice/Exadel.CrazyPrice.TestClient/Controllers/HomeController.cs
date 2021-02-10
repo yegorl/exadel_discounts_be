@@ -34,7 +34,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
 
             var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
             var request = new HttpRequestMessage(
-                HttpMethod.Get, "/api/v1/addresses/get/countries/A");
+                HttpMethod.Get, "/api/v1/addresses/get/countries/%D0%90");
 
             var response = await httpClient.SendAsync(
                 request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
@@ -65,7 +65,15 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
 
             var client = _httpClientFactory.CreateClient("IdentityServer");
 
-            var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync();
+            var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync(
+                new DiscoveryDocumentRequest
+                {
+                    Address = "https://localhost:8001",
+                    Policy =
+                    {
+                        ValidateIssuerName = false
+                    },
+                });
             if (discoveryDocumentResponse.IsError)
             {
                 throw new Exception(discoveryDocumentResponse.Error);

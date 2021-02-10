@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
     /// <summary>
-    /// An example controller performs operations on persons.
+    /// An example controller performs operations on users.
     /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/users")]

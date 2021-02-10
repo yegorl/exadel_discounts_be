@@ -26,7 +26,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         }
 
         [Fact]
-        public async Task GetPersonsOkTest()
+        public async Task GetUsersOkTest()
         {
             _resultValues = new User()
             {
@@ -47,7 +47,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         }
 
         [Fact]
-        public async Task GetPersonsNotFoundTest()
+        public async Task GetUsersNotFoundTest()
         {
             _resultValues = new User();
 

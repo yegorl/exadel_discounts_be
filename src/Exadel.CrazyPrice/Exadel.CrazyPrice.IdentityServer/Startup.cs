@@ -20,17 +20,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//TestUsers
-using Exadel.CrazyPrice.IdentityServer.UI;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 namespace Exadel.CrazyPrice.IdentityServer
 {
     public class Startup
     {
+        private ILogger<Startup> _logger;
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
@@ -89,6 +89,7 @@ namespace Exadel.CrazyPrice.IdentityServer
                 {
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
+                    options.IssuerUri = Configuration["AuthConfiguration:IdentityServerUrl"];
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(Config.ApiResources)
@@ -99,20 +100,20 @@ namespace Exadel.CrazyPrice.IdentityServer
 
 
             // not recommended for production - you need to store your key material somewhere secure
-            //builder.AddDeveloperSigningCredential();
+            builder.AddDeveloperSigningCredential();
 
-            var clientCertificate =
-                new X509Certificate2(Path.Combine(
-                    Environment.ContentRootPath, Configuration["Certificate:Name"]), 
-                    Configuration["Certificate:Password"]);
+            //var clientCertificate =
+            //    new X509Certificate2(Path.Combine(
+            //        Environment.ContentRootPath, Configuration["Certificate:Name"]), 
+            //        Configuration["Certificate:Password"]);
 
-            builder.AddSigningCredential(clientCertificate);
-
+            //builder.AddSigningCredential(clientCertificate);
             services.AddMongoDb();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILogger<Startup> logger)
         {
+            _logger = logger;
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
