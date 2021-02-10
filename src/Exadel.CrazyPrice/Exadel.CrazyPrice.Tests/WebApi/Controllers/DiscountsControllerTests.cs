@@ -10,6 +10,8 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
@@ -29,14 +31,17 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         public async Task GetDiscountOkTest()
         {
             var searchValue = Guid.NewGuid();
-            var resultValues = new DiscountResponse();
+            var resultValues = new Discount()
+            {
+                Id = searchValue
+            };
 
             _mockRepository.Setup(r => r.GetDiscountByUidAsync(searchValue))
                 .ReturnsAsync(resultValues);
 
             var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
 
-            var actionResult = await controller.GetDiscount(searchValue);
+            var actionResult = await controller.GetDiscount(searchValue, LanguageOption.Ru);
 
             var result = Assert.IsType<OkObjectResult>(actionResult);
             var returnValue = Assert.IsType<DiscountResponse>(result.Value);
@@ -48,14 +53,14 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         public async Task GetDiscountNotFoundTest()
         {
             var searchValue = Guid.NewGuid();
-            var resultValues = (DiscountResponse)null;
+            var resultValues = (Discount)null;
 
             _mockRepository.Setup(r => r.GetDiscountByUidAsync(searchValue))
                 .ReturnsAsync(resultValues);
 
             var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
 
-            var actionResult = await controller.GetDiscount(searchValue);
+            var actionResult = await controller.GetDiscount(searchValue, LanguageOption.Ru);
 
             var result = Assert.IsType<NotFoundObjectResult>(actionResult);
             var returnValue = Assert.IsType<string>(result.Value);
@@ -67,9 +72,9 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         public async Task GetDiscountsOkTest()
         {
             var searchValue = new SearchCriteria();
-            var resultValues = new List<DiscountResponse>
+            var resultValues = new List<Discount>
             {
-                new DiscountResponse()
+                new Discount()
             };
 
             _mockRepository.Setup(r => r.GetDiscountsAsync(searchValue))
@@ -89,7 +94,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         public async Task GetDiscountsNotFoundTest()
         {
             var searchValue = new SearchCriteria();
-            var resultValues = (List<DiscountResponse>)null;
+            var resultValues = (List<Discount>)null;
 
             _mockRepository.Setup(r => r.GetDiscountsAsync(searchValue))
                 .ReturnsAsync(resultValues);
@@ -103,31 +108,12 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
 
             returnValue.Should().BeEquivalentTo("No discounts found.");
         }
-
-        [Fact]
-        public async Task UpsertDiscountOkTest()
-        {
-            var searchValue = new UpsertDiscountRequest();
-            var resultValues = new UpsertDiscountRequest();
-
-            _mockRepository.Setup(r => r.UpsertDiscountAsync(searchValue))
-                .ReturnsAsync(resultValues);
-
-            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
-
-            var actionResult = await controller.UpsertDiscount(searchValue);
-
-            var result = Assert.IsType<OkObjectResult>(actionResult);
-            var returnValue = Assert.IsType<UpsertDiscountRequest>(result.Value);
-
-            returnValue.Should().NotBeNull();
-        }
-
+        
         [Fact]
         public async Task UpsertDiscountBadRequestTest()
         {
-            var searchValue = new UpsertDiscountRequest();
-            var resultValues = (UpsertDiscountRequest)null;
+            var searchValue = new Discount();
+            var resultValues = (Discount)null;
 
             _mockRepository.Setup(r => r.UpsertDiscountAsync(searchValue))
                 .ReturnsAsync(resultValues);
@@ -146,8 +132,9 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         public async Task DeleteDiscountOkTest()
         {
             var searchValue = Guid.NewGuid();
+            var userId = Guid.Parse("0aed5f3e-3c8b-434d-adb0-e75bbca32b38");
 
-            _mockRepository.Setup(r => r.RemoveDiscountByUidAsync(searchValue));
+            _mockRepository.Setup(r => r.RemoveDiscountByUidAsync(searchValue, userId));
 
             var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
 
@@ -160,8 +147,9 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         public async Task DeleteDiscountsOkTest()
         {
             var searchValue = new List<Guid>();
+            var userId = Guid.Parse("0aed5f3e-3c8b-434d-adb0-e75bbca32b38");
 
-            _mockRepository.Setup(r => r.RemoveDiscountAsync(searchValue));
+            _mockRepository.Setup(r => r.RemoveDiscountAsync(searchValue, userId));
 
             var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
 

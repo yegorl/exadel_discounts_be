@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Models.Option;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
@@ -29,7 +30,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var searchValue = "bel";
             _resultValues.Add("Belarus");
 
-            _mockRepository.Setup(r => r.GetCountriesAsync(searchValue))
+            _mockRepository.Setup(r => r.GetCountriesAsync(searchValue, LanguageOption.En))
                 .ReturnsAsync(_resultValues);
 
             var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
@@ -48,7 +49,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var searchValue = "bel";
             _resultValues.Clear();
 
-            _mockRepository.Setup(r => r.GetCountriesAsync(searchValue))
+            _mockRepository.Setup(r => r.GetCountriesAsync(searchValue, LanguageOption.Ru))
                 .ReturnsAsync(_resultValues);
 
             var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
@@ -68,7 +69,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var searchCity = "Mi";
             _resultValues.Add("Minsk");
 
-            _mockRepository.Setup(r => r.GetCitiesAsync(searchCountry, searchCity))
+            _mockRepository.Setup(r => r.GetCitiesAsync(searchCountry, searchCity, LanguageOption.En))
                 .ReturnsAsync(_resultValues);
 
             var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
@@ -88,7 +89,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var searchCity = "Mi";
             _resultValues.Clear();
 
-            _mockRepository.Setup(r => r.GetCitiesAsync(searchCountry, searchCity))
+            _mockRepository.Setup(r => r.GetCitiesAsync(searchCountry, searchCity, LanguageOption.Ru))
                 .ReturnsAsync(_resultValues);
 
             var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
