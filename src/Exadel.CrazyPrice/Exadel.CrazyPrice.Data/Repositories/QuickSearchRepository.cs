@@ -9,15 +9,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DbTag = Exadel.CrazyPrice.Data.Models.DbTag;
 
 namespace Exadel.CrazyPrice.Data.Repositories
 {
+    /// <summary>
+    /// Represents repositories for address, company, tag.
+    /// </summary>
     public class QuickSearchRepository : IAddressRepository, ICompanyRepository, ITagRepository
     {
         private readonly IMongoCollection<DbDiscount> _discounts;
         private readonly IMongoCollection<DbTag> _tags;
 
+        /// <summary>
+        /// Creates repositories for address, company, tag.
+        /// </summary>
+        /// <param name="configuration"></param>
         public QuickSearchRepository(IDbConfiguration configuration)
         {
             var client = new MongoClient(configuration.ConnectionString);
@@ -26,8 +32,19 @@ namespace Exadel.CrazyPrice.Data.Repositories
             _tags = db.GetCollection<DbTag>("Tags");
         }
 
-        public async Task<List<string>> GetCountriesAsync(string searchValue)
+        /// <summary>
+        /// Gets countries.
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <param name="languageOption"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GetCountriesAsync(string searchValue, LanguageOption languageOption)
         {
+            if (searchValue == string.Empty)
+            {
+                return await GetCountriesAsync(languageOption);
+            }
+
             var queryCompile = new Dictionary<string, string>
             {
                 { "searchValue", searchValue.GetValidContent(CharOptions.Letter, " -") },
@@ -37,7 +54,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             var list = new List<string>();
 
-            Func<DbDiscount, bool> isIgnoredField = LanguageOption.En == queryCompile["searchValue"].GetLanguageFromFirstLetter()
+            Func<DbDiscount, bool> isIgnoredField = LanguageOption.En == languageOption
                 ? l =>
                 {
                     var field = l.Translations.Where(t => t.Language == "english").Select(t => t.Address.Country)
@@ -56,8 +73,20 @@ namespace Exadel.CrazyPrice.Data.Repositories
             return list;
         }
 
-        public async Task<List<string>> GetCitiesAsync(string searchCountry, string searchValue)
+        /// <summary>
+        /// Gets cities by country.
+        /// </summary>
+        /// <param name="searchCountry"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="languageOption"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GetCitiesAsync(string searchCountry, string searchValue, LanguageOption languageOption)
         {
+            if (searchValue == string.Empty)
+            {
+                return await GetCitiesAsync(searchCountry, languageOption);
+            }
+
             var queryCompile = new Dictionary<string, string>
             {
                 { "searchValue", searchValue.GetValidContent(CharOptions.Letter, " -") },
@@ -70,7 +99,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             var list = new List<string>();
 
-            Func<DbDiscount, bool> isIgnoredField = LanguageOption.En == queryCompile["searchValue"].GetLanguageFromFirstLetter()
+            Func<DbDiscount, bool> isIgnoredField = LanguageOption.En == languageOption
                 ? l =>
                 {
                     var field = l.Translations.Where(t => t.Language == "english").Select(t => t.Address.City)
@@ -89,6 +118,11 @@ namespace Exadel.CrazyPrice.Data.Repositories
             return list;
         }
 
+        /// <summary>
+        /// Gets companies.
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public async Task<List<string>> GetCompanyNamesAsync(string searchValue)
         {
             var queryCompile = new Dictionary<string, string>
@@ -119,6 +153,11 @@ namespace Exadel.CrazyPrice.Data.Repositories
             return list;
         }
 
+        /// <summary>
+        /// Gets tags.
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public async Task<List<string>> GetTagAsync(string searchValue)
         {
             var queryCompile = new Dictionary<string, string>
@@ -195,6 +234,21 @@ namespace Exadel.CrazyPrice.Data.Repositories
                     }
                 }
             }
+        }
+
+        private async Task<List<string>> GetCountriesAsync(LanguageOption languageOption) =>
+            await _discounts.Distinct<string>(
+                "address.country".GetWithTranslationsPrefix(languageOption),
+                "{ \"" + "language".GetWithTranslationsPrefix(languageOption) + "\" : \"" + languageOption.ToStringLookup() + "\" }").ToListAsync();
+
+        private async Task<List<string>> GetCitiesAsync(string searchCountry, LanguageOption languageOption)
+        {
+            return await _discounts.Distinct<string>(
+                "address.city".GetWithTranslationsPrefix(languageOption),
+                "{$and : [{\"" + "address.country".GetWithTranslationsPrefix(languageOption)
+                              + "\" : \"" + searchCountry + "\"}, { \""
+                              + "language".GetWithTranslationsPrefix(languageOption) + "\" : \""
+                              + languageOption.ToStringLookup() + "\" }]}").ToListAsync();
         }
     }
 }
