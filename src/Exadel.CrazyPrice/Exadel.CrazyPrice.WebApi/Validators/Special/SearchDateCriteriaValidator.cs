@@ -19,17 +19,17 @@ namespace Exadel.CrazyPrice.WebApi.Validators.Special
                 return false;
             }
 
-            if (value.SearchDateFirst == null || value.SearchDateLast == null)
+            if (value.SearchStartDate == null || value.SearchEndDate == null)
             {
                 return true;
             }
 
-            return value.SearchDateLast > value.SearchDateFirst;
+            return value.SearchEndDate > value.SearchStartDate;
         }
 
         protected override string GetDefaultMessageTemplate()
         {
-            return "The SearchDateLast musts be null or great than SearchDateFirst.";
+            return "The SearchEndDate musts be null or great than SearchStartDate.";
         }
     }
 

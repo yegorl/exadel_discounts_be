@@ -17,12 +17,9 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .Must(x => x == null || x.Length > 2)
                     .WithMessage("The CompanyName musts be null or their length great than 2.");
 
-                RuleFor(x => x.SearchStartDate)
+                RuleFor(x => x.SearchDate)
                     .ValidSearchDate();
-
-                RuleFor(x => x.SearchEndDate)
-                    .ValidSearchDate();
-
+                
                 RuleFor(x => x.SearchAmountOfDiscount)
                     .SetValidator(searchAmountOfDiscountCriteriaValidator);
 

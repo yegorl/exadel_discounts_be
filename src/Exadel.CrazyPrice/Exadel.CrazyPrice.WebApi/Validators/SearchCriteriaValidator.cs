@@ -28,9 +28,6 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .MaximumLength(20)
                     .ValidCharacters(CharOptions.Letter, " -");
 
-                RuleFor(x => x.SearchUserId)
-                    .NotEmpty();
-
                 RuleFor(x => x.SearchDiscountOption)
                     .IsInEnum();
 
@@ -45,8 +42,8 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .WithMessage("The page number musts be great than 0.");
 
                 RuleFor(x => x.SearchPaginationCountElementPerPage)
-                    .Must(i => i > 4)
-                    .WithMessage("The count element per page musts be great than 4.");
+                    .Must(i => i > 4 && i < 25)
+                    .WithMessage("The count element per page musts be great than 4 and less than 25.");
 
                 RuleFor(x => x.SearchLanguage)
                     .IsInEnum();
