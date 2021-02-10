@@ -95,8 +95,8 @@ namespace Exadel.CrazyPrice.Data.Seeder
                             DateTime.Now - TimeSpan.FromDays(60)))
                     .RuleFor(x => x.LastChangeDate,
                         f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(60), DateTime.Now))
-                    .RuleFor(x => x.UserCreateDate, f => personGenerator.Generate())
-                    .RuleFor(x => x.UserLastChangeDate, f => personGenerator.Generate())
+                    .RuleFor(x => x.UserCreateDate, f => dbUserGenerator.Generate())
+                    .RuleFor(x => x.UserLastChangeDate, f => dbUserGenerator.Generate())
 
                     .RuleFor(x => x.SubscriptionsUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                     .RuleFor(x => x.FavoritesUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!

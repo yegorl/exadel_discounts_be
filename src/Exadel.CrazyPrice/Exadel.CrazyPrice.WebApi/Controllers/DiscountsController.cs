@@ -304,6 +304,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// Sets the vote for discount.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         /// <response code="200">Vote added.</response>
         /// <response code="400">Bad request.</response>
