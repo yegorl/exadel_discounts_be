@@ -6,10 +6,6 @@
     public enum LanguageOption
     {
         /// <summary>
-        /// Represents if language is unknown.
-        /// </summary>
-        Unknown,
-        /// <summary>
         /// Russian
         /// </summary>
         Ru,
