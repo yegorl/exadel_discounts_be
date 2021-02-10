@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Options;
@@ -144,7 +145,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 _logger.LogInformation("Model state is valid.");
 
                 var user = await _userRepository.GetUserByEmailAsync(model.Email.ToLower());
-                if (user != null)
+                if (!user.IsEmpty())
                 {
                     _logger.LogInformation("User {name} {surname} was found.", user.Name, user.Surname);
                     //Validate found user
