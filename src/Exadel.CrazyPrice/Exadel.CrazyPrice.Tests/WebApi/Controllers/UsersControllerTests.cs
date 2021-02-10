@@ -30,7 +30,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         {
             _resultValues = new User()
             {
-                Name = "Same"
+                Id = Guid.NewGuid()
             };
 
             _mockRepository.Setup(r => r.GetUserByUidAsync(_searchValue))

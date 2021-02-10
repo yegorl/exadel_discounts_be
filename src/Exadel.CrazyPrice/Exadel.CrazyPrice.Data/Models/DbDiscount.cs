@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Exadel.CrazyPrice.Data.Models
 {
+    /// <summary>
+    /// Represents the DbDiscount.
+    /// </summary>
     public class DbDiscount
     {
         [BsonId]
@@ -20,10 +23,12 @@ namespace Exadel.CrazyPrice.Data.Models
         public decimal? AmountOfDiscount { get; set; }
 
         [BsonIgnoreIfDefault]
-        public DateTime StartDate { get; set; }
+        [BsonIgnoreIfNull]
+        public DateTime? StartDate { get; set; }
 
         [BsonIgnoreIfDefault]
-        public DateTime EndDate { get; set; }
+        [BsonIgnoreIfNull]
+        public DateTime? EndDate { get; set; }
 
         [BsonIgnoreIfNull]
         public DbAddress Address { get; set; }
@@ -32,54 +37,59 @@ namespace Exadel.CrazyPrice.Data.Models
         public DbCompany Company { get; set; }
 
         [BsonIgnoreIfNull]
-        public string WorkingHours { get; set; }
+        public string WorkingDaysOfTheWeek { get; set; }
 
         [BsonIgnoreIfNull]
         public List<string> Tags { get; set; }
 
         [BsonIgnoreIfDefault]
+        [BsonIgnoreIfNull]
         [JsonIgnore]
-        public float RatingTotal { get; set; }
+        public decimal? RatingTotal { get; set; }
 
         [BsonIgnoreIfDefault]
+        [BsonIgnoreIfNull]
         [JsonIgnore]
-        public int ViewTotal { get; set; }
+        public int? ViewsTotal { get; set; }
 
         [BsonIgnoreIfDefault]
+        [BsonIgnoreIfNull]
         [JsonIgnore]
-        public int ReservationTotal { get; set; }
+        public int? SubscriptionsTotal { get; set; }
 
         [BsonIgnoreIfNull]
         [JsonIgnore]
-        public List<string> FavoritePersonsId { get; set; }
+        public List<string> FavoritesUsersId { get; set; }
 
         [BsonIgnoreIfNull]
         [JsonIgnore]
-        public List<string> ReservationPersonsId { get; set; }
+        public List<string> SubscriptionsUsersId { get; set; }
 
         [BsonIgnoreIfNull]
         [JsonIgnore]
-        public List<string> ViewPersonsId { get; set; }
+        public List<string> RatingUsersId { get; set; }
 
         [BsonIgnoreIfDefault]
+        [BsonIgnoreIfNull]
         [JsonIgnore]
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
 
         [BsonIgnoreIfNull]
         [JsonIgnore]
-        public DbUser PersonCreateDate { get; set; }
+        public DbUser UserCreateDate { get; set; }
 
         [BsonIgnoreIfDefault]
+        [BsonIgnoreIfNull]
         [JsonIgnore]
-        public DateTime LastChangeDate { get; set; }
+        public DateTime? LastChangeDate { get; set; }
 
         [BsonIgnoreIfNull]
         [JsonIgnore]
-        public DbUser PersonLastChangeDate { get; set; }
+        public DbUser UserLastChangeDate { get; set; }
 
         [BsonDefaultValue(false)]
         [JsonIgnore]
-        public bool Hidden { get; set; }
+        public bool Deleted { get; set; }
         
         [BsonIgnoreIfNull]
         public string Language { get; set; }

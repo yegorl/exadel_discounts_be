@@ -2,10 +2,13 @@
 
 namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
 {
+    /// <summary>
+    /// Represents min and max date for search by date of discount.
+    /// </summary>
     public class SearchDateCriteria
     {
-        public DateTime? SearchDateFirst { get; set; }
+        public DateTime? SearchStartDate { get; set; }
 
-        public DateTime? SearchDateLast { get; set; }
+        public DateTime? SearchEndDate { get; set; }
     }
 }

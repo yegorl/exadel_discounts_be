@@ -4,6 +4,9 @@ using System;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 {
+    /// <summary>
+    /// Determines the seeder configuration.
+    /// </summary>
     public class SeederConfiguration
     {
         public bool DetailsInfo { get; set; }
@@ -50,6 +53,9 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
             DefaultCountSeed = DefaultCountSeed.OverLoadUint(seederConfiguration.DefaultCountSeed, args, "-n", "--number");
         }
 
+        /// <summary>
+        /// Gets default seeder configuration.
+        /// </summary>
         public SeederConfiguration Default
         {
             get

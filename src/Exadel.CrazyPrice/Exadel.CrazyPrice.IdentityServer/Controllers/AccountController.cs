@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
@@ -35,6 +36,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
         private readonly IUserRepository _userRepository;
         private readonly IIdentityServerInteractionService _interaction;
@@ -44,6 +46,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         private readonly IHtmlLocalizer<AccountController> _localizer;
 
         public AccountController(
+            ILogger<AccountController> logger,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
@@ -54,6 +57,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         {
             // if the TestUserRepository is not in DI, then we'll just use the global userService collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
+            _logger = logger;
             _userService = userService;
             _userRepository = userRepository;
 
@@ -69,6 +73,10 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),new CookieOptions{Expires = DateTimeOffset.Now.AddDays(30)});
+
+            _logger.LogInformation("Culture change request. Append cookies by response: {key} : {value}",
+                CookieRequestCultureProvider.DefaultCookieName, culture);
+
             return LocalRedirect(returnUri);
         }
         /// <summary>
@@ -79,6 +87,8 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         {
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
+
+            _logger.LogInformation("Got access to Login page.");
 
             if (vm.IsExternalLoginOnly)
             {
@@ -96,6 +106,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
+            _logger.LogInformation("Login request. Email: {Email}, Remember login: {RememberLogin}.",
+                model.Email, model.RememberLogin);
+
             // check if we are in the context of an authorization request
             var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 
@@ -128,12 +141,17 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             if (ModelState.IsValid)
             {
+                _logger.LogInformation("Model state is valid.");
+
                 var user = await _userRepository.GetUserByEmailAsync(model.Email.ToLower());
                 if (user != null)
                 {
+                    _logger.LogInformation("User {name} {surname} was found.", user.Name, user.Surname);
                     //Validate found user
                     if (_userService.ValidateCredentials(user, model.Password))
                     {
+                        _logger.LogInformation("Validate Credentials was success.");
+
                         await _events.RaiseAsync(new UserLoginSuccessEvent(user.Name, user.Id.ToString(), user.Name));
 
                         // only set explicit expiration here if user chooses "remember me". 
@@ -186,10 +204,13 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                     }
                 }
 
+                _logger.LogWarning("User with email {email} not exist.", model.Email.ToLower());
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials", clientId: context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, _localizer["Invalid_email_or_password"].Value);
             }
+
+            _logger.LogError("Model state is not valid.");
 
             // something went wrong, show form with error
             var vm = await BuildLoginViewModelAsync(model);

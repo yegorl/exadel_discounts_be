@@ -5,8 +5,14 @@ using System.Collections.Generic;
 
 namespace Exadel.CrazyPrice.Data.Indexes
 {
+    /// <summary>
+    /// Determines discount indexes.
+    /// </summary>
     public static class DbDiscountIndexes
     {
+        /// <summary>
+        /// Gets discount indexes.
+        /// </summary>
         public static List<CreateIndexModel<DbDiscount>> GetIndexes => new()
         {
             new CreateIndexModel<DbDiscount>(Builders<DbDiscount>

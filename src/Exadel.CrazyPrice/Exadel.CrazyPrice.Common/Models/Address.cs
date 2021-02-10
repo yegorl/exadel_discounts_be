@@ -1,5 +1,8 @@
 ﻿namespace Exadel.CrazyPrice.Common.Models
 {
+    /// <summary>
+    /// Represents the address.
+    /// </summary>
     public class Address
     {
         public string Country { get; set; }

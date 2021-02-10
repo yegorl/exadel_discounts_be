@@ -20,19 +20,21 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
         }
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var sub = new Guid(context.Subject.GetSubjectId()); //!!! TRY
+            var sub = new Guid(context.Subject.GetSubjectId());
             var user = await _userRepository.GetUserByUidAsync(sub);
 
             var claims = new List<Claim>();
             // Add custom claims in token here based on user properties or any other source
-            claims.Add(new Claim("role", user.Roles.ToString() ?? string.Empty)); //!!! NOT VALID
+            claims.Add(new Claim("role", user.Roles.ToString()));
+            claims.Add(new Claim("name", user.Name));
+            claims.Add(new Claim("surname", user.Surname));
 
             context.IssuedClaims = claims;
         }
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
-            var sub = new Guid(context.Subject.GetSubjectId()); //!!! TRY
+            var sub = new Guid(context.Subject.GetSubjectId());
             var user = await _userRepository.GetUserByUidAsync(sub);
             context.IsActive = user != null;
         }

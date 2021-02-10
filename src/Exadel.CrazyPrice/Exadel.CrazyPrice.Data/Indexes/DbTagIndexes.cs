@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 namespace Exadel.CrazyPrice.Data.Indexes
 {
+    /// <summary>
+    /// Determines tag indexes.
+    /// </summary>
     public static class DbTagIndexes
     {
+        /// <summary>
+        /// Gets tag indexes.
+        /// </summary>
         public static List<CreateIndexModel<DbTag>> GetIndexes => new()
         {
             new CreateIndexModel<DbTag>(Builders<DbTag>
@@ -17,9 +23,7 @@ namespace Exadel.CrazyPrice.Data.Indexes
                                  Name = "idx_text"
                              }),
 
-            //new CreateIndexModel<DbTag>(Builders<DbTag>.IndexKeys.Ascending(c => c.Name), new CreateIndexOptions { Unique = true }),
-
-            new CreateIndexModel<DbTag>(Builders<DbTag>.IndexKeys.Ascending(new StringFieldDefinition<DbTag>("translations.name"))),
+            new CreateIndexModel<DbTag>(Builders<DbTag>.IndexKeys.Ascending(new StringFieldDefinition<DbTag>("translations.name")))
         };
     }
 }

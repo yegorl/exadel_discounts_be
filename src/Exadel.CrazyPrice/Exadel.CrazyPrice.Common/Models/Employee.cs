@@ -2,6 +2,9 @@
 
 namespace Exadel.CrazyPrice.Common.Models
 {
+    /// <summary>
+    /// Represents the employee.
+    /// </summary>
     public class Employee
     {
         public Guid Id { get; set; }

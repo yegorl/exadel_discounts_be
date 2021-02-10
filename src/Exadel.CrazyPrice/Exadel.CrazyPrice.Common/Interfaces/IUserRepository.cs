@@ -4,6 +4,9 @@ using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
+    /// <summary>
+    /// Represents interfaces for IUserRepository.
+    /// </summary>
     public interface IUserRepository
     {
         /// <summary>

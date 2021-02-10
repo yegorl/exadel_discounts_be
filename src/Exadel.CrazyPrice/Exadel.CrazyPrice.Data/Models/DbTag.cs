@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Exadel.CrazyPrice.Data.Models
 {
+    /// <summary>
+    /// Represents the DbTag.
+    /// </summary>
     public class DbTag
     {
         [BsonId]

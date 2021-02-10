@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Exadel.CrazyPrice.Data.Models
 {
+    /// <summary>
+    /// Represents the DbTranslation.
+    /// </summary>
     public class DbTranslation
     {
-        [BsonIgnoreIfNull]
-        public string Language { get; set; }
-
         [BsonIgnoreIfNull]
         public string Name { get; set; }
 
@@ -22,5 +22,8 @@ namespace Exadel.CrazyPrice.Data.Models
 
         [BsonIgnoreIfNull]
         public List<string> Tags { get; set; }
+
+        [BsonIgnoreIfNull]
+        public string Language { get; set; }
     }
 }

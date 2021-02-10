@@ -27,17 +27,13 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
-        /// Gets true when the Employee entity or its property is Null or Empty otherwise false.
+        /// Gets true when the Employee entity or id property is Null or Empty otherwise false.
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
         public static bool IsEmpty(this Employee employee)
         {
-            return employee == null || employee.Id == Guid.Empty
-                && string.IsNullOrEmpty(employee.Name)
-                && string.IsNullOrEmpty(employee.Surname)
-                && string.IsNullOrEmpty(employee.Mail)
-                && string.IsNullOrEmpty(employee.PhoneNumber);
+            return employee == null || employee.Id == Guid.Empty;
         }
     }
 }

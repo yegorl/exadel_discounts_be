@@ -46,5 +46,25 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 return new User();
             }
         }
+
+        /// <summary>
+        /// Gets the DbUser entity from User entity.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static DbUser ToDbUser(this User user) =>
+            user == null || user.Id == Guid.Empty
+                ? null
+                : new DbUser
+                {
+                    Id = user.Id.ToString(),
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    Mail = user.Mail,
+                    Roles = user.Roles,
+                    HashPassword = user.HashPassword,
+                    Salt = user.Salt
+                };
     }
 }

@@ -25,7 +25,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators.Special
 
         protected override string GetDefaultMessageTemplate()
         {
-            return "The WorkingHours musts be format 0101010. First is monday etc. 7 digits. 1 is open, 0 is closed.";
+            return "The WorkingDaysOfTheWeek musts be format 0101010. First is monday etc. 7 digits. 1 is open, 0 is closed.";
         }
     }
 

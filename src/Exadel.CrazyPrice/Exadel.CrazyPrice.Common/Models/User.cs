@@ -2,6 +2,9 @@
 
 namespace Exadel.CrazyPrice.Common.Models
 {
+    /// <summary>
+    /// Represents the User.
+    /// </summary>
     public class User : Employee
     {
         public string HashPassword { get; set; }

@@ -44,7 +44,14 @@ namespace Exadel.CrazyPrice.TestClient.HttpHandlers
             var idpClient = _httpClientFactory.CreateClient("IdentityServer");
 
             // get the discovery document
-            var discoveryReponse = await idpClient.GetDiscoveryDocumentAsync();
+            var discoveryReponse = await idpClient.GetDiscoveryDocumentAsync(
+                new DiscoveryDocumentRequest
+                {
+                    Policy =
+                    {
+                        ValidateIssuerName = false
+                    }
+                });
 
             // refresh the tokens
             var refreshToken = await _httpContextAccessor

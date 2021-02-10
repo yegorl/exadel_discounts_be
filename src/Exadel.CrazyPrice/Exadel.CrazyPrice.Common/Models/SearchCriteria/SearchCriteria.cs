@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
 {
+
+    /// <summary>
+    /// Represents discount search criteria.
+    /// </summary>
     public class SearchCriteria
     {
         /// <summary>
@@ -14,11 +19,6 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         /// Gets or sets a search Discount Program option.
         /// </summary>
         public DiscountOption SearchDiscountOption { get; set; }
-
-        /// <summary>
-        /// Gets or sets a search User Id.
-        /// </summary>
-        public Guid SearchUserId { get; set; }
 
         /// <summary>
         /// Gets or sets a search Country.
@@ -59,5 +59,17 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         /// Gets or sets advanced property for search
         /// </summary>
         public SearchAdvancedCriteria SearchAdvanced { get; set; }
+
+        /// <summary>
+        /// Gets or sets a search User Id.
+        /// </summary>
+        [JsonIgnore]
+        public Guid SearchUserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a search all when SearchShowDeleted is true otherwise search when deleted is false.
+        /// </summary>
+        [JsonIgnore]
+        public bool SearchShowDeleted { get; set; }
     }
 }

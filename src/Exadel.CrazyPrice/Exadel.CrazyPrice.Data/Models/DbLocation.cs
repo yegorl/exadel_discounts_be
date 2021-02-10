@@ -2,6 +2,9 @@
 
 namespace Exadel.CrazyPrice.Data.Models
 {
+    /// <summary>
+    /// Represents the DbLocation.
+    /// </summary>
     public class DbLocation
     {
         [BsonIgnoreIfDefault]

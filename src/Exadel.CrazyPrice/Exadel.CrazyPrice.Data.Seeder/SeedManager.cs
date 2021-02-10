@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder
 {
+    /// <summary>
+    /// Represents the seed manager.
+    /// </summary>
     public class SeedManager
     {
         private readonly SeederConfiguration _configuration;

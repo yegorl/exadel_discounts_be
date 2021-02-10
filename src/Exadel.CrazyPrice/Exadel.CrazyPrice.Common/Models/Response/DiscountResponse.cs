@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Exadel.CrazyPrice.Common.Models.Response
 {
     /// <summary>
-    /// Gets full information.
+    /// Represents the DiscountResponse.
     /// </summary>
     public class DiscountResponse
     {
@@ -16,34 +16,32 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public decimal? AmountOfDiscount { get; set; }
 
-        public DateTime? EndDate { get; set; }
-
         public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
        
         public Address Address { get; set; }
 
         public Company Company { get; set; }
 
-        public string WorkingHours { get; set; }
+        public string WorkingDaysOfTheWeek { get; set; }
 
         public List<string> Tags { get; set; }
 
         public decimal? RatingTotal { get; set; }
 
-        public int? ViewTotal { get; set; }
+        public int? ViewsTotal { get; set; }
 
-        public List<string> ViewUsersId { get; set; }
+        public int? SubscriptionsTotal { get; set; }
 
-        public int? ReservationTotal { get; set; }
-
-        public List<string> ReservationUsersId { get; set; }
-
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
 
         public User UserCreateDate { get; set; }
 
         public DateTime? LastChangeDate { get; set; }
 
         public User UserLastChangeDate { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

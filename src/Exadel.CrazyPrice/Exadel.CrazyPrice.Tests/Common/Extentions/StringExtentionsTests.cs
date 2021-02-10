@@ -85,9 +85,6 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [InlineData("5456544+94849-+ Это русский.", LanguageOption.Ru)]
         [InlineData("This is Не русский.", LanguageOption.En)]
         [InlineData("Это not English.", LanguageOption.Ru)]
-        [InlineData("2342314523*/*--*/`", LanguageOption.Unknown)]
-        [InlineData("", LanguageOption.Unknown)]
-        [InlineData(null, LanguageOption.Unknown)]
         public void GetLanguageFromFirstLetterTest(string value, LanguageOption expectedResult)
         {
             value.GetLanguageFromFirstLetter().Should().Be(expectedResult);
