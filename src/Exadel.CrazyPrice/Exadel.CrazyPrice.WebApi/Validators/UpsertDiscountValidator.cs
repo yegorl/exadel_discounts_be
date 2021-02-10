@@ -60,7 +60,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Address)
                     .SetValidator(addressValidator);
 
-                RuleFor(x => x.WorkingHours)
+                RuleFor(x => x.WorkingDaysOfTheWeek)
                     .NotEmpty()
                     .ValidWorkingDays();
             });
