@@ -111,35 +111,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             }
             return strBuilder.ToString();
         }
-
-        /// <summary>
-        /// Gets language from first letter.
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static LanguageOption GetLanguageFromFirstLetter(this string s)
-        {
-            if (string.IsNullOrEmpty(s))
-            {
-                return LanguageOption.Unknown;
-            }
-
-            var str = s.GetValidContent(CharOptions.Letter);
-
-            if (str.Length == 0)
-            {
-                return LanguageOption.Unknown;
-            }
-
-            var firstChar = str.ToLowerInvariant()[0];
-            if (firstChar >= 'a' && firstChar <= 'z')
-            {
-                return LanguageOption.En;
-            }
-
-            return LanguageOption.Ru;
-        }
-
+        
         /// <summary>
         /// Gets valid content with chars from CharOptions and specialChars.
         /// </summary>
