@@ -2,6 +2,9 @@
 
 namespace Exadel.CrazyPrice.Data.Models
 {
+    /// <summary>
+    /// Represents the DbCompany.
+    /// </summary>
     public class DbCompany
     {
         [BsonIgnoreIfDefault]

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Exadel.CrazyPrice.Common.Models.Option;
+using System;
 using System.Collections.Generic;
-using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models.Request
 {
     /// <summary>
-    /// Gets/sets information for a Moderator
+    /// Represents Discount properties.
     /// </summary>
     public class UpsertDiscountRequest
     {
@@ -17,18 +17,20 @@ namespace Exadel.CrazyPrice.Common.Models.Request
 
         public decimal? AmountOfDiscount { get; set; }
 
-        public DateTime? EndDate { get; set; }
-
         public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
 
         public Address Address { get; set; }
 
         public Company Company { get; set; }
 
+        public string WorkingDaysOfTheWeek { get; set; }
+
         public List<string> Tags { get; set; }
 
-        public string WorkingHours { get; set; }
-
         public LanguageOption Language { get; set; }
+
+        public List<Translation> Translations { get; set; }
     }
 }

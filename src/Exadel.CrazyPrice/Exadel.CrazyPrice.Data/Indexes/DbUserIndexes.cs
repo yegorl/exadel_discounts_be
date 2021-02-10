@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 namespace Exadel.CrazyPrice.Data.Indexes
 {
+    /// <summary>
+    /// Determines user indexes.
+    /// </summary>
     public static class DbUserIndexes
     {
+        /// <summary>
+        /// Gets user indexes.
+        /// </summary>
         public static List<CreateIndexModel<DbUser>> GetIndexes => new()
         {
             new CreateIndexModel<DbUser>(Builders<DbUser>
@@ -19,13 +25,9 @@ namespace Exadel.CrazyPrice.Data.Indexes
                                 }),
 
             new CreateIndexModel<DbUser>(Builders<DbUser>.IndexKeys.Ascending(c => c.Name)),
-
             new CreateIndexModel<DbUser>(Builders<DbUser>.IndexKeys.Ascending(c => c.Surname)),
-
             new CreateIndexModel<DbUser>(Builders<DbUser>.IndexKeys.Ascending(c => c.Mail)),
-
             new CreateIndexModel<DbUser>(Builders<DbUser>.IndexKeys.Ascending(c => c.PhoneNumber)),
-
             new CreateIndexModel<DbUser>(Builders<DbUser>.IndexKeys.Ascending(c => c.Roles))
         };
     }

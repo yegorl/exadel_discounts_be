@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
+    /// <summary>
+    /// Represents interface for ITagRepository.
+    /// </summary>
     public interface ITagRepository
     {
         /// <summary>

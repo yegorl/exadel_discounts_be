@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Models
 {
+    /// <summary>
+    /// Represents methods for seed.
+    /// </summary>
+    /// <typeparam name="TCollection"></typeparam>
     public abstract class AbstractSeed<TCollection> : IDisposable, ISeed where TCollection : class
     {
         private readonly bool _clearDbBeforeSeed;

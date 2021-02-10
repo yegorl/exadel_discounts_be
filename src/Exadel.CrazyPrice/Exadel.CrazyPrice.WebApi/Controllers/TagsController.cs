@@ -32,11 +32,14 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <response code="200">Tags found.</response>
         /// <response code="400">Bad request.</response> 
         /// <response code="404">No tags found.</response>
-        [HttpGet]
-        [ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [Route("get/{name}")]
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpGet, Route("get/{name}"),
+         ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTags([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string name)
         {
             _logger.LogInformation("Tag name incoming: {name}", name);

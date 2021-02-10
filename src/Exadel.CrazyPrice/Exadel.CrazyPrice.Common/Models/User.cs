@@ -2,12 +2,15 @@
 
 namespace Exadel.CrazyPrice.Common.Models
 {
+    /// <summary>
+    /// Represents the User.
+    /// </summary>
     public class User : Employee
     {
-        public string HashPassword { get; init; }
+        public string HashPassword { get; set; }
 
-        public string Salt { get; init; }
+        public string Salt { get; set; }
 
-        public RoleOption Roles { get; init; }
+        public RoleOption Roles { get; set; }
     }
 }

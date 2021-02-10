@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
+    /// <summary>
+    /// Represents interface for ICompanyRepository.
+    /// </summary>
     public interface ICompanyRepository
     {
         /// <summary>

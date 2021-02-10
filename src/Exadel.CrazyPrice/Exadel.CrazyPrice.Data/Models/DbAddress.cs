@@ -2,6 +2,9 @@
 
 namespace Exadel.CrazyPrice.Data.Models
 {
+    /// <summary>
+    /// Represents the DbAddress.
+    /// </summary>
     public class DbAddress
     {
         [BsonIgnoreIfNull]
