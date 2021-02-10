@@ -80,27 +80,26 @@ namespace Exadel.CrazyPrice.Data.Seeder
                         f => f.Date.Between(DateTime.Now + TimeSpan.FromDays(1), DateTime.Now + TimeSpan.FromDays(700)))
                     .RuleFor(x => x.Address, f => addressGenerator.Generate())
                     .RuleFor(x => x.Company, f => companyGenerator.Generate())
-                    .RuleFor(x => x.WorkingHours,
+                    .RuleFor(x => x.WorkingDaysOfTheWeek,
                         f => string.Join("", f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1),
                             f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1)))
                     .RuleFor(x => x.Tags, f => f.Commerce.Categories(15).Distinct().ToList())
                     .RuleFor(x => x.RatingTotal, f => f.Random.Int(0, 4) + f.Random.Int(1, 9) / 10)
-                    .RuleFor(x => x.ViewTotal, f => f.Random.Int(0, 100))
-                    .RuleFor(x => x.ReservationTotal, f => f.Random.Int(0, 50))
+                    .RuleFor(x => x.ViewsTotal, f => f.Random.Int(0, 100))
+                    .RuleFor(x => x.SubscriptionsTotal, f => f.Random.Int(0, 50))
                     .RuleFor(x => x.Language, f => languages[local])
-                    .RuleFor(x => x.Hidden, f => false)
+                    .RuleFor(x => x.Deleted, f => false)
 
                     .RuleFor(x => x.CreateDate,
                         f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(700),
                             DateTime.Now - TimeSpan.FromDays(60)))
                     .RuleFor(x => x.LastChangeDate,
                         f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(60), DateTime.Now))
-                    .RuleFor(x => x.PersonCreateDate, f => personGenerator.Generate())
-                    .RuleFor(x => x.PersonLastChangeDate, f => personGenerator.Generate())
+                    .RuleFor(x => x.UserCreateDate, f => personGenerator.Generate())
+                    .RuleFor(x => x.UserLastChangeDate, f => personGenerator.Generate())
 
-                    .RuleFor(x => x.ReservationPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
-                    .RuleFor(x => x.ViewPersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
-                    .RuleFor(x => x.FavoritePersonsId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.SubscriptionsUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.FavoritesUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
 
                     .RuleFor(x => x.Translations, f => translationGenerator.Generate(1)) // !!!!
 
