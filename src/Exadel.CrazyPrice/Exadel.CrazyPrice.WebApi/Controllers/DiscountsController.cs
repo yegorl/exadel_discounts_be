@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
@@ -46,14 +47,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <response code="200">Discounts found.</response>
         /// <response code="400">Bad request.</response>
         /// <response code="404">No discount found.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("get/{language}/{id}"),
          ProducesResponseType(typeof(DiscountResponse), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> GetDiscount([FromRoute] Guid id, [FromRoute] LanguageOption language)
         {
             _logger.LogInformation("Guid incoming: {@id}", id);
@@ -78,19 +82,22 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">Discounts found.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="404">No discounts found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPost, Route("search"),
          ProducesResponseType(typeof(List<DiscountResponse>), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
             //!!! From autorization searchCriteria.SearchUserId
-            
+
             _logger.LogInformation("SearchCriteria incoming: {@searchCriteria}", searchCriteria);
             var discounts = await _repository.GetDiscountsAsync(searchCriteria);
 
@@ -113,13 +120,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">Discount updated.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPost, Route("upsert"),
          ProducesResponseType(typeof(UpsertDiscountRequest), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Moderator, Administrator")]
         public async Task<IActionResult> UpsertDiscount([FromBody, CustomizeValidator(RuleSet = "UpsertDiscount")] UpsertDiscountRequest upsertDiscountRequest)
         {
             var user = new User() //!!! From autorization
@@ -132,7 +142,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             _logger.LogInformation("UpsertDiscountRequest incoming: {@upsertDiscountRequest}, from User: {@user}", upsertDiscountRequest, user);
 
             var discount = upsertDiscountRequest.ToDiscount().AddChangeUserTime(user);
-            
+
             var responseDiscount = await _repository.UpsertDiscountAsync(discount);
 
             if (responseDiscount.IsEmpty())
@@ -155,13 +165,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">Discounts deleted.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpDelete, Route("delete/{id}"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Moderator, Administrator")]
         public async Task<IActionResult> DeleteDiscount([FromRoute] Guid id)
         {
             var userUid = Guid.Parse("10c1a0a1-556a-475f-9597-c705dc1cc48b"); //!!! From autorization
@@ -179,13 +192,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">Discounts deleted.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpDelete, Route("delete"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Moderator, Administrator")]
         public async Task<IActionResult> DeleteDiscounts([FromBody] List<Guid> ids)
         {
             var userUid = Guid.Parse("10c1a0a1-556a-475f-9597-c705dc1cc48b");//!!! From autorization
@@ -203,13 +219,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">The discount added in favorites.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPut, Route("favorites/add/{id}"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> AddToFavorites([FromRoute] Guid id)
         {
             // User Id //!!! From autorization
@@ -229,13 +248,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">The discount removed from favorites.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPut, Route("favorites/delete/{id}"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> DeleteFromFavorites([FromRoute] Guid id)
         {
             // User Id //!!! From autorization
@@ -255,13 +277,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">The discount added in subscriptions.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPut, Route("subscriptions/add/{id}"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> AddToSubscriptions([FromRoute] Guid id)
         {
             // User Id //!!! From autorization
@@ -281,13 +306,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">The discount removed from subscriptions.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPut, Route("subscriptions/delete/{id}"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> DeleteFromSubscriptions([FromRoute] Guid id)
         {
             // User Id //!!! From autorization
@@ -308,15 +336,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <returns></returns>
         /// <response code="200">Vote added.</response>
         /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
         /// <response code="403">Already voted.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPut, Route("vote/{id}/{value}"),
          ProducesResponseType(StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee, Moderator, Administrator")]
         public async Task<IActionResult> AddVote([FromRoute] Guid id, [FromRoute, CustomizeValidator(RuleSet = "VoteValue")] int value)
         {
             var userUid = Guid.Parse("10c1a0a1-556a-475f-9597-c705dc1cc48b"); //!!! From autorization
@@ -329,7 +360,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             }
 
             _logger.LogInformation("User voted. Discount id: {@id}. User id: {@userUid}. Vote: {@value}.", id, userUid, value);
-            
+
             return Ok();
         }
     }
