@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
@@ -101,6 +102,25 @@ namespace Exadel.CrazyPrice.WebApi
                     });
             });
 
+            //TODO: Must be rewrite
+            //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            //    .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme,
+            //        options =>
+            //    {
+            //        options.Authority = this.Configuration["Auth:Authority"];
+            //        options.Audience = this.Configuration["Auth:ApiName"];
+            //        //options.ApiSecret = this.Configuration["Auth:ApiSecret"];
+            //        //options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy {ValidateEndpoints = false};
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidAudiences =new[]
+            //            {
+            //                this.Configuration["Auth:Authority"],
+            //                "https://localhost:8001/"
+            //            }
+            //        };
+            //    }, null);
+
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
@@ -136,9 +156,8 @@ namespace Exadel.CrazyPrice.WebApi
             app.UseCors("AllowAllOrigins");
 
             app.UseHttpsRedirection();
-            app.UseRouting();
-
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
 
 
