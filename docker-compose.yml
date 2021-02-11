@@ -9,15 +9,14 @@ services:
     volumes: 
       - ./datadir:/data/db/
 
-  # mongo_seed:
-  #   image: mongo
-  #   links:
-  #     - mongo
-  #   volumes: 
-  #     - ./mongo_seed:/mongo_seed
-  #   command: 
-  #     /mongo_seed/import.sh
-    
+  mongo_seed:
+    image: mongo
+    links:
+      - mongo
+    volumes: 
+      - ./mongo_seed:/mongo_seed
+    command: 
+      /mongo_seed/import.sh
 
   identity-server:
     build: 
