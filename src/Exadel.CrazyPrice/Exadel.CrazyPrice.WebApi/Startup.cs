@@ -3,6 +3,7 @@ using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using IdentityModel.Client;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,8 +16,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Text.Json.Serialization;
-using IdentityModel.Client;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -95,7 +94,7 @@ namespace Exadel.CrazyPrice.WebApi
                     {
                         builder
                             .AllowCredentials()
-                            .WithOrigins(this.Configuration["Auth:JsClient"])
+                            .WithOrigins(Configuration["Auth:JsClient"])
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
@@ -105,12 +104,12 @@ namespace Exadel.CrazyPrice.WebApi
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = this.Configuration["Auth:Authority"];
-                    options.ApiName = this.Configuration["Auth:ApiName"];
-                    options.ApiSecret = this.Configuration["Auth:ApiSecret"];
-                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy {ValidateEndpoints = false};
+                    options.Authority = Configuration["Auth:Authority"];
+                    options.ApiName = Configuration["Auth:ApiName"];
+                    options.ApiSecret = Configuration["Auth:ApiSecret"];
+                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy { ValidateEndpoints = false };
                 });
-                
+
             services.AddSwagger();
 
             services.AddMongoDb();
@@ -141,7 +140,7 @@ namespace Exadel.CrazyPrice.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {
