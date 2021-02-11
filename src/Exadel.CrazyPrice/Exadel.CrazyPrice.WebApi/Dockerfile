@@ -20,4 +20,7 @@ RUN dotnet publish "Exadel.CrazyPrice.WebApi.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ["Exadel.CrazyPrice.WebApi/certs/update-ca-cert.sh", "update-ca-cert.sh"]
+COPY ["Exadel.CrazyPrice.WebApi/certs/aspnetapp-root-cert.cer", "/https-root/aspnetapp-root-cert.cer"]
+RUN "./update-ca-cert.sh"
 ENTRYPOINT ["dotnet", "Exadel.CrazyPrice.WebApi.dll"]

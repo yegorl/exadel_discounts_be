@@ -13,10 +13,11 @@ services:
   #   image: mongo
   #   links:
   #     - mongo
-  #   volumes:
-  #     - ./mongo-seed:/mongo-seed/
-  #   command:
-  #     /mongo-seed/import.sh
+  #   volumes: 
+  #     - ./mongo_seed:/mongo_seed
+  #   command: 
+  #     /mongo_seed/import.sh
+    
 
   identity-server:
     build: 
@@ -28,10 +29,12 @@ services:
     volumes:
       - ./logs/identityServer:/app/Logs/
       - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer:/root/IdentityServer:cached
-      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer/certs:/https/
       - type: bind
         source: ./certs/aspnetapp-root-cert.cer
         target: /https-root/aspnetapp-root-cert.cer
+      - type: bind
+        source: ./certs/aspnetapp-identity-server.pfx
+        target: /https/aspnetapp-identity-server.pfx
     environment:
       - ASPNETCORE_URLS=https://+;http://+
       - ASPNETCORE_HTTPS_PORT=8001
@@ -49,10 +52,9 @@ services:
     volumes:
       - ./logs/api:/app/Logs/
       - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
-      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi/certs:/https/
       - type: bind
-        source: ./certs/aspnetapp-root-cert.cer
-        target: /https-root/aspnetapp-root-cert.cer
+        source: ./certs/aspnetapp-web-api.pfx
+        target: /https/aspnetapp-web-api.pfx
     environment:
       - ASPNETCORE_URLS=https://+;http://+
       - ASPNETCORE_HTTPS_PORT=9001

@@ -1,0 +1,249 @@
+[{
+  "_id": "Автомобильное",
+  "language": "russian"
+},{
+  "_id": "Бакалея",
+  "language": "russian"
+},{
+  "_id": "Галантерея",
+  "language": "russian"
+},{
+  "_id": "Дом",
+  "language": "russian"
+},{
+  "_id": "Игрушки",
+  "language": "russian"
+},{
+  "_id": "Книги",
+  "language": "russian"
+},{
+  "_id": "Меха",
+  "language": "russian"
+},{
+  "_id": "Одежда",
+  "language": "russian"
+},{
+  "_id": "Пряжа",
+  "language": "russian"
+},{
+  "_id": "Спорт",
+  "language": "russian"
+},{
+  "_id": "Фильмы",
+  "language": "russian"
+},{
+  "_id": "Электроника",
+  "language": "russian"
+},{
+  "_id": "детское",
+  "language": "russian"
+},{
+  "_id": "для малышей",
+  "language": "russian"
+},{
+  "_id": "здоровье",
+  "language": "russian"
+},{
+  "_id": "игры",
+  "language": "russian"
+},{
+  "_id": "компьютеры",
+  "language": "russian"
+},{
+  "_id": "красота",
+  "language": "russian"
+},{
+  "_id": "музыка",
+  "language": "russian"
+},{
+  "_id": "обувь",
+  "language": "russian"
+},{
+  "_id": "промышленное",
+  "language": "russian"
+},{
+  "_id": "садинструмент",
+  "language": "russian"
+},{
+  "_id": "туризм",
+  "language": "russian"
+},{
+  "_id": "украшения",
+  "language": "russian"
+},{
+  "_id": "Automotive",
+  "translations": [
+    {
+      "_id": "Automotive",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Baby",
+  "translations": [
+    {
+      "_id": "Baby",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Beauty",
+  "translations": [
+    {
+      "_id": "Beauty",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Books",
+  "translations": [
+    {
+      "_id": "Books",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Clothing",
+  "translations": [
+    {
+      "_id": "Clothing",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Computers",
+  "translations": [
+    {
+      "_id": "Computers",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Electronics",
+  "translations": [
+    {
+      "_id": "Electronics",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Games",
+  "translations": [
+    {
+      "_id": "Games",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Garden",
+  "translations": [
+    {
+      "_id": "Garden",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Grocery",
+  "translations": [
+    {
+      "_id": "Grocery",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Health",
+  "translations": [
+    {
+      "_id": "Health",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Home",
+  "translations": [
+    {
+      "_id": "Home",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Industrial",
+  "translations": [
+    {
+      "_id": "Industrial",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Jewelery",
+  "translations": [
+    {
+      "_id": "Jewelery",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Kids",
+  "translations": [
+    {
+      "_id": "Kids",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Movies",
+  "translations": [
+    {
+      "_id": "Movies",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Music",
+  "translations": [
+    {
+      "_id": "Music",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Outdoors",
+  "translations": [
+    {
+      "_id": "Outdoors",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Shoes",
+  "translations": [
+    {
+      "_id": "Shoes",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Sports",
+  "translations": [
+    {
+      "_id": "Sports",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Tools",
+  "translations": [
+    {
+      "_id": "Tools",
+      "language": "english"
+    }
+  ]
+},{
+  "_id": "Toys",
+  "translations": [
+    {
+      "_id": "Toys",
+      "language": "english"
+    }
+  ]
+}]

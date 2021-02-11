@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
@@ -34,6 +35,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <response code="404">No tags found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
+        [Authorize(Roles = "Moderator")]
         [HttpGet, Route("get/{name}"),
          ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
