@@ -26,8 +26,8 @@ namespace Exadel.CrazyPrice.IdentityServer
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
             {
-                new ApiResource("crazypriceapi", 
-                    "Crazy Price API", 
+                new ApiResource("crazypriceapi",
+                    "Crazy Price API",
                     new List<string>() { "role" })
                 {
                     Scopes = { "crazypriceapi"},
@@ -111,6 +111,44 @@ namespace Exadel.CrazyPrice.IdentityServer
                     {
                         new Secret("secret".Sha256())
                     }
+                },
+                new Client
+                {
+                    AccessTokenLifetime = 60,
+                    AccessTokenType = AccessTokenType.Reference,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedCorsOrigins =
+                        {
+                            "https://localhost:44389",
+                            "https://localhost:9001"
+                        },
+                    AllowedScopes =
+                        {
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile,
+                            "role",
+                            "crazypriceapi"
+                        },
+                    AllowOfflineAccess = true,
+
+                    ClientId = "crazy_price_api_swagger",
+                    ClientName = "Swagger UI for Crazy Price API",
+                    ClientSecrets =
+                        {
+                            new Secret("secret".Sha256())
+                        },
+
+                    RedirectUris = new List<string>()
+                        {
+                            "https://localhost:44389/swagger/oauth2-redirect.html",
+                            "https://localhost:44389/signin-oidc",
+                            "https://localhost:9001/swagger/oauth2-redirect.html",
+                            "https://localhost:9001/signin-oidc",
+                        },
+                    RequirePkce = true,
+                    //RequireClientSecret = false,
+
+                    UpdateAccessTokenClaimsOnRefresh = true
                 }
 
             };
