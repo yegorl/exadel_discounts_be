@@ -187,6 +187,22 @@ namespace Exadel.CrazyPrice.Common.Extentions
             else return raiseException ? throw new ArgumentException($"{key} is not null or empty.") : defaultValue;
         }
 
+        /// <summary>
+        /// Converts string to Guid. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="raiseException"></param>
+        /// <returns></returns>
+        public static Guid ToGuid(this string key, Guid defaultValue, bool raiseException = true)
+        {
+            if (Guid.TryParse(key, out var value))
+            {
+                return value;
+            }
+            else return raiseException ? throw new ArgumentException($"{key} is not Guid value.") : defaultValue;
+        }
+
         private static List<Func<char, bool>> BuildRulesForChar(CharOptions charOptions)
         {
             var rulesForChar = new List<Func<char, bool>>();
