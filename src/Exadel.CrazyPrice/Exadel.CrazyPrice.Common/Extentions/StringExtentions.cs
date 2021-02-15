@@ -156,6 +156,22 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
+        /// Converts string to RoleOption. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="raiseException"></param>
+        /// <returns></returns>
+        public static RoleOption ToRoleOption(this string key, RoleOption defaultValue = RoleOption.Unknown, bool raiseException = false)
+        {
+            if (Enum.TryParse(typeof(RoleOption), key, true, out var value))
+            {
+                return (RoleOption)value;
+            }
+            else return raiseException ? throw new ArgumentException($"{key} is not RoleOption value.") : defaultValue;
+        }
+
+        /// <summary>
         /// Converts string to uint. When raiseException is true and is cast error raises exception otherwise returns defaultValue. 
         /// </summary>
         /// <param name="key"></param>

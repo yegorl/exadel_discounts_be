@@ -5,6 +5,7 @@ using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
+using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
@@ -105,6 +107,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
             searchCriteria.SearchUserId = ControllerContext.GetUserId();
+            var role = ControllerContext.GetRole().ToRoleOption();
+
+            if (searchCriteria.IsSortDateCreateForAdministrator(role))
+            {
+                _logger.LogWarning("Sorting by creation date is available only for administrator role. User: {@role}.", role);
+                return Unauthorized("Sorting by creation date is available only for administrator role.");
+            }
 
             _logger.LogInformation("SearchCriteria incoming: {@searchCriteria}", searchCriteria);
             var discounts = await _discounts.GetDiscountsAsync(searchCriteria);
