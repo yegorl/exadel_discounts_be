@@ -1,22 +1,13 @@
-using System.Collections.Generic;
+using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
-using Exadel.CrazyPrice.WebApi.Validators;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using IdentityModel.Client;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -25,16 +16,15 @@ namespace Exadel.CrazyPrice.WebApi
     /// </summary>
     public class Startup
     {
-        private ILogger<Startup> _logger;
-
         /// <summary>
         /// Creates Startup configuration.
         /// </summary>
         /// <param name="configuration"></param>
-        public Startup(IConfiguration configuration)
+        /// <param name="webHostEnvironment"></param>
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
-
+            WebHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
@@ -42,43 +32,17 @@ namespace Exadel.CrazyPrice.WebApi
         /// </summary>
         public IConfiguration Configuration { get; }
 
+        public IWebHostEnvironment WebHostEnvironment { get; }
+
         /// <summary>
         /// Gets called by the runtime. Use this method to add services to the container.
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SearchCriteriaValidator>());
-
+            services.AddMvc();
             services.AddControllers()
-                .AddJsonOptions(opts =>
-                {
-                    opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-                });
-
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = context =>
-                {
-                    var (key, value) =
-                        context.ModelState.First(e => e.Value.ValidationState == ModelValidationState.Invalid);
-
-                    var error = value.Errors[0].ErrorMessage;
-
-                    #region ForPrimitiveType
-                    // Needed if the controller gets a primitive type like string or int etc.
-                    if (error.Contains("''"))
-                    {
-                        error = error.Replace("''", $"'{key}'");
-                    }
-                    #endregion
-
-                    _logger.LogError("Validation error: {error}", error);
-                    return new BadRequestObjectResult(error);
-                };
-            });
+                .AddCrazyPriceValidation();
 
             services.AddApiVersioning(options =>
             {
@@ -88,49 +52,12 @@ namespace Exadel.CrazyPrice.WebApi
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
-            services.AddCors(options =>
+            services.AddCrazyPriceAuthentication();
+            
+            if (!WebHostEnvironment.IsProduction())
             {
-                options.AddPolicy("AllowAllOrigins",
-                    builder =>
-                    {
-                        builder
-                            .AllowCredentials()
-                            .WithOrigins(Configuration["Auth:JsClient"])
-                            .SetIsOriginAllowedToAllowWildcardSubdomains()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
-            });
-
-            //TODO: Must be rewrite
-            //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-            //    .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme,
-            //        options =>
-            //    {
-            //        options.Authority = this.Configuration["Auth:Authority"];
-            //        options.Audience = this.Configuration["Auth:ApiName"];
-            //        //options.ApiSecret = this.Configuration["Auth:ApiSecret"];
-            //        //options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy {ValidateEndpoints = false};
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidAudiences =new[]
-            //            {
-            //                this.Configuration["Auth:Authority"],
-            //                "https://localhost:8001/"
-            //            }
-            //        };
-            //    }, null);
-
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = Configuration["Auth:Authority"];
-                    options.ApiName = Configuration["Auth:ApiName"];
-                    options.ApiSecret = Configuration["Auth:ApiSecret"];
-                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy { ValidateEndpoints = false };
-                });
-
-            services.AddSwagger();
+                services.AddSwagger();
+            }
 
             services.AddMongoDb();
         }
@@ -139,27 +66,26 @@ namespace Exadel.CrazyPrice.WebApi
         /// Gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        /// <param name="env"></param>
-        /// <param name="logger"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app)
         {
-            _logger = logger;
-            // Force the default English messages to be used.
-            ValidatorOptions.Global.LanguageManager.Enabled = false;
-
-            if (env.IsDevelopment())
+            if (WebHostEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwaggerCrazyPrice();
             }
 
-            app.UseCors("AllowAllOrigins");
-
+            if (!WebHostEnvironment.IsProduction())
+            {
+                app.UseSwaggerCrazyPrice();
+            }
+            
+            app.UseCrazyPriceValidation();
+            
             app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseRouting();
-            app.UseAuthorization();
 
+            app.UseCrazyPriceAuthentication();
+            app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
