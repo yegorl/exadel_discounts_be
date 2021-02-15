@@ -100,6 +100,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
 
                     .RuleFor(x => x.SubscriptionsUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
                     .RuleFor(x => x.FavoritesUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.RatingUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
 
                     .RuleFor(x => x.Translations, f => translationGenerator.Generate(1)) // !!!!
 

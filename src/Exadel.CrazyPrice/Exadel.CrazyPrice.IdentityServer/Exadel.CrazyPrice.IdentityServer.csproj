@@ -24,4 +24,6 @@
     <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
     <ProjectReference Include="..\Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj" />
   </ItemGroup>
+  
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

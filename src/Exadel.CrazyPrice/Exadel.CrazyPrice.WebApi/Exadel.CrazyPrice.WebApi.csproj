@@ -16,6 +16,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AspNet.Security.OpenIdConnect.Primitives" Version="2.0.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="9.4.0" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
@@ -36,6 +37,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Update="appsettings.Staging.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Update="appsettings.Development.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>

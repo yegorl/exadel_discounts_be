@@ -35,5 +35,22 @@ namespace Exadel.CrazyPrice.Common.Extentions
         {
             return employee == null || employee.Id == Guid.Empty;
         }
+
+        /// <summary>
+        /// Gets the User entity from User entity like Employee entity.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static User ToUserLikeEmployee(this User user)
+        {
+            return user == null ? null : new User
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                PhoneNumber = user.PhoneNumber,
+                Mail = user.Mail
+            };
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
     /// </summary>
     [ApiController]
     [Route("api/v{version:apiVersion}/addresses")]
+    [Authorize(Roles = "Employee,Moderator,Administrator")]
     public class AddressesController : ControllerBase
     {
         private readonly ILogger<AddressesController> _logger;
@@ -33,14 +34,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="searchCountry">The part name country.</param>
         /// <returns></returns>
         /// <response code="200">Countries found.</response>
-        /// <response code="400">Bad request.</response> 
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
         /// <response code="404">No countries found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("get/countries/{searchCountry}"),
         ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
-        ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+        ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+        ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+        ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountries([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string searchCountry)
@@ -63,13 +68,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         /// <response code="200">Countries found.</response>
-        /// <response code="400">Bad request.</response> 
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
         /// <response code="404">No countries found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("all/{language}/countries"),
          ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
          ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -95,13 +104,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="searchCity">The part name city.</param>
         /// <returns></returns>
         /// <response code="200">Cities found.</response>
-        /// <response code="400">Bad request.</response> 
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
         /// <response code="404">No cities found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("get/cities/{searchCountry}/{searchCity}"),
         ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+        ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+        ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -129,13 +142,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="language"></param>
         /// <param name="searchCountry">The country.</param>
         /// <response code="200">Cities found.</response>
-        /// <response code="400">Bad request.</response> 
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
         /// <response code="404">No cities found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("all/{language}/cities/{searchCountry}"),
          ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
          ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]

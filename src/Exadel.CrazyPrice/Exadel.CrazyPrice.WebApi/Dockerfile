@@ -4,20 +4,17 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 9001
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS publish
 WORKDIR /src
-COPY ["Exadel.CrazyPrice.WebApi/Exadel.CrazyPrice.WebApi.csproj", "Exadel.CrazyPrice.WebApi/"]
-COPY ["Exadel.CrazyPrice.Data/Exadel.CrazyPrice.Data.csproj", "Exadel.CrazyPrice.Data/"]
-COPY ["Exadel.CrazyPrice.Common/Exadel.CrazyPrice.Common.csproj", "Exadel.CrazyPrice.Common/"]
-RUN dotnet restore "Exadel.CrazyPrice.WebApi/Exadel.CrazyPrice.WebApi.csproj"
 COPY . .
+RUN dotnet restore "Exadel.CrazyPrice.WebApi/Exadel.CrazyPrice.WebApi.csproj"
 WORKDIR "/src/Exadel.CrazyPrice.WebApi"
-RUN dotnet build "Exadel.CrazyPrice.WebApi.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "Exadel.CrazyPrice.WebApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "Exadel.CrazyPrice.WebApi.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app .
+COPY ["Exadel.CrazyPrice.WebApi/update-ca-cert.sh", "update-ca-cert.sh"]
+COPY ["Exadel.CrazyPrice.WebApi/aspnetapp-root-cert.cer", "/https-root/aspnetapp-root-cert.cer"]
+RUN "./update-ca-cert.sh"
 ENTRYPOINT ["dotnet", "Exadel.CrazyPrice.WebApi.dll"]

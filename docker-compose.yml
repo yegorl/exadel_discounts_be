@@ -1,61 +1,86 @@
 ﻿version: '3.8'
 
 services:
-  mongo:
-    image: mongo
-    ports:
-      - 27017:27017
-    restart: always
-    volumes: 
-      - ./datadir:/data/db/
+ database:
+  image: mongo
+  ports:
+   - 27017:27017
+  restart: always
+  volumes:
+   - ./volumes/database/data:/data/db/
 
-  # mongo_seed:
-  #   image: mongo
-  #   links:
-  #     - mongo
-  #   volumes:
-  #     - ./mongo-seed:/mongo-seed/
-  #   command:
-  #     /mongo-seed/import.sh
+ databaseseed:
+  image: mongo
+  links:
+   - database
+  volumes:
+   - ./volumes/database/seed:/seed/
+  command:
+   /seed/import.sh
+  depends_on:
+   - database
 
-  identity-server:
-    build: 
-      context: ./src/Exadel.CrazyPrice
-      dockerfile: Exadel.CrazyPrice.IdentityServer/Dockerfile
-    ports:
-      - '8000:80'
-      - '8001:443'
-    volumes:
-      - ./logs/identityServer:/app/Logs/
-      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer:/root/IdentityServer:cached
-      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer/certs:/https/
-      - type: bind
-        source: ./certs/aspnetapp-root-cert.cer
-        target: /https-root/aspnetapp-root-cert.cer
-    environment:
-      - ASPNETCORE_URLS=https://+;http://+
-      - ASPNETCORE_HTTPS_PORT=8001
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-identity-server.pfx
+ identityserver:
+  image: identityserver
+  build:
+   context: ./src/Exadel.CrazyPrice
+   dockerfile: Exadel.CrazyPrice.IdentityServer/Dockerfile
+  ports:
+   - 8000:80
+   - 8001:443
+  volumes:
+   - ./volumes/logs/identityServer:/app/Logs/
+   - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer:/root/IdentityServer:cached
+   - type: bind
+     source: ./volumes/certificates/aspnetapp-root-cert.cer
+     target: /https-root/aspnetapp-root-cert.cer
+   - type: bind
+     source: ./volumes/certificates/aspnetapp-identity-server.pfx
+     target: /https/aspnetapp-identity-server.pfx
+  environment:
+   - ASPNETCORE_URLS=https://+;http://+
+   - ASPNETCORE_HTTPS_PORT=8001
+   - ASPNETCORE_ENVIRONMENT=Staging
+   - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+   - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-identity-server.pfx
+  links:
+   - database
+  depends_on:
+   - database
+   - databaseseed
 
-  web-api:
-    build:
-      context: ./src/Exadel.CrazyPrice
-      dockerfile: Exadel.CrazyPrice.WebApi/Dockerfile
-    ports:
-      - '9000:80'
-      - '9001:443'
-    volumes:
-      - ./logs/api:/app/Logs/
-      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
-      - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi/certs:/https/
-      - type: bind
-        source: ./certs/aspnetapp-root-cert.cer
-        target: /https-root/aspnetapp-root-cert.cer
-    environment:
-      - ASPNETCORE_URLS=https://+;http://+
-      - ASPNETCORE_HTTPS_PORT=9001
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx
+ webapi:
+  image: webapi
+  build:
+   context: ./src/Exadel.CrazyPrice
+   dockerfile: Exadel.CrazyPrice.WebApi/Dockerfile
+  ports:
+   - 9000:80
+   - 9001:443
+  volumes:
+   - ./volumes/logs/api:/app/Logs/
+   - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
+   - type: bind
+     source: ./volumes/certificates/update-ca-cert.sh
+     target: /https-root/update-ca-cert.sh
+   - type: bind
+     source: ./volumes/certificates/aspnetapp-root-cert.cer
+     target: /https-root/aspnetapp-root-cert.cer
+   - type: bind
+     source: ./volumes/certificates/aspnetapp-web-api.pfx
+     target: /https/aspnetapp-web-api.pfx   
+  command:
+   /https-root/update-ca-cert.sh
+  environment:
+   - ASPNETCORE_URLS=https://+;http://+
+   - ASPNETCORE_HTTPS_PORT=9001
+   - ASPNETCORE_ENVIRONMENT=Staging
+   - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+   - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx
+  links:
+   - database
+   - identityserver
+  depends_on:
+   - database
+   - databaseseed
+   - identityserver
