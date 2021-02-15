@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.TestClient.HttpHandlers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,7 +40,7 @@ namespace Exadel.CrazyPrice.TestClient
             services.AddHttpClient("CrazyPriceAPI", client =>
             {
                 //API
-                client.BaseAddress = new Uri("https://localhost:9001/");
+                client.BaseAddress = new Uri(Configuration.GetOption("ApiUri") );
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<BearerTokenHandler>();
@@ -47,7 +48,7 @@ namespace Exadel.CrazyPrice.TestClient
             services.AddHttpClient("IdentityServer", client =>
             {
                 //IDP
-                client.BaseAddress = new Uri("https://localhost:8001/");
+                client.BaseAddress = new Uri(Configuration.GetOption("IssuerUri"));
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
@@ -65,7 +66,7 @@ namespace Exadel.CrazyPrice.TestClient
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 //IDP
-                options.Authority = "https://localhost:8001";
+                options.Authority = Configuration.GetOption("IssuerUri");
                 options.ClientId = "crazypricetestclient";
                 options.ResponseType = "code";
                 options.Scope.Add("role");

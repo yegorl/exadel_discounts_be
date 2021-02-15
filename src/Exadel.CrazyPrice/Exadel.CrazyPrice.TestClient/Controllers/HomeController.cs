@@ -8,11 +8,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Extentions;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Exadel.CrazyPrice.TestClient.Controllers
@@ -22,11 +24,13 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
         public async Task<IActionResult> Index()
         {
@@ -68,7 +72,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync(
                 new DiscoveryDocumentRequest
                 {
-                    Address = "https://localhost:8001",
+                    Address = _configuration.GetIssuerUrl(),
                     Policy =
                     {
                         ValidateIssuerName = false
@@ -111,7 +115,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
         
-        [Authorize(Roles = "moderator")]
+        [Authorize(Roles = "Moderator")]
         public async Task<IActionResult> Exclusive()
         {
             var httpClient = _httpClientFactory.CreateClient("CrazyPriceAPI");
