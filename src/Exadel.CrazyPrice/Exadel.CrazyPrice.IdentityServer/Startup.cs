@@ -1,38 +1,19 @@
-// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Data.Extentions;
-using Exadel.CrazyPrice.Data.Repositories;
-using Exadel.CrazyPrice.IdentityServer.Interfaces;
-using Exadel.CrazyPrice.IdentityServer.Repositories;
-using Exadel.CrazyPrice.IdentityServer.Services;
-using IdentityServer4.Services;
-using IdentityServer4.Test;
+using Exadel.CrazyPrice.IdentityServer.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
 
 namespace Exadel.CrazyPrice.IdentityServer
 {
     public class Startup
     {
-        private ILogger<Startup> _logger;
         public IWebHostEnvironment Environment { get; }
+
         public IConfiguration Configuration { get; }
+
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
@@ -44,94 +25,33 @@ namespace Exadel.CrazyPrice.IdentityServer
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLocalization(options => { options.ResourcesPath = "Resources";});
-            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
-
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new List<CultureInfo>
-                {
-                    new CultureInfo("en"),
-                    new CultureInfo("ru")
-
-                };
-                options.DefaultRequestCulture = new RequestCulture(Configuration["Localization:Default"]);
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
+            services.AddMvc().AddCrazyPriceLocalization();
 
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
 
-            Config.Configuration = Configuration;
+            services.AddCrazyPriceIdentityServer();
 
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ICryptographicService, CryptographicService>();
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllOrigins",
-                    builder =>
-                    {
-                        builder.AllowCredentials()
-                            .WithOrigins(
-                                Configuration["AuthConfiguration:IdentityServerUrl"],
-                                Configuration["AuthConfiguration:ClientUrl"])
-                            .SetIsOriginAllowedToAllowWildcardSubdomains()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
-            });
-
-            var builder = services.AddIdentityServer(options =>
-                {
-                    // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-                    options.EmitStaticAudienceClaim = true;
-                    options.IssuerUri = Configuration["AuthConfiguration:IdentityServerUrl"];
-                })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiResources(Config.ApiResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients);
-
-            services.AddScoped<IProfileService, IdentityProfileService>();
-
-
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
-
-            //var clientCertificate =
-            //    new X509Certificate2(Path.Combine(
-            //        Environment.ContentRootPath, Configuration["Certificate:Name"]), 
-            //        Configuration["Certificate:Password"]);
-
-            //builder.AddSigningCredential(clientCertificate);
             services.AddMongoDb();
         }
 
-        public void Configure(IApplicationBuilder app, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app)
         {
-            _logger = logger;
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowAllOrigins");
-
             // uncomment if you want to add MVC
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseIdentityServer();
+            app.UseCrazyPriceIdentityServer();
 
             // uncomment, if you want to add MVC
             app.UseAuthorization();
 
-            app.UseRequestLocalization(app.ApplicationServices
-                .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+            app.UseCrazyPriceLocalization();
 
             app.UseEndpoints(endpoints =>
             {
