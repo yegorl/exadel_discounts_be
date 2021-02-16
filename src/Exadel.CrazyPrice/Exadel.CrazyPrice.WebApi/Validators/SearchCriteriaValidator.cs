@@ -13,11 +13,6 @@ namespace Exadel.CrazyPrice.WebApi.Validators
 
             RuleSet("SearchCriteria", () =>
             {
-                RuleFor(x => x.SearchText)
-                    .ValidCharacters(CharOptions.Letter | CharOptions.Number, " !&|")
-                    .NotEmpty()
-                    .MinimumLength(3);
-
                 RuleFor(x => x.SearchAddressCountry)
                     .NotEmpty()
                     .MinimumLength(3)

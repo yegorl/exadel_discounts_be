@@ -16,7 +16,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 logging.ClearProviders();
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
 
-                if (HasLog(hostingContext, "LogToSerilog"))
+                if (hostingContext.HasLog("LogToSerilog"))
                 {
                     Environment.SetEnvironmentVariable("BASEDIR", AppDomain.CurrentDomain.BaseDirectory);
                     logging.AddSerilog(new LoggerConfiguration()
@@ -24,19 +24,20 @@ namespace Exadel.CrazyPrice.Common.Extentions
                         .CreateLogger());
                 }
 
-                if (HasLog(hostingContext, "LogToNLog"))
+                if (hostingContext.HasLog("LogToNLog"))
                 {
                     logging.AddNLogWeb();
                 }
             });
         }
 
-        private static bool HasLog(HostBuilderContext hostingContext, string kindLod)
+        private static bool HasLog(this HostBuilderContext hostingContext, string kindLod)
         {
-            if (!bool.TryParse(hostingContext.Configuration.GetSection(kindLod).Value, out var hasLog))
+            if (!bool.TryParse(hostingContext.Configuration.GetString(kindLod), out var hasLog))
             {
                 throw new ArgumentException(kindLod);
             }
+
             return hasLog;
         }
     }

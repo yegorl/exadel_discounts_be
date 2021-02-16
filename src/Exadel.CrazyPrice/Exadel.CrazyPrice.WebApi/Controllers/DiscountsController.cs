@@ -1,6 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
-using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
@@ -158,7 +157,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             }
 
             var response = responseDiscount.ToUpsertDiscountRequest();
-            
+
             _logger.LogInformation("Discount upsert: {@response}. User id: {@userUid}", response, userUid);
             return Ok(response);
         }
