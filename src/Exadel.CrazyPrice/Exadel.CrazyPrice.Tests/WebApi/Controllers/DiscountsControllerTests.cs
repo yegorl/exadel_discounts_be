@@ -1,161 +1,217 @@
-﻿//using Exadel.CrazyPrice.Common.Interfaces;
-//using Exadel.CrazyPrice.Common.Models.Request;
-//using Exadel.CrazyPrice.Common.Models.Response;
-//using Exadel.CrazyPrice.Common.Models.SearchCriteria;
-//using Exadel.CrazyPrice.WebApi.Controllers;
-//using FluentAssertions;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Extensions.Logging;
-//using Moq;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Exadel.CrazyPrice.Common.Models;
-//using Exadel.CrazyPrice.Common.Models.Option;
-//using Xunit;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.Common.Models.Response;
+using Exadel.CrazyPrice.Common.Models.SearchCriteria;
+using Exadel.CrazyPrice.WebApi.Controllers;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Xunit;
 
-//namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
-//{
-//    public class DiscountsControllerTests
-//    {
-//        private readonly Mock<ILogger<DiscountsController>> _mockLogger;
-//        private readonly Mock<IDiscountRepository> _mockRepository;
+namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
+{
+    public class DiscountsControllerTests
+    {
+        private readonly Mock<ILogger<DiscountsController>> _mockLogger;
+        private readonly Mock<IDiscountRepository> _mockDiscountRepository;
+        private readonly Mock<IUserRepository> _mockUserRepository;
+        private readonly ControllerContext _controllerContext;
+        public DiscountsControllerTests()
+        {
+            _mockLogger = new Mock<ILogger<DiscountsController>>();
+            _mockDiscountRepository = new Mock<IDiscountRepository>();
+            _mockUserRepository = new Mock<IUserRepository>();
+            _controllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext()
+                {
+                    User = new ClaimsPrincipal(
+                        new ClaimsIdentity(
+                            new List<Claim>()
+                            {
+                                new("sub", "f7211928-669e-4d40-b9e1-35b685945a04")
+                            }
+                        ))
+                }
+            };
+        }
 
-//        public DiscountsControllerTests()
-//        {
-//            _mockLogger = new Mock<ILogger<DiscountsController>>();
-//            _mockRepository = new Mock<IDiscountRepository>();
-//        }
+        [Fact]
+        public async Task GetDiscountOkTest()
+        {
+            var searchValue = Guid.NewGuid();
+            var resultValues = new Discount()
+            {
+                Id = searchValue
+            };
+            var user = new User();
 
-//        [Fact]
-//        public async Task GetDiscountOkTest()
-//        {
-//            var searchValue = Guid.NewGuid();
-//            var resultValues = new Discount()
-//            {
-//                Id = searchValue
-//            };
+            _mockDiscountRepository.Setup(r => r.GetDiscountByUidAsync(searchValue))
+                .ReturnsAsync(resultValues);
 
-//            _mockRepository.Setup(r => r.GetDiscountByUidAsync(searchValue))
-//                .ReturnsAsync(resultValues);
+            _mockUserRepository.Setup(r => r.GetUserByUidAsync(searchValue))
+                .ReturnsAsync(user);
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object, _mockUserRepository.Object);
 
-//            var actionResult = await controller.GetDiscount(searchValue, LanguageOption.Ru);
+            var actionResult = await controller.GetDiscount(searchValue, LanguageOption.Ru);
 
-//            var result = Assert.IsType<OkObjectResult>(actionResult);
-//            var returnValue = Assert.IsType<DiscountResponse>(result.Value);
+            var result = Assert.IsType<OkObjectResult>(actionResult);
+            var returnValue = Assert.IsType<DiscountResponse>(result.Value);
 
-//            returnValue.Should().NotBeNull();
-//        }
+            returnValue.Should().NotBeNull();
+        }
 
-//        [Fact]
-//        public async Task GetDiscountNotFoundTest()
-//        {
-//            var searchValue = Guid.NewGuid();
-//            var resultValues = (Discount)null;
+        [Fact]
+        public async Task GetDiscountNotFoundTest()
+        {
+            var searchValue = Guid.NewGuid();
+            var resultValues = (Discount)null;
+            var user = new User();
 
-//            _mockRepository.Setup(r => r.GetDiscountByUidAsync(searchValue))
-//                .ReturnsAsync(resultValues);
+            _mockDiscountRepository.Setup(r => r.GetDiscountByUidAsync(searchValue))
+                .ReturnsAsync(resultValues);
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object, _mockUserRepository.Object);
 
-//            var actionResult = await controller.GetDiscount(searchValue, LanguageOption.Ru);
+            var actionResult = await controller.GetDiscount(searchValue, LanguageOption.Ru);
 
-//            var result = Assert.IsType<NotFoundObjectResult>(actionResult);
-//            var returnValue = Assert.IsType<string>(result.Value);
+            var result = Assert.IsType<NotFoundObjectResult>(actionResult);
+            var returnValue = Assert.IsType<string>(result.Value);
 
-//            returnValue.Should().BeEquivalentTo("No discount found.");
-//        }
+            returnValue.Should().BeEquivalentTo("No discount found.");
+        }
 
-//        [Fact]
-//        public async Task GetDiscountsOkTest()
-//        {
-//            var searchValue = new SearchCriteria();
-//            var resultValues = new List<Discount>
-//            {
-//                new Discount()
-//            };
+        [Fact]
+        public async Task GetDiscountsOkTest()
+        {
+            var searchValue = new SearchCriteria();
+            var resultValues = new List<Discount>
+            {
+                new Discount()
+            };
 
-//            _mockRepository.Setup(r => r.GetDiscountsAsync(searchValue))
-//                .ReturnsAsync(resultValues);
+            var user = new User();
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+            _mockDiscountRepository.Setup(r => r.GetDiscountsAsync(searchValue))
+                .ReturnsAsync(resultValues);
 
-//            var actionResult = await controller.GetDiscounts(searchValue);
+            _mockUserRepository.Setup(r => r.GetUserByUidAsync(Guid.NewGuid()))
+                .ReturnsAsync(user);
 
-//            var result = Assert.IsType<OkObjectResult>(actionResult);
-//            var returnValue = Assert.IsType<List<DiscountResponse>>(result.Value);
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
 
-//            returnValue.Should().NotBeNull();
-//        }
+            var actionResult = await controller.GetDiscounts(searchValue);
 
-//        [Fact]
-//        public async Task GetDiscountsNotFoundTest()
-//        {
-//            var searchValue = new SearchCriteria();
-//            var resultValues = (List<Discount>)null;
+            var result = Assert.IsType<OkObjectResult>(actionResult);
+            var returnValue = Assert.IsType<List<DiscountResponse>>(result.Value);
 
-//            _mockRepository.Setup(r => r.GetDiscountsAsync(searchValue))
-//                .ReturnsAsync(resultValues);
+            returnValue.Should().NotBeNull();
+        }
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+        [Fact]
+        public async Task GetDiscountsNotFoundTest()
+        {
+            var searchValue = new SearchCriteria();
+            var resultValues = (List<Discount>)null;
 
-//            var actionResult = await controller.GetDiscounts(searchValue);
+            var user = new User();
 
-//            var result = Assert.IsType<NotFoundObjectResult>(actionResult);
-//            var returnValue = Assert.IsType<string>(result.Value);
+            _mockDiscountRepository.Setup(r => r.GetDiscountsAsync(searchValue))
+                .ReturnsAsync(resultValues);
 
-//            returnValue.Should().BeEquivalentTo("No discounts found.");
-//        }
-        
-//        [Fact]
-//        public async Task UpsertDiscountBadRequestTest()
-//        {
-//            var searchValue = new Discount();
-//            var resultValues = (Discount)null;
+            _mockUserRepository.Setup(r => r.GetUserByUidAsync(Guid.NewGuid()))
+                .ReturnsAsync(user);
 
-//            _mockRepository.Setup(r => r.UpsertDiscountAsync(searchValue))
-//                .ReturnsAsync(resultValues);
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+            var actionResult = await controller.GetDiscounts(searchValue);
 
-//            var actionResult = await controller.UpsertDiscount(searchValue);
+            var result = Assert.IsType<NotFoundObjectResult>(actionResult);
+            var returnValue = Assert.IsType<string>(result.Value);
 
-//            var result = Assert.IsType<BadRequestObjectResult>(actionResult);
-//            var returnValue = Assert.IsType<string>(result.Value);
+            returnValue.Should().BeEquivalentTo("No discounts found.");
+        }
 
-//            returnValue.Should().BeEquivalentTo("No discounts were create or update.");
-//        }
+        [Fact]
+        public async Task UpsertDiscountBadRequestTest()
+        {
+            var searchValue = new Discount();
+            var resultValues = (Discount)null;
 
-//        [Fact]
-//        public async Task DeleteDiscountOkTest()
-//        {
-//            var searchValue = Guid.NewGuid();
-//            var userId = Guid.Parse("0aed5f3e-3c8b-434d-adb0-e75bbca32b38");
+            var user = new User();
 
-//            _mockRepository.Setup(r => r.RemoveDiscountByUidAsync(searchValue, userId));
+            _mockDiscountRepository.Setup(r => r.UpsertDiscountAsync(searchValue))
+                .ReturnsAsync(resultValues);
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+            _mockUserRepository.Setup(r => r.GetUserByUidAsync(Guid.NewGuid()))
+                .ReturnsAsync(user);
 
-//            var actionResult = await controller.DeleteDiscount(searchValue);
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
 
-//            Assert.IsType<OkResult>(actionResult);
-//        }
+            var actionResult = await controller.UpsertDiscount(searchValue);
 
-//        [Fact]
-//        public async Task DeleteDiscountsOkTest()
-//        {
-//            var searchValue = new List<Guid>();
-//            var userId = Guid.Parse("0aed5f3e-3c8b-434d-adb0-e75bbca32b38");
+            var result = Assert.IsType<BadRequestObjectResult>(actionResult);
+            var returnValue = Assert.IsType<string>(result.Value);
 
-//            _mockRepository.Setup(r => r.RemoveDiscountAsync(searchValue, userId));
+            returnValue.Should().BeEquivalentTo("No discounts were create or update.");
+        }
 
-//            var controller = new DiscountsController(_mockLogger.Object, _mockRepository.Object);
+        [Fact]
+        public async Task DeleteDiscountOkTest()
+        {
+            var searchValue = Guid.NewGuid();
+            var userId = Guid.Parse("0aed5f3e-3c8b-434d-adb0-e75bbca32b38");
 
-//            var actionResult = await controller.DeleteDiscounts(searchValue);
+            var user = new User();
 
-//            Assert.IsType<OkResult>(actionResult);
-//        }
-//    }
-//}
+            _mockDiscountRepository.Setup(r => r.RemoveDiscountByUidAsync(searchValue, userId));
+
+            _mockUserRepository.Setup(r => r.GetUserByUidAsync(Guid.NewGuid()))
+                .ReturnsAsync(user);
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.DeleteDiscount(searchValue);
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task DeleteDiscountsOkTest()
+        {
+            var searchValue = new List<Guid>();
+            var userId = Guid.Parse("0aed5f3e-3c8b-434d-adb0-e75bbca32b38");
+
+            var user = new User();
+
+            _mockDiscountRepository.Setup(r => r.RemoveDiscountAsync(searchValue, userId));
+
+            _mockUserRepository.Setup(r => r.GetUserByUidAsync(Guid.NewGuid()))
+                .ReturnsAsync(user);
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.DeleteDiscounts(searchValue);
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+    }
+}
