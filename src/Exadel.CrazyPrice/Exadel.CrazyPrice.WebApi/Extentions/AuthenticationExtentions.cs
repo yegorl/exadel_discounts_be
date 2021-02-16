@@ -1,9 +1,9 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.WebApi.Configuration;
 using IdentityModel.Client;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {
@@ -11,17 +11,19 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
     {
         public static IServiceCollection AddCrazyPriceAuthentication(this IServiceCollection services)
         {
-            var config = services.BuildServiceProvider().GetService<IConfiguration>();
+            services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
+
+            var config = services.BuildServiceProvider().GetService<IWebApiConfiguration>();
 
             services.AddCors(options =>
             {
-                options.AddPolicy(config.GetPolicyName(),
+                options.AddPolicy(config.PolicyName,
                     builder =>
                     {
                         builder
                             .AllowAnyOrigin()
                             .AllowCredentials()
-                            .WithOrigins(config.GetOrigins())
+                            .WithOrigins(config.Origins)
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
@@ -39,9 +41,9 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                 })
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = config.GetIssuerUrl();
-                    options.ApiName = config.GetApiName();
-                    options.ApiSecret = config.GetApiSecret();
+                    options.Authority = config.IssuerUrl;
+                    options.ApiName = config.ApiName;
+                    options.ApiSecret = config.ApiSecret;
 
                     options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy { ValidateEndpoints = false };
                 });
@@ -49,15 +51,12 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
             return services;
         }
 
-        public static IApplicationBuilder UseCrazyPriceAuthentication(this IApplicationBuilder app) =>
-            app
-                .UseCors(app.ApplicationServices.GetService<IConfiguration>().GetPolicyName())
+        public static IApplicationBuilder UseCrazyPriceAuthentication(this IApplicationBuilder app)
+        {
+            return
+                app
+                .UseCors(app.ApplicationServices.GetService<IWebApiConfiguration>().PolicyName)
                 .UseAuthentication();
-
-        private static string GetApiName(this IConfiguration config) =>
-            config.GetSection("Auth:ApiName").Value;
-
-        private static string GetApiSecret(this IConfiguration config) =>
-            config.GetSection("Auth:ApiSecret").Value;
+        }
     }
 }

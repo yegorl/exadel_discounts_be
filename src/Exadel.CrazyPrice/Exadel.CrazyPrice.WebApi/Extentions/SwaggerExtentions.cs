@@ -1,4 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.WebApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {
@@ -22,7 +26,9 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
         /// <returns></returns>
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
-            var config = services.BuildServiceProvider().GetService<IConfiguration>();
+            services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
+
+            var config = services.BuildServiceProvider().GetService<IWebApiConfiguration>();
 
             services.AddSwaggerGen(options =>
             {
@@ -47,10 +53,10 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                             AuthorizationCode =
                                 new OpenApiOAuthFlow
                                 {
-                                    AuthorizationUrl = config.GetAuthorizationUrl(),
-                                    TokenUrl = config.GetTokenUrl(),
-                                    RefreshUrl = config.GetRefreshUrl(),
-                                    Scopes = config.GetScopes()
+                                    AuthorizationUrl = config.AuthorizationUrl,
+                                    TokenUrl = config.TokenUrl,
+                                    RefreshUrl = config.RefreshUrl,
+                                    Scopes = config.Scopes
                                 }
                         }
                 });
@@ -66,7 +72,7 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                                 Type = ReferenceType.SecurityScheme
                             }
                         },
-                        new[] { config.GetApiName() }
+                        new[] { config.ApiName }
                     }
                 });
 
@@ -75,7 +81,7 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
-            
+
             return services;
         }
 
@@ -86,43 +92,19 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
         /// <returns></returns>
         public static IApplicationBuilder UseSwaggerCrazyPrice(this IApplicationBuilder app)
         {
-            var config = app.ApplicationServices.GetService<IConfiguration>();
+            var config = app.ApplicationServices.GetService<IWebApiConfiguration>();
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "CrazyPrice WebApi v1");
 
-                options.OAuthClientId(config.GetOAuthClientId());
-                options.OAuthAppName(config.GetOAuthAppName());
+                options.OAuthClientId(config.OAuthClientId);
+                options.OAuthAppName(config.OAuthAppName);
                 options.OAuthUsePkce();
             });
 
             return app;
         }
-
-        private static Uri GetAuthorizationUrl(this IConfiguration config) =>
-            config.GetUri("Auth:Swagger:AuthorizationUrl");
-
-        private static Uri GetTokenUrl(this IConfiguration config) =>
-            config.GetUri("Auth:Swagger:TokenUrl");
-
-        private static Uri GetRefreshUrl(this IConfiguration config) =>
-            config.GetUri("Auth:Swagger:RefreshUrl");
-
-        private static Dictionary<string, string> GetScopes(this IConfiguration config) =>
-            config.GetSection("Auth:Swagger:Scopes").Get<Dictionary<string, string>>();
-
-        private static string GetOAuthClientId(this IConfiguration config) =>
-            config.GetOption("Auth:Swagger:OAuthClientId");
-
-        private static string GetOAuthAppName(this IConfiguration config) =>
-            config.GetOption("Auth:Swagger:OAuthAppName");
-
-        private static string GetApiName(this IConfiguration config) =>
-            config.GetOption("Auth:ApiName");
-
-        private static Uri GetUri(this IConfiguration config, string key) =>
-           string.IsNullOrEmpty(config.GetOption(key)) ? null : new Uri(config.GetOption(key), UriKind.Absolute);
     }
 }
