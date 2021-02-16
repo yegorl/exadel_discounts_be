@@ -10,6 +10,7 @@
         DateStart,
         DateEnd,
         CompanyName,
-        RatingDiscount
+        RatingDiscount,
+        DateCreate
     }
 }

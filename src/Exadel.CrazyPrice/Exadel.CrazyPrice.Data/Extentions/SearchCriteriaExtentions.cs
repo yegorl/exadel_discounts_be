@@ -120,6 +120,9 @@ namespace Exadel.CrazyPrice.Data.Extentions
             return queryParams;
         }
 
+        public static bool IsSortDateCreateForAdministrator(this SearchCriteria searchCriteria, RoleOption role) =>
+            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role != RoleOption.Administrator;
+
         private static string GetDateCondition(this SearchCriteria searchCriteria)
         {
             var builder = new StringBuilder();
