@@ -37,10 +37,13 @@ services:
    - type: bind
      source: ./volumes/certificates/aspnetapp-identity-server.pfx
      target: /https/aspnetapp-identity-server.pfx
+   - type: bind
+     source: ./volumes/configuration/identity/appsettings.Docker.json
+     target: /app/appsettings.Docker.json
   environment:
    - ASPNETCORE_URLS=https://+;http://+
    - ASPNETCORE_HTTPS_PORT=8001
-   - ASPNETCORE_ENVIRONMENT=Staging
+   - ASPNETCORE_ENVIRONMENT=Docker
    - ASPNETCORE_Kestrel__Certificates__Default__Password=password
    - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-identity-server.pfx
   links:
@@ -62,21 +65,23 @@ services:
    - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
    - type: bind
      source: ./volumes/certificates/update-ca-cert.sh
-     target: /https-root/update-ca-cert.sh
+     target: /https-root/update-ca-cert.sh 
    - type: bind
      source: ./volumes/certificates/aspnetapp-root-cert.cer
      target: /https-root/aspnetapp-root-cert.cer
    - type: bind
      source: ./volumes/certificates/aspnetapp-web-api.pfx
-     target: /https/aspnetapp-web-api.pfx   
-  command:
-   /https-root/update-ca-cert.sh
+     target: /https/aspnetapp-web-api.pfx
+   - type: bind
+     source: ./volumes/configuration/api/appsettings.Docker.json
+     target: /app/appsettings.Docker.json
   environment:
    - ASPNETCORE_URLS=https://+;http://+
    - ASPNETCORE_HTTPS_PORT=9001
-   - ASPNETCORE_ENVIRONMENT=Staging
+   - ASPNETCORE_ENVIRONMENT=Docker
    - ASPNETCORE_Kestrel__Certificates__Default__Password=password
    - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx
+  entrypoint: bash -c "/https-root/update-ca-cert.sh && dotnet Exadel.CrazyPrice.WebApi.dll"
   links:
    - database
    - identityserver
