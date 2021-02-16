@@ -72,7 +72,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync(
                 new DiscoveryDocumentRequest
                 {
-                    Address = _configuration.GetIssuerUrl(),
+                    Address = _configuration.GetString("Auth:IssuerUrl"),
                     Policy =
                     {
                         ValidateIssuerName = false

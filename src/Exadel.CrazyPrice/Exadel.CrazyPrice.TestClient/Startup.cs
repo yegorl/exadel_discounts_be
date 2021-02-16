@@ -40,7 +40,7 @@ namespace Exadel.CrazyPrice.TestClient
             services.AddHttpClient("CrazyPriceAPI", client =>
             {
                 //API
-                client.BaseAddress = new Uri(Configuration.GetOption("ApiUri") );
+                client.BaseAddress = new Uri(Configuration.GetString("ApiUri") );
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<BearerTokenHandler>();
@@ -48,7 +48,7 @@ namespace Exadel.CrazyPrice.TestClient
             services.AddHttpClient("IdentityServer", client =>
             {
                 //IDP
-                client.BaseAddress = new Uri(Configuration.GetOption("IssuerUri"));
+                client.BaseAddress = new Uri(Configuration.GetString("IssuerUri"));
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
@@ -66,7 +66,7 @@ namespace Exadel.CrazyPrice.TestClient
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 //IDP
-                options.Authority = Configuration.GetOption("IssuerUri");
+                options.Authority = Configuration.GetString("IssuerUri");
                 options.ClientId = "crazypricetestclient";
                 options.ResponseType = "code";
                 options.Scope.Add("role");
