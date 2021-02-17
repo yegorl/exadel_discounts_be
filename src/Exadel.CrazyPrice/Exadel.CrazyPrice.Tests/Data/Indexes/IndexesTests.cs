@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Exadel.CrazyPrice.Tests.Indexes
+namespace Exadel.CrazyPrice.Tests.Data.Indexes
 {
     public class IndexesTests
     {
