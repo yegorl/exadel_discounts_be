@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
 using IdentityServer4.Models;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace Exadel.CrazyPrice.IdentityServer.Configuration
 {
@@ -39,9 +36,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Configuration
             _config.GetSection("IdentityResources").Get<List<IdentityResource>>();
 
         public string CertificateName =>
-            _config.GetSection("Certificate:Name").Value;
+            _config.GetString("Certificate:Name");
 
         public string CertificatePassword =>
-            _config.GetSection("Certificate:Password").Value;
+            _config.GetString("Certificate:Password");
     }
 }
