@@ -1,6 +1,7 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.WebApi.Controllers;
@@ -171,6 +172,50 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         }
 
         [Fact]
+        public async Task UpsertDiscountOkTest()
+        {
+            var user = new User()
+            {
+                Id = Guid.Parse("f7211928-669e-4d40-b9e1-35b685945a04")
+            };
+
+            var searchValue = new Discount()
+            {
+                Id = Guid.Parse("0e69f357-2dab-451e-8ac2-46a6179fc119")
+            };
+
+            var resultValues = new Discount()
+            {
+                Id = Guid.Parse("0e69f357-2dab-451e-8ac2-46a6179fc119"),
+                Language = LanguageOption.Ru,
+                UserLastChangeDate = user,
+                UserCreateDate = user,
+                CreateDate = DateTime.Now,
+                LastChangeDate = DateTime.Now,
+                Deleted = false
+            };
+
+
+            var mockDiscountRepository = new Mock<IDiscountRepository>();
+            mockDiscountRepository.Setup(r => r.UpsertDiscountAsync(It.IsAny<Discount>()))
+                .ReturnsAsync(resultValues);
+
+            _mockUserRepository.Setup(
+                    r => r.GetUserByUidAsync(Guid.Parse("f7211928-669e-4d40-b9e1-35b685945a04")))
+                .ReturnsAsync(user);
+
+            var controller = new DiscountsController(_mockLogger.Object,
+                    mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.UpsertDiscount(searchValue);
+
+            var result = Assert.IsType<OkObjectResult>(actionResult);
+            Assert.IsType<UpsertDiscountRequest>(result.Value);
+        }
+
+        [Fact]
         public async Task DeleteDiscountOkTest()
         {
             var searchValue = Guid.NewGuid();
@@ -210,6 +255,104 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             { ControllerContext = _controllerContext };
 
             var actionResult = await controller.DeleteDiscounts(searchValue);
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task AddVoteOkTest()
+        {
+            _mockDiscountRepository.Setup(
+                r => r.VoteDiscountAsync(
+                    It.IsAny<int>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
+                .ReturnsAsync(true);
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.AddVote(Guid.Parse("bd8f1979-71ca-4f47-9c31-bbdb8c4a9a28"), 0);
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task AddVoteForbidTest()
+        {
+            _mockDiscountRepository.Setup(
+                    r => r.VoteDiscountAsync(
+                        It.IsAny<int>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
+                .ReturnsAsync(false);
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.AddVote(Guid.Parse("bd8f1979-71ca-4f47-9c31-bbdb8c4a9a28"), 0);
+
+            Assert.IsType<ForbidResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task AddToFavoritesTest()
+        {
+            _mockDiscountRepository.Setup(
+                    r => r.AddToFavoritesAsync(
+                         It.IsAny<Guid>(), It.IsAny<Guid>()));
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.AddToFavorites(Guid.Parse("bd8f1979-71ca-4f47-9c31-bbdb8c4a9a28"));
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task DeleteFromFavoritesTest()
+        {
+            _mockDiscountRepository.Setup(
+                r => r.RemoveFromFavoritesAsync(
+                    It.IsAny<Guid>(), It.IsAny<Guid>()));
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.DeleteFromFavorites(Guid.Parse("bd8f1979-71ca-4f47-9c31-bbdb8c4a9a28"));
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task AddToSubscriptionsTest()
+        {
+            _mockDiscountRepository.Setup(
+                r => r.AddToSubscriptionsAsync(
+                    It.IsAny<Guid>(), It.IsAny<Guid>()));
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.AddToSubscriptions(Guid.Parse("bd8f1979-71ca-4f47-9c31-bbdb8c4a9a28"));
+
+            Assert.IsType<OkResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task DeleteFromSubscriptionsTest()
+        {
+            _mockDiscountRepository.Setup(
+                r => r.RemoveFromSubscriptionsAsync(
+                    It.IsAny<Guid>(), It.IsAny<Guid>()));
+
+            var controller = new DiscountsController(_mockLogger.Object, _mockDiscountRepository.Object,
+                    _mockUserRepository.Object)
+            { ControllerContext = _controllerContext };
+
+            var actionResult = await controller.DeleteFromSubscriptions(Guid.Parse("bd8f1979-71ca-4f47-9c31-bbdb8c4a9a28"));
 
             Assert.IsType<OkResult>(actionResult);
         }
