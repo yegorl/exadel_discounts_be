@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.Common.Models.Option;
+﻿using Exadel.CrazyPrice.Common.Extentions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Text;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Common.Extentions
@@ -19,7 +14,13 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         public ConfigurationExtentionsTests()
         {
             _configuration = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.Development.json", true, false)
+                .AddInMemoryCollection(new KeyValuePair<string, string>[]
+                {
+                    new("Auth:IssuerUrl","IssuerUrl"),
+                    new("Auth:Origins:0", "\"https://localhost\""),
+                    new("Auth:Swagger:AuthorizationUrl", "http://localhost"),
+                    new("Auth:Swagger:Scopes:Scope1","Scope1")
+                })
                 .Build();
         }
 
