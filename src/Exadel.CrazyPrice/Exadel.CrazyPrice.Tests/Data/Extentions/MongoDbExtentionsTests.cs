@@ -16,9 +16,9 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
         [Fact]
         public void MongoDbExtentionsTest()
         {
-            IServiceCollection _service = new ServiceCollection();
-            _service.AddMongoDb();
-            var mainService = _service.FirstOrDefault(d => d.ImplementationType == typeof(MongoDbConfiguration));
+            IServiceCollection service = new ServiceCollection();
+            service.AddMongoDb();
+            var mainService = service.FirstOrDefault(d => d.ImplementationType == typeof(MongoDbConfiguration));
             mainService.Should().NotBeNull();
         }
     }
