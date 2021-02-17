@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Data.Configuration;
+﻿using Exadel.CrazyPrice.Data.Configuration;
 using FluentAssertions;
+using MongoDB.Bson.Serialization.Conventions;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Data.Configuration
@@ -14,8 +12,9 @@ namespace Exadel.CrazyPrice.Tests.Data.Configuration
         [Fact]
         public void MongoDbConventionTest()
         {
-            Action action = () => MongoDbConvention.SetCamelCaseElementNameConvention();
-            action.Should().NotThrow();
+            MongoDbConvention.SetCamelCaseElementNameConvention();
+            var convention = ConventionRegistry.Lookup(typeof(Type)).Conventions.FirstOrDefault(c => c.Name == "CamelCaseElementName");
+            convention.Should().NotBeNull();
         }
     }
 }
