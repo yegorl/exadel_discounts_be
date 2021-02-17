@@ -71,13 +71,18 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
             var discount = new Discount()
             {
                 Id = Guid.Parse("76c6f30b-288b-4424-b031-21921e550cba"),
-                Language = LanguageOption.Ru
-
+                Language = LanguageOption.Ru,
+                Company = new Company(),
+                Address = new Address(),
+                Tags = new List<string>()
             };
             discount.ToDbDiscount().Should().BeEquivalentTo(new DbDiscount()
             {
                 Id = "76c6f30b-288b-4424-b031-21921e550cba",
-                Language = "russian"
+                Language = "russian",
+                Company = new DbCompany(),
+                Address = new DbAddress(),
+                Tags = new List<string>()
             });
         }
 
