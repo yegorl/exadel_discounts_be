@@ -1,16 +1,11 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.WebApi.Configuration;
+﻿using Exadel.CrazyPrice.WebApi.Configuration;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {

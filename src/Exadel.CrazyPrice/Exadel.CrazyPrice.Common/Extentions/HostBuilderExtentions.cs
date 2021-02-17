@@ -14,7 +14,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             return hostBuilder.ConfigureLogging((hostingContext, logging) =>
             {
                 logging.ClearProviders();
-                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                logging.AddConfiguration(hostingContext.Configuration.ParseSection("Logging"));
 
                 if (hostingContext.HasLog("LogToSerilog"))
                 {

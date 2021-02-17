@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Exadel.CrazyPrice.WebApi.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
@@ -15,8 +18,15 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 
         public SwaggerExtentionsTests()
         {
-            IConfiguration configuration = new ConfigurationBuilder().Build();
-            _service.AddScoped(_ => configuration);
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new KeyValuePair<string, string>[]
+                {
+                    new("Auth:Swagger:OAuthClientId", "OAuthClientId"),
+                    new("Auth:Swagger:OAuthAppName","OAuthAppName")
+                })
+                .Build();
+            _service.AddSingleton(_ => configuration);
+            _service.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
             _service.AddSwagger();
         }
 

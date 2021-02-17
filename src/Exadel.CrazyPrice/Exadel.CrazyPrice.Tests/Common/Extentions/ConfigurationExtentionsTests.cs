@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
+﻿using System;
+using Exadel.CrazyPrice.Common.Extentions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -29,6 +30,13 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         {
             var value = _configuration.GetString("Auth:IssuerUrl");
             value.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public void GetStringRaiseExceptionTest()
+        {
+            Action action = () => _configuration.GetString("Auth:Nothing");
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]

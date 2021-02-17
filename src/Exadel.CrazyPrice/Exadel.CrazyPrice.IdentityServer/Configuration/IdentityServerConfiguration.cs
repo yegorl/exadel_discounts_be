@@ -24,16 +24,16 @@ namespace Exadel.CrazyPrice.IdentityServer.Configuration
             _config.GetString("Auth:IssuerUrl");
 
         public IEnumerable<Client> Clients =>
-            _config.GetSection("Clients").Get<List<Client>>();
+            _config.ParseSection("Clients").Get<List<Client>>();
 
         public IEnumerable<ApiScope> ApiScopes =>
-            _config.GetSection("ApiScopes").Get<List<ApiScope>>();
+            _config.ParseSection("ApiScopes").Get<List<ApiScope>>();
 
         public IEnumerable<ApiResource> ApiResources =>
-            _config.GetSection("ApiResources").Get<List<ApiResource>>();
+            _config.ParseSection("ApiResources").Get<List<ApiResource>>();
 
         public IEnumerable<IdentityResource> IdentityResources =>
-            _config.GetSection("IdentityResources").Get<List<IdentityResource>>();
+            _config.ParseSection("IdentityResources").Get<List<IdentityResource>>();
 
         public string CertificateName =>
             _config.GetString("Certificate:Name");
