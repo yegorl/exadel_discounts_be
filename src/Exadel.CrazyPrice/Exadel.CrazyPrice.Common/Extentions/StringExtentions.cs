@@ -111,7 +111,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             }
             return strBuilder.ToString();
         }
-        
+
         /// <summary>
         /// Gets valid content with chars from CharOptions and specialChars.
         /// </summary>
@@ -152,7 +152,10 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not bool value.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not bool value.") : defaultValue;
+            }
         }
 
         /// <summary>
@@ -168,7 +171,10 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not uint value.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not uint value.") : defaultValue;
+            }
         }
 
         /// <summary>
@@ -184,7 +190,10 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return key;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not null or empty.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{nameof(key)}' is null or empty.") : defaultValue;
+            }
         }
 
         /// <summary>
@@ -200,8 +209,47 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not Guid value.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not Guid value.") : defaultValue;
+            }
         }
+
+        /// <summary>
+        /// Gets string newValue from value when keys exist in possibleValues.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="newValue"></param>
+        /// <param name="possibleValues"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static string OverLoadString(this string value, string newValue, string[] possibleValues, params string[] keys) =>
+            KeysExist(possibleValues, keys) ? newValue : value;
+
+        /// <summary>
+        /// Gets bool newValue from value when keys exist in possibleValues. 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="newValue"></param>
+        /// <param name="possibleValues"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static bool OverLoadBool(this bool value, bool newValue, string[] possibleValues, params string[] keys) =>
+            KeysExist(possibleValues, keys) && newValue;
+
+        /// <summary>
+        /// Gets uint newValue from value when keys exist in possibleValues. 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="newValue"></param>
+        /// <param name="possibleValues"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static uint OverLoadUint(this uint value, uint newValue, string[] possibleValues, params string[] keys) =>
+            KeysExist(possibleValues, keys) ? newValue : value;
+
+        private static bool KeysExist(string[] possibleValues, params string[] keys) =>
+            keys.Any(k => string.Join("(|)", possibleValues).ToLowerInvariant().Split("(|)").Contains(k.ToLowerInvariant()));
 
         private static List<Func<char, bool>> BuildRulesForChar(CharOptions charOptions)
         {
