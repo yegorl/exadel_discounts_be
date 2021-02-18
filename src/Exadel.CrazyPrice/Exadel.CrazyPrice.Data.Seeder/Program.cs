@@ -14,10 +14,10 @@ namespace Exadel.CrazyPrice.Data.Seeder
             SeederConfiguration seederConfiguration;
             try
             {
-                seederConfiguration = new SeederConfiguration().Default;
-                seederConfiguration.Configure(c =>
+                seederConfiguration = new SeederConfiguration();
+                seederConfiguration.Configure((c, b) =>
                 {
-                    c.DetailsInfo = DetailsInfo;
+                    c.HideDetailsInfo = HideDetailsInfo;
 
                     c.ConnectionString = ConnectionString;
                     c.Database = Database;
@@ -35,14 +35,14 @@ namespace Exadel.CrazyPrice.Data.Seeder
                 return;
             }
 
-            if (seederConfiguration.DetailsInfo)
+            if (!seederConfiguration.HideDetailsInfo)
             {
                 Console.WriteLine(Environment.NewLine);
                 DetailsInfoMongoDbConfiguration(seederConfiguration);
             }
-            
+
             Console.WriteLine(new string('*', 30));
-           
+
             Task.Run(async () =>
             {
                 var seeder = new SeedManager(seederConfiguration);
