@@ -94,7 +94,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             }
             else
             {
-                throw new ArgumentException($"'{key}' is not null or empty.");
+                throw new ArgumentException($"'{key}' is not exists.");
             }
         }
     }
