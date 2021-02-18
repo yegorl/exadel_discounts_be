@@ -1,51 +1,67 @@
+using Exadel.CrazyPrice.WebApi.Configuration;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentAssertions;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Exadel.CrazyPrice.WebApi.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 {
     public class AuthenticationExtentionsTests
     {
-        private readonly IServiceCollection _service = new ServiceCollection();
+        private readonly IHost _host;
 
         public AuthenticationExtentionsTests()
         {
-            IConfiguration configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(new KeyValuePair<string, string>[]
+            var builder = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration(configBuilder =>
                 {
-                    new("Auth:PolicyName", "PolicyName"),
-                    new("Auth:Origins:0","OAuthAppName")
+                    configBuilder
+                        .AddInMemoryCollection(new KeyValuePair<string, string>[]
+                        {
+                            new("Auth:PolicyName", "PolicyName"),
+                            new("Auth:Origins:0","OAuthAppName")
+                        })
+                        .Build();
                 })
-                .Build();
-            _service.AddScoped(_ => configuration);
-            _service.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
-            _service.AddCrazyPriceAuthentication();
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureServices(services =>
+                    {
+                        services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
+                        services.AddCrazyPriceAuthentication();
+                    });
+                });
+            _host = builder.Build();
         }
 
         [Fact]
         public void AddCrazyPriceAuthenticationTest()
         {
-            var serviceName = "AuthenticationService";
-            var hasService = _service.Any(serviceDescriptor => serviceDescriptor?.ImplementationType?.Name == serviceName);
+            var hasCors = _host.Services.GetService<ICorsService>();
+            var hasAuthentication = _host.Services.GetService<IAuthenticationService>();
+            var hasIdentityServerAuthentication = _host.Services.GetService<IdentityServerAuthenticationHandler>();
 
-            hasService.Should().BeTrue($"ServiceCollection is not contains {serviceName}.");
+            hasCors.Should().NotBeNull();
+            hasAuthentication.Should().NotBeNull();
+            hasIdentityServerAuthentication.Should().NotBeNull();
         }
 
         [Fact]
         public void UseCrazyPriceAuthenticationTest()
         {
-            var appBuilder = new ApplicationBuilder(_service.BuildServiceProvider());
+            var appBuilder = new ApplicationBuilder(_host.Services);
             Action act = () => appBuilder.UseCrazyPriceAuthentication().Build();
 
-            // The CorsMiddleware exists.
             act.Should().NotThrow();
         }
     }

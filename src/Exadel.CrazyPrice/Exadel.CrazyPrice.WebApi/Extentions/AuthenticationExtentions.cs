@@ -13,12 +13,24 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
         {
             services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
 
-            var config = services.BuildServiceProvider().GetService<IWebApiConfiguration>();
+            services.AddCors();
+            services
+                .AddAuthentication(options =>
+                        {
+                            options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultForbidScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultSignInScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultSignOutScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                        })
+                .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme);
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(config.PolicyName,
-                    builder =>
+            services
+                .AddOptions<Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions>()
+                .Configure<IWebApiConfiguration>((options, config) =>
+                {
+                    options.AddPolicy(config.PolicyName, builder =>
                     {
                         builder
                             .AllowAnyOrigin()
@@ -28,35 +40,26 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
-            });
+                });
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultForbidScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignOutScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                })
-                .AddIdentityServerAuthentication(options =>
+            services.AddOptions<IdentityServerAuthenticationOptions>(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .Configure<IWebApiConfiguration>((options, config) =>
                 {
                     options.Authority = config.IssuerUrl;
                     options.ApiName = config.ApiName;
                     options.ApiSecret = config.ApiSecret;
-
-                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy { ValidateEndpoints = false };
+                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy
+                    {
+                        ValidateEndpoints = true
+                    };
                 });
 
             return services;
         }
 
-        public static IApplicationBuilder UseCrazyPriceAuthentication(this IApplicationBuilder app)
-        {
-            return
-                app
+        public static IApplicationBuilder UseCrazyPriceAuthentication(this IApplicationBuilder app) =>
+            app
                 .UseCors(app.ApplicationServices.GetService<IWebApiConfiguration>().PolicyName)
                 .UseAuthentication();
-        }
     }
 }
