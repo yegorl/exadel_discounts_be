@@ -25,13 +25,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+    <ProjectReference Include="..\Exadel.CrazyPrice.Data.Seeder\Exadel.CrazyPrice.Data.Seeder.csproj" />
     <ProjectReference Include="..\Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj" />
     <ProjectReference Include="..\Exadel.CrazyPrice.WebApi\Exadel.CrazyPrice.WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Common\Configuration\" />
-    <Folder Include="Data.Seeder\Configuration\" />
     <Folder Include="WebApi\Validators\Special\" />
   </ItemGroup>
 
