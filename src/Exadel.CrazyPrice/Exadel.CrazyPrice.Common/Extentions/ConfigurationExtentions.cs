@@ -88,14 +88,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         public static IConfigurationSection ParseSection(this IConfiguration configuration, string key)
         {
             var section = configuration.GetSection(key);
-            if (section.Exists())
-            {
-                return section;
-            }
-            else
-            {
-                throw new ArgumentException($"'{key}' is not exists.");
-            }
+            return section.Exists() ? section : throw new ArgumentException($"'{key}' is not exists.");
         }
     }
 }
