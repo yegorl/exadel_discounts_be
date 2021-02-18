@@ -29,5 +29,25 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
 
             action.Should().NotThrow();
         }
+
+        [Fact]
+        public void SetupLoggerFailTest()
+        {
+            var builder = new HostBuilder().ConfigureAppConfiguration(configBuilder =>
+            {
+                configBuilder
+                    .AddInMemoryCollection(new KeyValuePair<string, string>[]
+                    {
+                        new("Logging", "enabled"),
+                        new("LogToSerilog", "enabled"),
+                        new("LogToNLog","enabled")
+                    })
+                    .Build();
+            });
+
+            Action action = () => builder.SetupLogger().Build();
+
+            action.Should().Throw<ArgumentException>();
+        }
     }
 }
