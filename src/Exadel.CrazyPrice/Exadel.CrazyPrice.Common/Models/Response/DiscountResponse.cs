@@ -26,6 +26,8 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public string WorkingDaysOfTheWeek { get; set; }
 
+        public string PictureUrl { get; set; }
+
         public List<string> Tags { get; set; }
 
         public decimal? RatingTotal { get; set; }

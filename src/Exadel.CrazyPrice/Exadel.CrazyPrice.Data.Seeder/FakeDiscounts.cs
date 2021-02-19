@@ -80,6 +80,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
                         f => f.Date.Between(DateTime.Now + TimeSpan.FromDays(1), DateTime.Now + TimeSpan.FromDays(700)))
                     .RuleFor(x => x.Address, f => addressGenerator.Generate())
                     .RuleFor(x => x.Company, f => companyGenerator.Generate())
+                    .RuleFor(x => x.PictureUrl, f => f.Image.LoremFlickrUrl())
                     .RuleFor(x => x.WorkingDaysOfTheWeek,
                         f => string.Join("", f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1),
                             f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1), f.Random.Int(0, 1)))

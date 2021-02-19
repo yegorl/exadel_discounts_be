@@ -73,6 +73,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 Company = upsertDiscountRequest.Company,
                 WorkingDaysOfTheWeek = upsertDiscountRequest.WorkingDaysOfTheWeek,
                 Tags = upsertDiscountRequest.Tags,
+                PictureUrl = upsertDiscountRequest.PictureUrl,
                 Language = upsertDiscountRequest.Language,
                 Translations = upsertDiscountRequest.Translations
             };
@@ -99,6 +100,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                     Company = discount.Company,
                     WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
                     Tags = discount.Tags,
+                    PictureUrl = discount.PictureUrl,
                     Language = discount.Language,
                     Translations = discount.Translations
                 };
@@ -125,6 +127,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                     Company = discount.Company,
                     WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
                     Tags = discount.Tags,
+                    PictureUrl = discount.PictureUrl,
 
                     RatingTotal = discount.RatingTotal,
                     ViewsTotal = discount.ViewsTotal,

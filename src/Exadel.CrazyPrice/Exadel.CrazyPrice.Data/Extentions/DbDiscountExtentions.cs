@@ -58,6 +58,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Company = dbDiscount.Company.ToCompany(),
                     WorkingDaysOfTheWeek = dbDiscount.WorkingDaysOfTheWeek,
                     Tags = dbDiscount.Tags,
+                    PictureUrl = dbDiscount.PictureUrl,
                     Language = dbDiscount.Language.ToLanguageOption(),
                     Translations = dbDiscount.Translations.ToTranslations(),
 
@@ -102,6 +103,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 Company = discount.Company.ToDbCompany(),
                 WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
                 Tags = discount.Tags,
+                PictureUrl = discount.PictureUrl,
                 Language = discount.Language.ToStringLookup(),
                 Translations = discount.Translations.ToDbTranslations(),
 

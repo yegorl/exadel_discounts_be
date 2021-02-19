@@ -121,6 +121,44 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
+        /// Gets the discount by id.
+        /// </summary>
+        /// <param name="id">The search id of discount.</param>
+        /// <returns></returns>
+        /// <response code="200">Discounts found.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="404">No discount found.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpGet, Route("upsert/get/{id}"),
+         ProducesResponseType(typeof(UpsertDiscountRequest), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Moderator,Administrator")]
+        public async Task<IActionResult> GetUpsertDiscount([FromRoute] Guid id)
+        {
+            _logger.LogInformation("Guid incoming: {@id}", id);
+            var discount = await _discounts.GetDiscountByUidAsync(id);
+
+            if (discount.IsEmpty())
+            {
+                _logger.LogWarning("Discount is Empty.");
+                return NotFound("No discount found.");
+            }
+
+            var response = discount.ToUpsertDiscountRequest();
+
+            _logger.LogInformation("Discount get: {@response}", response);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Creates or updates the discount.
         /// </summary>
         /// <param name="upsertDiscountRequest"></param>

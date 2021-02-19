@@ -27,6 +27,8 @@ namespace Exadel.CrazyPrice.Common.Models.Request
 
         public string WorkingDaysOfTheWeek { get; set; }
 
+        public string PictureUrl { get; set; }
+
         public List<string> Tags { get; set; }
 
         public LanguageOption Language { get; set; }
