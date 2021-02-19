@@ -286,6 +286,20 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         }
 
         [Fact]
+        public void IsNullOrEmptyStringNullTest()
+        {
+            string value = null;
+            value.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsNullOrEmptyStringTypeNullTest()
+        {
+            var value = (string)null;
+            value.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Fact]
         public void IsNullOrEmptyArrayBeFalseTest()
         {
             var values = new[] { "", null, "s" };
