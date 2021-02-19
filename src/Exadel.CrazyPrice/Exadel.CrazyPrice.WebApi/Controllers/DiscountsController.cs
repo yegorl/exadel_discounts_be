@@ -107,7 +107,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
             searchCriteria.SearchUserId = ControllerContext.GetUserId();
-            var role = ControllerContext.GetRole().ToRoleOption();
+            var role = ControllerContext.GetRole();
 
             if (searchCriteria.IsSortDateCreateForAdministrator(role))
             {

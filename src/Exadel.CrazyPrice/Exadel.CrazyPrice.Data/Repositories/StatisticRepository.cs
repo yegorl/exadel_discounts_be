@@ -63,19 +63,21 @@ namespace Exadel.CrazyPrice.Data.Repositories
             var statistic = new UsersStatistic();
             foreach (var doc in aggregate)
             {
-                var id = doc.GetValue("_id").AsInt32;
+                var role = (RoleOption) doc.GetValue("_id").AsInt32;
                 var count = doc.GetValue("count").AsInt32;
 
-                switch (id)
+                switch (role)
                 {
-                    case (int) RoleOption.Employee:
+                    case RoleOption.Employee:
                         statistic.EmployeesTotal = count;
                         break;
-                    case (int) RoleOption.Moderator:
+                    case RoleOption.Moderator:
                         statistic.ModeratorsTotal = count;
                         break;
-                    case (int)RoleOption.Administrator:
+                    case RoleOption.Administrator:
                         statistic.AdministratorsTotal = count;
+                        break;
+                    default: statistic.UnknownsTotal += count;
                         break;
                 }
             }
