@@ -1,38 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Bogus" Version="33.0.1" />
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.3" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.8.3" />
-    <PackageReference Include="Moq" Version="4.16.0" />
-    <PackageReference Include="NSubstitute" Version="4.2.2" />
-    <PackageReference Include="Talentsoft.Moq.SetupAsync" Version="1.0.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Bogus" Version="33.0.1" />
+		<PackageReference Include="FluentAssertions" Version="5.10.3" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.3" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+		<PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.8.3" />
+		<PackageReference Include="Moq" Version="4.16.0" />
+		<PackageReference Include="NSubstitute" Version="4.2.2" />
+		<PackageReference Include="Talentsoft.Moq.SetupAsync" Version="1.0.0" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.analyzers" Version="0.10.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
-    <ProjectReference Include="..\Exadel.CrazyPrice.Data.Seeder\Exadel.CrazyPrice.Data.Seeder.csproj" />
-    <ProjectReference Include="..\Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj" />
-    <ProjectReference Include="..\Exadel.CrazyPrice.WebApi\Exadel.CrazyPrice.WebApi.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+		<ProjectReference Include="..\Exadel.CrazyPrice.Data.Seeder\Exadel.CrazyPrice.Data.Seeder.csproj" />
+		<ProjectReference Include="..\Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj" />
+		<ProjectReference Include="..\Exadel.CrazyPrice.WebApi\Exadel.CrazyPrice.WebApi.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\Configuration\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Common\Configuration\" />
+	</ItemGroup>
 
 </Project>
