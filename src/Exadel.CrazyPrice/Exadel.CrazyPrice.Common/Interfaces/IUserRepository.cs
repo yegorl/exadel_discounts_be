@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
@@ -22,5 +23,11 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <param name="mail">E-mail of user</param>
         /// <returns>User or null if not found</returns>
         Task<User> GetUserByEmailAsync(string mail);
+
+        /// <summary>
+        /// Get user by external provider
+        /// </summary>
+        /// <returns>User or null if not found</returns>
+        Task<User> GetUserByExternalProviderAsync(ProviderOptions provider, string providerUserId);
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using IdentityModel;
@@ -98,7 +100,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             }
 
             // lookup our user and external provider info
-            var (user, provider, providerUserId, claims) = FindUserFromExternalProvider(result);
+            var (user, provider, providerUserId, claims) = await FindUserFromExternalProvider(result);
             if (user == null)
             {
                 // this might be where you might initiate a custom workflow for user registration
@@ -115,10 +117,10 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
             
             // issue authentication cookie for user
-            var isuser = new IdentityServerUser(user.SubjectId)
+            var isuser = new IdentityServerUser(user.Id.ToString())
             {
-                DisplayName = user.Username,
-                IdentityProvider = provider,
+                DisplayName = user.Name,
+                IdentityProvider = provider.ToString(),
                 AdditionalClaims = additionalLocalClaims
             };
 
@@ -132,7 +134,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             // check if external login is in the context of an OIDC request
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.SubjectId, user.Username, true, context?.Client.ClientId));
+            await _events.RaiseAsync(new UserLoginSuccessEvent(provider.ToString(), providerUserId, user.Id.ToString(), user.Name, true, context?.Client.ClientId));
 
             if (context != null)
             {
@@ -147,7 +149,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return Redirect(returnUrl);
         }
 
-        private (TestUser user, string provider, string providerUserId, IEnumerable<Claim> claims) FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderOptions provider, string providerUserId, IEnumerable<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 
@@ -162,20 +164,20 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             var claims = externalUser.Claims.ToList();
             claims.Remove(userIdClaim);
 
-            var provider = result.Properties.Items["scheme"];
+            
+            var provider = Enum.Parse<ProviderOptions>(result.Properties.Items["scheme"]);
             var providerUserId = userIdClaim.Value;
 
-            //TestUserStore
 
             // find external user
-            //var user = _users.FindByExternalProvider(provider, providerUserId);
+            var user = await _userRepository.GetUserByExternalProviderAsync(provider, providerUserId);
 
-            return (new TestUser(), provider, providerUserId, claims);
+            return (user, provider, providerUserId, claims);
         }
 
-        private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
+        private User AutoProvisionUser(ProviderOptions provider, string providerUserId, IEnumerable<Claim> claims)
         {
-            var user = new TestUser(); //_users.AutoProvisionUser(provider, providerUserId, claims.ToList());
+            var user = new User(); //_users.AutoProvisionUser(provider, providerUserId, claims.ToList());
             return user;
         }
 

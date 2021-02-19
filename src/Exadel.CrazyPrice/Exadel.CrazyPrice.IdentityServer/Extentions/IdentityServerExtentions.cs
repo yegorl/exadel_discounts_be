@@ -52,15 +52,12 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to http://localhost:5000/signin-google
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                    options.ClientId = "458404438508-18deveqet26htfakoq6v9lh54ecfja12.apps.googleusercontent.com";
-                    options.ClientSecret = "_h9XlzmxjbVVhoC9LMU2CN6U";
+                    options.ClientId = config.GetGoogleId();
+                    options.ClientSecret = config.GetGoogleSecret();
                 }).AddLocalApi(options =>
                 {
-                    options.ExpectedScope = "crazy_price_api1";
+                    options.ExpectedScope = config.GetApiName();
                 });
 
             // not recommended for production - you need to store your key material somewhere secure
@@ -98,5 +95,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
 
         private static string GetCertificatePassword(this IConfiguration config) =>
             config.GetSection("Certificate:Password").Value;
+
+        private static string GetApiName(this IConfiguration config) =>
+            config.GetSection("ApiScopes:Name").Value;
+
+        private static string GetGoogleId(this IConfiguration config) =>
+            config.GetSection("Auth:Google:ClientId").Value;
+
+        private static string GetGoogleSecret(this IConfiguration config) =>
+            config.GetSection("Auth:Google:ClientSecret").Value;
     }
 }
