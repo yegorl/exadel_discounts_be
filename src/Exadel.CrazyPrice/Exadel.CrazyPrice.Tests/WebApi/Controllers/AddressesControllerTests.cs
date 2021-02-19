@@ -1,4 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.WebApi.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models.Option;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
@@ -42,7 +42,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
 
             returnValue[0].Should().BeEquivalentTo("Belarus");
         }
-        
+
         [Fact]
         public async Task GetCountriesNotFoundTest()
         {
@@ -61,7 +61,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
 
             returnValue.Should().BeEquivalentTo("No countries found.");
         }
-        
+
         [Fact]
         public async Task GetCitiesOkTest()
         {
@@ -100,6 +100,83 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             var returnValue = Assert.IsType<string>(result.Value);
 
             returnValue.Should().BeEquivalentTo("No cities found.");
+        }
+
+        [Fact]
+        public async Task GetCitiesAllNotFoundTest()
+        {
+            var searchCountry = "bel";
+            _resultValues.Clear();
+
+            _mockRepository.Setup(
+                    r => r.GetCitiesAsync(
+                        It.IsAny<string>(), It.IsAny<string>(), It.IsAny<LanguageOption>()))
+                .ReturnsAsync(_resultValues);
+
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+
+            var actionResult = await controller.GetCitiesAll(LanguageOption.Ru, searchCountry);
+
+            var result = Assert.IsType<NotFoundObjectResult>(actionResult);
+            var returnValue = Assert.IsType<string>(result.Value);
+
+            returnValue.Should().BeEquivalentTo("No cities found.");
+        }
+
+        [Fact]
+        public async Task GetCitiesAllOkTest()
+        {
+            var searchCountry = "Belarus";
+            _resultValues.Add("Minsk");
+
+            _mockRepository.Setup(r => r.GetCitiesAsync(
+                    It.IsAny<string>(), It.IsAny<string>(), It.IsAny<LanguageOption>()))
+                .ReturnsAsync(_resultValues);
+
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+
+            var actionResult = await controller.GetCitiesAll(LanguageOption.Ru, searchCountry);
+
+            var result = Assert.IsType<OkObjectResult>(actionResult);
+            var returnValue = Assert.IsType<List<string>>(result.Value);
+
+            returnValue[0].Should().BeEquivalentTo("Minsk");
+        }
+
+        [Fact]
+        public async Task GetCountriesAllOkTest()
+        {
+            _resultValues.Add("Belarus");
+
+            _mockRepository.Setup(r => r.GetCountriesAsync(It.IsAny<string>(), It.IsAny<LanguageOption>()))
+                .ReturnsAsync(_resultValues);
+
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+
+            var actionResult = await controller.GetCountriesAll(LanguageOption.En);
+
+            var result = Assert.IsType<OkObjectResult>(actionResult);
+            var returnValue = Assert.IsType<List<string>>(result.Value);
+
+            returnValue[0].Should().BeEquivalentTo("Belarus");
+        }
+
+        [Fact]
+        public async Task GetCountriesAllNotFoundTest()
+        {
+            _resultValues.Clear();
+
+            _mockRepository.Setup(r => r.GetCountriesAsync(It.IsAny<string>(), It.IsAny<LanguageOption>()))
+                .ReturnsAsync(_resultValues);
+
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+
+            var actionResult = await controller.GetCountriesAll(LanguageOption.En);
+
+            var result = Assert.IsType<NotFoundObjectResult>(actionResult);
+            var returnValue = Assert.IsType<string>(result.Value);
+
+            returnValue.Should().BeEquivalentTo("No countries found.");
         }
     }
 }

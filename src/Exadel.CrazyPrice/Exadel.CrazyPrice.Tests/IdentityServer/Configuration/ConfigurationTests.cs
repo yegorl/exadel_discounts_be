@@ -165,7 +165,7 @@ namespace Exadel.CrazyPrice.Tests.IdentityServer.Configuration
             var jsonString = JsonSerializer.Serialize(value);
 
             //Assert
-            Assert.IsType<List<Client>>(jsonString);
+            Assert.IsType<string>(jsonString);
         }
     }
 }

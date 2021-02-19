@@ -90,7 +90,10 @@ namespace Exadel.CrazyPrice.Data.Models
         [BsonDefaultValue(false)]
         [JsonIgnore]
         public bool Deleted { get; set; }
-        
+
+        [BsonIgnoreIfNull]
+        public string PictureUrl { get; set; }
+
         [BsonIgnoreIfNull]
         public string Language { get; set; }
 

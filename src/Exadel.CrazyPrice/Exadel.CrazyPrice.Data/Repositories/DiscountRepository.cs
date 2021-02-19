@@ -117,6 +117,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
                     .Set(f => f.Tags, discount.Tags)
                     .Set(f => f.LastChangeDate, discount.LastChangeDate)
                     .Set(f => f.UserLastChangeDate, discount.UserLastChangeDate.ToDbUser())
+                    .Set(f => f.PictureUrl, discount.PictureUrl)
                     .Set(f => f.Language, discount.Language.ToStringLookup())
                     .Set(f => f.Translations, discount.Translations.ToDbTranslations())
                 , new FindOneAndUpdateOptions<DbDiscount>()

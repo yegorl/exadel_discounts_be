@@ -70,7 +70,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [InlineData("Aб1  9 Separator \u0020 Control \u0001", "Aб1  9 Separator \u0020 Control \u0001")]
         public void GetValidContentDifTest(string value, string expectedResult)
         {
-            value.GetValidContent(CharOptions.Upper 
+            value.GetValidContent(CharOptions.Upper
                                   | CharOptions.Lower
                                   | CharOptions.Digit
                                   | CharOptions.Number
@@ -109,7 +109,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         public void ReplaceTwoAndMoreCharsBySomeOneCharsNullExceptionTest()
         {
             const string value = "s";
-            Action act = () => value.ReplaceTwoAndMoreCharsBySomeOne(new char[]{});
+            Action act = () => value.ReplaceTwoAndMoreCharsBySomeOne(Array.Empty<char>());
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -118,13 +118,13 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [InlineData(null, null)]
         public void ReplaceTwoAndMoreCharsBySomeOneEmptyTest(string value, string expectedResult)
         {
-            value.ReplaceTwoAndMoreCharsBySomeOne(new char[] { }).Should().Be(expectedResult);
+            value.ReplaceTwoAndMoreCharsBySomeOne(Array.Empty<char>()).Should().Be(expectedResult);
         }
 
         [Fact]
         public void ReplaceTwoAndMoreCharsBySomeOneTrimTest()
         {
-            "- -".ReplaceTwoAndMoreCharsBySomeOne(new[] {'-', ' '}).Should().Be(string.Empty);
+            "- -".ReplaceTwoAndMoreCharsBySomeOne(new[] { '-', ' ' }).Should().Be(string.Empty);
         }
 
         [Fact]
@@ -164,5 +164,178 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         {
             value.IsValidWorkingDays().Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData("true", false, false, true)]
+        [InlineData("true", true, false, true)]
+        [InlineData("true", false, true, true)]
+        [InlineData("true", true, true, true)]
+        [InlineData("not", true, false, true)]
+        public void ToBoolTrueReturnsTrueTest(string value, bool defaultValue, bool raiseException, bool expectedResult)
+        {
+            value.ToBool(defaultValue, raiseException).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("false", false, false, false)]
+        [InlineData("false", true, false, false)]
+        [InlineData("false", false, true, false)]
+        [InlineData("false", true, true, false)]
+        [InlineData("not", false, false, false)]
+        public void ToBoolFalseReturnsFalseTest(string value, bool defaultValue, bool raiseException, bool expectedResult)
+        {
+            value.ToBool(defaultValue, raiseException).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("not", false, true)]
+        [InlineData("not", true, true)]
+        public void ToBoolRaiseExceptionsTest(string value, bool defaultValue, bool raiseException)
+        {
+            Action action = () => value.ToBool(defaultValue, raiseException);
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Theory]
+        [InlineData("1", 0, false, 1)]
+        [InlineData("2", 1, false, 2)]
+        [InlineData("-3", 1, false, 1)]
+        public void ToUintReturnsTrueTest(string value, uint defaultValue, bool raiseException, uint expectedResult)
+        {
+            value.ToUint(defaultValue, raiseException).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("-1", 0, true)]
+        [InlineData("a", 1, true)]
+        [InlineData("2,5", 1, true)]
+        [InlineData("2.5", 1, true)]
+        public void ToUintRaiseExceptionsTest(string value, uint defaultValue, bool raiseException)
+        {
+            Action action = () => value.ToUint(defaultValue, raiseException);
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Theory]
+        [InlineData("1", "", false, "1")]
+        [InlineData("a", "", false, "a")]
+        [InlineData("n", "", false, "n")]
+        [InlineData("", "default", false, "default")]
+        public void ToStringWithValueReturnsValueTest(string value, string defaultValue, bool raiseException, string expectedResult)
+        {
+            value.ToStringWithValue(defaultValue, raiseException).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("", "default", true)]
+        [InlineData(null, "default", true)]
+        public void ToStringWithValueRaiseExceptionsTest(string value, string defaultValue, bool raiseException)
+        {
+            Action action = () => value.ToStringWithValue(defaultValue, raiseException);
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Theory]
+        [InlineData("7cbe9cb7-c1be-48eb-8757-524f1b1b1e20", "49f3bbc2-6737-4002-ad77-bfd33d331940", false, "7cbe9cb7-c1be-48eb-8757-524f1b1b1e20")]
+        [InlineData("", "49f3bbc2-6737-4002-ad77-bfd33d331940", false, "49f3bbc2-6737-4002-ad77-bfd33d331940")]
+        public void ToGuidReturnsValueTest(string value, Guid defaultValue, bool raiseException, Guid expectedResult)
+        {
+            value.ToGuid(defaultValue, raiseException).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("", "49f3bbc2-6737-4002-ad77-bfd33d331940", true)]
+        [InlineData("notGuid", "49f3bbc2-6737-4002-ad77-bfd33d331940", true)]
+        public void ToGuidRaiseExceptionsTest(string value, Guid defaultValue, bool raiseException)
+        {
+            Action action = () => value.ToGuid(defaultValue, raiseException);
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Theory]
+        [InlineData("url\\", true)]
+        [InlineData("http/", true)]
+        [InlineData("any", false)]
+        public void IsLastTest(string value, bool expectedResult)
+        {
+            var symbols = new[] { "\\", "/" };
+            value.IsLast(StringComparison.Ordinal, symbols).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("url\\", true)]
+        [InlineData("http/", true)]
+        [InlineData("any", false)]
+        [InlineData(null, true)]
+        [InlineData("", true)]
+        public void IsNullOrEmptyOrLastTest(string value, bool expectedResult)
+        {
+            var symbols = new[] { "\\", "/" };
+            value.IsNullOrEmptyOrLast(StringComparison.Ordinal, symbols).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("url\\", false)]
+        [InlineData("http/", false)]
+        [InlineData("any", false)]
+        [InlineData(null, true)]
+        [InlineData("", true)]
+        public void IsNullOrEmptyTest(string value, bool expectedResult)
+        {
+            value.IsNullOrEmpty().Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void IsNullOrEmptyStringNullTest()
+        {
+            string value = null;
+            value.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsNullOrEmptyStringTypeNullTest()
+        {
+            var value = (string)null;
+            value.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsNullOrEmptyArrayBeFalseTest()
+        {
+            var values = new[] { "", null, "s" };
+            values.IsNullOrEmpty().Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsNullOrEmptyArrayBeTrueTest()
+        {
+            var values = new string[] { };
+            values.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Fact]
+        public void ToUriNullTest()
+        {
+            string value = null;
+            value.ToUri(UriKind.Absolute, false).Should().BeNull();
+        }
+
+        [Fact]
+        public void ToUriOkTest()
+        {
+            string value = "http://localhost";
+            value.ToUri().Should().BeEquivalentTo(new Uri("http://localhost", UriKind.Absolute));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("///")]
+        public void ToUriExceptionTest(string value)
+        {
+            Action action = () => value.ToUri();
+            action.Should().Throw<Exception>();
+        }
+
     }
 }

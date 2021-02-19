@@ -45,8 +45,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
 
             var queryBuilder = new StringBuilder();
             queryBuilder.Append("{");
-            queryBuilder.Append($"$or : [{searchCriteria.GetContainsСondition()}]");
-            queryBuilder.Append(", ");
+
+            if (!string.IsNullOrEmpty(searchCriteria.SearchText))
+            {
+                queryBuilder.Append($"$or : [{searchCriteria.GetContainsСondition()}]");
+                queryBuilder.Append(", ");
+            }
+
             queryBuilder.Append("$and : [" +
                                 searchCriteria.GetEqualsСondition("Country") + ", " +
                                 searchCriteria.GetEqualsСondition("City") + ", " +

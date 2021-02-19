@@ -8,9 +8,14 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
 {
     public static class ControllerExtentions
     {
-        public static Guid GetUserId(this ControllerContext controllerContext)
-        {
-            return controllerContext.HttpContext.User.Claims.Where(c => c.Type == "sub").Select(k => k.Value).FirstOrDefault().ToGuid(Guid.Empty);
-        }
+        public static Guid GetUserId(this ControllerContext controllerContext) =>
+            controllerContext
+                .HttpContext
+                .User
+                .Claims
+                .Where(c => c.Type == "sub")
+                .Select(k => k.Value)
+                .FirstOrDefault()
+                .ToGuid(Guid.Empty);
     }
 }

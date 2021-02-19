@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
+using Exadel.CrazyPrice.Common.Extentions;
 using Microsoft.Extensions.Options;
 
 namespace Exadel.CrazyPrice.IdentityServer.Extentions
@@ -41,6 +42,6 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
                 .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
         private static string GetLanguage(this IConfiguration configuration) =>
-            configuration.GetSection("Localization:Default").Value;
+            configuration.ParseSection("Localization:Default").Value;
     }
 }

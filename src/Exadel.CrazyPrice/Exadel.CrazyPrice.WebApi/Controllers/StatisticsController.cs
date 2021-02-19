@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Interfaces;
-using Exadel.CrazyPrice.Common.Models.Response;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
-using Exadel.CrazyPrice.Common.Models.Statistic;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Models.Statistics;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {
@@ -18,30 +13,30 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
     /// An example controller performs operations on Statistic.
     /// </summary>
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/statistic")]
+    [Route("api/v{version:apiVersion}/statistics")]
     [ApiController]
-    public class StatisticController : Controller
+    public class StatisticsController : Controller
     {
-        private readonly ILogger<StatisticController> _logger;
-        private readonly IStatisticRepository _statistic;
-        public StatisticController(ILogger<StatisticController> logger, IStatisticRepository statistic)
+        private readonly ILogger<StatisticsController> _logger;
+        private readonly IStatisticsRepository _statistics;
+        public StatisticsController(ILogger<StatisticsController> logger, IStatisticsRepository statistics)
         {
             _logger = logger;
-            _statistic = statistic;
+            _statistics = statistics;
         }
 
         /// <summary>
-        /// Gets the discounts statistic.
+        /// Gets the discounts statistics.
         /// </summary>
         /// <returns></returns>
-        /// <response code="200">Got statistic.</response>
+        /// <response code="200">Got statistics.</response>
         /// <response code="400">Bad request.</response>
         /// <response code="401">Unauthorized.</response>
         /// <response code="403">Forbidden.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPost, Route("discounts"),
-         ProducesResponseType(typeof(DiscountsStatistic), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(DiscountsStatistics), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
          ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
@@ -49,49 +44,49 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> GetDiscountsStatistic([FromBody] DiscountsStatisticCriteria criteria)
+        public async Task<IActionResult> GetDiscountsStatistics([FromBody] DiscountsStatisticsCriteria criteria)
         {
             if (criteria.CreateEndDate < criteria.CreateStartDate)
             {
                 _logger.LogWarning("Not valid request. CreateEndDate field must be greater than CreateStartDate field.");
                 return BadRequest("CreateEndDate field must be greater than CreateStartDate field.");
             }
-            _logger.LogInformation("DiscountsStatisticCriteria incoming: {@criteria}", criteria);
-            var statistic = await _statistic.GetDiscountsStatistic(criteria);
+            _logger.LogInformation("DiscountsStatisticsCriteria incoming: {@criteria}", criteria);
+            var statistics = await _statistics.GetDiscountsStatistics(criteria);
 
-            if (statistic == null)
+            if (statistics == null)
             {
                 _logger.LogWarning("Can't generate statistics.");
                 return NotFound("Can't generate statistics for the specified criteria.");
             }
 
-            _logger.LogInformation("Discounts statistic get: {@statistic}", statistic);
-            return Ok(statistic);
+            _logger.LogInformation("Discounts statistics get: {@statistics}", statistics);
+            return Ok(statistics);
         }
 
         /// <summary>
-        /// Gets the users statistic.
+        /// Gets the users statistics.
         /// </summary>
         /// <returns></returns>
-        /// <response code="200">Got statistic.</response>
+        /// <response code="200">Got statistics.</response>
         /// <response code="400">Bad request.</response>
         /// <response code="401">Unauthorized.</response>
         /// <response code="403">Forbidden.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("users"),
-         ProducesResponseType(typeof(UsersStatistic), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(UsersStatistics), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
          ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> GetUsersStatistic()
+        public async Task<IActionResult> GetUsersStatistics()
         {
-            var statistic = await _statistic.GetUsersStatistic();
-            _logger.LogInformation("Users statistic get: {@statistic}", statistic);
-            return Ok(statistic);
+            var statistics = await _statistics.GetUsersStatistics();
+            _logger.LogInformation("Users statistics get: {@statistics}", statistics);
+            return Ok(statistics);
         }
     }
 }
