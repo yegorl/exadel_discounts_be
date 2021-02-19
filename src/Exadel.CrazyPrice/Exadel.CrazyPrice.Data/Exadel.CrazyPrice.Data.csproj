@@ -14,4 +14,4 @@
     <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
   </ItemGroup>
 
-</Project>
+</Project> 

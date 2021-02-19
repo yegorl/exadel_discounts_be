@@ -1,9 +1,9 @@
-﻿namespace Exadel.CrazyPrice.Common.Models.Statistic
+﻿namespace Exadel.CrazyPrice.Common.Models.Statistics
 {
     /// <summary>
-    /// Represents the UserStatistic.
+    /// Represents the UserStatistics.
     /// </summary>
-    public class UsersStatistic
+    public class UsersStatistics
     {
         public int EmployeesTotal { get; set; }
 

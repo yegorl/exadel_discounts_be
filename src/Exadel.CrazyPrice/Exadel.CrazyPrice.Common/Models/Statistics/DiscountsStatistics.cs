@@ -1,9 +1,9 @@
-﻿namespace Exadel.CrazyPrice.Common.Models.Statistic
+﻿namespace Exadel.CrazyPrice.Common.Models.Statistics
 {
     /// <summary>
-    /// Represents the DiscountStatistic.
+    /// Represents the DiscountStatistics.
     /// </summary>
-    public class DiscountsStatistic
+    public class DiscountsStatistics
     {
         public int DiscountsTotal { get; set; }
 
