@@ -1,7 +1,11 @@
-﻿using Exadel.CrazyPrice.WebApi.Configuration;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.WebApi.Configuration;
+using Exadel.CrazyPrice.WebApi.Validators.Configuration;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -20,17 +24,20 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
         /// Adds Swagger with base description Web API for the site Crazy Price.
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
         {
-            services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
+            services.Configure<SwaggerConfiguration>(configuration.GetSection("Swagger"));
+            services.TryAddSingleton<IValidateOptions<SwaggerConfiguration>, SwaggerConfigurationValidation>();
 
             services.AddSwaggerGen();
 
             services
                 .AddOptions<SwaggerGenOptions>()
-                .Configure<IWebApiConfiguration>((options, config) =>
+                .Configure<IOptionsMonitor<SwaggerConfiguration>>((options, config) =>
                 {
+                    var swaggerConfig = config.CurrentValue;
                     options.SwaggerDoc("v1", new OpenApiInfo
                     {
                         Version = "v1",
@@ -52,10 +59,10 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                                 AuthorizationCode =
                                     new OpenApiOAuthFlow
                                     {
-                                        AuthorizationUrl = config.AuthorizationUrl,
-                                        TokenUrl = config.TokenUrl,
-                                        RefreshUrl = config.RefreshUrl,
-                                        Scopes = config.Scopes
+                                        AuthorizationUrl = swaggerConfig.AuthorizationUrl.ToUri(),
+                                        TokenUrl = swaggerConfig.TokenUrl.ToUri(),
+                                        RefreshUrl = swaggerConfig.RefreshUrl.ToUri(UriKind.Absolute, false),
+                                        Scopes = swaggerConfig.Scopes
                                     }
                             }
                     });
@@ -71,7 +78,7 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                                     Type = ReferenceType.SecurityScheme
                                 }
                             },
-                            new[] { config.ApiName }
+                            new[] { swaggerConfig.ApiName }
                         }
                     });
 
@@ -83,12 +90,13 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
 
             services
                 .AddOptions<SwaggerUIOptions>()
-                .Configure<IWebApiConfiguration>((options, config) =>
+                .Configure<IOptionsMonitor<SwaggerConfiguration>>((options, config) =>
                 {
+                    var swaggerConfig = config.CurrentValue;
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "CrazyPrice WebApi v1");
 
-                    options.OAuthClientId(config.OAuthClientId);
-                    options.OAuthAppName(config.OAuthAppName);
+                    options.OAuthClientId(swaggerConfig.OAuthClientId);
+                    options.OAuthAppName(swaggerConfig.OAuthAppName);
                     options.OAuthUsePkce();
                 });
 

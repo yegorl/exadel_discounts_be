@@ -1,4 +1,3 @@
-using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Microsoft.AspNetCore.Builder;
@@ -52,11 +51,11 @@ namespace Exadel.CrazyPrice.WebApi
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
-            services.AddCrazyPriceAuthentication();
-            
+            services.AddCrazyPriceAuthentication(Configuration);
+
             if (!WebHostEnvironment.IsProduction())
             {
-                services.AddSwagger();
+                services.AddSwagger(Configuration);
             }
 
             services.AddMongoDb();
@@ -77,9 +76,9 @@ namespace Exadel.CrazyPrice.WebApi
             {
                 app.UseSwaggerCrazyPrice();
             }
-            
+
             app.UseCrazyPriceValidation();
-            
+
             app.UseHttpsRedirection();
 
             app.UseCrazyPriceAuthentication();

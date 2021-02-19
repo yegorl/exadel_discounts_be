@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Configuration\" />
+    <Folder Include="WebApi\Configuration\" />
   </ItemGroup>
 
 </Project>

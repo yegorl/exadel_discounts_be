@@ -22,23 +22,32 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 
         public AuthenticationExtentionsTests()
         {
+            var keyValuePair = new KeyValuePair<string, string>[]
+            {
+                new("Authorization:ApiName", "ApiName"),
+                new("Authorization:ApiSecret", "ApiSecret"),
+                new("Authorization:IssuerUrl", "https://localhost:44301"),
+                new("Authorization:PolicyName", "PolicyName"),
+                new("Authorization:Origins:0", "OAuthAppName")
+            };
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(keyValuePair)
+                .Build();
+
             var builder = Host.CreateDefaultBuilder()
                 .ConfigureAppConfiguration(configBuilder =>
                 {
                     configBuilder
-                        .AddInMemoryCollection(new KeyValuePair<string, string>[]
-                        {
-                            new("Auth:PolicyName", "PolicyName"),
-                            new("Auth:Origins:0","OAuthAppName")
-                        })
+                        .AddInMemoryCollection(keyValuePair)
                         .Build();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureServices(services =>
                     {
-                        services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
-                        services.AddCrazyPriceAuthentication();
+                        services.TryAddSingleton<AuthorizationConfiguration, AuthorizationConfiguration>();
+                        services.AddCrazyPriceAuthentication(configuration);
                     });
                 });
             _host = builder.Build();

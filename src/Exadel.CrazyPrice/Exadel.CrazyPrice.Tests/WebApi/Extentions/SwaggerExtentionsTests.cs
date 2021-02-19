@@ -21,13 +21,18 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
             IConfiguration configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new KeyValuePair<string, string>[]
                 {
-                    new("Auth:Swagger:OAuthClientId", "OAuthClientId"),
-                    new("Auth:Swagger:OAuthAppName","OAuthAppName")
+                    new("Swagger:AuthorizationUrl", "https://localhost:44301/connect/authorize"),
+                    new("Swagger:TokenUrl", "https://localhost:44301/connect/token"),
+                    new("Swagger:RefreshUrl", null),
+                    new("Swagger:Scopes:crazy_price_api1", "OAuthClientId"),
+                    new("Swagger:OAuthClientId", "OAuthClientId"),
+                    new("Swagger:OAuthAppName","OAuthAppName"),
+                    new("Swagger:ApiName","ApiName")
                 })
                 .Build();
             _service.AddSingleton(_ => configuration);
-            _service.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
-            _service.AddSwagger();
+            _service.TryAddSingleton<SwaggerConfiguration, SwaggerConfiguration>();
+            _service.AddSwagger(configuration);
         }
 
         [Fact]

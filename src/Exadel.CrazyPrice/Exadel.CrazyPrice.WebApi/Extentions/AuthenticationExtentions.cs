@@ -1,17 +1,21 @@
 ﻿using Exadel.CrazyPrice.WebApi.Configuration;
+using Exadel.CrazyPrice.WebApi.Validators.Configuration;
 using IdentityModel.Client;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {
     public static class AuthenticationExtentions
     {
-        public static IServiceCollection AddCrazyPriceAuthentication(this IServiceCollection services)
+        public static IServiceCollection AddCrazyPriceAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.TryAddSingleton<IWebApiConfiguration, WebApiConfiguration>();
+            services.Configure<AuthorizationConfiguration>(configuration.GetSection("Authorization"));
+            services.TryAddSingleton<IValidateOptions<AuthorizationConfiguration>, AuthorizationConfigurationValidation>();
 
             services.AddCors();
             services
@@ -28,14 +32,15 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
 
             services
                 .AddOptions<Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions>()
-                .Configure<IWebApiConfiguration>((options, config) =>
+                .Configure<IOptionsMonitor<AuthorizationConfiguration>>((options, config) =>
                 {
-                    options.AddPolicy(config.PolicyName, builder =>
+                    var authorizationConfig = config.CurrentValue;
+                    options.AddPolicy(authorizationConfig.PolicyName, builder =>
                     {
                         builder
                             .AllowAnyOrigin()
                             .AllowCredentials()
-                            .WithOrigins(config.Origins)
+                            .WithOrigins(authorizationConfig.Origins)
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
@@ -43,11 +48,12 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                 });
 
             services.AddOptions<IdentityServerAuthenticationOptions>(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .Configure<IWebApiConfiguration>((options, config) =>
+                .Configure<IOptionsMonitor<AuthorizationConfiguration>>((options, config) =>
                 {
-                    options.Authority = config.IssuerUrl;
-                    options.ApiName = config.ApiName;
-                    options.ApiSecret = config.ApiSecret;
+                    var authorizationConfig = config.CurrentValue;
+                    options.Authority = authorizationConfig.IssuerUrl;
+                    options.ApiName = authorizationConfig.ApiName;
+                    options.ApiSecret = authorizationConfig.ApiSecret;
                     options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy
                     {
                         ValidateEndpoints = true
@@ -59,7 +65,7 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
 
         public static IApplicationBuilder UseCrazyPriceAuthentication(this IApplicationBuilder app) =>
             app
-                .UseCors(app.ApplicationServices.GetService<IWebApiConfiguration>().PolicyName)
+                .UseCors(app.ApplicationServices.GetService<IOptionsMonitor<AuthorizationConfiguration>>().CurrentValue.PolicyName)
                 .UseAuthentication();
     }
 }
