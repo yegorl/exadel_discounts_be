@@ -19,7 +19,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static DateTime GetDateTimeInvariant(this string stringDate)
         {
-            if (string.IsNullOrEmpty(stringDate))
+            if (stringDate.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(stringDate));
             }
@@ -34,7 +34,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static bool IsValidWorkingDays(this string stringWorkingDays)
         {
-            if (string.IsNullOrEmpty(stringWorkingDays) || stringWorkingDays.Length != 7)
+            if (stringWorkingDays.IsNullOrEmpty() || stringWorkingDays.Length != 7)
             {
                 return false;
             }
@@ -51,7 +51,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ReplaceTwoAndMoreCharsBySomeOne(this string s, string chars)
         {
-            if (string.IsNullOrEmpty(chars))
+            if (chars.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(chars));
             }
@@ -67,7 +67,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ReplaceTwoAndMoreCharsBySomeOne(this string s, char[] chars)
         {
-            if (string.IsNullOrEmpty(s))
+            if (s.IsNullOrEmpty())
             {
                 return s;
             }
@@ -121,13 +121,13 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string GetValidContent(this string s, CharOptions charOptions, string specialChars = null)
         {
-            if (string.IsNullOrEmpty(s))
+            if (s.IsNullOrEmpty())
             {
                 return string.Empty;
             }
 
             var rulesForChar = BuildRulesForChar(charOptions);
-            if (!string.IsNullOrEmpty(specialChars))
+            if (!specialChars.IsNullOrEmpty())
             {
                 rulesForChar.Add(specialChars.Contains);
             }
@@ -136,7 +136,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 .Where(c => rulesForChar.Any(func => func(c)))
                 .Aggregate(string.Empty, (current, c) => current + c);
 
-            return string.IsNullOrEmpty(specialChars) ? result : result.ReplaceTwoAndMoreCharsBySomeOne(specialChars);
+            return specialChars.IsNullOrEmpty() ? result : result.ReplaceTwoAndMoreCharsBySomeOne(specialChars);
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ToStringWithValue(this string key, string defaultValue = "", bool raiseException = true)
         {
-            if (!string.IsNullOrEmpty(key))
+            if (!key.IsNullOrEmpty())
             {
                 return key;
             }
@@ -247,6 +247,77 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static uint OverLoadUint(this uint value, uint newValue, string[] possibleValues, params string[] keys) =>
             KeysExist(possibleValues, keys) ? newValue : value;
+
+        /// <summary>
+        /// Gets true when last characters in value are symbols otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="symbols"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
+        public static bool IsLast(this string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase, params string[] symbols) =>
+            !value.IsNullOrEmpty() && symbols.Any(s => value.LastIndexOf(s, comparison) == value.Length - 1);
+
+        /// <summary>
+        /// Gets true when value is Null or Empty or last characters in value are symbols otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="symbols"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmptyOrLast(this string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase, params string[] symbols) =>
+            value.IsNullOrEmpty() || value.IsLast(comparison, symbols);
+
+        /// <summary>
+        /// Gets true when value is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string value) =>
+            string.IsNullOrEmpty(value);
+
+        /// <summary>
+        /// Gets true when strings is Empty otherwise false.
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string[] strings) =>
+            strings.Length == 0;
+
+        /// <summary>
+        /// Gets true when dictionary is Empty otherwise false.
+        /// </summary>
+        /// <param name="dictionary"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this Dictionary<string, string> dictionary) =>
+            dictionary.Count == 0;
+
+        /// <summary>
+        /// Converts string to Uri. When raiseException is true and is cast error raises exception otherwise returns <c>null</c>.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="uriKind"></param>
+        /// <param name="raiseException"></param>
+        /// <returns></returns>
+        public static Uri ToUri(this string key, UriKind uriKind = UriKind.Absolute, bool raiseException = true)
+        {
+            Uri value;
+            try
+            {
+                value = new Uri(key, uriKind);
+            }
+            catch (Exception e)
+            {
+                if (raiseException)
+                {
+                    throw new Exception($"'{key}' is not Uri value. {e}");
+                }
+
+                value = null;
+            }
+
+            return value;
+        }
 
         private static bool KeysExist(string[] possibleValues, params string[] keys) =>
             keys.Any(k => string.Join("(|)", possibleValues).ToLowerInvariant().Split("(|)").Contains(k.ToLowerInvariant()));

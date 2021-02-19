@@ -70,7 +70,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [InlineData("Aб1  9 Separator \u0020 Control \u0001", "Aб1  9 Separator \u0020 Control \u0001")]
         public void GetValidContentDifTest(string value, string expectedResult)
         {
-            value.GetValidContent(CharOptions.Upper 
+            value.GetValidContent(CharOptions.Upper
                                   | CharOptions.Lower
                                   | CharOptions.Digit
                                   | CharOptions.Number
@@ -124,7 +124,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [Fact]
         public void ReplaceTwoAndMoreCharsBySomeOneTrimTest()
         {
-            "- -".ReplaceTwoAndMoreCharsBySomeOne(new[] {'-', ' '}).Should().Be(string.Empty);
+            "- -".ReplaceTwoAndMoreCharsBySomeOne(new[] { '-', ' ' }).Should().Be(string.Empty);
         }
 
         [Fact]
@@ -251,5 +251,77 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             Action action = () => value.ToGuid(defaultValue, raiseException);
             action.Should().Throw<ArgumentException>();
         }
+
+        [Theory]
+        [InlineData("url\\", true)]
+        [InlineData("http/", true)]
+        [InlineData("any", false)]
+        public void IsLastTest(string value, bool expectedResult)
+        {
+            var symbols = new[] { "\\", "/" };
+            value.IsLast(StringComparison.Ordinal, symbols).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("url\\", true)]
+        [InlineData("http/", true)]
+        [InlineData("any", false)]
+        [InlineData(null, true)]
+        [InlineData("", true)]
+        public void IsNullOrEmptyOrLastTest(string value, bool expectedResult)
+        {
+            var symbols = new[] { "\\", "/" };
+            value.IsNullOrEmptyOrLast(StringComparison.Ordinal, symbols).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("url\\", false)]
+        [InlineData("http/", false)]
+        [InlineData("any", false)]
+        [InlineData(null, true)]
+        [InlineData("", true)]
+        public void IsNullOrEmptyTest(string value, bool expectedResult)
+        {
+            value.IsNullOrEmpty().Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void IsNullOrEmptyArrayBeFalseTest()
+        {
+            var values = new[] { "", null, "s" };
+            values.IsNullOrEmpty().Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsNullOrEmptyArrayBeTrueTest()
+        {
+            var values = new string[] { };
+            values.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Fact]
+        public void ToUriNullTest()
+        {
+            string value = null;
+            value.ToUri(UriKind.Absolute, false).Should().BeNull();
+        }
+
+        [Fact]
+        public void ToUriOkTest()
+        {
+            string value = "http://localhost";
+            value.ToUri().Should().BeEquivalentTo(new Uri("http://localhost", UriKind.Absolute));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("///")]
+        public void ToUriExceptionTest(string value)
+        {
+            Action action = () => value.ToUri();
+            action.Should().Throw<Exception>();
+        }
+
     }
 }
