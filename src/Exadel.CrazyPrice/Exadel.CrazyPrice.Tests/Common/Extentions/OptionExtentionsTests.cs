@@ -1,12 +1,7 @@
-﻿using Exadel.CrazyPrice.Common.Models.Option;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.Common.Models.Option;
 using FluentAssertions;
-using NSubstitute.ExceptionExtensions;
+using System;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Common.Extentions
@@ -59,24 +54,17 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("en")]
-        [InlineData("  english")]
-        [InlineData("  =")]
-        public void GetLanguageFromFirstLetterEnTest(string language)
+        [InlineData(null, LanguageOption.En)]
+        [InlineData("", LanguageOption.En)]
+        [InlineData("en", LanguageOption.En)]
+        [InlineData("  english", LanguageOption.En)]
+        [InlineData("  =", LanguageOption.En)]
+        [InlineData("язык", LanguageOption.Ru)]
+        [InlineData("  язык", LanguageOption.Ru)]
+        public void GetLanguageFromFirstLetterEnTest(string language, LanguageOption languageOption)
         {
             var value = language.GetLanguageFromFirstLetter();
-            value.Should().BeEquivalentTo(LanguageOption.En);
-        }
-
-        [Theory]
-        [InlineData("язык")]
-        [InlineData("  язык")]
-        public void GetLanguageFromFirstLetterRuTest(string language)
-        {
-            var value = language.GetLanguageFromFirstLetter();
-            value.Should().BeEquivalentTo(LanguageOption.Ru);
+            value.Should().BeEquivalentTo(languageOption);
         }
 
         [Fact]
