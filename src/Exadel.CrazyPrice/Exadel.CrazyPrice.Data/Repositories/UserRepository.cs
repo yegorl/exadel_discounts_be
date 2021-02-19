@@ -5,7 +5,9 @@ using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.Data.Models;
 using MongoDB.Driver;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Data.Repositories
 {
@@ -36,6 +38,16 @@ namespace Exadel.CrazyPrice.Data.Repositories
         {
             //return await GetUserAsync("{ \"mail\" : \"" + mail + "\" }");
             return await GetUserAsync(Builders<DbUser>.Filter.Eq(d => d.Mail, mail));
+        }
+
+        /// <summary>
+        /// Gets user by ExternalProvider.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<User> GetUserByExternalProviderAsync(ProviderOptions provider, string providerUserId)
+        {
+            //return await GetUserAsync("{ \"mail\" : \"" + mail + "\" }");
+            throw new NotImplementedException();
         }
 
         /// <summary>

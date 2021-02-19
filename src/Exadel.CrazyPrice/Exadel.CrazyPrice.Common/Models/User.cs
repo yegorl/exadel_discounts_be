@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Common.Models.Option;
+﻿using System.Collections.Generic;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models
 {
@@ -12,5 +13,7 @@ namespace Exadel.CrazyPrice.Common.Models
         public string Salt { get; set; }
 
         public RoleOption Roles { get; set; }
+
+        public List<ExternalProvider> ExternalProviders { get; set; }
     }
 }

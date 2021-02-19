@@ -26,11 +26,11 @@ namespace Exadel.CrazyPrice.Data.Extentions
             if (criteria.CreateStartDate != null || criteria.CreateEndDate != null)
             {
                 matchBuilder.Append("\"createDate\": {");
-                if (criteria.CreateEndDate != null)
+                if (criteria.CreateStartDate != null)
                 {
                     matchBuilder.Append($"$gt: {criteria.CreateStartDate.ToIsoDate()},");
                 }
-                if (criteria.CreateStartDate != null)
+                if (criteria.CreateEndDate != null)
                 {
                     matchBuilder.Append($"$lt: {criteria.CreateEndDate.ToIsoDate()}");
                 }

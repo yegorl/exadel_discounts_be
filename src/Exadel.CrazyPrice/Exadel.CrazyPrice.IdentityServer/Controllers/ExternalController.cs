@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using IdentityModel;
 using IdentityServer4;
@@ -22,25 +24,26 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
     [AllowAnonymous]
     public class ExternalController : Controller
     {
-        private readonly TestUserStore _users;
-        private readonly IIdentityServerInteractionService _interaction;
-        private readonly IClientStore _clientStore;
         private readonly ILogger<ExternalController> _logger;
+        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
+        private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
 
         public ExternalController(
             IIdentityServerInteractionService interaction,
-            IClientStore clientStore,
+            //IClientStore clientStore,
             IEventService events,
             ILogger<ExternalController> logger,
-            TestUserStore users = null)
+            IUserService userService,
+            IUserRepository userRepository)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users;
+            _userService = userService;
+            _userRepository = userRepository;
 
             _interaction = interaction;
-            _clientStore = clientStore;
             _logger = logger;
             _events = events;
         }
@@ -162,15 +165,17 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             var provider = result.Properties.Items["scheme"];
             var providerUserId = userIdClaim.Value;
 
-            // find external user
-            var user = _users.FindByExternalProvider(provider, providerUserId);
+            //TestUserStore
 
-            return (user, provider, providerUserId, claims);
+            // find external user
+            //var user = _users.FindByExternalProvider(provider, providerUserId);
+
+            return (new TestUser(), provider, providerUserId, claims);
         }
 
         private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
         {
-            var user = _users.AutoProvisionUser(provider, providerUserId, claims.ToList());
+            var user = new TestUser(); //_users.AutoProvisionUser(provider, providerUserId, claims.ToList());
             return user;
         }
 

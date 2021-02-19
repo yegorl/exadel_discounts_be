@@ -8,6 +8,7 @@ using IdentityServer4.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 
 namespace Exadel.CrazyPrice.IdentityServer.Extentions
@@ -47,6 +48,20 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
                 .AddInMemoryApiResources(config.GetApiResources())
                 .AddInMemoryApiScopes(config.GetApiScopes())
                 .AddInMemoryClients(config.GetClients());
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    // register your IdentityServer with Google at https://console.developers.google.com
+                    // enable the Google+ API
+                    // set the redirect URI to http://localhost:5000/signin-google
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.ClientId = "458404438508-18deveqet26htfakoq6v9lh54ecfja12.apps.googleusercontent.com";
+                    options.ClientSecret = "_h9XlzmxjbVVhoC9LMU2CN6U";
+                }).AddLocalApi(options =>
+                {
+                    options.ExpectedScope = "crazy_price_api1";
+                });
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
