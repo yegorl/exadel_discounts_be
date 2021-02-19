@@ -7,15 +7,19 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
 {
     public class UserTests
     {
-        [Fact]
-        public void UserTest()
+        [Theory]
+        [InlineData(RoleOption.Unknown, RoleOption.Unknown)]
+        [InlineData(RoleOption.Employee, RoleOption.Employee)]
+        [InlineData(RoleOption.Moderator, RoleOption.Moderator)]
+        [InlineData(RoleOption.Administrator, RoleOption.Administrator)]
+        public void UserTest(RoleOption roleOptionIn, RoleOption roleOptionOut)
         {
             var user = new User()
             {
-                Roles = RoleOption.Employee
+                Roles = roleOptionIn
             };
 
-            user.Roles.Should().BeEquivalentTo(RoleOption.Employee);
+            user.Roles.Should().BeEquivalentTo(roleOptionOut);
         }
     }
 }
