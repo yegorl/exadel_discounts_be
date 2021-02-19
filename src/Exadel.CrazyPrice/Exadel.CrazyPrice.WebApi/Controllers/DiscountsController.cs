@@ -107,7 +107,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
             searchCriteria.SearchUserId = ControllerContext.GetUserId();
-            var role = ControllerContext.GetRole();
+            var role = GetRole();
 
             if (searchCriteria.IsSortDateCreateForAdministrator(role))
             {
@@ -381,5 +381,21 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             return Ok();
         }
+
+        private string GetRoleAsString() =>
+            ControllerContext.HttpContext?.User?.Claims.Where(c => c.Type == "role").Select(k => k.Value).FirstOrDefault();
+
+        private RoleOption GetRole()
+        {
+            var roleAsString = GetRoleAsString();
+
+            object obj;
+            if (Enum.TryParse(typeof(RoleOption), roleAsString, out obj))
+            {
+                return (RoleOption)obj;
+            }
+            else return RoleOption.Unknown;
+        }
+        
     }
 }
