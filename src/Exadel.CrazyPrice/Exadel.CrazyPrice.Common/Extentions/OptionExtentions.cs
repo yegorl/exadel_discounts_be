@@ -115,6 +115,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             { SortFieldOption.RatingDiscount, "ratingTotal" },
             { SortFieldOption.DateStart, "startDate" },
             { SortFieldOption.DateEnd, "endDate" },
+            { SortFieldOption.DateCreate, "createDate" },
         };
     }
 }
