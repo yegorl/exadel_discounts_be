@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Exadel.CrazyPrice.WebApi
 {
@@ -65,31 +66,54 @@ namespace Exadel.CrazyPrice.WebApi
         /// Gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        public void Configure(IApplicationBuilder app)
+        /// <param name="logger"></param>
+        public void Configure(IApplicationBuilder app, ILogger<Startup> logger)
         {
+            var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+            var appName = assemblyName.Name;
+            var appVersion = assemblyName.Version;
+            logger.LogInformation("Starting {appName} v{appVersion}", appName, appVersion);
+            
+            logger.LogInformation("Used {environment} mode.", WebHostEnvironment.EnvironmentName);
+
             if (WebHostEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                logger.LogInformation("Used developer exception page.");
             }
 
             if (!WebHostEnvironment.IsProduction())
             {
                 app.UseSwaggerCrazyPrice();
+                LogInfo(logger, "swagger");
             }
 
-            app.UseCrazyPriceValidation();
+            app.UseCrazyPriceValidation(logger);
+            LogInfo(logger, "validation");
+
 
             app.UseHttpsRedirection();
+            LogInfo(logger, "https redirection");
 
             app.UseCrazyPriceAuthentication();
+            LogInfo(logger, "authentication");
+
             app.UseRouting();
+            LogInfo(logger, "routing");
 
             app.UseAuthorization();
+            LogInfo(logger, "authorization");
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            LogInfo(logger, "endpoints");
+        }
+
+        private static void LogInfo(ILogger logger, string message)
+        {
+            logger.LogInformation("Used {value}.", message);
         }
     }
 }
