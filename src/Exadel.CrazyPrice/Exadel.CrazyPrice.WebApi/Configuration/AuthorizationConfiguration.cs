@@ -1,4 +1,6 @@
-﻿namespace Exadel.CrazyPrice.WebApi.Configuration
+﻿using IdentityModel.Client;
+
+namespace Exadel.CrazyPrice.WebApi.Configuration
 {
     public class AuthorizationConfiguration
     {
@@ -11,5 +13,7 @@
         public string IssuerUrl { get; set; }
 
         public string[] Origins { get; set; }
+
+        public DiscoveryPolicy IntrospectionDiscoveryPolicy { get; set; }
     }
 }
