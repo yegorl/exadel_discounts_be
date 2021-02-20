@@ -30,7 +30,7 @@ namespace Exadel.CrazyPrice.IdentityServer
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
 
-            services.AddCrazyPriceIdentityServer();
+            services.AddCrazyPriceIdentityServer(Configuration);
 
             services.AddMongoDb();
         }
@@ -46,7 +46,7 @@ namespace Exadel.CrazyPrice.IdentityServer
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseCrazyPriceIdentityServer();
+            app.UseCrazyPriceIdentityServer(Configuration);
 
             // uncomment, if you want to add MVC
             app.UseAuthorization();

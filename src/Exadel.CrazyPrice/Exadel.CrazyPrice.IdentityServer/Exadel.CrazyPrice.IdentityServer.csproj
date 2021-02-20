@@ -16,12 +16,14 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+    <ProjectReference Include="..\Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj" />
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
-    <ProjectReference Include="..\Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj" />
+    <None Update="aspnetapp-root-cert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
   <ProjectExtensions>

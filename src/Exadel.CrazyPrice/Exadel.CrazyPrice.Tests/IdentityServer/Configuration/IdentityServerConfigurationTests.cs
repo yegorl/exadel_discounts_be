@@ -14,15 +14,15 @@ namespace Exadel.CrazyPrice.Tests.IdentityServer.Configuration
             var config = new ConfigurationBuilder()
                 .AddInMemoryCollection(new KeyValuePair<string, string>[]
                 {
-                    new("Auth:Origins:0", "\"https://localhost\""),
-                    new("Auth:PolicyName","PolicyName"),
-                    new("Auth:IssuerUrl","IssuerUrl"),
                     new("Certificate:Name","CertificateName"),
                     new("Certificate:Password","CertificatePassword"),
-                    new("ApiResources:0:ApiSecrets:0:Description",""),
-                    new("ApiScopes:0:Description",""),
-                    new("Clients:0:Description","0"),
-                    new("IdentityResources:0:Description",""),
+                    new("IdentityServer:Origins:0", "\"https://localhost\""),
+                    new("IdentityServer:PolicyName","PolicyName"),
+                    new("IdentityServer:IssuerUrl","IssuerUrl"),
+                    new("IdentityServer:ApiResources:0:ApiSecrets:0:Description",""),
+                    new("IdentityServer:ApiScopes:0:Description",""),
+                    new("IdentityServer:Clients:0:Description","0"),
+                    new("IdentityServer:IdentityResources:0:Description",""),
                 })
                 .Build();
 

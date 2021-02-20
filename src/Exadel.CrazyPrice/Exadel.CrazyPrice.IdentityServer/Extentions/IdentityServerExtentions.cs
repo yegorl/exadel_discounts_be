@@ -5,21 +5,24 @@ using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Services;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Exadel.CrazyPrice.IdentityServer.Extentions
 {
     public static class IdentityServerExtentions
     {
-        public static IServiceCollection AddCrazyPriceIdentityServer(this IServiceCollection services)
+        public static IServiceCollection AddCrazyPriceIdentityServer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptographicService, CryptographicService>();
             services.AddScoped<IProfileService, IdentityProfileService>();
-            services.AddSingleton<IIdentityServerConfiguration, IdentityServerConfiguration>();
 
-            var config = services.BuildServiceProvider().GetService<IIdentityServerConfiguration>();
+            var config = new IdentityServerConfiguration(configuration);
 
             services.AddCors(options =>
             {
@@ -46,22 +49,16 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
                 .AddInMemoryApiScopes(config.ApiScopes)
                 .AddInMemoryClients(config.Clients);
 
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
-
-            //var clientCertificate =
-            //    new X509Certificate2(Path.Combine(
-            //        Environment.ContentRootPath, configuration.Get["CertificateName"].First()),
-            //        configuration.Get["CertificatePassword"].First());
-
-            //builder.AddSigningCredential(clientCertificate);
+            builder
+                .AddSigningCredential(new X509Certificate2(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                    config.CertificateName), config.CertificatePassword));
 
             return services;
         }
 
-        public static IApplicationBuilder UseCrazyPriceIdentityServer(this IApplicationBuilder app) =>
+        public static IApplicationBuilder UseCrazyPriceIdentityServer(this IApplicationBuilder app, IConfiguration configuration) =>
             app
-                .UseCors(app.ApplicationServices.GetService<IIdentityServerConfiguration>().PolicyName)
+                .UseCors(new IdentityServerConfiguration(configuration).PolicyName)
                 .UseIdentityServer();
     }
 }
