@@ -1,6 +1,5 @@
 ﻿using Exadel.CrazyPrice.WebApi.Configuration;
 using Exadel.CrazyPrice.WebApi.Validators.Configuration;
-using IdentityModel.Client;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -54,10 +53,7 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
                     options.Authority = authorizationConfig.IssuerUrl;
                     options.ApiName = authorizationConfig.ApiName;
                     options.ApiSecret = authorizationConfig.ApiSecret;
-                    options.IntrospectionDiscoveryPolicy = new DiscoveryPolicy
-                    {
-                        ValidateEndpoints = true
-                    };
+                    options.IntrospectionDiscoveryPolicy = authorizationConfig.IntrospectionDiscoveryPolicy;
                 });
 
             return services;

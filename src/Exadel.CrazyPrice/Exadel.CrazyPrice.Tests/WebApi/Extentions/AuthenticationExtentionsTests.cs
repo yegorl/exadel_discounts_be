@@ -12,7 +12,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using IdentityModel.Client;
 using Xunit;
+using System.Text.Json;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 {
@@ -28,7 +30,14 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
                 new("Authorization:ApiSecret", "ApiSecret"),
                 new("Authorization:IssuerUrl", "https://localhost:44301"),
                 new("Authorization:PolicyName", "PolicyName"),
-                new("Authorization:Origins:0", "OAuthAppName")
+                new("Authorization:Origins:0", "OAuthAppName"),
+                new("Authorization:IntrospectionDiscoveryPolicy:RequireHttps", "true"),
+                new("Authorization:IntrospectionDiscoveryPolicy:RequireKeySet", "true"),
+                new("Authorization:IntrospectionDiscoveryPolicy:AllowHttpOnLoopback", "true"),
+                new("Authorization:IntrospectionDiscoveryPolicy:ValidateIssuerName", "true"),
+                new("Authorization:IntrospectionDiscoveryPolicy:ValidateEndpoints", "true"),
+                new("Authorization:IntrospectionDiscoveryPolicy:Authority", "https://localhost:44301"),
+                new("Authorization:IntrospectionDiscoveryPolicy:AdditionalEndpointBaseAddresses:0", "https://localhost:44301")
             };
 
             IConfiguration configuration = new ConfigurationBuilder()
@@ -72,6 +81,23 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
             Action act = () => appBuilder.UseCrazyPriceAuthentication().Build();
 
             act.Should().NotThrow();
+        }
+
+        [Fact]
+        public void SerializeSettings()
+        {
+            var introspectionDiscoveryPolicy = new DiscoveryPolicy
+            {
+                ValidateEndpoints = true,
+                RequireHttps = true,
+                ValidateIssuerName = true,
+                AllowHttpOnLoopback = true,
+                RequireKeySet = true,
+                Authority = "https://identityserver:443", 
+                AdditionalEndpointBaseAddresses = { "https://identityserver", "https://identityserver:443" },
+                //EndpointValidationExcludeList = { "https://lclhst", "https://lclhst:443" }
+            };
+            var value = JsonSerializer.Serialize(introspectionDiscoveryPolicy);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Exadel.CrazyPrice.WebApi.Configuration;
 using Exadel.CrazyPrice.WebApi.Validators.Configuration;
 using FluentAssertions;
+using IdentityModel.Client;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
@@ -10,13 +11,23 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
         [Fact]
         public void AuthorizationConfigurationValidationSucceededTest()
         {
-            var config = new AuthorizationConfiguration()
+            var config = new AuthorizationConfiguration
             {
                 PolicyName = "PolicyName",
                 ApiName = "ApiName",
                 ApiSecret = "ApiSecret",
                 IssuerUrl = "IssuerUrl",
-                Origins = new[] { "http://localhost" }
+                Origins = new[] { "http://localhost" },
+                IntrospectionDiscoveryPolicy = new DiscoveryPolicy
+                {
+                    RequireHttps = true,
+                    RequireKeySet = true,
+                    AllowHttpOnLoopback = true,
+                    ValidateIssuerName = true,
+                    ValidateEndpoints = true,
+                    Authority = "https://identityserver:443",
+                    AdditionalEndpointBaseAddresses = { "https://identityserver:443", "https://identityserver" }
+                }
             };
 
             var rule = new AuthorizationConfigurationValidation();
@@ -26,7 +37,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
         [Fact]
         public void AuthorizationConfigurationValidationFailTest()
         {
-            var config = new AuthorizationConfiguration()
+            var config = new AuthorizationConfiguration
             {
                 PolicyName = "PolicyName",
                 ApiName = "ApiName",
@@ -54,13 +65,101 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
             string apiSecret,
             string issuerUrl)
         {
-            var config = new AuthorizationConfiguration()
+            var config = new AuthorizationConfiguration
             {
                 PolicyName = policyName,
                 ApiName = apiName,
                 ApiSecret = apiSecret,
                 IssuerUrl = issuerUrl,
                 Origins = new[] { "http://localhost" }
+            };
+            var rule = new AuthorizationConfigurationValidation();
+            rule.Validate(null, config).Failed.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(true, true, true, true, true)]
+        [InlineData(true, true, false, true, false)]
+        [InlineData(true, true, false, false, false)]
+        [InlineData(true, true, false, false, true)]
+        [InlineData(false, true, false, false, true)]
+        [InlineData(true, false, false, false, true)]
+        public void AuthorizationConfigurationValidationIntrospectionDiscoveryPolicyAdditionalEndpointBaseAddressesManyFailTest(
+            bool validateIssuerName,
+            bool validateEndpoints,
+            bool requireHttps,
+            bool requireKeySet,
+            bool allowHttpOnLoopback
+            )
+        {
+            var config = new AuthorizationConfiguration
+            {
+                PolicyName = "policyName",
+                ApiName = "apiName",
+                ApiSecret = "apiSecret",
+                IssuerUrl = "issuerUrl",
+                Origins = new[] { "http://localhost" },
+                IntrospectionDiscoveryPolicy = new DiscoveryPolicy
+                {
+                    RequireHttps = requireHttps,
+                    RequireKeySet = requireKeySet,
+                    AllowHttpOnLoopback = allowHttpOnLoopback,
+                    ValidateIssuerName = validateIssuerName,
+                    ValidateEndpoints = validateEndpoints,
+                    AdditionalEndpointBaseAddresses = { "https://identityserver:443\\", "https://identityserver/" },
+                    Authority = "https://identityserver:443/"
+                }
+            };
+            var rule = new AuthorizationConfigurationValidation();
+            rule.Validate(null, config).Failed.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(true, true, true, true, true)]
+        [InlineData(true, true, false, true, false)]
+        [InlineData(true, true, false, false, false)]
+        [InlineData(true, true, false, false, true)]
+        public void AuthorizationConfigurationValidationIntrospectionDiscoveryPolicyAuthorityManyFailTest(
+            bool validateIssuerName,
+            bool validateEndpoints,
+            bool requireHttps,
+            bool requireKeySet,
+            bool allowHttpOnLoopback
+        )
+        {
+            var config = new AuthorizationConfiguration
+            {
+                PolicyName = "policyName",
+                ApiName = "apiName",
+                ApiSecret = "apiSecret",
+                IssuerUrl = "issuerUrl",
+                Origins = new[] { "http://localhost" },
+                IntrospectionDiscoveryPolicy = new DiscoveryPolicy
+                {
+                    RequireHttps = requireHttps,
+                    RequireKeySet = requireKeySet,
+                    AllowHttpOnLoopback = allowHttpOnLoopback,
+                    ValidateIssuerName = validateIssuerName,
+                    ValidateEndpoints = validateEndpoints,
+                    AdditionalEndpointBaseAddresses = { "https://identityserver:443", "https://identityserver" },
+                    Authority = "https://identityserver:443/"
+                }
+            };
+            var rule = new AuthorizationConfigurationValidation();
+            rule.Validate(null, config).Failed.Should().BeTrue();
+        }
+
+        [Fact]
+        public void AuthorizationConfigurationValidationIntrospectionDiscoveryPolicyNullFailTest()
+        {
+            var config = new AuthorizationConfiguration
+            {
+                PolicyName = "policyName",
+                ApiName = "apiName",
+                ApiSecret = "apiSecret",
+                IssuerUrl = "issuerUrl",
+                Origins = new[] { "http://localhost" },
+                IntrospectionDiscoveryPolicy = null
             };
             var rule = new AuthorizationConfigurationValidation();
             rule.Validate(null, config).Failed.Should().BeTrue();

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.WebApi.Validators;
+﻿using Exadel.CrazyPrice.WebApi.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Exadel.CrazyPrice.WebApi.Extentions
 {
@@ -50,10 +46,11 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
             return mvcBuilder;
         }
 
-        public static IApplicationBuilder UseCrazyPriceValidation(this IApplicationBuilder app)
+        public static IApplicationBuilder UseCrazyPriceValidation(this IApplicationBuilder app, ILogger logger)
         {
             // Force the default English messages to be used.
             ValidatorOptions.Global.LanguageManager.Enabled = false;
+            logger.LogInformation("ValidatorOptions.Global.LanguageManager.Enabled: {value}. Force the default {language} messages to be used.", false, "English");
             return app;
         }
     }

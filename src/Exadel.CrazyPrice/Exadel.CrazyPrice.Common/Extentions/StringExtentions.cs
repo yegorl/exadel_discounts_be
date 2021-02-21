@@ -171,7 +171,10 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return (RoleOption)value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not RoleOption value.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"{key} is not RoleOption value.") : defaultValue;
+            }
         }
 
         /// <summary>
@@ -317,22 +320,14 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static Uri ToUri(this string key, UriKind uriKind = UriKind.Absolute, bool raiseException = true)
         {
-            Uri value;
-            try
+            if (Uri.TryCreate(key, UriKind.Absolute, out var value))
             {
-                value = new Uri(key, uriKind);
+                return value;
             }
-            catch (Exception e)
+            else
             {
-                if (raiseException)
-                {
-                    throw new Exception($"'{key}' is not Uri value. {e}");
-                }
-
-                value = null;
+                return raiseException ? throw new ArgumentException($"'{key}' is not Uri value.") : null;
             }
-
-            return value;
         }
 
         private static bool KeysExist(string[] possibleValues, params string[] keys) =>
