@@ -337,5 +337,32 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             action.Should().Throw<Exception>();
         }
 
+        [Theory]
+        [InlineData("   Unknown  ", RoleOption.Unknown, RoleOption.Unknown)]
+        [InlineData(" Employee ", RoleOption.Unknown, RoleOption.Employee)]
+        [InlineData("Administrator  ", RoleOption.Moderator, RoleOption.Administrator)]
+        [InlineData("      Moderator", RoleOption.Employee, RoleOption.Moderator)]
+        [InlineData("    moderator\n", RoleOption.Employee, RoleOption.Moderator)]
+        [InlineData("Mod erator", RoleOption.Employee, RoleOption.Employee)]
+        [InlineData("", RoleOption.Unknown, RoleOption.Unknown)]
+        [InlineData(null, RoleOption.Administrator, RoleOption.Administrator)]
+        public void ToRoleOptionOkTest(string value, RoleOption defaultValue, RoleOption expectedResult)
+        {
+            value.ToRoleOption(defaultValue).Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("Unknown-", RoleOption.Unknown)]
+        [InlineData("    Employe\n", RoleOption.Unknown)]
+        [InlineData("+Administrator", RoleOption.Moderator)]
+        [InlineData("Moderato", RoleOption.Employee)]
+        [InlineData("Mod erator", RoleOption.Employee)]
+        [InlineData("", RoleOption.Unknown)]
+        [InlineData(null, RoleOption.Administrator)]
+        public void ToRoleOptionExceptionTest(string value, RoleOption defaultValue)
+        {
+            Action action = () => value.ToRoleOption(defaultValue, true);
+            action.Should().Throw<ArgumentException>();
+        }
     }
 }
