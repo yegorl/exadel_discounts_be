@@ -79,12 +79,17 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
 
         [Theory]
         [InlineData(true, true, true, true, true)]
+        [InlineData(true, true, false, true, false)]
+        [InlineData(true, true, false, false, false)]
+        [InlineData(true, true, false, false, true)]
+        [InlineData(false, true, false, false, true)]
+        [InlineData(true, false, false, false, true)]
         public void AuthorizationConfigurationValidationIntrospectionDiscoveryPolicyAdditionalEndpointBaseAddressesManyFailTest(
+            bool validateIssuerName,
+            bool validateEndpoints,
             bool requireHttps,
             bool requireKeySet,
-            bool allowHttpOnLoopback,
-            bool validateIssuerName,
-            bool validateEndpoints
+            bool allowHttpOnLoopback
             )
         {
             var config = new AuthorizationConfiguration
@@ -111,12 +116,15 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
 
         [Theory]
         [InlineData(true, true, true, true, true)]
+        [InlineData(true, true, false, true, false)]
+        [InlineData(true, true, false, false, false)]
+        [InlineData(true, true, false, false, true)]
         public void AuthorizationConfigurationValidationIntrospectionDiscoveryPolicyAuthorityManyFailTest(
+            bool validateIssuerName,
+            bool validateEndpoints,
             bool requireHttps,
             bool requireKeySet,
-            bool allowHttpOnLoopback,
-            bool validateIssuerName,
-            bool validateEndpoints
+            bool allowHttpOnLoopback
         )
         {
             var config = new AuthorizationConfiguration
