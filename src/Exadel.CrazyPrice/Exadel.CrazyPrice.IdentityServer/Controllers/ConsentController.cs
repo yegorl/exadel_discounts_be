@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Exadel.CrazyPrice.IdentityServer.Options;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using Exadel.CrazyPrice.IdentityServer.ViewModels;
@@ -17,6 +13,10 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
@@ -102,7 +102,10 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             // validate return url is still valid
             var request = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
-            if (request == null) return result;
+            if (request == null)
+            {
+                return result;
+            }
 
             ConsentResponse grantedConsent = null;
 
@@ -200,7 +203,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             vm.IdentityScopes = request.ValidatedResources.Resources.IdentityResources.Select(x => CreateScopeViewModel(x, vm.ScopesConsented.Contains(x.Name) || model == null)).ToArray();
 
             var apiScopes = new List<ScopeViewModel>();
-            foreach(var parsedScope in request.ValidatedResources.ParsedScopes)
+            foreach (var parsedScope in request.ValidatedResources.ParsedScopes)
             {
                 var apiScope = request.ValidatedResources.Resources.FindApiScope(parsedScope.ParsedName);
                 if (apiScope != null)
