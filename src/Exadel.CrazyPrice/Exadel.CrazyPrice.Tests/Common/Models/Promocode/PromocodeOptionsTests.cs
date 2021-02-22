@@ -6,21 +6,31 @@ namespace Exadel.CrazyPrice.Tests.Common.Models.Promocode
 {
     public class PromocodeOptionsTests
     {
-        [Fact]
-        public void PromocodeOptionsTest()
+        [Theory]
+        [InlineData(122, 2, 4, 5)]
+        [InlineData(0, 1, 0, 9)]
+        [InlineData(null, null, 4, 5)]
+        [InlineData(10, null, 4, 5)]
+        [InlineData(122, null, 4, null)]
+        public void PromocodeOptionsTest(
+            int? countActivePromocodePerUser,
+            int? countSymbolsPromocode,
+            int? daysDurationPromocode,
+            int? timeLimitAddingInSeconds
+        )
         {
             var promocodeOptions = new PromocodeOptions()
             {
-                CountActivePromocodePerUser = 5,
-                CountSymbolsPromocode = 6,
-                DaysDurationPromocode = 7,
-                TimeLimitAddingInSeconds = 8
+                CountActivePromocodePerUser = countActivePromocodePerUser,
+                CountSymbolsPromocode = countSymbolsPromocode,
+                DaysDurationPromocode = daysDurationPromocode,
+                TimeLimitAddingInSeconds = timeLimitAddingInSeconds
             };
 
-            promocodeOptions.CountActivePromocodePerUser.Should().Be(5);
-            promocodeOptions.CountSymbolsPromocode.Should().Be(6);
-            promocodeOptions.DaysDurationPromocode.Should().Be(7);
-            promocodeOptions.TimeLimitAddingInSeconds.Should().Be(8);
+            promocodeOptions.CountActivePromocodePerUser.Should().Be(countActivePromocodePerUser);
+            promocodeOptions.CountSymbolsPromocode.Should().Be(countSymbolsPromocode);
+            promocodeOptions.DaysDurationPromocode.Should().Be(daysDurationPromocode);
+            promocodeOptions.TimeLimitAddingInSeconds.Should().Be(timeLimitAddingInSeconds);
         }
     }
 }
