@@ -130,17 +130,18 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [Fact]
         public void GetDateTimeInvariantTest()
         {
-            const string value = "01.01.2010 00:00:00";
+            const string value = "31.12.2009 22:00:00";
             var expectedResult =
                 DateTime.ParseExact(value, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            value.GetDateTimeInvariant().Should().Be(expectedResult);
+
+            value.GetUtcDateTime().ToString().Should().Be("31.12.2009 20:00:00");
         }
 
         [Fact]
         public void GetDateTimeInvariantNullExceptionTest()
         {
             const string value = "";
-            Action act = () => value.GetDateTimeInvariant();
+            Action act = () => value.GetUtcDateTime();
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -148,7 +149,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         public void GetDateTimeInvariantFormatExceptionTest()
         {
             const string value = "01.01.2010  50:00:00";
-            Action act = () => value.GetDateTimeInvariant();
+            Action act = () => value.GetUtcDateTime();
             act.Should().Throw<FormatException>();
         }
 
@@ -309,7 +310,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [Fact]
         public void IsNullOrEmptyArrayBeTrueTest()
         {
-            var values = new string[] { };
+            var values = Array.Empty<string>();
             values.IsNullOrEmpty().Should().BeTrue();
         }
 

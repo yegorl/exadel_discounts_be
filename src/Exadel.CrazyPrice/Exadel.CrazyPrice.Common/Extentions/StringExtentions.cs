@@ -17,14 +17,14 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// </summary>
         /// <param name="stringDate"></param>
         /// <returns></returns>
-        public static DateTime GetDateTimeInvariant(this string stringDate)
+        public static DateTime GetUtcDateTime(this string stringDate)
         {
             if (stringDate.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(stringDate));
             }
 
-            return DateTime.ParseExact(stringDate, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(stringDate, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUniversalTime();
         }
 
         /// <summary>
@@ -159,25 +159,6 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
-        /// Converts string to RoleOption. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <param name="raiseException"></param>
-        /// <returns></returns>
-        public static RoleOption ToRoleOption(this string key, RoleOption defaultValue = RoleOption.Unknown, bool raiseException = false)
-        {
-            if (Enum.TryParse(typeof(RoleOption), key, true, out var value))
-            {
-                return (RoleOption)value;
-            }
-            else
-            {
-                return raiseException ? throw new ArgumentException($"{key} is not RoleOption value.") : defaultValue;
-            }
-        }
-
-        /// <summary>
         /// Converts string to uint. When raiseException is true and is cast error raises exception otherwise returns defaultValue. 
         /// </summary>
         /// <param name="key"></param>
@@ -301,7 +282,15 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <param name="strings"></param>
         /// <returns></returns>
         public static bool IsNullOrEmpty(this string[] strings) =>
-            strings.Length == 0;
+            strings == null || strings.Length == 0;
+
+        /// <summary>
+        /// Gets true when strings is Empty otherwise false.
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this List<string> strings) =>
+            strings == null || strings.Count == 0;
 
         /// <summary>
         /// Gets true when dictionary is Empty otherwise false.
@@ -320,7 +309,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static Uri ToUri(this string key, UriKind uriKind = UriKind.Absolute, bool raiseException = true)
         {
-            if (Uri.TryCreate(key, UriKind.Absolute, out var value))
+            if (Uri.TryCreate(key, uriKind, out var value))
             {
                 return value;
             }
@@ -329,6 +318,15 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 return raiseException ? throw new ArgumentException($"'{key}' is not Uri value.") : null;
             }
         }
+        /// <summary>
+        /// Gets a NewPromocodeValue contains letters and digit. CountSymbol must have symbols great then 4 and less than 25.
+        /// </summary>
+        /// <param name="countSymbol"></param>
+        /// <returns></returns>
+        public static string NewPromocodeValue(int countSymbol = 5) =>
+            Guid.NewGuid().ToString().Replace("-", "")
+                .Substring(0, countSymbol < 4 ? 4 : countSymbol >= 25 ? 25 : countSymbol)
+                .ToUpperInvariant();
 
         private static bool KeysExist(string[] possibleValues, params string[] keys) =>
             keys.Any(k => string.Join("(|)", possibleValues).ToLowerInvariant().Split("(|)").Contains(k.ToLowerInvariant()));
