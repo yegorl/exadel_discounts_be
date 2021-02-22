@@ -179,7 +179,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 return discount;
             }
 
-            discount.UsersPromocodes = discount.UsersPromocodes.Where(i => i.UserId == user.Id).ToList();
+            discount.UsersPromocodes = discount.UsersPromocodes?.Where(i => i.UserId == user.Id).ToList();
             return discount;
         }
 
