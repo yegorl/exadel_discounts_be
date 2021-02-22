@@ -1,11 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Data.Configuration;
+﻿using Exadel.CrazyPrice.Data.Configuration;
 using FluentAssertions;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Data.Configuration

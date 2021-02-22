@@ -1,5 +1,6 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Common.Models;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -7,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models;
 
 
 namespace Exadel.CrazyPrice.IdentityServer.Services
@@ -46,7 +46,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             context.IsActive = !user.IsEmpty();
         }
 
-        private async Task<User> GetUserAsync(string sub) => 
+        private async Task<User> GetUserAsync(string sub) =>
             await _userRepository.GetUserByUidAsync(sub.ToGuid(Guid.Empty, false));
     }
 }

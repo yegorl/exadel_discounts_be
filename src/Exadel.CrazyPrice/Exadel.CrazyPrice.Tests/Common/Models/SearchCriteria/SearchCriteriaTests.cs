@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Common.Models.Option;
+﻿using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using FluentAssertions;
 using System;
@@ -23,14 +24,18 @@ namespace Exadel.CrazyPrice.Tests.Common.Models.SearchCriteria
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchSortOption = SortOption.Asc,
                 SearchText = "SearchText",
-                SearchUserId = Guid.Parse("f22960bc-b378-4d2f-b546-eb9700156f8f"),
+                IncomingUser = new IncomingUser()
+                {
+                    Id = Guid.Parse("f22960bc-b378-4d2f-b546-eb9700156f8f"),
+                    Role = RoleOption.Employee
+                },
                 SearchAdvanced = new SearchAdvancedCriteria()
                 {
                     CompanyName = "CompanyName",
                     SearchDate = new SearchDateCriteria()
                     {
-                        SearchStartDate = DateTime.Now,
-                        SearchEndDate = DateTime.Now
+                        SearchStartDate = DateTime.UtcNow,
+                        SearchEndDate = DateTime.UtcNow
                     },
                     SearchAmountOfDiscount = new SearchAmountOfDiscountCriteria()
                     {
@@ -55,7 +60,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Models.SearchCriteria
             searchCriteria.SearchSortFieldOption.Should().NotBeNull();
             searchCriteria.SearchSortOption.Should().NotBeNull();
             searchCriteria.SearchText.Should().NotBeNull();
-            searchCriteria.SearchUserId.Should().NotBeEmpty();
+            searchCriteria.IncomingUser.Id.Should().NotBeEmpty();
             searchCriteria.SearchAdvanced.Should().NotBeNull();
 
             searchCriteria.SearchAdvanced.CompanyName.Should().NotBeNull();

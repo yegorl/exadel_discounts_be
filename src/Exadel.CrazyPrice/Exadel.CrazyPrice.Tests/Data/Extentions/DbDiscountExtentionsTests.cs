@@ -6,6 +6,8 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exadel.CrazyPrice.Common.Models.Promocode;
+using Exadel.CrazyPrice.Data.Models.Promocode;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Data.Extentions
@@ -39,14 +41,16 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
             var dbDiscount = new DbDiscount()
             {
                 Id = "76c6f30b-288b-4424-b031-21921e550cba",
-                Language = LanguageOption.En.ToString()
+                Language = LanguageOption.En.ToString(),
+                UsersPromocodes = new List<DbUserPromocodes>()
             };
             dbDiscount.ToDiscount().Should().BeEquivalentTo(new Discount()
             {
                 Id = Guid.Parse("76c6f30b-288b-4424-b031-21921e550cba"),
                 Language = LanguageOption.En,
                 UserCreateDate = new User(),
-                UserLastChangeDate = new User()
+                UserLastChangeDate = new User(),
+                UsersPromocodes = null
             });
         }
 
@@ -80,8 +84,8 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
             {
                 Id = "76c6f30b-288b-4424-b031-21921e550cba",
                 Language = "russian",
-                Company = new DbCompany(),
-                Address = new DbAddress(),
+                Company = null,
+                Address = null,
                 Tags = new List<string>()
             });
         }
@@ -90,14 +94,14 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
         public void ToLocationTest()
         {
             var value = new DbLocation();
-            value.ToLocation().Should().BeEquivalentTo(new Location());
+            value.ToLocation().Should().BeNull();
         }
 
         [Fact]
         public void ToDbLocationTest()
         {
             var value = new Location();
-            value.ToDbLocation().Should().BeEquivalentTo(new DbLocation());
+            value.ToDbLocation().Should().BeNull();
         }
 
         [Fact]
@@ -126,6 +130,13 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 }
             };
             value.ToDbTranslations().First().Name.Should().BeEquivalentTo("Name");
+        }
+
+        [Fact]
+        public void IntNullTest()
+        {
+            int? value = null;
+            (5 > value).Should().BeFalse();
         }
     }
 }

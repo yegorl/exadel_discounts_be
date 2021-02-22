@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Exadel.CrazyPrice.IdentityServer.Interfaces;
+using System;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.IdentityServer.Interfaces;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace Exadel.CrazyPrice.IdentityServer.Services
 {
@@ -27,7 +21,10 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             }
 
             //if hash values match then return success
-            if (Convert.ToBase64String(testHash) == hashedPassword) return true;
+            if (Convert.ToBase64String(testHash) == hashedPassword)
+            {
+                return true;
+            }
 
             //no match return false
             return false;

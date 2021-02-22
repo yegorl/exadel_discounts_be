@@ -1,13 +1,13 @@
+using Exadel.CrazyPrice.WebApi.Configuration;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Exadel.CrazyPrice.WebApi.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Extentions

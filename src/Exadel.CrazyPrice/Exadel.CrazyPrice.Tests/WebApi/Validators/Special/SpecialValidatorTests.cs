@@ -135,8 +135,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Special
         {
             var value = new SearchDateCriteria()
             {
-                SearchStartDate = "01.01.2020 10:10:10".GetDateTimeInvariant(),
-                SearchEndDate = "01.01.2021 10:10:10".GetDateTimeInvariant()
+                SearchStartDate = "01.01.2020 10:10:10".GetUtcDateTime(),
+                SearchEndDate = "01.01.2021 10:10:10".GetUtcDateTime()
             };
             AbstractValidator<object> validator = new InlineValidator<object>();
             validator.RuleFor(x => x).ValidSearchDate();
@@ -149,7 +149,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Special
         {
             var value = new SearchDateCriteria()
             {
-                SearchStartDate = "01.01.2020 10:10:10".GetDateTimeInvariant()
+                SearchStartDate = "01.01.2020 10:10:10".GetUtcDateTime()
             };
             AbstractValidator<object> validator = new InlineValidator<object>();
             validator.RuleFor(x => x).ValidSearchDate();

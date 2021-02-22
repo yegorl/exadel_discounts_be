@@ -1,4 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using System;
 using System.Collections.Generic;
@@ -79,14 +80,23 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <param name="discountUid"></param>
         /// <param name="userUid"></param>
         /// <returns></returns>
-        Task AddToSubscriptionsAsync(Guid discountUid, Guid userUid);
+        Task<UserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid);
+
+        /// <summary>
+        /// Gets subscriptions of discount.
+        /// </summary>
+        /// <param name="discountUid"></param>
+        /// <param name="userUid"></param>
+        /// <returns></returns>
+        Task<UserPromocodes> GetSubscriptionsAsync(Guid discountUid, Guid userUid);
 
         /// <summary>
         /// Removes the discount from subscriptions.
         /// </summary>
         /// <param name="discountUid"></param>
         /// <param name="userUid"></param>
+        /// <param name="promocodeId"></param>
         /// <returns></returns>
-        Task RemoveFromSubscriptionsAsync(Guid discountUid, Guid userUid);
+        Task<UserPromocodes> RemoveFromSubscriptionsAsync(Guid discountUid, Guid userUid, Guid promocodeId);
     }
 }

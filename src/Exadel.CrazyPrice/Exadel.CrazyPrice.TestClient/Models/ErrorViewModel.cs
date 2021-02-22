@@ -1,5 +1,3 @@
-using System;
-
 namespace Exadel.CrazyPrice.TestClient.Models
 {
     public class ErrorViewModel

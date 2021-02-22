@@ -70,7 +70,10 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
             CreateTags = configuration.ToBool("Database:CreateTags");
             CreateUsers = configuration.ToBool("Database:CreateUsers");
 
-            if (!args.Any(a => a.Length < 20 && a.Contains("-"))) return;
+            if (!args.Any(a => a.Length < 20 && a.Contains("-")))
+            {
+                return;
+            }
 
             HideDetailsInfo = HideDetailsInfo.OverLoadBool(seederConfiguration.HideDetailsInfo, args, "-h", "--hide");
             RewriteIndexes = RewriteIndexes.OverLoadBool(seederConfiguration.RewriteIndexes, args, "-r", "--rewrite");

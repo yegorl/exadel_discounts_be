@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System.Threading.Tasks;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using IdentityServer4.Services;
@@ -11,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {

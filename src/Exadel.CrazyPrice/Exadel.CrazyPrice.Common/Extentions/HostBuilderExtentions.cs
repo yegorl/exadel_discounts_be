@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
+using NLog.Web;
 using Serilog;
 using System;
-using NLog.Web;
 
 namespace Exadel.CrazyPrice.Common.Extentions
 {

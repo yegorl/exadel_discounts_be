@@ -1,21 +1,19 @@
-﻿using Exadel.CrazyPrice.TestClient.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.TestClient.Models;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.TestClient.Controllers
 {
@@ -55,8 +53,8 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             }
 
             throw new Exception("Problem accessing the API");
-            
-            
+
+
             //using (var responseStream = await  response.Content.ReadAsStreamAsync())
             //{
             //    ViewBag.Message = responseStream.;
@@ -114,7 +112,7 @@ namespace Exadel.CrazyPrice.TestClient.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
-        
+
         [Authorize(Roles = "Moderator")]
         public async Task<IActionResult> Exclusive()
         {

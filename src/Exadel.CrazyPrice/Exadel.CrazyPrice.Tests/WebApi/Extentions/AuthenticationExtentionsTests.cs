@@ -1,6 +1,7 @@
 using Exadel.CrazyPrice.WebApi.Configuration;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentAssertions;
+using IdentityModel.Client;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -12,9 +13,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using IdentityModel.Client;
-using Xunit;
 using System.Text.Json;
+using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
 {
@@ -93,11 +93,12 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Extentions
                 ValidateIssuerName = true,
                 AllowHttpOnLoopback = true,
                 RequireKeySet = true,
-                Authority = "https://identityserver:443", 
+                Authority = "https://identityserver:443",
                 AdditionalEndpointBaseAddresses = { "https://identityserver", "https://identityserver:443" },
                 //EndpointValidationExcludeList = { "https://lclhst", "https://lclhst:443" }
             };
             var value = JsonSerializer.Serialize(introspectionDiscoveryPolicy);
+            value.Should().NotBeEmpty();
         }
     }
 }

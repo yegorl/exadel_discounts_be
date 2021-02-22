@@ -1,23 +1,19 @@
+using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.TestClient.HttpHandlers;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.TestClient.HttpHandlers;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-using IdentityModel;
+using Microsoft.Net.Http.Headers;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Exadel.CrazyPrice.TestClient
 {
@@ -40,7 +36,7 @@ namespace Exadel.CrazyPrice.TestClient
             services.AddHttpClient("CrazyPriceAPI", client =>
             {
                 //API
-                client.BaseAddress = new Uri(Configuration.GetString("ApiUri") );
+                client.BaseAddress = new Uri(Configuration.GetString("ApiUri"));
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<BearerTokenHandler>();

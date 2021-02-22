@@ -1,10 +1,10 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.Common.Models.Request;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation;
 using System;
-using Exadel.CrazyPrice.Common.Models.Option;
-using Exadel.CrazyPrice.WebApi.Extentions;
 
 namespace Exadel.CrazyPrice.WebApi.Validators
 {
@@ -42,7 +42,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .WithMessage("The AmountOfDiscount musts be null or great than 0 or equals 0 and less than 100 or equals 100.");
 
                 RuleFor(x => x.StartDate)
-                    .Must(x => x == null || x > "01.01.2010 00:00:00".GetDateTimeInvariant())
+                    .Must(x => x == null || x > "01.01.2010 00:00:00".GetUtcDateTime())
                     .WithMessage("The StartDate musts be null or great than 01.01.2010 00:00:00");
 
                 RuleFor(x => new { x.StartDate, x.EndDate })
@@ -52,7 +52,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Tags)
                     .Transform(t => string.Join(" ", t))
                     .NotEmpty()
-                    .ValidCharacters(CharOptions.Letter | CharOptions.Number, " ");
+                    .ValidCharacters(CharOptions.Letter | CharOptions.Digit, " ");
 
                 RuleFor(x => x.Company)
                     .SetValidator(companyValidator);

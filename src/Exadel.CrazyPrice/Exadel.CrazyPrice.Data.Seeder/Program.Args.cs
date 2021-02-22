@@ -1,6 +1,6 @@
-﻿using System;
-using Exadel.CrazyPrice.Data.Seeder.Configuration;
+﻿using Exadel.CrazyPrice.Data.Seeder.Configuration;
 using McMaster.Extensions.CommandLineUtils;
+using System;
 
 namespace Exadel.CrazyPrice.Data.Seeder
 {

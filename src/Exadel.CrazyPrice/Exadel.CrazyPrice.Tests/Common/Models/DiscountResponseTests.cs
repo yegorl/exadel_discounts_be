@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Exadel.CrazyPrice.Common.Models;
-using Exadel.CrazyPrice.Common.Models.Option;
+﻿using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Response;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Common.Models
@@ -19,8 +19,8 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
                 Name = "Name",
                 Description = "Description",
                 AmountOfDiscount = 1,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now,
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow,
                 Address = new Address(),
                 Company = new Company(),
                 WorkingDaysOfTheWeek = "0101011",
@@ -28,11 +28,15 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
                 RatingTotal = 1,
                 ViewsTotal = 1,
                 SubscriptionsTotal = 1,
-                CreateDate = DateTime.Now,
+                CreateDate = DateTime.UtcNow,
                 UserCreateDate = new User(),
-                LastChangeDate = DateTime.Now,
+                LastChangeDate = DateTime.UtcNow,
                 UserLastChangeDate = new User(),
-                Deleted = true
+                Deleted = true,
+                
+                PictureUrl = "PictureUrl",
+                UserPromocodes = new List<UserPromocodes>(),
+                UsersSubscriptionTotal = 2
             };
 
             discountResponse.Id.Should().NotBeEmpty();
@@ -49,7 +53,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
             discountResponse.Tags.Should().NotBeNull();
             discountResponse.UserCreateDate.Should().NotBeNull();
             discountResponse.UserLastChangeDate.Should().NotBeNull();
-            
+
             discountResponse.Deleted.Should().BeTrue();
 
             discountResponse.AmountOfDiscount.Should().Be(1);
@@ -57,6 +61,10 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
             discountResponse.ViewsTotal.Should().Be(1);
             discountResponse.SubscriptionsTotal.Should().Be(1);
             discountResponse.Deleted.Should().BeTrue();
+
+            discountResponse.PictureUrl.Should().NotBeNullOrEmpty();
+            discountResponse.UserPromocodes.Should().NotBeNull();
+            discountResponse.UsersSubscriptionTotal.Should().Be(2);
         }
     }
 }
