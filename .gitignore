@@ -352,3 +352,5 @@ MigrationBackup/
 
 /[Ss]rc/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer/.filenesting.json
 *.sh text eol=lf
+*.cs text eol=crlf
+*.csproj text eol=crlf
