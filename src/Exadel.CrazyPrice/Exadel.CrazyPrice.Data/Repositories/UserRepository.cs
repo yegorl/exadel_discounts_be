@@ -42,7 +42,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
         }
 
         /// <summary>
-        /// Gets user by ExternalProvider.
+        /// Gets user by ProviderOptions and providerUserId.
         /// </summary>
         /// <returns></returns>
         public async Task<User> GetUserByExternalProviderAsync(ProviderOptions provider, string providerUserId)

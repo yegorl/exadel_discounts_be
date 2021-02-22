@@ -38,7 +38,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Mail = dbUser.Mail,
                     HashPassword = dbUser.HashPassword,
                     Salt = dbUser.Salt,
-                    Roles = dbUser.Roles
+                    Roles = dbUser.Roles,
+                    ExternalUsers = dbUser.ExternalUsers.ToExternalUsers()
                 };
             }
             catch
@@ -66,5 +67,23 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     HashPassword = user.HashPassword,
                     Salt = user.Salt
                 };
+
+        public static List<ExternalUser> ToExternalUsers(this List<DbExternalUser> dbExternalUsers)
+        {
+            var externalUsers = new List<ExternalUser>();
+            foreach (var dbExternalUser in dbExternalUsers)
+            {
+                externalUsers.Add(new ExternalUser
+                {
+                    UserId = dbExternalUser.UserId,
+                    ProviderName = dbExternalUser.ProviderName,
+                    Mail = dbExternalUser.Mail,
+                    Name = dbExternalUser.Name,
+                    Surname = dbExternalUser.Surname
+                });
+            }
+
+            return externalUsers;
+        }
     }
 }
