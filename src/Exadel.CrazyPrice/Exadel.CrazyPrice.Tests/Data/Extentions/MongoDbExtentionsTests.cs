@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Data.Configuration;
+﻿using Exadel.CrazyPrice.Data.Configuration;
 using Exadel.CrazyPrice.Data.Extentions;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Data.Extentions

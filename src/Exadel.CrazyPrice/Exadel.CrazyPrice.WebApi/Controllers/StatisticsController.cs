@@ -1,11 +1,11 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
+using Exadel.CrazyPrice.Common.Models.Statistics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models.Statistics;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {

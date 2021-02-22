@@ -32,7 +32,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
         /// </summary>
         /// <param name="mail"></param>
         /// <returns></returns>
-        public async Task<User> GetUserByEmailAsync(string mail) => 
+        public async Task<User> GetUserByEmailAsync(string mail) =>
             await GetUserAsync(Builders<DbUser>.Filter.Eq(d => d.Mail, mail));
 
         /// <summary>
@@ -40,10 +40,10 @@ namespace Exadel.CrazyPrice.Data.Repositories
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public async Task<User> GetUserByUidAsync(Guid uid) => 
+        public async Task<User> GetUserByUidAsync(Guid uid) =>
             await GetUserAsync(Builders<DbUser>.Filter.Eq(d => d.Id, uid.ToString()));
 
-        private async Task<User> GetUserAsync(FilterDefinition<DbUser> filter) => 
+        private async Task<User> GetUserAsync(FilterDefinition<DbUser> filter) =>
             (await _users.FindSync(filter, new FindOptions<DbUser> { Limit = 1 }).ToListAsync()).GetOne().ToUser();
     }
 }

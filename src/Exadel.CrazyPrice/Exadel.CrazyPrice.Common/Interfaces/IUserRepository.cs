@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Exadel.CrazyPrice.Common.Models;
+using System;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {

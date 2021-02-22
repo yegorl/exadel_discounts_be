@@ -1,7 +1,7 @@
-﻿using System;
-using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;

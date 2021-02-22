@@ -45,9 +45,11 @@ namespace Exadel.CrazyPrice.WebApi.Validators.Configuration
                 (!options.IntrospectionDiscoveryPolicy.AdditionalEndpointBaseAddresses.Any() ||
                  options.IntrospectionDiscoveryPolicy.AdditionalEndpointBaseAddresses
                      .Any(o => o.IsNullOrEmptyOrLast(StringComparison.Ordinal, "\\", "/"))))
+            {
                 return ValidateOptionsResult.Fail(
                     "IntrospectionDiscoveryPolicy.AdditionalEndpointBaseAddresses must be defined when IntrospectionDiscoveryPolicy.ValidateEndpoints is true. " +
                     "The last character each string of IntrospectionDiscoveryPolicy.AdditionalEndpointBaseAddresses must not be a '/' or '\\'.");
+            }
 
             if (options.IntrospectionDiscoveryPolicy.ValidateIssuerName && options.IntrospectionDiscoveryPolicy.Authority.IsNullOrEmptyOrLast(StringComparison.Ordinal, "\\", "/"))
             {

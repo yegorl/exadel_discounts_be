@@ -9,7 +9,7 @@
         /// Search all.
         /// </summary>
         All,
-        
+
         /// <summary>
         /// Search only in Favorites.
         /// </summary>

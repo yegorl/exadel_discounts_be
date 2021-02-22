@@ -51,7 +51,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators.Configuration
         [InlineData("ApiName", null, "OAuthClientId", "http://localhost", "http://localhost", "http://localhost")]
         [InlineData("ApiName", "OAuthAppName", "", "http://localhost", "http://localhost", "http://localhost")]
         [InlineData("ApiName", "OAuthAppName", null, "http://localhost", "http://localhost", "http://localhost")]
-        
+
         [InlineData("ApiName", "OAuthAppName", "OAuthClientId", "http://localhost/", "http://localhost", "http://localhost")]
         [InlineData("ApiName", "OAuthAppName", "OAuthClientId", "", "http://localhost", "http://localhost")]
         [InlineData("ApiName", "OAuthAppName", "OAuthClientId", null, "http://localhost", "http://localhost")]

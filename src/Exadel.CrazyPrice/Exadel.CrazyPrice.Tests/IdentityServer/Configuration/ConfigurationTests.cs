@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models;
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
-using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using System.Text.Json;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.IdentityServer.Configuration

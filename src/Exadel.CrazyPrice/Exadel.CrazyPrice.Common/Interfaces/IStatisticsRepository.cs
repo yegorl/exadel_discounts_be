@@ -1,6 +1,6 @@
 ﻿using Exadel.CrazyPrice.Common.Models.SearchCriteria;
-using System.Threading.Tasks;
 using Exadel.CrazyPrice.Common.Models.Statistics;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Common.Interfaces
 {
@@ -10,7 +10,7 @@ namespace Exadel.CrazyPrice.Common.Interfaces
     public interface IStatisticsRepository
     {
         Task<DiscountsStatistics> GetDiscountsStatistics(DiscountsStatisticsCriteria criteria);
-        
+
         Task<UsersStatistics> GetUsersStatistics();
     }
 }

@@ -87,7 +87,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
             var countDatabase = await CountEstimatedAsync();
             Console.WriteLine($"Current {CollectionName} count: {countDatabase.ToString("N0", new CultureInfo("en-us"))}");
         }
-        
+
         protected void TimerStart()
         {
             async void TimerCallback(object? state) =>

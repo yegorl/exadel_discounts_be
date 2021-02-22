@@ -56,7 +56,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Seeder.Configuration
         public void SeederConfigurationFreeTest()
         {
             var seederConfiguration = new SeederConfiguration();
-            
+
             Action action = () => seederConfiguration.Configure((c, b) =>
             {
                 c.ConnectionString = "str";

@@ -73,7 +73,7 @@ namespace Exadel.CrazyPrice.WebApi
             var appName = assemblyName.Name;
             var appVersion = assemblyName.Version;
             logger.LogInformation("Starting {appName} v{appVersion}", appName, appVersion);
-            
+
             logger.LogInformation("Used {environment} mode.", WebHostEnvironment.EnvironmentName);
 
             if (WebHostEnvironment.IsDevelopment())
