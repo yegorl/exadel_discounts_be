@@ -49,8 +49,8 @@ namespace Exadel.CrazyPrice.Data.Repositories
         {
             var builder = new StringBuilder();
             builder.Append("{");
-            builder.Append($"\"externalProviders.providerName\": {(int)provider},");
-            builder.Append($"\"externalProviders.providerUserId\": \"{providerUserId}\"");
+            builder.Append($"\"externalUsers.providerName\": {(int)provider},");
+            builder.Append($"\"externalUsers.userId\": \"{providerUserId}\"");
             builder.Append("}");
             return await GetUserAsync(builder.ToString());
         }

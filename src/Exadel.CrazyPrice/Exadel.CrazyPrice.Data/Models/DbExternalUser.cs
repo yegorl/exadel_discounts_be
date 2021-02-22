@@ -8,10 +8,12 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Exadel.CrazyPrice.Data.Models
 {
-    public class DbExternalProvider
+    public class DbExternalUser
     {
         public ProviderOptions ProviderName { get; set; }
-
-        public string ProviderUserId { get; set; }
+        public string UserId { get; set; }
+        public string Mail { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
     }
 }
