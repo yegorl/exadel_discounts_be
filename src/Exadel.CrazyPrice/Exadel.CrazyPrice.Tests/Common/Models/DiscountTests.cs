@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Exadel.CrazyPrice.Common.Models;
-using Exadel.CrazyPrice.Common.Models.Option;
+﻿using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Common.Models
@@ -14,7 +14,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
             var discount = new Discount()
             {
                 FavoritesUsersId = new List<string>(),
-                SubscriptionsUsersId = new List<string>(),
+                UsersPromocodes = new List<UserPromocodes>(),
                 RatingTotal = 1,
                 ViewsTotal = 1,
                 SubscriptionsTotal = 1,
@@ -22,7 +22,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Models
             };
 
             discount.FavoritesUsersId.Should().NotBeNull();
-            discount.SubscriptionsUsersId.Should().NotBeNull();
+            discount.UsersPromocodes.Should().NotBeNull();
             discount.RatingTotal.Should().Be(1);
             discount.ViewsTotal.Should().Be(1);
             discount.SubscriptionsTotal.Should().Be(1);

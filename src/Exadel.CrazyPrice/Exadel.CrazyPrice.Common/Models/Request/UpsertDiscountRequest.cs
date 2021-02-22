@@ -1,4 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using System;
 using System.Collections.Generic;
 
@@ -28,6 +29,8 @@ namespace Exadel.CrazyPrice.Common.Models.Request
         public string WorkingDaysOfTheWeek { get; set; }
 
         public string PictureUrl { get; set; }
+
+        public PromocodeOptions PromocodeOptions { get; set; }
 
         public List<string> Tags { get; set; }
 

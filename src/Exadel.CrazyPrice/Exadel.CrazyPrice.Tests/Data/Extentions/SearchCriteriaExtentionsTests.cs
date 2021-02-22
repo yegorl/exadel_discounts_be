@@ -5,6 +5,7 @@ using Exadel.CrazyPrice.Data.Extentions;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using Exadel.CrazyPrice.Common.Models;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.Data.Extentions
@@ -50,14 +51,18 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "",
-                SearchUserId = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
+                IncomingUser =  new IncomingUser()
+                {
+                    Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
+                    Role = RoleOption.Employee
+                },
                 SearchAdvanced = new SearchAdvancedCriteria()
                 {
                     CompanyName = "AdvancedName",
                     SearchDate = new SearchDateCriteria()
                     {
-                        SearchEndDate = "01.01.2021 10:10:10".GetDateTimeInvariant(),
-                        SearchStartDate = "01.01.2021 10:10:10".GetDateTimeInvariant()
+                        SearchEndDate = "01.01.2021 10:10:10".GetUtcDateTime(),
+                        SearchStartDate = "01.01.2021 10:10:10".GetUtcDateTime()
                     },
                     SearchAmountOfDiscount = new SearchAmountOfDiscountCriteria()
                     {
@@ -90,7 +95,11 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "Text",
-                SearchUserId = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854")
+                IncomingUser = new IncomingUser()
+                {
+                    Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
+                    Role = RoleOption.Employee
+                }
             };
 
             sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"tags\" : /.*Text.*/i},{\"description\" : /.*Text.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}]}");
@@ -111,7 +120,11 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "Text",
-                SearchUserId = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854")
+                IncomingUser = new IncomingUser()
+                {
+                    Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
+                    Role = RoleOption.Employee
+                }
             };
 
             sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"tags\" : /.*Text.*/i},{\"description\" : /.*Text.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"favoritesUsersId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\"}]}");
@@ -132,10 +145,14 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "Text or tag",
-                SearchUserId = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854")
+                IncomingUser = new IncomingUser()
+                {
+                    Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
+                    Role = RoleOption.Employee
+                }
             };
 
-            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"name\" : /.*tag.*/i},{\"tags\" : /.*Text.*/i},{\"tags\" : /.*tag.*/i},{\"description\" : /.*Text.*/i},{\"description\" : /.*tag.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"subscriptionsUsersId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\"}]}");
+            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"name\" : /.*tag.*/i},{\"tags\" : /.*Text.*/i},{\"tags\" : /.*tag.*/i},{\"description\" : /.*Text.*/i},{\"description\" : /.*tag.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"usersPromocodes.userId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\"}]}");
         }
 
         [Fact]

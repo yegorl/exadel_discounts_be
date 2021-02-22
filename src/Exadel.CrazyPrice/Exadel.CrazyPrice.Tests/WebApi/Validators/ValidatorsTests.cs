@@ -1,5 +1,4 @@
-﻿using System;
-using Exadel.CrazyPrice.Common.Extentions;
+﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.Common.Models.Request;
@@ -7,6 +6,7 @@ using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.WebApi.Validators;
 using FluentAssertions;
 using FluentValidation.TestHelper;
+using System;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Validators
@@ -56,7 +56,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
             validate.ShouldNotHaveValidationErrorFor(v => v.Name);
             validate.ShouldNotHaveValidationErrorFor(v => v.PhoneNumber);
         }
-        
+
         [Fact]
         public void SearchAdvancedCriteriaValidatorTest()
         {
@@ -80,7 +80,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
 
             validateSearchRatingTotalCriteriaValidator.ShouldNotHaveAnyValidationErrors();
 
-            var searchAdvancedCriteriaValidator = 
+            var searchAdvancedCriteriaValidator =
                 new SearchAdvancedCriteriaValidator(searchAmountOfDiscountCriteriaValidator, searchRatingTotalCriteriaValidator);
 
             var searchAdvancedCriteriaCompany = new SearchAdvancedCriteria()
@@ -98,13 +98,13 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
                 },
                 SearchDate = new SearchDateCriteria()
                 {
-                    SearchStartDate = "01.01.2021 10:10:10".GetDateTimeInvariant(),
-                    SearchEndDate = DateTime.Now,
+                    SearchStartDate = "01.01.2021 10:10:10".GetUtcDateTime().ToUniversalTime(),
+                    SearchEndDate = DateTime.Now.ToUniversalTime()
                 }
             };
 
             var validateSearchAdvancedCriteriaValidatorCompany = searchAdvancedCriteriaValidator
-                .TestValidate(searchAdvancedCriteriaCompany); 
+                .TestValidate(searchAdvancedCriteriaCompany);
 
             validateSearchAdvancedCriteriaValidatorCompany.ShouldNotHaveValidationErrorFor(v => v.CompanyName);
             validateSearchAdvancedCriteriaValidatorCompany.ShouldNotHaveValidationErrorFor(v => v.SearchAmountOfDiscount);
@@ -129,8 +129,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
                 },
                 SearchDate = new SearchDateCriteria()
                 {
-                    SearchStartDate = "01.01.2021 10:10:10".GetDateTimeInvariant(),
-                    SearchEndDate = DateTime.Now,
+                    SearchStartDate = "01.01.2021 10:10:10".GetUtcDateTime(),
+                    SearchEndDate = DateTime.UtcNow
                 }
             };
 
@@ -138,7 +138,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
                 .TestValidate(searchAdvancedCriteria);
 
             validateSearchAdvancedCriteriaValidator.ShouldNotHaveAnyValidationErrors();
-            
+
             var searchCriteriaValidator = new SearchCriteriaValidator(searchAdvancedCriteriaValidator);
 
             var validateSearchCriteriaValidator = searchCriteriaValidator
@@ -154,7 +154,11 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
                     SearchShowDeleted = false,
                     SearchSortFieldOption = SortFieldOption.DateStart,
                     SearchSortOption = SortOption.Asc,
-                    SearchUserId = Guid.Parse("85b8a7e6-e69a-48d0-a7cb-880b9809fd4e"),
+                    IncomingUser = new IncomingUser()
+                    {
+                        Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
+                        Role = RoleOption.Employee
+                    },
                     SearchAdvanced = searchAdvancedCriteriaCompany
                 });
 
@@ -172,14 +176,14 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
             var validate = validator
                 .TestValidate(new User()
                 {
-                     Id = Guid.Parse("3140cc24-95d3-4d67-9c59-9af17be4a49a"),
-                     Name = "Name",
-                     Surname = "Surname",
-                     Mail = "sobaki@tut.net",
-                     PhoneNumber = "35689125365",
-                     Roles = RoleOption.Employee,
-                     HashPassword = "",
-                     Salt = "Salt"
+                    Id = Guid.Parse("3140cc24-95d3-4d67-9c59-9af17be4a49a"),
+                    Name = "Name",
+                    Surname = "Surname",
+                    Mail = "sobaki@tut.net",
+                    PhoneNumber = "35689125365",
+                    Roles = RoleOption.Employee,
+                    HashPassword = "",
+                    Salt = "Salt"
                 });
 
             validate.ShouldNotHaveAnyValidationErrors();
@@ -210,7 +214,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
         [Fact]
         public void UpsertDiscountValidatorTest()
         {
-            
+
             var validator = new UpsertDiscountValidator(new CompanyValidator(), new AddressValidator());
 
             var validate = validator
@@ -226,8 +230,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
                         Description = "Desc",
                         Translations = null,
                         Tags = null,
-                        StartDate = "01.01.2021 10:10:10".GetDateTimeInvariant(),
-                        EndDate = DateTime.Now,
+                        StartDate = "01.01.2021 10:10:10".GetUtcDateTime(),
+                        EndDate = DateTime.UtcNow,
                         WorkingDaysOfTheWeek = "0101011"
                     }
                     );

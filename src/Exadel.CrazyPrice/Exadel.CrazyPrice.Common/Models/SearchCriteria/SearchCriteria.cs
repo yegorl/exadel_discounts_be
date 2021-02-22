@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Exadel.CrazyPrice.Common.Models.Option;
 using System.Text.Json.Serialization;
-using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
 {
@@ -29,7 +28,7 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         /// Gets or sets a search City.
         /// </summary>
         public string SearchAddressCity { get; set; }
-        
+
         /// <summary>
         /// Gets or sets a sort field for search.
         /// </summary>
@@ -64,7 +63,7 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         /// Gets or sets a search User Id.
         /// </summary>
         [JsonIgnore]
-        public Guid SearchUserId { get; set; }
+        public IncomingUser IncomingUser { get; set; }
 
         /// <summary>
         /// Gets or sets a search all when SearchShowDeleted is true otherwise search when deleted is false.
