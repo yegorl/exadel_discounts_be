@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Exadel.CrazyPrice.Data.Models;
 using Exadel.CrazyPrice.Data.Models.Promocode;
+using Exadel.CrazyPrice.Data.Seeder.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,36 +10,42 @@ namespace Exadel.CrazyPrice.Data.Seeder
 {
     public class FakeDiscounts
     {
-        public IEnumerable<DbDiscount> Get(uint count)
+        class ValueString
         {
-            var local = "ru";
-            var languages = new Dictionary<string, string>
-            {
-                ["ru"] = "russian",
-                ["en"] = "english"
-            };
+            public string Value { get; set; }
+        }
 
-            var locationGenerator = new Faker<DbLocation>(local)
+        public IEnumerable<DbDiscount> Get(uint count, List<string> listUserId, GeoCountry geo)
+        {
+
+            var locationGenerator = new Faker<DbLocation>("ru")
                     .RuleFor(x => x.Latitude, f => f.Address.Latitude())
                     .RuleFor(x => x.Longitude, f => f.Address.Longitude())
                 ;
 
-            var companyGenerator = new Faker<DbCompany>(local)
+            var dbLocation = locationGenerator.Generate();
+
+            var companyGenerator = new Faker<DbCompany>("ru")
                     .RuleFor(x => x.Name, f => f.Company.CompanyName())
-                    .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
+                    .RuleFor(x => x.Description, f => string.Join(" ", f.Commerce.Categories(15).Distinct().ToList()))
                     .RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("+!!! !! !!!-!!-!!"))
                     .RuleFor(x => x.Mail, f => f.Person.Email)
                 ;
 
-            var addressGenerator = new Faker<DbAddress>(local)
-                    .StrictMode(true)
-                    .RuleFor(x => x.Country, f => f.Address.Country())
-                    .RuleFor(x => x.City, f => f.Address.City())
-                    .RuleFor(x => x.Street, f => f.Address.StreetAddress())
-                    .RuleFor(x => x.Location, f => locationGenerator.Generate())
+            var streetRu = new Faker<ValueString>("ru")
+                .RuleFor(x => x.Value, x => x.Address.StreetAddress())
+                .Generate();
+
+            var addressRu = new DbAddress()
+            {
+                Country = geo.CountryRu,
+                City = geo.CityRu,
+                Street = streetRu.Value,
+                Location = dbLocation
+            }
                 ;
 
-            var dbUserGenerator = new Faker<DbUser>(local)
+            var dbUserGenerator = new Faker<DbUser>("ru")
                      .RuleFor(x => x.Id, f => Guid.NewGuid().ToString())
                      .RuleFor(x => x.Name, f => f.Person.FirstName)
                      .RuleFor(x => x.Surname, f => f.Person.LastName)
@@ -53,19 +60,24 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.Mail, f => null)
                 ;
 
-            var addressTranslationGenerator = new Faker<DbAddress>("en")
-                    .StrictMode(true)
-                    .RuleFor(x => x.Country, f => f.Address.Country())
-                    .RuleFor(x => x.City, f => f.Address.City())
-                    .RuleFor(x => x.Street, f => f.Address.StreetAddress())
-                    .RuleFor(x => x.Location, f => null)
+            var streetEn = new Faker<ValueString>("en")
+                .RuleFor(x => x.Value, x => x.Address.StreetAddress())
+                .Generate();
+
+            var addressEn = new DbAddress()
+            {
+                Country = geo.CountryEn,
+                City = geo.CityEn,
+                Street = streetEn.Value,
+                Location = dbLocation
+            }
                 ;
 
             var translationGenerator = new Faker<DbTranslation>("en")
-                    .RuleFor(x => x.Language, f => languages["en"]) // !!!!
+                    .RuleFor(x => x.Language, f => "english")
                     .RuleFor(x => x.Name, f => f.Commerce.ProductName())
                     .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
-                    .RuleFor(x => x.Address, f => addressTranslationGenerator.Generate())
+                    .RuleFor(x => x.Address, f => addressEn)
                     .RuleFor(x => x.Company, f => companyTranslationGenerator.Generate())
                     .RuleFor(x => x.Tags, f => f.Commerce.Categories(15).Distinct().ToList())
                 ;
@@ -77,16 +89,16 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.TimeLimitAddingInSeconds, f => f.Random.Int(1, 5))
                 ;
 
-            var discountGenerator = new Faker<DbDiscount>(local)
+            var discountGenerator = new Faker<DbDiscount>("ru")
                     .StrictMode(true)
                     .RuleFor(x => x.Id, f => Guid.NewGuid().ToString())
                     .RuleFor(x => x.Name, f => f.Commerce.ProductName())
-                    .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
+                    .RuleFor(x => x.Description, f => string.Join(" ", f.Commerce.Categories(15).Distinct().ToList()))
                     .RuleFor(x => x.AmountOfDiscount, f => f.Random.Int(500, 7000) / 100)
                     .RuleFor(x => x.StartDate, f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(700), DateTime.Now))
                     .RuleFor(x => x.EndDate,
                         f => f.Date.Between(DateTime.Now + TimeSpan.FromDays(1), DateTime.Now + TimeSpan.FromDays(700)))
-                    .RuleFor(x => x.Address, f => addressGenerator.Generate())
+                    .RuleFor(x => x.Address, f => addressRu)
                     .RuleFor(x => x.Company, f => companyGenerator.Generate())
                     .RuleFor(x => x.PictureUrl, f => f.Image.LoremFlickrUrl())
                     .RuleFor(x => x.WorkingDaysOfTheWeek,
@@ -97,7 +109,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.ViewsTotal, f => f.Random.Int(0, 100))
                     .RuleFor(x => x.UsersSubscriptionTotal, f => f.Random.Int(0, 50))
                     .RuleFor(x => x.SubscriptionsTotal, f => f.Random.Int(0, 50))
-                    .RuleFor(x => x.Language, f => languages[local])
+                    .RuleFor(x => x.Language, f => "russian")
                     .RuleFor(x => x.Deleted, f => false)
 
                     .RuleFor(x => x.CreateDate,
@@ -108,9 +120,9 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.UserCreateDate, f => dbUserGenerator.Generate())
                     .RuleFor(x => x.UserLastChangeDate, f => dbUserGenerator.Generate())
 
-                    .RuleFor(x => x.UsersPromocodes, f => null) // !!!!
-                    .RuleFor(x => x.FavoritesUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
-                    .RuleFor(x => x.RatingUsersId, f => new List<string> { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }) // !!!!
+                    .RuleFor(x => x.UsersPromocodes, f => null)
+                    .RuleFor(x => x.FavoritesUsersId, f => listUserId)
+                    .RuleFor(x => x.RatingUsersId, f => listUserId)
 
                     .RuleFor(x => x.Translations, f => translationGenerator.Generate(1)) // !!!!
 

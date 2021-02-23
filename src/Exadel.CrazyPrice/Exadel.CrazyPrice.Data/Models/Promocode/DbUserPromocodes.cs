@@ -27,8 +27,13 @@ namespace Exadel.CrazyPrice.Data.Models.Promocode
             {
                 return IsTimeLimitExpired(timeLimit, dateTimeNow);
             }
-            
-            return (IsTimeLimitExpired(timeLimit, dateTimeNow) && Promocodes.Where(i => i.Deleted == false && i.EndDate > dateTimeNow).ToList().Count < countLimit);
+
+            return (IsTimeLimitExpired(timeLimit, dateTimeNow)
+                    && ((Promocodes?.Count ?? 0) == 0
+                    || Promocodes
+                        .Where(i => i.Deleted == false && i.EndDate > dateTimeNow)
+                        .ToList()
+                        .Count < countLimit));
         }
 
         /// <summary>
@@ -54,6 +59,6 @@ namespace Exadel.CrazyPrice.Data.Models.Promocode
         }
 
         private bool IsTimeLimitExpired(int? timeLimit, DateTime dateTimeNow) =>
-            Promocodes.All(p => dateTimeNow - p.CreateDate > TimeSpan.FromSeconds(timeLimit ?? 1));
+            Promocodes?.All(p => dateTimeNow - p.CreateDate > TimeSpan.FromSeconds(timeLimit ?? 1)) ?? true;
     }
 }

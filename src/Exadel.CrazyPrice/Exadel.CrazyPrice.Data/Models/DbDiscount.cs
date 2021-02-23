@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Data.Models.Promocode;
+﻿using Exadel.CrazyPrice.Data.Extentions;
+using Exadel.CrazyPrice.Data.Models.Promocode;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -125,7 +126,7 @@ namespace Exadel.CrazyPrice.Data.Models
                 Promocodes = new List<DbPromocode> { dbPromocode }
             };
 
-            if (UsersPromocodes == null || UsersPromocodes.Count == 0)
+            if (UsersPromocodes.IsEmpty())
             {
                 UsersPromocodes = new List<DbUserPromocodes> { dbUserPromocodes };
                 return this;
@@ -175,13 +176,13 @@ namespace Exadel.CrazyPrice.Data.Models
         /// <param name="userUid"></param>
         /// <returns></returns>
         public DbUserPromocodes GetDbUserPromocodes(Guid userUid) =>
-            UsersPromocodes.FirstOrDefault(i => i.UserId == userUid.ToString());
+            UsersPromocodes?.FirstOrDefault(i => i.UserId == userUid.ToString());
 
         /// <summary>
         /// Gets count promocodes.
         /// </summary>
         public int GetCountPromocodes() =>
-            UsersPromocodes.Sum(x => x.Promocodes?.Count ?? 0);
+            UsersPromocodes?.Sum(x => x.Promocodes?.Count ?? 0) ?? 0;
 
 
         /// <summary>

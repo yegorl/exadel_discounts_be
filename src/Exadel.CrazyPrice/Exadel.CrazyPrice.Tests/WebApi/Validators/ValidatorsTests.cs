@@ -215,7 +215,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
         public void UpsertDiscountValidatorTest()
         {
 
-            var validator = new UpsertDiscountValidator(new CompanyValidator(), new AddressValidator());
+            var validator = new UpsertDiscountValidator(new CompanyValidator(), new AddressValidator(), new PromocodeOptionsValidator());
 
             var validate = validator
                 .Validate(
