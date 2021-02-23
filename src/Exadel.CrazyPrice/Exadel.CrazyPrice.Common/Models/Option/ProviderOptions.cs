@@ -10,6 +10,6 @@ namespace Exadel.CrazyPrice.Common.Models.Option
     {
         None = 0,
         Google = 1,
-        LinkedIn= 2
+        Facebook= 2
     }
 }

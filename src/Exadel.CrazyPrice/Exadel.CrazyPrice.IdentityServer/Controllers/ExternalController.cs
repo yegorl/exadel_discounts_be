@@ -81,7 +81,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return Challenge(props, scheme);
             
         }
-
+        
         /// <summary>
         /// Post processing of external authentication
         /// </summary>
@@ -101,6 +101,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 _logger.LogDebug("External claims: {@claims}", externalClaims);
             }
 
+            // retrieve return URL
+            var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
+
             // lookup our user and external provider info
             var (user, provider, providerUserId, claims) = await FindUserFromExternalProvider(result);
 
@@ -112,7 +115,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 }
                 else
                 {
-                    return Redirect("/Account/Login");
+                    return Redirect(returnUrl);
                 }
             }
 
@@ -132,9 +135,6 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             // delete temporary cookie used during external authentication
             await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
-
-            // retrieve return URL
-            var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
 
             // check if external login is in the context of an OIDC request
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);

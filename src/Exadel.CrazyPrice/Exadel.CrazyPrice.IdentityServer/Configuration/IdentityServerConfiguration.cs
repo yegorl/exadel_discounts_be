@@ -43,7 +43,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Configuration
 
         public string GoogleClientId =>
             _config.GetString("IdentityServer:Google:ClientId");
+
         public string GoogleClientSecret =>
             _config.GetString("IdentityServer:Google:ClientSecret");
+
+        public string FacebookClientId =>
+            _config.GetString("IdentityServer:Facebook:ClientId");
+
+        public string FacebookClientSecret =>
+            _config.GetString("IdentityServer:Facebook:ClientSecret");
     }
 }

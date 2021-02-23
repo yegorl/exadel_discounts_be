@@ -57,6 +57,13 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
 
                     options.ClientId = config.GoogleClientId;
                     options.ClientSecret = config.GoogleClientSecret;
+                })
+                .AddFacebook("Facebook", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme; ;
+
+                    options.ClientId = config.FacebookClientId;
+                    options.ClientSecret = config.FacebookClientSecret;
                 });
 
             builder
