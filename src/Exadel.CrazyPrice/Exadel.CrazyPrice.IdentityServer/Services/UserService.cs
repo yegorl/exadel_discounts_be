@@ -23,10 +23,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             _userRepository = userRepository;
         }
 
-        public bool ValidateCredentials(User user, string password)
-        {
-            return _cryptographicService.ComparePasswordHash(password, user.HashPassword, user.Salt);
-        }
+        public bool ValidateCredentials(User user, string password) => 
+            user.Type is UserTypeOption.Internal && 
+            _cryptographicService.ComparePasswordHash(password, user.HashPassword, user.Salt);
 
         public bool TryCreateUser(List<Claim> claims, ProviderOptions provider, out User user)
         {
