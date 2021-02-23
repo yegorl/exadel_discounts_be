@@ -10,7 +10,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
 {
     public class FakeDiscounts
     {
-        class ValueString
+        private class ValueString
         {
             public string Value { get; set; }
         }
@@ -121,10 +121,10 @@ namespace Exadel.CrazyPrice.Data.Seeder
                     .RuleFor(x => x.UserLastChangeDate, f => dbUserGenerator.Generate())
 
                     .RuleFor(x => x.UsersPromocodes, f => null)
-                    .RuleFor(x => x.FavoritesUsersId, f => listUserId)
-                    .RuleFor(x => x.RatingUsersId, f => listUserId)
+                    .RuleFor(x => x.FavoritesUsersId, f => RandomFromListUserId(listUserId, 3))
+                    .RuleFor(x => x.RatingUsersId, f => RandomFromListUserId(listUserId, 5))
 
-                    .RuleFor(x => x.Translations, f => translationGenerator.Generate(1)) // !!!!
+                    .RuleFor(x => x.Translations, f => translationGenerator.Generate(1))
 
                     .RuleFor(x => x.PromocodeOptions, f => promocodeOptionGenerator.Generate())
                 ;
@@ -133,6 +133,22 @@ namespace Exadel.CrazyPrice.Data.Seeder
             {
                 yield return discountGenerator.Generate();
             }
+        }
+
+        private static IEnumerable<string> RandomFromListUserId(IReadOnlyList<string> values, int n)
+        {
+            var countValues = values.Count;
+            var random = new Random();
+
+            var results = new List<string>();
+
+            for (var i = 0; i < n; i++)
+            {
+                var value = random.Next(0, countValues);
+                results.Add(values[value]);
+            }
+
+            return results.Distinct().ToList();
         }
     }
 }
