@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using IdentityServer4;
 
 namespace Exadel.CrazyPrice.IdentityServer.Extentions
 {
@@ -48,6 +49,15 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
                 .AddInMemoryApiResources(config.ApiResources)
                 .AddInMemoryApiScopes(config.ApiScopes)
                 .AddInMemoryClients(config.Clients);
+
+            services.AddAuthentication()
+                .AddGoogle("Google", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme; ;
+
+                    options.ClientId = config.GoogleClientId;
+                    options.ClientSecret = config.GoogleClientSecret;
+                });
 
             builder
                 .AddSigningCredential(new X509Certificate2(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
