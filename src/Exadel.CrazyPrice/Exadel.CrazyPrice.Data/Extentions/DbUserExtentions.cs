@@ -71,7 +71,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 return new ExternalUser
                 {
                     Id = new Guid(dbUser.Id),
-                    Mail = dbUser.Mail
+                    Mail = dbUser.Mail,
+                    Roles = dbUser.Roles
                 };
             }
             catch

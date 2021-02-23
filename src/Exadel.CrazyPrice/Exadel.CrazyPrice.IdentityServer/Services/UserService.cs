@@ -44,7 +44,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
                         Name = name,
                         Surname = surname,
                         Mail = mail,
-                        Roles = RoleOption.Employee,
+                        Roles = externalUser.Roles,
                         Type = UserTypeOption.External,
                         Provider = provider,
                         HashPassword = "",

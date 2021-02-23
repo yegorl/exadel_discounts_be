@@ -10,5 +10,6 @@ namespace Exadel.CrazyPrice.Common.Models
     {
         public Guid Id { get; set; }
         public string Mail { get; set; }
+        public RoleOption Roles { get; set; }
     }
 }
