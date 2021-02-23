@@ -25,9 +25,10 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         Task<User> GetUserByEmailAsync(string mail);
 
         /// <summary>
-        /// Get user by external provider
+        /// Add new user
         /// </summary>
-        /// <returns>User or null if not found</returns>
-        Task<User> GetUserByExternalProviderAsync(ProviderOptions provider, string providerUserId);
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task AddUser(User user);
     }
 }

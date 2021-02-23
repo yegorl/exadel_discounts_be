@@ -1,5 +1,11 @@
-﻿using Exadel.CrazyPrice.Common.Models;
+﻿using System;
+using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.IdentityServer.Extentions;
 
 namespace Exadel.CrazyPrice.IdentityServer.Services
 {

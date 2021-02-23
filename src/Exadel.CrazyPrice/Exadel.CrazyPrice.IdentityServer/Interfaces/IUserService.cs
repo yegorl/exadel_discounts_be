@@ -1,4 +1,7 @@
-﻿using Exadel.CrazyPrice.Common.Models;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.IdentityServer.Interfaces
 {

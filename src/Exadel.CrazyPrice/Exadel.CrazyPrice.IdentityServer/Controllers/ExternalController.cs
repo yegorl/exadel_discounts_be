@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.IdentityServer.Extentions;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using IdentityModel;
@@ -101,12 +103,18 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             // lookup our user and external provider info
             var (user, provider, providerUserId, claims) = await FindUserFromExternalProvider(result);
-            if (user == null)
+            if (user.IsEmpty())
             {
-                // this might be where you might initiate a custom workflow for user registration
-                // in this sample we don't show how that would be done, as our sample implementation
-                // simply auto-provisions new external user
-                user = AutoProvisionUser(provider, providerUserId, claims);
+                user = claims.TryCreateUserFromClaims(provider);
+                if (user != null)
+                {
+                    await _userRepository.AddUser(user);
+                }
+                else
+                {
+                    return Redirect("/Account/Login");
+                }
+
             }
 
             // this allows us to collect any additional claims or properties
@@ -149,7 +157,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return Redirect(returnUrl);
         }
 
-        private async Task<(User user, ProviderOptions provider, string providerUserId, IEnumerable<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderOptions provider, string providerUserId, List<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 
@@ -170,7 +178,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
 
             // find external user
-            var user = await _userRepository.GetUserByExternalProviderAsync(provider, providerUserId);
+            var user = await _userRepository.GetUserByEmailAsync(claims.GetClaimValue(ClaimTypes.Email));
 
             return (user, provider, providerUserId, claims);
         }

@@ -30,6 +30,11 @@ namespace Exadel.CrazyPrice.Data.Repositories
             _users = db.GetCollection<DbUser>("Users");
         }
 
+        public async Task AddUser(User user)
+        {
+            await _users.InsertOneAsync(user.ToDbUser());
+        }
+
         /// <summary>
         /// Gets user by email.
         /// </summary>
@@ -39,20 +44,6 @@ namespace Exadel.CrazyPrice.Data.Repositories
         {
             //return await GetUserAsync("{ \"mail\" : \"" + mail + "\" }");
             return await GetUserAsync(Builders<DbUser>.Filter.Eq(d => d.Mail, mail));
-        }
-
-        /// <summary>
-        /// Gets user by ProviderOptions and providerUserId.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<User> GetUserByExternalProviderAsync(ProviderOptions provider, string providerUserId)
-        {
-            var builder = new StringBuilder();
-            builder.Append("{");
-            builder.Append($"\"externalUsers.providerName\": {(int)provider},");
-            builder.Append($"\"externalUsers.userId\": \"{providerUserId}\"");
-            builder.Append("}");
-            return await GetUserAsync(builder.ToString());
         }
 
         /// <summary>

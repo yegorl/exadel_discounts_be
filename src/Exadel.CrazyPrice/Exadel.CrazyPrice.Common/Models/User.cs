@@ -14,6 +14,8 @@ namespace Exadel.CrazyPrice.Common.Models
 
         public RoleOption Roles { get; set; }
 
-        public List<ExternalUser> ExternalUsers { get; set; }
+        public UserTypeOption Type { get; set; }
+
+        public ProviderOptions Provider { get; set; }
     }
 }

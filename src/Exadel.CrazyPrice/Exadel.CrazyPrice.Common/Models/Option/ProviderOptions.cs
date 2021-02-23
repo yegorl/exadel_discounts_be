@@ -8,7 +8,8 @@ namespace Exadel.CrazyPrice.Common.Models.Option
 {
     public enum ProviderOptions
     {
+        None = 0,
         Google = 1,
-        LinkedIn = 2
+        LinkedIn= 2
     }
 }
