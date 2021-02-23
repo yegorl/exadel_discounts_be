@@ -28,6 +28,13 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task AddUser(User user);
+        Task AddUserAsunc(User user);
+
+        /// <summary>
+        /// Get external user my email
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
+        Task<ExternalUser> GetExternalUserByEmailAsunc(string mail);
     }
 }

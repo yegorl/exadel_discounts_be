@@ -103,23 +103,19 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             // lookup our user and external provider info
             var (user, provider, providerUserId, claims) = await FindUserFromExternalProvider(result);
+
             if (user.IsEmpty())
             {
-                user = claims.TryCreateUserFromClaims(provider);
-                if (user != null)
+                if (_userService.TryCreateUser(claims, provider, out user))
                 {
-                    await _userRepository.AddUser(user);
+                    await _userRepository.AddUserAsunc(user);
                 }
                 else
                 {
                     return Redirect("/Account/Login");
                 }
-
             }
 
-            // this allows us to collect any additional claims or properties
-            // for the specific protocols used and store them in the local auth cookie.
-            // this is typically used to store data needed for signout from those protocols.
             var additionalLocalClaims = new List<Claim>();
             var localSignInProps = new AuthenticationProperties();
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
