@@ -136,13 +136,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var date = searchCriteria.GetStartDate();
             if (!string.IsNullOrEmpty(date))
             {
-                builder.Append(", {\"startDate\" : {$gte : " + date + "} }");
+                builder.Append(", {\"startDate\" : {$lte : " + date + "} }");
             }
 
             date = searchCriteria.GetEndDate();
             if (!string.IsNullOrEmpty(date))
             {
-                builder.Append(", {\"endDate\" : {$lte : " + date + "} }");
+                builder.Append(", {\"endDate\" : {$gte : " + date + "} }");
             }
 
             return builder.ToString();

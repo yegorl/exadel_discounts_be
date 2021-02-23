@@ -8,15 +8,21 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
         public static List<string> UsersId =>
             new()
             {
-                "97b248a1-c706-4987-9b31-101429ec2aff",
-                "13b4e6a3-42f2-4a43-be4e-7fc15454a7ab",
-                "10c1a0a1-556a-475f-9597-c705dc1cc48b",
+                "a3cf9296-9e83-410c-8341-f4d36df28b46",
+                "700f5bbb-ac24-4e48-9add-0f430f882481",
+                "48022eab-fed0-46f9-93af-3a1478ca6b64",
+                "4e3a6563-848b-4fb9-9b37-2ce63d29763d",
+                "bea4c97c-4e8f-429d-a95e-6d6601a35db5",
+                "38697f47-e410-4456-bb5c-4fed0b6c1bb1",
+                "d412793b-ee1c-48bc-9428-d1735558ec33",
+                "4fa26daf-5f7d-4e97-84ce-648f1d93fad4",
+                "9436b060-85cf-4af4-8f1e-a9f550ea3bd9",
                 "b3a6ecae-60ce-4f9f-b152-fb15f0ddee3c",
                 "58692fd8-3b85-478d-9f06-19747cc4ea24",
                 "3c9b07f6-4546-4abb-80c6-49e8732aac4b",
                 "9332ab9d-c0d1-434b-aada-7c9e8cf02f4c",
                 "2ec19f55-bd3b-4f06-b97d-265a5b067167",
-                "e5ed6a89-266d-403b-b8f6-5e61c181a016",
+                "e5ed6a89-266d-403b-b8f6-5e61c181a016"
             };
 
         public static List<GeoCountry> GeoCountries =>
