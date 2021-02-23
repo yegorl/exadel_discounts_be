@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
+using MongoDB.Bson;
 
 namespace Exadel.CrazyPrice.Data.Models
 {
@@ -23,6 +24,7 @@ namespace Exadel.CrazyPrice.Data.Models
 
         [BsonIgnoreIfDefault]
         [BsonIgnoreIfNull]
+        [BsonRepresentation(BsonType.Decimal128)]
         public decimal? AmountOfDiscount { get; set; }
 
         [BsonIgnoreIfDefault]
@@ -47,6 +49,7 @@ namespace Exadel.CrazyPrice.Data.Models
 
         [BsonIgnoreIfDefault]
         [BsonIgnoreIfNull]
+        [BsonRepresentation(BsonType.Decimal128)]
         [JsonIgnore]
         public decimal? RatingTotal { get; set; }
 
