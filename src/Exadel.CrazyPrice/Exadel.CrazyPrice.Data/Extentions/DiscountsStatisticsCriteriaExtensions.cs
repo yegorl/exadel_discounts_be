@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models.SearchCriteria;
+﻿using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using MongoDB.Bson;
+using System;
+using System.Text;
 
 namespace Exadel.CrazyPrice.Data.Extentions
 {
-    public static class DiscountsStatisticCriteriaExtensions
+    public static class DiscountsStatisticsCriteriaExtensions
     {
-        public static string GetMatch(this DiscountsStatisticCriteria criteria)
+        public static string GetMatch(this DiscountsStatisticsCriteria criteria)
         {
             var matchBuilder = new StringBuilder();
             matchBuilder.Append("{");
@@ -34,15 +31,15 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 {
                     matchBuilder.Append($"$lt: {criteria.CreateEndDate.ToIsoDate()}");
                 }
-                
+
                 matchBuilder.Append("}");
             }
-            
+
             matchBuilder.Append("}");
             return matchBuilder.ToString();
         }
 
-        public static string GetGroup(this DiscountsStatisticCriteria criteria)
+        public static string GetGroup(this DiscountsStatisticsCriteria criteria)
         {
             return "{_id: \"\", discountTotal: {$sum: 1}, viewsTotal: {$sum: \"$viewsTotal\"}, subscriptionsTotal: {$sum: \"$subscriptionsTotal\"}" +
                    ",inFavoritesList: {$sum: {$size: \"$favoritesUsersId\"}}, inSubscriptionsList: {$sum: {$size: \"$subscriptionsUsersId\"}}}";

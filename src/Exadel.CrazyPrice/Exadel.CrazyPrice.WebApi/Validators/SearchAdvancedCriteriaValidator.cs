@@ -19,7 +19,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
 
                 RuleFor(x => x.SearchDate)
                     .ValidSearchDate();
-                
+
                 RuleFor(x => x.SearchAmountOfDiscount)
                     .SetValidator(searchAmountOfDiscountCriteriaValidator);
 

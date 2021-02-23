@@ -43,10 +43,17 @@ namespace Exadel.CrazyPrice.Data.Extentions
         {
             searchCriteria.SearchText = searchCriteria.SearchText.GetValidContent(CharOptions.Letter, " ");
 
+            searchCriteria.SearchShowDeleted = searchCriteria.IncomingUser.Role == RoleOption.Administrator;
+
             var queryBuilder = new StringBuilder();
-            queryBuilder.Append("{");
-            queryBuilder.Append($"$or : [{searchCriteria.GetContainsСondition()}]");
-            queryBuilder.Append(", ");
+            queryBuilder.Append('{');
+
+            if (!string.IsNullOrEmpty(searchCriteria.SearchText))
+            {
+                queryBuilder.Append($"$or : [{searchCriteria.GetContainsСondition()}]");
+                queryBuilder.Append(", ");
+            }
+
             queryBuilder.Append("$and : [" +
                                 searchCriteria.GetEqualsСondition("Country") + ", " +
                                 searchCriteria.GetEqualsСondition("City") + ", " +
@@ -58,8 +65,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                                 searchCriteria.GetAmountOfDiscountCondition() +
                                 searchCriteria.GetRatingTotalCondition() +
                                 searchCriteria.GetCompanyNameCondition() +
-                                "]");
-            queryBuilder.Append("}");
+                                ']');
+            queryBuilder.Append('}');
 
             var queryCompile = new Dictionary<string, string>
             {
@@ -120,8 +127,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
             return queryParams;
         }
 
-        public static bool IsSortDateCreateForAdministrator(this SearchCriteria searchCriteria, RoleOption role) =>
-            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role != RoleOption.Administrator;
+        public static bool IsSortByDateCreate(this SearchCriteria searchCriteria, RoleOption role) =>
+            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role == RoleOption.Administrator;
 
         private static string GetDateCondition(this SearchCriteria searchCriteria)
         {
@@ -232,8 +239,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
         private static string GetDiscountOptionCondition(this SearchCriteria searchCriteria) =>
             searchCriteria.SearchDiscountOption switch
             {
-                DiscountOption.Favorites => ", {\"favoritesUsersId\" : \"" + searchCriteria.SearchUserId + "\"}",
-                DiscountOption.Subscriptions => ", {\"subscriptionsUsersId\" : \"" + searchCriteria.SearchUserId + "\"}",
+                DiscountOption.Favorites => ", {\"favoritesUsersId\" : \"" + searchCriteria.IncomingUser.Id + "\"}",
+                DiscountOption.Subscriptions => ", {\"usersPromocodes.userId\" : \"" + searchCriteria.IncomingUser.Id + "\"}",
                 _ => string.Empty
             };
 

@@ -11,7 +11,7 @@ namespace Exadel.CrazyPrice.Data.Models
     {
         [BsonId]
         public string Id { get; set; }
-        
+
         [BsonIgnoreIfNull]
         public string Name { get; set; }
 

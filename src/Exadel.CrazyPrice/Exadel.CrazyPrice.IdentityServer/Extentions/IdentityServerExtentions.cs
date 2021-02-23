@@ -1,108 +1,64 @@
-﻿using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Data.Repositories;
+using Exadel.CrazyPrice.IdentityServer.Configuration;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Services;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using IdentityServer4;
-using Microsoft.AspNetCore.Builder;
+using System;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Exadel.CrazyPrice.IdentityServer.Extentions
 {
     public static class IdentityServerExtentions
     {
-        public static IServiceCollection AddCrazyPriceIdentityServer(this IServiceCollection services)
+        public static IServiceCollection AddCrazyPriceIdentityServer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptographicService, CryptographicService>();
             services.AddScoped<IProfileService, IdentityProfileService>();
 
-            var config = services.BuildServiceProvider().GetService<IConfiguration>();
+            var config = new IdentityServerConfiguration(configuration);
 
             services.AddCors(options =>
             {
-                options.AddPolicy(config.GetPolicyName(),
+                options.AddPolicy(config.PolicyName,
                     policyBuilder =>
                     {
                         policyBuilder
                             .AllowCredentials()
-                            .WithOrigins(config.GetOrigins())
+                            .WithOrigins(config.Origins)
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
             });
-            
+
             var builder = services.AddIdentityServer(options =>
                 {
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
-                    options.IssuerUri = config.GetIssuerUrl();
+                    options.IssuerUri = config.IssuerUrl;
                 })
-                .AddInMemoryIdentityResources(config.GetIdentityResources())
-                .AddInMemoryApiResources(config.GetApiResources())
-                .AddInMemoryApiScopes(config.GetApiScopes())
-                .AddInMemoryClients(config.GetClients());
+                .AddInMemoryIdentityResources(config.IdentityResources)
+                .AddInMemoryApiResources(config.ApiResources)
+                .AddInMemoryApiScopes(config.ApiScopes)
+                .AddInMemoryClients(config.Clients);
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                    options.ClientId = config.GetGoogleId();
-                    options.ClientSecret = config.GetGoogleSecret();
-                }).AddLocalApi(options =>
-                {
-                    options.ExpectedScope = config.GetApiName();
-                });
-
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
-
-            //var clientCertificate =
-            //    new X509Certificate2(Path.Combine(
-            //        Environment.ContentRootPath, configuration.Get["CertificateName"].First()),
-            //        configuration.Get["CertificatePassword"].First());
-
-            //builder.AddSigningCredential(clientCertificate);
+            builder
+                .AddSigningCredential(new X509Certificate2(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                    config.CertificateName), config.CertificatePassword));
 
             return services;
         }
 
-        public static IApplicationBuilder UseCrazyPriceIdentityServer(this IApplicationBuilder app) =>
+        public static IApplicationBuilder UseCrazyPriceIdentityServer(this IApplicationBuilder app, IConfiguration configuration) =>
             app
-                .UseCors(app.ApplicationServices.GetService<IConfiguration>().GetPolicyName())
+                .UseCors(new IdentityServerConfiguration(configuration).PolicyName)
                 .UseIdentityServer();
-
-        private static IEnumerable<Client> GetClients(this IConfiguration config) =>
-            config.GetSection("Clients").Get<List<Client>>();
-
-        private static IEnumerable<ApiScope> GetApiScopes(this IConfiguration config) =>
-            config.GetSection("ApiScopes").Get<List<ApiScope>>();
-
-        private static IEnumerable<ApiResource> GetApiResources(this IConfiguration config) =>
-            config.GetSection("ApiResources").Get<List<ApiResource>>();
-
-        private static IEnumerable<IdentityResource> GetIdentityResources(this IConfiguration config) =>
-            config.GetSection("IdentityResources").Get<List<IdentityResource>>();
-
-        private static string GetCertificateName(this IConfiguration config) =>
-            config.GetSection("Certificate:Name").Value;
-
-        private static string GetCertificatePassword(this IConfiguration config) =>
-            config.GetSection("Certificate:Password").Value;
-
-        private static string GetApiName(this IConfiguration config) =>
-            config.GetSection("ApiScopes:Name").Value;
-
-        private static string GetGoogleId(this IConfiguration config) =>
-            config.GetSection("Auth:Google:ClientId").Value;
-
-        private static string GetGoogleSecret(this IConfiguration config) =>
-            config.GetSection("Auth:Google:ClientSecret").Value;
     }
 }

@@ -101,6 +101,25 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 ? (onlyPrefix ? "translations." : "translations." + value)
                 : (onlyPrefix ? string.Empty : value);
 
+        /// <summary>
+        /// Converts string to RoleOption. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="raiseException"></param>
+        /// <returns></returns>
+        public static RoleOption ToRoleOption(this string key, RoleOption defaultValue = RoleOption.Unknown, bool raiseException = false)
+        {
+            if (Enum.TryParse(key, true, out RoleOption value))
+            {
+                return value;
+            }
+            else
+            {
+                return raiseException ? throw new ArgumentException($"{key} is not RoleOption value.") : defaultValue;
+            }
+        }
+
         private static Dictionary<LanguageOption, string> LookupLanguage => new()
         {
             { LanguageOption.En, "english" },
@@ -115,7 +134,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             { SortFieldOption.RatingDiscount, "ratingTotal" },
             { SortFieldOption.DateStart, "startDate" },
             { SortFieldOption.DateEnd, "endDate" },
-            { SortFieldOption.DateCreate, "createDate" },
+            { SortFieldOption.DateCreate, "createDate" }
         };
     }
 }

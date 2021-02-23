@@ -1,4 +1,5 @@
 ﻿using Exadel.CrazyPrice.Common.Configurations;
+using Exadel.CrazyPrice.Common.Extentions;
 using Microsoft.Extensions.Configuration;
 
 namespace Exadel.CrazyPrice.Data.Configuration
@@ -10,8 +11,8 @@ namespace Exadel.CrazyPrice.Data.Configuration
     {
         public MongoDbConfiguration(IConfiguration configuration)
         {
-            ConnectionString = configuration.GetSection("Database:ConnectionStrings:DefaultConnection").Value;
-            Database = configuration.GetSection("Database:ConnectionStrings:Database").Value;
+            ConnectionString = configuration.GetString("Database:ConnectionStrings:DefaultConnection");
+            Database = configuration.GetString("Database:ConnectionStrings:Database");
         }
 
         public string ConnectionString { get; }

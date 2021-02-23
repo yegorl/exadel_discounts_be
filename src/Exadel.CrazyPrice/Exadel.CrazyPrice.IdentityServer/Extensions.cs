@@ -1,7 +1,7 @@
-using System;
 using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Exadel.CrazyPrice.IdentityServer.UI
 {
@@ -21,7 +21,7 @@ namespace Exadel.CrazyPrice.IdentityServer.UI
         {
             controller.HttpContext.Response.StatusCode = 200;
             controller.HttpContext.Response.Headers["Location"] = "";
-            
+
             return controller.View(viewName, new RedirectViewModel { RedirectUrl = redirectUri });
         }
     }

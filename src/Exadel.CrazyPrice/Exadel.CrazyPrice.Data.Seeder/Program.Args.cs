@@ -1,6 +1,6 @@
-﻿using System;
-using Exadel.CrazyPrice.Data.Seeder.Configuration;
+﻿using Exadel.CrazyPrice.Data.Seeder.Configuration;
 using McMaster.Extensions.CommandLineUtils;
+using System;
 
 namespace Exadel.CrazyPrice.Data.Seeder
 {
@@ -23,8 +23,8 @@ namespace Exadel.CrazyPrice.Data.Seeder
         [Option("-n|--number", Description = "The default count of documents that seed in the database.")]
         private uint DefaultCountSeed { get; }
 
-        [Option("-i|--info", Description = "Show details info.")]
-        private bool DetailsInfo { get; }
+        [Option("-h|--hide", Description = "Hide details info.")]
+        private bool HideDetailsInfo { get; }
 
         [Option("-t|--time", Description = "Time in sec for report.")]
         private uint TimeReportSec { get; }

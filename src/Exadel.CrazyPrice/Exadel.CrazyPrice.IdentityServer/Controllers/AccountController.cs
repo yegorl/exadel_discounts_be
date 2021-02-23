@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Interfaces;
@@ -25,6 +22,9 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
@@ -73,7 +73,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         public IActionResult CultureManagement(string culture, string returnUri)
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),new CookieOptions{Expires = DateTimeOffset.Now.AddDays(30)});
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
 
             _logger.LogInformation("Culture change request. Append cookies by response: {key} : {value}",
                 CookieRequestCultureProvider.DefaultCookieName, culture);

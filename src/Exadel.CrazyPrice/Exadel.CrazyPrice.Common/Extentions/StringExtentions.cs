@@ -17,14 +17,14 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// </summary>
         /// <param name="stringDate"></param>
         /// <returns></returns>
-        public static DateTime GetDateTimeInvariant(this string stringDate)
+        public static DateTime GetUtcDateTime(this string stringDate)
         {
-            if (string.IsNullOrEmpty(stringDate))
+            if (stringDate.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(stringDate));
             }
 
-            return DateTime.ParseExact(stringDate, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(stringDate, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUniversalTime();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static bool IsValidWorkingDays(this string stringWorkingDays)
         {
-            if (string.IsNullOrEmpty(stringWorkingDays) || stringWorkingDays.Length != 7)
+            if (stringWorkingDays.IsNullOrEmpty() || stringWorkingDays.Length != 7)
             {
                 return false;
             }
@@ -51,7 +51,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ReplaceTwoAndMoreCharsBySomeOne(this string s, string chars)
         {
-            if (string.IsNullOrEmpty(chars))
+            if (chars.IsNullOrEmpty())
             {
                 throw new ArgumentNullException(nameof(chars));
             }
@@ -67,7 +67,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ReplaceTwoAndMoreCharsBySomeOne(this string s, char[] chars)
         {
-            if (string.IsNullOrEmpty(s))
+            if (s.IsNullOrEmpty())
             {
                 return s;
             }
@@ -111,7 +111,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             }
             return strBuilder.ToString();
         }
-        
+
         /// <summary>
         /// Gets valid content with chars from CharOptions and specialChars.
         /// </summary>
@@ -121,13 +121,13 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string GetValidContent(this string s, CharOptions charOptions, string specialChars = null)
         {
-            if (string.IsNullOrEmpty(s))
+            if (s.IsNullOrEmpty())
             {
                 return string.Empty;
             }
 
             var rulesForChar = BuildRulesForChar(charOptions);
-            if (!string.IsNullOrEmpty(specialChars))
+            if (!specialChars.IsNullOrEmpty())
             {
                 rulesForChar.Add(specialChars.Contains);
             }
@@ -136,7 +136,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 .Where(c => rulesForChar.Any(func => func(c)))
                 .Aggregate(string.Empty, (current, c) => current + c);
 
-            return string.IsNullOrEmpty(specialChars) ? result : result.ReplaceTwoAndMoreCharsBySomeOne(specialChars);
+            return specialChars.IsNullOrEmpty() ? result : result.ReplaceTwoAndMoreCharsBySomeOne(specialChars);
         }
 
         /// <summary>
@@ -152,23 +152,10 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not bool value.") : defaultValue;
-        }
-
-        /// <summary>
-        /// Converts string to RoleOption. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <param name="raiseException"></param>
-        /// <returns></returns>
-        public static RoleOption ToRoleOption(this string key, RoleOption defaultValue = RoleOption.Unknown, bool raiseException = false)
-        {
-            if (Enum.TryParse(typeof(RoleOption), key, true, out var value))
+            else
             {
-                return (RoleOption)value;
+                return raiseException ? throw new ArgumentException($"'{key}' is not bool value.") : defaultValue;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not RoleOption value.") : defaultValue;
         }
 
         /// <summary>
@@ -184,7 +171,10 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not uint value.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not uint value.") : defaultValue;
+            }
         }
 
         /// <summary>
@@ -196,11 +186,14 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static string ToStringWithValue(this string key, string defaultValue = "", bool raiseException = true)
         {
-            if (!string.IsNullOrEmpty(key))
+            if (!key.IsNullOrEmpty())
             {
                 return key;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not null or empty.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{nameof(key)}' is null or empty.") : defaultValue;
+            }
         }
 
         /// <summary>
@@ -216,8 +209,127 @@ namespace Exadel.CrazyPrice.Common.Extentions
             {
                 return value;
             }
-            else return raiseException ? throw new ArgumentException($"{key} is not Guid value.") : defaultValue;
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not Guid value.") : defaultValue;
+            }
         }
+
+        /// <summary>
+        /// Gets string newValue from value when keys exist in possibleValues.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="newValue"></param>
+        /// <param name="possibleValues"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static string OverLoadString(this string value, string newValue, string[] possibleValues, params string[] keys) =>
+            KeysExist(possibleValues, keys) ? newValue : value;
+
+        /// <summary>
+        /// Gets bool newValue from value when keys exist in possibleValues. 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="newValue"></param>
+        /// <param name="possibleValues"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static bool OverLoadBool(this bool value, bool newValue, string[] possibleValues, params string[] keys) =>
+            KeysExist(possibleValues, keys) && newValue;
+
+        /// <summary>
+        /// Gets uint newValue from value when keys exist in possibleValues. 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="newValue"></param>
+        /// <param name="possibleValues"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static uint OverLoadUint(this uint value, uint newValue, string[] possibleValues, params string[] keys) =>
+            KeysExist(possibleValues, keys) ? newValue : value;
+
+        /// <summary>
+        /// Gets true when last characters in value are symbols otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="symbols"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
+        public static bool IsLast(this string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase, params string[] symbols) =>
+            !value.IsNullOrEmpty() && symbols.Any(s => value.LastIndexOf(s, comparison) == value.Length - 1);
+
+        /// <summary>
+        /// Gets true when value is Null or Empty or last characters in value are symbols otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="symbols"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmptyOrLast(this string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase, params string[] symbols) =>
+            value.IsNullOrEmpty() || value.IsLast(comparison, symbols);
+
+        /// <summary>
+        /// Gets true when value is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string value) =>
+            string.IsNullOrEmpty(value);
+
+        /// <summary>
+        /// Gets true when strings is Empty otherwise false.
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string[] strings) =>
+            strings == null || strings.Length == 0;
+
+        /// <summary>
+        /// Gets true when strings is Empty otherwise false.
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this List<string> strings) =>
+            strings == null || strings.Count == 0;
+
+        /// <summary>
+        /// Gets true when dictionary is Empty otherwise false.
+        /// </summary>
+        /// <param name="dictionary"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this Dictionary<string, string> dictionary) =>
+            dictionary.Count == 0;
+
+        /// <summary>
+        /// Converts string to Uri. When raiseException is true and is cast error raises exception otherwise returns <c>null</c>.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="uriKind"></param>
+        /// <param name="raiseException"></param>
+        /// <returns></returns>
+        public static Uri ToUri(this string key, UriKind uriKind = UriKind.Absolute, bool raiseException = true)
+        {
+            if (Uri.TryCreate(key, uriKind, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not Uri value.") : null;
+            }
+        }
+        /// <summary>
+        /// Gets a NewPromocodeValue contains letters and digit. CountSymbol must have symbols great then 4 and less than 25.
+        /// </summary>
+        /// <param name="countSymbol"></param>
+        /// <returns></returns>
+        public static string NewPromocodeValue(int countSymbol = 5) =>
+            Guid.NewGuid().ToString().Replace("-", "")
+                .Substring(0, countSymbol < 4 ? 4 : countSymbol >= 25 ? 25 : countSymbol)
+                .ToUpperInvariant();
+
+        private static bool KeysExist(string[] possibleValues, params string[] keys) =>
+            keys.Any(k => string.Join("(|)", possibleValues).ToLowerInvariant().Split("(|)").Contains(k.ToLowerInvariant()));
 
         private static List<Func<char, bool>> BuildRulesForChar(CharOptions charOptions)
         {

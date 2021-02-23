@@ -3,9 +3,11 @@ using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.Data.Models;
+using Exadel.CrazyPrice.Data.Models.Promocode;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -91,20 +93,24 @@ namespace Exadel.CrazyPrice.Data.Repositories
         /// <returns></returns>
         public async Task<Discount> UpsertDiscountAsync(Discount discount)
         {
-            var id = discount.Id.ToString();
-            var discountFromDb = await GetDbDiscountByUidAsync(id);
+            var discountFromDb = await GetDbDiscountByUidAsync(discount.Id);
 
             DbDiscount dbDiscountResult;
 
             if (discountFromDb.IsEmpty())
             {
                 await _discounts.InsertOneAsync(discount.ToDbDiscount());
-                dbDiscountResult = await GetDbDiscountByUidAsync(id);
+                dbDiscountResult = await GetDbDiscountByUidAsync(discount.Id);
             }
             else
             {
+                if (discountFromDb.Deleted)
+                {
+                    return new Discount();
+                }
+
                 dbDiscountResult = await _discounts.FindOneAndUpdateAsync(
-                Builders<DbDiscount>.Filter.Where(d => d.Id == id),
+                Builders<DbDiscount>.Filter.Where(d => d.Id == discount.Id.ToString()),
                 Builders<DbDiscount>.Update
                     .Set(f => f.Name, discount.Name)
                     .Set(f => f.Description, discount.Description)
@@ -117,6 +123,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
                     .Set(f => f.Tags, discount.Tags)
                     .Set(f => f.LastChangeDate, discount.LastChangeDate)
                     .Set(f => f.UserLastChangeDate, discount.UserLastChangeDate.ToDbUser())
+                    .Set(f => f.PictureUrl, discount.PictureUrl)
                     .Set(f => f.Language, discount.Language.ToStringLookup())
                     .Set(f => f.Translations, discount.Translations.ToDbTranslations())
                 , new FindOneAndUpdateOptions<DbDiscount>()
@@ -224,10 +231,13 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
         public async Task<bool> VoteDiscountAsync(int value, Guid discountUid, Guid userUid)
         {
-            var uidDiscount = discountUid.ToString();
             var uidUser = userUid.ToString();
 
-            var dbDiscount = await GetDbDiscountByUidAsync(uidDiscount);
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
+            if (dbDiscount.Deleted)
+            {
+                return false;
+            }
 
             var voteUsers = dbDiscount.RatingUsersId;
 
@@ -246,7 +256,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
             var newRating = (dbDiscount.RatingTotal * countVoteUsers + value) / (countVoteUsers + 1);
 
             await _discounts.UpdateOneAsync(
-                d => d.Id == uidDiscount,
+                d => d.Id == discountUid.ToString(),
                 Builders<DbDiscount>.Update
                     .Set(f => f.RatingTotal, newRating)
                     .Set(f => f.RatingUsersId, voteUsers)
@@ -255,10 +265,16 @@ namespace Exadel.CrazyPrice.Data.Repositories
             return true;
         }
 
+        #region Favorites
         public async Task AddToFavoritesAsync(Guid discountUid, Guid userUid)
         {
-            var uidDiscount = discountUid.ToString();
-            var dbDiscount = await GetDbDiscountByUidAsync(uidDiscount);
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
+
+            if (dbDiscount.Deleted)
+            {
+                return;
+            }
+
             var favoritesUsersId = dbDiscount.FavoritesUsersId;
 
             if (AddUserInList(userUid, ref favoritesUsersId))
@@ -266,13 +282,12 @@ namespace Exadel.CrazyPrice.Data.Repositories
                 return;
             }
 
-            await UpsertUserListAsync(uidDiscount, UserLists.Favorites, favoritesUsersId);
+            await UpsertFavorites(discountUid, favoritesUsersId);
         }
 
         public async Task RemoveFromFavoritesAsync(Guid discountUid, Guid userUid)
         {
-            var uidDiscount = discountUid.ToString();
-            var dbDiscount = await GetDbDiscountByUidAsync(uidDiscount);
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
             var favoritesUsersId = dbDiscount.FavoritesUsersId;
 
             if (RemoveUserFromList(userUid, ref favoritesUsersId))
@@ -280,60 +295,75 @@ namespace Exadel.CrazyPrice.Data.Repositories
                 return;
             }
 
-            await UpsertUserListAsync(uidDiscount, UserLists.Favorites, favoritesUsersId);
+            await UpsertFavorites(discountUid, favoritesUsersId);
         }
+        #endregion
 
-        public async Task AddToSubscriptionsAsync(Guid discountUid, Guid userUid)
+        #region Subscriptions
+
+        public async Task<UserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid)
         {
-            var uidDiscount = discountUid.ToString();
-            var dbDiscount = await GetDbDiscountByUidAsync(uidDiscount);
-            var subscriptionsUsersId = dbDiscount.SubscriptionsUsersId;
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
 
-            if (AddUserInList(userUid, ref subscriptionsUsersId))
+            if (dbDiscount.Deleted)
             {
-                return;
+                return new UserPromocodes();
             }
 
-            await UpsertUserListAsync(uidDiscount, UserLists.Subscriptions, subscriptionsUsersId);
-        }
-
-        public async Task RemoveFromSubscriptionsAsync(Guid discountUid, Guid userUid)
-        {
-            var uidDiscount = discountUid.ToString();
-            var dbDiscount = await GetDbDiscountByUidAsync(uidDiscount);
-            var subscriptionsUsersId = dbDiscount.SubscriptionsUsersId;
-
-            if (RemoveUserFromList(userUid, ref subscriptionsUsersId))
+            if (!dbDiscount.CanAddUserPromocode(userUid, DateTime.UtcNow))
             {
-                return;
+                return dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
             }
 
-            await UpsertUserListAsync(uidDiscount, UserLists.Subscriptions, subscriptionsUsersId);
+            var newPromocode = DbPromocode.New(Guid.NewGuid(), DateTime.Now, dbDiscount.PromocodeOptions.DaysDurationPromocode, StringExtentions.NewPromocodeValue(dbDiscount.PromocodeOptions?.CountSymbolsPromocode ?? 4));
+
+            dbDiscount.AddUserPromocode(userUid, newPromocode);
+
+            await UpsertSubscriptions(dbDiscount);
+
+            return dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
         }
 
-        private async Task UpsertUserListAsync(string uidDiscount, UserLists userLists, List<string> usersIdList)
+        public async Task<UserPromocodes> GetSubscriptionsAsync(Guid discountUid, Guid userUid)
         {
-            switch (userLists)
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
+            if (dbDiscount.Deleted)
             {
-                case UserLists.Favorites:
-                    await _discounts.UpdateOneAsync(
-                        d => d.Id == uidDiscount,
-                        Builders<DbDiscount>.Update
-                            .Set(f => f.FavoritesUsersId, usersIdList)
-                        , new UpdateOptions { IsUpsert = true });
-                    break;
-                case UserLists.Subscriptions:
-                    await _discounts.UpdateOneAsync(
-                        d => d.Id == uidDiscount,
-                        Builders<DbDiscount>.Update
-                            .Set(f => f.SubscriptionsUsersId, usersIdList)
-                            .Set(f => f.SubscriptionsTotal, usersIdList.Count)
-                        , new UpdateOptions { IsUpsert = true });
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(userLists), userLists, null);
+                return new UserPromocodes();
             }
+
+            return dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
         }
+
+        public async Task<UserPromocodes> RemoveFromSubscriptionsAsync(Guid discountUid, Guid userUid, Guid promocodeId)
+        {
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
+
+            if (dbDiscount.RemoveUserPromocode(userUid, promocodeId))
+            {
+                await UpsertSubscriptions(dbDiscount);
+            }
+
+            return dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
+        }
+        #endregion
+
+        #region private methods
+        private async Task UpsertSubscriptions(DbDiscount dbDiscount) =>
+            await _discounts.UpdateOneAsync(
+                d => d.Id == dbDiscount.Id,
+                Builders<DbDiscount>.Update
+                    .Set(f => f.UsersPromocodes, dbDiscount.UsersPromocodes)
+                    .Set(f => f.SubscriptionsTotal, dbDiscount.GetCountPromocodes())
+                    .Set(f => f.UsersSubscriptionTotal, dbDiscount.GetCountUsersWithPromocodes())
+                , new UpdateOptions { IsUpsert = true });
+
+        private async Task UpsertFavorites(Guid discountUid, List<string> usersIdList) =>
+            await _discounts.UpdateOneAsync(
+                d => d.Id == discountUid.ToString(),
+                Builders<DbDiscount>.Update
+                    .Set(f => f.FavoritesUsersId, usersIdList)
+                , new UpdateOptions { IsUpsert = true });
 
         private static bool AddUserInList(Guid userUid, ref List<string> list)
         {
@@ -365,14 +395,8 @@ namespace Exadel.CrazyPrice.Data.Repositories
             return false;
         }
 
-        private enum UserLists
-        {
-            Favorites,
-            Subscriptions
-        }
-
-        private async Task<DbDiscount> GetDbDiscountByUidAsync(string id) =>
-            (await _discounts.FindSync(Builders<DbDiscount>.Filter.Eq(d => d.Id, id),
+        private async Task<DbDiscount> GetDbDiscountByUidAsync(Guid id) =>
+            (await _discounts.FindSync(Builders<DbDiscount>.Filter.Eq(d => d.Id, id.ToString()),
                 new FindOptions<DbDiscount> { Limit = 1 }).ToListAsync()).GetOne();
 
         private async Task UpsertTags(List<TagTranslations> tagTranslations, Func<TagTranslations, UpdateDefinition<DbTag>> updateDefinition)
@@ -390,5 +414,6 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             public string Language { get; set; }
         }
+        #endregion
     }
 }

@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using Exadel.CrazyPrice.IdentityServer.ViewModels;
 using IdentityServer4.Events;
@@ -13,6 +10,9 @@ using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
@@ -66,7 +66,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             var grants = await _interaction.GetAllUserGrantsAsync();
 
             var list = new List<GrantViewModel>();
-            foreach(var grant in grants)
+            foreach (var grant in grants)
             {
                 var client = await _clients.FindClientByIdAsync(grant.ClientId);
                 if (client != null)

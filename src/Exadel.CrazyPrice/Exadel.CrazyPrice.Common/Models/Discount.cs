@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Common.Models.Request;
+﻿using Exadel.CrazyPrice.Common.Models.Promocode;
+using Exadel.CrazyPrice.Common.Models.Request;
 using System;
 using System.Collections.Generic;
 
@@ -15,9 +16,11 @@ namespace Exadel.CrazyPrice.Common.Models
 
         public int? SubscriptionsTotal { get; set; }
 
+        public int? UsersSubscriptionTotal { get; set; }
+
         public List<string> FavoritesUsersId { get; set; }
 
-        public List<string> SubscriptionsUsersId { get; set; }
+        public List<UserPromocodes> UsersPromocodes { get; set; }
 
         public DateTime? CreateDate { get; set; }
 

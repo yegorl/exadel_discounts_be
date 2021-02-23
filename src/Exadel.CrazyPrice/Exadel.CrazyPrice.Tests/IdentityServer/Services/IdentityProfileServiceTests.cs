@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Interfaces;
-using Exadel.CrazyPrice.IdentityServer.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.Repositories;
 using Exadel.CrazyPrice.IdentityServer.Services;
 using IdentityServer4.Models;
-using IdentityServer4.Services;
+using System.Collections.Generic;
+using System.Security.Claims;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.IdentityServer.Services

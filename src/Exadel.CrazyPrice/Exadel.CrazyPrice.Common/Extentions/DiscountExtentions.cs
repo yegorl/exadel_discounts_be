@@ -1,5 +1,6 @@
 ﻿using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using System;
@@ -45,16 +46,6 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
-        /// Gets true when the DiscountResponse entity or id property is Null or Empty otherwise false.
-        /// </summary>
-        /// <param name="discount"></param>
-        /// <returns></returns>
-        public static bool IsEmpty(this Discount discount)
-        {
-            return discount == null || discount.Id == Guid.Empty;
-        }
-
-        /// <summary>
         /// Gets Discount entity from UpsertDiscountRequest entity.
         /// </summary>
         /// <param name="upsertDiscountRequest"></param>
@@ -73,6 +64,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 Company = upsertDiscountRequest.Company,
                 WorkingDaysOfTheWeek = upsertDiscountRequest.WorkingDaysOfTheWeek,
                 Tags = upsertDiscountRequest.Tags,
+                PictureUrl = upsertDiscountRequest.PictureUrl,
                 Language = upsertDiscountRequest.Language,
                 Translations = upsertDiscountRequest.Translations
             };
@@ -99,6 +91,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
                     Company = discount.Company,
                     WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
                     Tags = discount.Tags,
+                    PictureUrl = discount.PictureUrl,
                     Language = discount.Language,
                     Translations = discount.Translations
                 };
@@ -125,10 +118,13 @@ namespace Exadel.CrazyPrice.Common.Extentions
                     Company = discount.Company,
                     WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
                     Tags = discount.Tags,
+                    PictureUrl = discount.PictureUrl,
 
                     RatingTotal = discount.RatingTotal,
                     ViewsTotal = discount.ViewsTotal,
                     SubscriptionsTotal = discount.SubscriptionsTotal,
+                    UsersSubscriptionTotal = discount.UsersSubscriptionTotal,
+                    UserPromocodes = discount.UsersPromocodes,
 
                     CreateDate = discount.CreateDate,
                     LastChangeDate = discount.LastChangeDate,
@@ -169,5 +165,122 @@ namespace Exadel.CrazyPrice.Common.Extentions
 
             return discount;
         }
+
+        /// <summary>
+        /// Gets the discount filtered with role.
+        /// </summary>
+        /// <param name="discount"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static Discount TransformUsersPromocodes(this Discount discount, IncomingUser user)
+        {
+            if (discount.IsEmpty())
+            {
+                return discount;
+            }
+
+            discount.UsersPromocodes = discount.UsersPromocodes?.Where(i => i.UserId == user.Id).ToList();
+            return discount;
+        }
+
+        /// <summary>
+        /// Gets the discounts filtered with role.
+        /// </summary>
+        /// <param name="discounts"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static List<Discount> TransformUsersPromocodes(this List<Discount> discounts, IncomingUser user) =>
+            discounts.Select(discount => discount.TransformUsersPromocodes(user)).ToList();
+
+        /// <summary>
+        /// Gets true when the DiscountResponse entity or id property is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="discount"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this Discount discount)
+        {
+            return discount == null || discount.Id == Guid.Empty;
+        }
+
+        /// <summary>
+        /// Gets true when the PromocodeOptions entity or all property is Null otherwise false.
+        /// </summary>
+        /// <param name="promocodeOptions"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this PromocodeOptions promocodeOptions) =>
+            promocodeOptions == null ||
+            (promocodeOptions.CountSymbolsPromocode == null
+             && promocodeOptions.TimeLimitAddingInSeconds == null
+             && promocodeOptions.CountActivePromocodePerUser == null
+             && promocodeOptions.DaysDurationPromocode == null);
+
+        /// <summary>
+        /// Gets true when the Address entity or all property is Null otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this Address value) =>
+            value == null ||
+            (value.City.IsNullOrEmpty()
+             && value.Country.IsNullOrEmpty()
+             && value.Street.IsNullOrEmpty()
+             && value.Location == null
+            );
+
+        /// <summary>
+        /// Gets true when the Location entity or all property is Null or 0 otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this Location value) =>
+            value == null ||
+            (value.Longitude == 0
+             && value.Latitude == 0
+            );
+
+        /// <summary>
+        /// Gets true when the Company entity or all property is Null otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this Company value) =>
+            value == null ||
+            (value.Description.IsNullOrEmpty()
+             && value.Mail.IsNullOrEmpty()
+             && value.Name.IsNullOrEmpty()
+             && value.PhoneNumber.IsNullOrEmpty()
+            );
+
+        /// <summary>
+        /// Gets true when the List Translation entity is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this List<Translation> value) =>
+            value == null || value.Count == 0;
+
+        /// <summary>
+        /// Gets true when the Promocode entity or id property is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this Promocode value) =>
+            value == null || value.Id == Guid.Empty;
+
+        /// <summary>
+        /// Gets true when the List UserPromocodes entity is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this List<UserPromocodes> values) =>
+            values == null || values.Count == 0;
+
+        /// <summary>
+        /// Gets true when the UserPromocodes entity or user id property is Null or Empty or Promocodes is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this UserPromocodes value) =>
+            value == null || value.UserId == Guid.Empty || value.Promocodes == null || value.Promocodes.Count == 0;
     }
 }

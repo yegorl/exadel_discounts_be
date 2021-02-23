@@ -1,7 +1,7 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
-using Exadel.CrazyPrice.Common.Models;
 using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.Common.Models.Promocode;
 using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
@@ -68,18 +67,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetDiscount([FromRoute] Guid id, [FromRoute] LanguageOption language)
         {
-            _logger.LogInformation("Guid incoming: {@id}", id);
-            var discount = await _discounts.GetDiscountByUidAsync(id);
+            var incomingUser = ControllerContext.IncomingUser();
+            var discount = (await _discounts.GetDiscountByUidAsync(id)).TransformUsersPromocodes(incomingUser);
 
             if (discount.IsEmpty())
             {
-                _logger.LogWarning("Discount is Empty.");
+                _logger.LogWarning("Discount is Empty. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
                 return NotFound("No discount found.");
             }
 
             var response = discount.Translate(language).ToDiscountResponse();
 
-            _logger.LogInformation("Discount get: {@response}", response);
+            _logger.LogInformation("Discount get: {@response}. Guid: {@id}. User: {@incomingUser}.", response, id, incomingUser);
             return Ok(response);
         }
 
@@ -106,28 +105,65 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
-            searchCriteria.SearchUserId = ControllerContext.GetUserId();
-            var role = ControllerContext.GetRole().ToRoleOption();
+            var incomingUser = ControllerContext.IncomingUser();
+            searchCriteria.IncomingUser = incomingUser;
 
-            if (searchCriteria.IsSortDateCreateForAdministrator(role))
+            if (searchCriteria.IsSortByDateCreate(incomingUser.Role))
             {
-                _logger.LogWarning("Sorting by creation date is available only for administrator role. User: {@role}.", role);
-                return Unauthorized("Sorting by creation date is available only for administrator role.");
+                _logger.LogWarning("Sorting by creation date is available only for administrator role. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", searchCriteria, incomingUser);
+                return Unauthorized();
             }
 
-            _logger.LogInformation("SearchCriteria incoming: {@searchCriteria}", searchCriteria);
-            var discounts = await _discounts.GetDiscountsAsync(searchCriteria);
+            var discounts = (await _discounts.GetDiscountsAsync(searchCriteria)).TransformUsersPromocodes(incomingUser);
 
             if (discounts == null || discounts.Count == 0)
             {
-                _logger.LogWarning("Discounts are Empty.");
+                _logger.LogWarning("Discounts are Empty. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", searchCriteria, incomingUser);
                 return NotFound("No discounts found.");
             }
 
             var discountsResponse = discounts.ToListDiscountResponse(searchCriteria.SearchLanguage);
 
-            _logger.LogInformation("Discounts get: {@discountsResponse}", discountsResponse);
+            _logger.LogInformation("Discounts get: {@discountsResponse}. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", discountsResponse, searchCriteria, incomingUser);
             return Ok(discountsResponse);
+        }
+
+        /// <summary>
+        /// Gets the discount by id.
+        /// </summary>
+        /// <param name="id">The search id of discount.</param>
+        /// <returns></returns>
+        /// <response code="200">Discounts found.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="404">No discount found.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpGet, Route("upsert/get/{id}"),
+         ProducesResponseType(typeof(UpsertDiscountRequest), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Moderator,Administrator")]
+        public async Task<IActionResult> GetUpsertDiscount([FromRoute] Guid id)
+        {
+            var incomingUser = ControllerContext.IncomingUser();
+            var discount = (await _discounts.GetDiscountByUidAsync(id));
+
+            if (discount.IsEmpty())
+            {
+                _logger.LogWarning("Discount is Empty. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
+                return NotFound("No discount found.");
+            }
+
+            var response = discount.ToUpsertDiscountRequest();
+
+            _logger.LogInformation("Discount get: {@response}. Guid: {@id}. User: {@incomingUser}.", response, id, incomingUser);
+            return Ok(response);
         }
 
         /// <summary>
@@ -151,10 +187,8 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> UpsertDiscount([FromBody, CustomizeValidator(RuleSet = "UpsertDiscount")] UpsertDiscountRequest upsertDiscountRequest)
         {
-            var userUid = ControllerContext.GetUserId();
-            var user = (await _users.GetUserByUidAsync(userUid)).ToUserLikeEmployee();
-
-            _logger.LogInformation("UpsertDiscountRequest incoming: {@upsertDiscountRequest}, from User: {@user}", upsertDiscountRequest, user);
+            var incomingUser = ControllerContext.IncomingUser();
+            var user = (await _users.GetUserByUidAsync(incomingUser.Id)).ToUserLikeEmployee();
 
             var discount = upsertDiscountRequest.ToDiscount().AddChangeUserTime(user);
 
@@ -162,13 +196,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (responseDiscount.IsEmpty())
             {
-                _logger.LogWarning("Discount upsert is Empty.");
+                _logger.LogWarning("Discount upsert is Empty. User: {@incomingUser}.", incomingUser);
                 return BadRequest("No discounts were create or update.");
             }
 
             var response = responseDiscount.ToUpsertDiscountRequest();
-            
-            _logger.LogInformation("Discount upsert: {@response}. User id: {@userUid}", response, userUid);
+
+            _logger.LogInformation("Discount upsert: {@response}. User: {@incomingUser}.", response, incomingUser);
             return Ok(response);
         }
 
@@ -193,10 +227,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> DeleteDiscount([FromRoute] Guid id)
         {
-            var userUid = ControllerContext.GetUserId();
-
-            await _discounts.RemoveDiscountByUidAsync(id, userUid);
-            _logger.LogInformation("Discounts deleted: {@id}. User id: {@userUid}", id, userUid);
+            var incomingUser = ControllerContext.IncomingUser();
+            await _discounts.RemoveDiscountByUidAsync(id, incomingUser.Id);
+            _logger.LogInformation("Discounts deleted. Guid: {@id}. User: {@incomingUser}", id, incomingUser);
 
             return Ok();
         }
@@ -222,10 +255,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> DeleteDiscounts([FromBody] List<Guid> ids)
         {
-            var userUid = ControllerContext.GetUserId();
-
-            await _discounts.RemoveDiscountAsync(ids, userUid);
-            _logger.LogInformation("Discounts deleted: {@ids}. User id: {@userUid}", ids, userUid);
+            var incomingUser = ControllerContext.IncomingUser();
+            await _discounts.RemoveDiscountAsync(ids, incomingUser.Id);
+            _logger.LogInformation("Discounts deleted. Guids: {@ids}. User: {@incomingUser}", ids, incomingUser);
 
             return Ok();
         }
@@ -251,10 +283,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> AddToFavorites([FromRoute] Guid id)
         {
-            var userUid = ControllerContext.GetUserId();
-
-            await _discounts.AddToFavoritesAsync(id, userUid);
-            _logger.LogInformation("Added to favorites. Discount id: {@id}. User id: {@userUid}.", id, userUid);
+            var incomingUser = ControllerContext.IncomingUser();
+            await _discounts.AddToFavoritesAsync(id, incomingUser.Id);
+            _logger.LogInformation("Added to discount favorites. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
 
             return Ok();
         }
@@ -280,12 +311,46 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> DeleteFromFavorites([FromRoute] Guid id)
         {
-            var userUid = ControllerContext.GetUserId();
-
-            await _discounts.RemoveFromFavoritesAsync(id, userUid);
-            _logger.LogInformation("Deleted from favorites. Discount id: {@id}. User id: {@userUid}.", id, userUid);
+            var incomingUser = ControllerContext.IncomingUser();
+            await _discounts.RemoveFromFavoritesAsync(id, incomingUser.Id);
+            _logger.LogInformation("Deleted from discount favorites. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Gets the subscriptions of discount.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">Found the subscriptions of discount.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpGet, Route("subscriptions/get/{id}"),
+         ProducesResponseType(typeof(UserPromocodes), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee,Moderator,Administrator")]
+        public async Task<IActionResult> GetSubscriptions([FromRoute] Guid id)
+        {
+            var incomingUser = ControllerContext.IncomingUser();
+            var userPromocodes = await _discounts.GetSubscriptionsAsync(id, incomingUser.Id);
+
+            if (userPromocodes.IsEmpty())
+            {
+                _logger.LogWarning("Not found the subscriptions of discount. User: {@incomingUser}.", incomingUser);
+                return BadRequest("Not found the subscriptions of discount.");
+            }
+
+            _logger.LogInformation("Gets subscriptions. Guid: {@id}. User: {@incomingUser}. Promocodes: {@userPromocodes}.", id, incomingUser, userPromocodes);
+
+            return Ok(userPromocodes);
         }
 
         /// <summary>
@@ -300,7 +365,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPut, Route("subscriptions/add/{id}"),
-         ProducesResponseType(StatusCodes.Status200OK),
+         ProducesResponseType(typeof(UserPromocodes), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
          ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
@@ -309,41 +374,40 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> AddToSubscriptions([FromRoute] Guid id)
         {
-            var userUid = ControllerContext.GetUserId();
+            var incomingUser = ControllerContext.IncomingUser();
+            var userPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
+            _logger.LogInformation("Added to discount subscriptions. Guid: {@id}. User: {@incomingUser}. Promocodes: {@userPromocodes}.", id, incomingUser, userPromocodes);
 
-            await _discounts.AddToSubscriptionsAsync(id, userUid);
-            _logger.LogInformation("Added to subscriptions. Discount id: {@id}. User id: {@userUid}.", id, userUid);
-
-            return Ok();
+            return Ok(userPromocodes);
         }
 
         /// <summary>
-        /// Removes the discount from subscriptions.
+        /// Removes the subscription from discount.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="discountId"></param>
+        /// <param name="promocodeId"></param>
         /// <returns></returns>
-        /// <response code="200">The discount removed from subscriptions.</response>
+        /// <response code="200">The subscription removed from discount.</response>
         /// <response code="400">Bad request.</response>
         /// <response code="401">Unauthorized.</response>
         /// <response code="403">Forbidden.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
-        [HttpPut, Route("subscriptions/delete/{id}"),
-         ProducesResponseType(StatusCodes.Status200OK),
+        [HttpPut, Route("subscriptions/delete/{discountId}/{promocodeId}"),
+         ProducesResponseType(typeof(UserPromocodes), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
          ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Employee,Moderator,Administrator")]
-        public async Task<IActionResult> DeleteFromSubscriptions([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteFromSubscriptions([FromRoute] Guid discountId, [FromRoute] Guid promocodeId)
         {
-            var userUid = ControllerContext.GetUserId();
+            var incomingUser = ControllerContext.IncomingUser();
+            var userPromocodes = await _discounts.RemoveFromSubscriptionsAsync(discountId, incomingUser.Id, promocodeId);
+            _logger.LogInformation("Removed from discount subscriptions. Guid: {@discountId}. User: {@incomingUser}. Promocode id: {@promocodeId}. Promocodes : {@userPromocodes}", discountId, incomingUser, promocodeId, userPromocodes);
 
-            await _discounts.RemoveFromSubscriptionsAsync(id, userUid);
-            _logger.LogInformation("Removed from subscriptions. Discount id: {@id}. User id: {@userUid}.", id, userUid);
-
-            return Ok();
+            return Ok(userPromocodes);
         }
 
         /// <summary>
@@ -368,16 +432,15 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> AddVote([FromRoute] Guid id, [FromRoute, CustomizeValidator(RuleSet = "VoteValue")] int value)
         {
-            var userUid = ControllerContext.GetUserId();
-
-            var result = await _discounts.VoteDiscountAsync(value, id, userUid);
+            var incomingUser = ControllerContext.IncomingUser();
+            var result = await _discounts.VoteDiscountAsync(value, id, incomingUser.Id);
             if (!result)
             {
-                _logger.LogWarning("User already voted. Discount id: {@id}. User id: {@userUid}. Vote: {@value}.", id, userUid, value);
+                _logger.LogWarning("User already voted. Discount Guid: {@id}. User id: {@incomingUser}. Vote: {@value}.", id, incomingUser, value);
                 return Forbid();
             }
 
-            _logger.LogInformation("User voted. Discount id: {@id}. User id: {@userUid}. Vote: {@value}.", id, userUid, value);
+            _logger.LogInformation("User voted. Discount Guid: {@id}. User: {@incomingUser}. Vote: {@value}.", id, incomingUser, value);
 
             return Ok();
         }

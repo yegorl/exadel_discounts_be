@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
 {
-    public class DiscountsStatisticCriteria
+    public class DiscountsStatisticsCriteria
     {
         /// <summary>
         /// Gets or sets a search CreateStartDate.
