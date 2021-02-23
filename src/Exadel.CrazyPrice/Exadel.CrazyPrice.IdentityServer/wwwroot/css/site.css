@@ -19,6 +19,9 @@ body {
 .btn-color {
     background-color: #6200EE;
 }
+.btn-external-color {
+    background-color: #1A6FD1;
+}
 .welcome-page li {
     list-style: none;
     padding: 4px;

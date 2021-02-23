@@ -5,7 +5,10 @@ using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.Data.Models;
 using MongoDB.Driver;
 using System;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Models.Option;
 
 namespace Exadel.CrazyPrice.Data.Repositories
 {
@@ -15,6 +18,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IMongoCollection<DbUser> _users;
+        private readonly IMongoCollection<DbExternalUser> _externalUsers;
 
         /// <summary>
         /// Creates the user repository.
@@ -25,6 +29,19 @@ namespace Exadel.CrazyPrice.Data.Repositories
             var client = new MongoClient(configuration.ConnectionString);
             var db = client.GetDatabase(configuration.Database);
             _users = db.GetCollection<DbUser>("Users");
+            _externalUsers = db.GetCollection<DbExternalUser>("ExternalUsers");
+        }
+
+        public async Task AddUserAsunc(User user)
+        {
+            await _users.InsertOneAsync(user.ToDbUser());
+        }
+
+        public async Task<ExternalUser> GetExternalUserByEmailAsunc(string mail)
+        {
+            var list = await (_externalUsers.FindSync(Builders<DbExternalUser>.Filter.Eq(e => e.Mail, mail)).ToListAsync());
+            
+             return list.GetOne().ToExretnalUser();
         }
 
         /// <summary>

@@ -34,10 +34,23 @@ namespace Exadel.CrazyPrice.IdentityServer.Configuration
 
         public IEnumerable<IdentityResource> IdentityResources =>
             _config.ParseSection("IdentityServer:IdentityResources").Get<List<IdentityResource>>();
+
         public string CertificateName =>
             _config.GetString("Certificate:Name");
 
         public string CertificatePassword =>
             _config.GetString("Certificate:Password");
+
+        public string GoogleClientId =>
+            _config.GetString("IdentityServer:Google:ClientId");
+
+        public string GoogleClientSecret =>
+            _config.GetString("IdentityServer:Google:ClientSecret");
+
+        public string FacebookClientId =>
+            _config.GetString("IdentityServer:Facebook:ClientId");
+
+        public string FacebookClientSecret =>
+            _config.GetString("IdentityServer:Facebook:ClientSecret");
     }
 }

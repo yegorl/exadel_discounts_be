@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.Common.Models.Option;
+﻿using System.Collections.Generic;
+using Exadel.CrazyPrice.Common.Models.Option;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Exadel.CrazyPrice.Data.Models
@@ -32,5 +33,13 @@ namespace Exadel.CrazyPrice.Data.Models
         [BsonIgnoreIfNull]
         [BsonIgnoreIfDefault]
         public RoleOption Roles { get; set; }
+
+        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
+        public UserTypeOption Type { get; set; }
+
+        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
+        public ProviderOptions Provider { get; set; }
     }
 }

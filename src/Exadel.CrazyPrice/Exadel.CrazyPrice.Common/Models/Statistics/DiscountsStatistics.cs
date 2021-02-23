@@ -7,7 +7,7 @@
     {
         public int DiscountsTotal { get; set; }
 
-        public int InFavoritesListTotal { get; set; }
+        public int RatedTotal { get; set; }
 
         public int InSubscriptionsListTotal { get; set; }
 
