@@ -32,5 +32,13 @@ namespace Exadel.CrazyPrice.Data.Models
         [BsonIgnoreIfNull]
         [BsonIgnoreIfDefault]
         public RoleOption Roles { get; set; }
+
+        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
+        public UserTypeOption Type { get; set; }
+
+        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
+        public ProviderOptions Provider { get; set; }
     }
 }

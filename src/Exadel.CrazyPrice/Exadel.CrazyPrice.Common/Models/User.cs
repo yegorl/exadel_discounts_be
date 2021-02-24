@@ -12,5 +12,9 @@ namespace Exadel.CrazyPrice.Common.Models
         public string Salt { get; set; }
 
         public RoleOption Roles { get; set; }
+
+        public UserTypeOption Type { get; set; }
+
+        public ProviderOptions Provider { get; set; }
     }
 }
