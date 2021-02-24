@@ -31,7 +31,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
                 new("name", user.Name),
             };
 
-            var surname = user.Surname.ToStringWithValue(string.Empty, false);
+            var surname = user.Surname.ToStringWithValue("Surname", string.Empty,  false);
             if (!surname.IsNullOrEmpty())
             {
                 claims.Add(new Claim("surname", surname));
