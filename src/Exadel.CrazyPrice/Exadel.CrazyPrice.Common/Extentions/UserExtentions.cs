@@ -37,6 +37,16 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
+        /// Gets true when the ExternalUser entity or mail property is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="externalUser"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this ExternalUser externalUser)
+        {
+            return externalUser == null || string.IsNullOrEmpty(externalUser.Mail);
+        }
+
+        /// <summary>
         /// Gets the User entity from User entity like Employee entity.
         /// </summary>
         /// <param name="user"></param>

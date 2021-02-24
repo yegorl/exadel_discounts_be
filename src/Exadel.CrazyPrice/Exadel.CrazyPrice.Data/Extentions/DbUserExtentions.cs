@@ -21,6 +21,16 @@ namespace Exadel.CrazyPrice.Data.Extentions
         }
 
         /// <summary>
+        /// Gets one User from user list.
+        /// </summary>
+        /// <param name="dbExternalUsers"></param>
+        /// <returns></returns>
+        public static DbExternalUser GetOne(this List<DbExternalUser> dbExternalUsers)
+        {
+            return dbExternalUsers == null || dbExternalUsers.Count == 0 ? new DbExternalUser() : dbExternalUsers[0];
+        }
+
+        /// <summary>
         /// Gets the User entity from DbUser entity.
         /// </summary>
         /// <param name="dbUser"></param>
@@ -38,12 +48,36 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Mail = dbUser.Mail,
                     HashPassword = dbUser.HashPassword,
                     Salt = dbUser.Salt,
-                    Roles = dbUser.Roles
+                    Roles = dbUser.Roles,
+                    Type = dbUser.Type,
+                    Provider = dbUser.Provider
                 };
             }
             catch
             {
                 return new User();
+            }
+        }
+
+        /// <summary>
+        /// Gets the User entity from DbUser entity.
+        /// </summary>
+        /// <param name="dbUser"></param>
+        /// <returns></returns>
+        public static ExternalUser ToExretnalUser(this DbExternalUser dbUser)
+        {
+            try
+            {
+                return new ExternalUser
+                {
+                    Id = new Guid(dbUser.Id),
+                    Mail = dbUser.Mail,
+                    Roles = dbUser.Roles
+                };
+            }
+            catch
+            {
+                return new ExternalUser();
             }
         }
 
@@ -64,7 +98,9 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Mail = user.Mail,
                     Roles = user.Roles,
                     HashPassword = user.HashPassword,
-                    Salt = user.Salt
+                    Salt = user.Salt,
+                    Type = user.Type,
+                    Provider = user.Provider
                 };
     }
 }

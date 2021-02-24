@@ -1,3 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.Common.Models;
+using Exadel.CrazyPrice.Common.Models.Option;
+using Exadel.CrazyPrice.IdentityServer.Extentions;
+using Exadel.CrazyPrice.IdentityServer.Interfaces;
 using Exadel.CrazyPrice.IdentityServer.UI;
 using IdentityModel;
 using IdentityServer4;
@@ -10,11 +21,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.IdentityServer.Controllers
 {
@@ -22,25 +28,26 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
     [AllowAnonymous]
     public class ExternalController : Controller
     {
-        private readonly TestUserStore _users;
-        private readonly IIdentityServerInteractionService _interaction;
-        private readonly IClientStore _clientStore;
         private readonly ILogger<ExternalController> _logger;
+        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
+        private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
 
         public ExternalController(
             IIdentityServerInteractionService interaction,
-            IClientStore clientStore,
+            //IClientStore clientStore,
             IEventService events,
             ILogger<ExternalController> logger,
-            TestUserStore users = null)
+            IUserService userService,
+            IUserRepository userRepository)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users;
+            _userService = userService;
+            _userRepository = userRepository;
 
             _interaction = interaction;
-            _clientStore = clientStore;
             _logger = logger;
             _events = events;
         }
@@ -51,10 +58,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         [HttpGet]
         public IActionResult Challenge(string scheme, string returnUrl)
         {
-            if (string.IsNullOrEmpty(returnUrl))
-            {
-                returnUrl = "~/";
-            }
+            if (string.IsNullOrEmpty(returnUrl)) returnUrl = "~/";
 
             // validate returnUrl - either it is a valid OIDC URL or back to a local page
             if (Url.IsLocalUrl(returnUrl) == false && _interaction.IsValidReturnUrl(returnUrl) == false)
@@ -62,22 +66,22 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 // user might have clicked on a malicious link - should be logged
                 throw new Exception("invalid return URL");
             }
-
+            
             // start challenge and roundtrip the return URL and scheme 
             var props = new AuthenticationProperties
             {
-                RedirectUri = Url.Action(nameof(Callback)),
+                RedirectUri = Url.Action(nameof(Callback)), 
                 Items =
                 {
-                    { "returnUrl", returnUrl },
+                    { "returnUrl", returnUrl }, 
                     { "scheme", scheme },
                 }
             };
 
             return Challenge(props, scheme);
-
+            
         }
-
+        
         /// <summary>
         /// Post processing of external authentication
         /// </summary>
@@ -97,28 +101,33 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 _logger.LogDebug("External claims: {@claims}", externalClaims);
             }
 
+            // retrieve return URL
+            var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
+
             // lookup our user and external provider info
-            var (user, provider, providerUserId, claims) = FindUserFromExternalProvider(result);
-            if (user == null)
+            var (user, provider, providerUserId, claims) = await FindUserFromExternalProvider(result);
+
+            if (user.IsEmpty())
             {
-                // this might be where you might initiate a custom workflow for user registration
-                // in this sample we don't show how that would be done, as our sample implementation
-                // simply auto-provisions new external user
-                user = AutoProvisionUser(provider, providerUserId, claims);
+                if (_userService.TryCreateUser(claims, provider, out user))
+                {
+                    await _userRepository.AddUserAsunc(user);
+                }
+                else
+                {
+                    return Redirect(returnUrl);
+                }
             }
 
-            // this allows us to collect any additional claims or properties
-            // for the specific protocols used and store them in the local auth cookie.
-            // this is typically used to store data needed for signout from those protocols.
             var additionalLocalClaims = new List<Claim>();
             var localSignInProps = new AuthenticationProperties();
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
-
+            
             // issue authentication cookie for user
-            var isuser = new IdentityServerUser(user.SubjectId)
+            var isuser = new IdentityServerUser(user.Id.ToString())
             {
-                DisplayName = user.Username,
-                IdentityProvider = provider,
+                DisplayName = user.Name,
+                IdentityProvider = provider.ToString(),
                 AdditionalClaims = additionalLocalClaims
             };
 
@@ -127,12 +136,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             // delete temporary cookie used during external authentication
             await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
 
-            // retrieve return URL
-            var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
-
             // check if external login is in the context of an OIDC request
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.SubjectId, user.Username, true, context?.Client.ClientId));
+            await _events.RaiseAsync(new UserLoginSuccessEvent(provider.ToString(), providerUserId, user.Id.ToString(), user.Name, true, context?.Client.ClientId));
 
             if (context != null)
             {
@@ -147,7 +153,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return Redirect(returnUrl);
         }
 
-        private (TestUser user, string provider, string providerUserId, IEnumerable<Claim> claims) FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderOptions provider, string providerUserId, List<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 
@@ -162,18 +168,20 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             var claims = externalUser.Claims.ToList();
             claims.Remove(userIdClaim);
 
-            var provider = result.Properties.Items["scheme"];
+            
+            var provider = Enum.Parse<ProviderOptions>(result.Properties.Items["scheme"]);
             var providerUserId = userIdClaim.Value;
 
+
             // find external user
-            var user = _users.FindByExternalProvider(provider, providerUserId);
+            var user = await _userRepository.GetUserByEmailAsync(claims.GetClaimValue(ClaimTypes.Email));
 
             return (user, provider, providerUserId, claims);
         }
 
-        private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
+        private User AutoProvisionUser(ProviderOptions provider, string providerUserId, IEnumerable<Claim> claims)
         {
-            var user = _users.AutoProvisionUser(provider, providerUserId, claims.ToList());
+            var user = new User(); //_users.AutoProvisionUser(provider, providerUserId, claims.ToList());
             return user;
         }
 
