@@ -127,8 +127,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
             return queryParams;
         }
 
-        public static bool IsSortByDateCreate(this SearchCriteria searchCriteria, RoleOption role) =>
-            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role == RoleOption.Administrator;
+        public static bool IsNotAdministratorSortByDateCreate(this SearchCriteria searchCriteria, RoleOption role) =>
+            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role != RoleOption.Administrator;
 
         private static string GetDateCondition(this SearchCriteria searchCriteria)
         {
@@ -164,13 +164,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var value = searchCriteria.GetAmountOfDiscountMin();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"amountOfDiscount\" : {$gte : \"" + value + "\"} }");
+                builder.Append(", {\"amountOfDiscount\" : {$lte : " + value + "} }");
             }
 
             value = searchCriteria.GetAmountOfDiscountMax();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"amountOfDiscount\" : {$lte : \"" + value + "\"} }");
+                builder.Append(", {\"amountOfDiscount\" : {$gte : " + value + "} }");
             }
 
             return builder.ToString();
@@ -196,13 +196,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var value = searchCriteria.GetRatingTotalMin();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"ratingTotal\" : {$gte : \"" + value + "\"} }");
+                builder.Append(", {\"ratingTotal\" : {$lte : " + value + "} }");
             }
 
             value = searchCriteria.GetRatingTotalMax();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"ratingTotal\" : {$lte : \"" + value + "\"} }");
+                builder.Append(", {\"ratingTotal\" : {$gte : " + value + "} }");
             }
 
             return builder.ToString();
