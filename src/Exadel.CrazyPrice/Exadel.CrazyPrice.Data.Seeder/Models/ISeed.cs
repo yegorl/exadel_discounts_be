@@ -8,8 +8,6 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
 
         Task<string> StatusTotalAsync();
 
-        Task CreateIndexesAsync();
-
         Task DeleteIfSetAsync();
 
         Task SeedAsync();
