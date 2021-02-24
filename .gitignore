@@ -354,3 +354,4 @@ MigrationBackup/
 *.sh text eol=lf
 *.cs text eol=crlf
 *.csproj text eol=crlf
+/volumes/database/data
