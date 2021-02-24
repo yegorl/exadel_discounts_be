@@ -153,7 +153,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return Redirect(returnUrl);
         }
 
-        private async Task<(User user, ProviderOptions provider, string providerUserId, List<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderOption provider, string providerUserId, List<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 
@@ -169,7 +169,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             claims.Remove(userIdClaim);
 
             
-            var provider = Enum.Parse<ProviderOptions>(result.Properties.Items["scheme"]);
+            var provider = Enum.Parse<ProviderOption>(result.Properties.Items["scheme"]);
             var providerUserId = userIdClaim.Value;
 
 
@@ -179,7 +179,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return (user, provider, providerUserId, claims);
         }
 
-        private User AutoProvisionUser(ProviderOptions provider, string providerUserId, IEnumerable<Claim> claims)
+        private User AutoProvisionUser(ProviderOption provider, string providerUserId, IEnumerable<Claim> claims)
         {
             var user = new User(); //_users.AutoProvisionUser(provider, providerUserId, claims.ToList());
             return user;

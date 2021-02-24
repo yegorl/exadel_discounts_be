@@ -139,7 +139,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                 Salt = "IZmh6o3UgDIHs5rXD3L5hD2momUnLQdyJUrpQNW/",
                 Roles = RoleOption.Employee,
                 Type = UserTypeOption.Internal,
-                Provider = ProviderOptions.None
+                Provider = ProviderOption.None
 
             },
             // password: 2222
@@ -155,7 +155,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                 Salt = "sOVqvk4NWiJ4gbTeVJ19M3V2gG5jOdootBQbTv6v",
                 Roles = RoleOption.Moderator,
                 Type = UserTypeOption.Internal,
-                Provider = ProviderOptions.None
+                Provider = ProviderOption.None
             },
             // password: 3333
             new()
@@ -170,7 +170,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                 Salt = "wQFhWPjNcYukdImNixjiATqeQLemqaJA55jQkfgg",
                 Roles = RoleOption.Administrator,
                 Type = UserTypeOption.Internal,
-                Provider = ProviderOptions.None
+                Provider = ProviderOption.None
             }
         };
 

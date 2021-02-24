@@ -27,7 +27,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             user.Type is UserTypeOption.Internal && 
             _cryptographicService.ComparePasswordHash(password, user.HashPassword, user.Salt);
 
-        public bool TryCreateUser(List<Claim> claims, ProviderOptions provider, out User user)
+        public bool TryCreateUser(List<Claim> claims, ProviderOption provider, out User user)
         {
             var name = claims.GetClaimValue(ClaimTypes.GivenName);
             var surname = claims.GetClaimValue(ClaimTypes.Surname);

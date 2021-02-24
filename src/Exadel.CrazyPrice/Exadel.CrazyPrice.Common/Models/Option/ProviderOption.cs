@@ -1,6 +1,6 @@
 namespace Exadel.CrazyPrice.Common.Models.Option
 {
-    public enum ProviderOptions
+    public enum ProviderOption
     {
         None = 0,
         Google = 1,

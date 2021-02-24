@@ -15,6 +15,6 @@ namespace Exadel.CrazyPrice.Common.Models
 
         public UserTypeOption Type { get; set; }
 
-        public ProviderOptions Provider { get; set; }
+        public ProviderOption Provider { get; set; }
     }
 }
