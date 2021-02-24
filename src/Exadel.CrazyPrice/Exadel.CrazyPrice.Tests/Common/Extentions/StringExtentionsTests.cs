@@ -224,7 +224,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [InlineData("", "default", false, "default")]
         public void ToStringWithValueReturnsValueTest(string value, string defaultValue, bool raiseException, string expectedResult)
         {
-            value.ToStringWithValue(defaultValue, raiseException).Should().Be(expectedResult);
+            value.ToStringWithValue(value, defaultValue, raiseException).Should().Be(expectedResult);
         }
 
         [Theory]
@@ -232,7 +232,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         [InlineData(null, "default", true)]
         public void ToStringWithValueRaiseExceptionsTest(string value, string defaultValue, bool raiseException)
         {
-            Action action = () => value.ToStringWithValue(defaultValue, raiseException);
+            Action action = () => value.ToStringWithValue(value, defaultValue, raiseException);
             action.Should().Throw<ArgumentException>();
         }
 
