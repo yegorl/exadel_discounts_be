@@ -128,7 +128,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
         }
 
         public static bool IsSortByDateCreate(this SearchCriteria searchCriteria, RoleOption role) =>
-            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role == RoleOption.Administrator;
+            searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role != RoleOption.Administrator;
 
         private static string GetDateCondition(this SearchCriteria searchCriteria)
         {
