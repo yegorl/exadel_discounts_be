@@ -5,6 +5,7 @@ namespace Exadel.CrazyPrice.Common.Models.Option
     /// </summary>
     public enum UserTypeOption
     {
+        Unknown = 0,
         Internal = 1,
         External = 2
     }

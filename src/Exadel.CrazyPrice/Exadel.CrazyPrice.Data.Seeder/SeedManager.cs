@@ -33,7 +33,10 @@ namespace Exadel.CrazyPrice.Data.Seeder
                 provider = new FileProvider(_configuration);
             }
 
-            stateExecutionConfiguration.ExecutionActionsAfterAbort = provider.ActionWhenAborted;
+            if (provider.ActionWhenAborted != null)
+            {
+                stateExecutionConfiguration.ExecutionActionsAfterAbort = provider.ActionWhenAborted;
+            }
 
             Console.WriteLine($"Seed start: {DateTime.Now}");
 

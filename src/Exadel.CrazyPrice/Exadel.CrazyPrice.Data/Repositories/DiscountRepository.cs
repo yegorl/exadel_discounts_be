@@ -187,31 +187,51 @@ namespace Exadel.CrazyPrice.Data.Repositories
                 return;
             }
 
-            var tagTranslations = dbDiscount.Tags.Select(dbDiscountTag =>
-                new TagTranslations { TagName = dbDiscountTag, Language = dbDiscount.Language }).ToList();
+            if (!dbDiscount.Tags.IsNullOrEmpty())
+            {
+                var tagTranslations = dbDiscount.Tags.Select(dbDiscountTag =>
+                                new TagTranslations { TagName = dbDiscountTag, Language = dbDiscount.Language }).ToList();
 
-            var tagOtherTranslations =
-                (from dbDiscountTranslation in dbDiscount.Translations
-                 let tags = dbDiscountTranslation.Tags
-                 from tag in tags
-                 select new TagTranslations { TagName = tag, Language = dbDiscountTranslation.Language }).ToList();
+                await UpsertTags(tagTranslations,
+                                tag => Builders<DbTag>.Update
+                                    .Set(f => f.Name, tag.TagName)
+                                    .Set(f => f.Language, tag.Language));
+            }
 
-            await UpsertTags(tagTranslations,
-                tag => Builders<DbTag>.Update
-                    .Set(f => f.Name, tag.TagName)
-                    .Set(f => f.Language, tag.Language));
-
-            await UpsertTags(tagOtherTranslations,
-                tag => Builders<DbTag>.Update
-                    .Set(f => f.Name, tag.TagName)
-                    .Set(f => f.Translations, new List<DbTag>
+            if (!dbDiscount.Translations.IsEmpty())
+            {
+                var tagOtherTranslations = new List<TagTranslations>();
+                foreach (var dbDiscountTranslation in dbDiscount.Translations)
+                {
+                    var tags = dbDiscountTranslation.Tags;
+                    if (tags.IsNullOrEmpty())
                     {
+                        continue;
+                    }
+
+                    foreach (var tag in tags)
+                    {
+                        tagOtherTranslations.Add(new TagTranslations { TagName = tag, Language = dbDiscountTranslation.Language });
+                    }
+                }
+
+                if (tagOtherTranslations.Count == 0)
+                {
+                    return;
+                }
+
+                await UpsertTags(tagOtherTranslations,
+                    tag => Builders<DbTag>.Update
+                        .Set(f => f.Name, tag.TagName)
+                        .Set(f => f.Translations, new List<DbTag>
+                        {
                         new()
                         {
                             Name = tag.TagName,
                             Language = tag.Language
                         }
-                    }));
+                        }));
+            }
         }
 
         /// <summary>

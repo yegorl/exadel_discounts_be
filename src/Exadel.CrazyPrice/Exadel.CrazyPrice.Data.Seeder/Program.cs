@@ -67,6 +67,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
 
             Console.WriteLine("Execution aborted. Please wait.");
             
+            if (_stateExecutionConfiguration.ExecutionActionsAfterAbort == null) return;
             foreach (var action in _stateExecutionConfiguration.ExecutionActionsAfterAbort.GetInvocationList())
             {
                 action.DynamicInvoke();
