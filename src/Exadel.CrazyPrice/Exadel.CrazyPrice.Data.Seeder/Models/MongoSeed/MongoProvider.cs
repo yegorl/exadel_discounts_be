@@ -16,7 +16,8 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.MongoSeed
             {
                 new MongoDiscountSeed(configuration),
                 new MongoTagSeed(configuration),
-                new MongoUserSeed(configuration)
+                new MongoUserSeed(configuration),
+                new MongoExternalUserSeed(configuration)
             };
         }
 

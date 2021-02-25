@@ -32,90 +32,91 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
         public static List<GeoCountry> GeoCountries =>
             new List<GeoCountry>()
             {
-                new ()
+                new()
                 {
                     CountryRu = "Беларусь",
                     CityRu = "Минск",
                     CountryEn = "Belarus",
                     CityEn = "Minsk"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Беларусь",
                     CityRu = "Гродно",
                     CountryEn = "Belarus",
                     CityEn = "Grodno"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Беларусь",
                     CityRu = "Гомель",
                     CountryEn = "Belarus",
                     CityEn = "Gomel"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Беларусь",
                     CityRu = "Витебск",
                     CountryEn = "Belarus",
                     CityEn = "Vitebsk"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Польша",
                     CityRu = "Беласток",
                     CountryEn = "Poland",
                     CityEn = "Bialystok"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Польша",
                     CityRu = "Варшава",
                     CountryEn = "Poland",
                     CityEn = "Warsaw"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Литва",
                     CityRu = "Вильнюс",
                     CountryEn = "Lithuania",
                     CityEn = "Vilnius"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Литва",
                     CityRu = "Клайпеда",
                     CountryEn = "Lithuania",
                     CityEn = "Klaipeda"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Украина",
                     CityRu = "Львов",
                     CountryEn = "Ukraine",
                     CityEn = "Lviv"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Украина",
                     CityRu = "Одесса",
                     CountryEn = "Ukraine",
                     CityEn = "Odessa"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Украина",
                     CityRu = "Харьков",
                     CountryEn = "Ukraine",
                     CityEn = "Kharkiv"
-                },new ()
+                },
+                new()
                 {
                     CountryRu = "Украина",
                     CityRu = "Винница",
                     CountryEn = "Ukraine",
                     CityEn = "Vinnitsa"
                 },
-                new ()
+                new()
                 {
                     CountryRu = "Узбекистан",
                     CityRu = "Ташкент",
@@ -123,6 +124,16 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     CityEn = "Tashkent"
                 },
             };
+
+        public static List<DbExternalUser> ExternalUsers => new List<DbExternalUser>
+        {
+            new()
+            {
+                Id = "5eee1b1e-3c25-4f43-aa31-ca4e571a2a7a",
+                Mail = "kaspianturbo@gmail.com",
+                Roles = RoleOption.Moderator
+            }
+        };
 
         public static List<DbUser> Users => new List<DbUser>
         {
@@ -139,7 +150,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                 Salt = "IZmh6o3UgDIHs5rXD3L5hD2momUnLQdyJUrpQNW/",
                 Roles = RoleOption.Employee,
                 Type = UserTypeOption.Internal,
-                Provider = ProviderOption.None
+                Provider = ProviderOption.Own
 
             },
             // password: 2222
@@ -155,7 +166,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                 Salt = "sOVqvk4NWiJ4gbTeVJ19M3V2gG5jOdootBQbTv6v",
                 Roles = RoleOption.Moderator,
                 Type = UserTypeOption.Internal,
-                Provider = ProviderOption.None
+                Provider = ProviderOption.Own
             },
             // password: 3333
             new()
@@ -170,7 +181,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                 Salt = "wQFhWPjNcYukdImNixjiATqeQLemqaJA55jQkfgg",
                 Roles = RoleOption.Administrator,
                 Type = UserTypeOption.Internal,
-                Provider = ProviderOption.None
+                Provider = ProviderOption.Own
             }
         };
 

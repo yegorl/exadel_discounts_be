@@ -19,7 +19,8 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.FileSeed
             {
                 new FileDiscountSeed(configuration),
                 new FileTagSeed(configuration),
-                new FileUserSeed(configuration)
+                new FileUserSeed(configuration),
+                new FileExternalUserSeed(configuration)
             };
             ActionWhenAborted += () =>
             {
