@@ -60,9 +60,9 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.FileSeed
 
                 ChangeSymbol(FullName);
             }
-            catch (TransactionAbortedException ex)
+            catch (Exception ex)
             {
-                throw new TransactionAbortedException($"TransactionAbortedException Message: {ex.Message}");
+                throw new Exception($"File write error: {ex.Message}");
             }
             await TimerDisposeAsync();
         }
