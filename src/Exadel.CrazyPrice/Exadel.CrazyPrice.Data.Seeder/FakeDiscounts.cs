@@ -53,23 +53,20 @@ namespace Exadel.CrazyPrice.Data.Seeder
                      .RuleFor(x => x.Mail, f => f.Person.Email)
                  ;
 
-            var companyTranslationGenerator = new Faker<DbCompany>("en")
+            var companyTranslationGenerator = new Faker<DbTranslationCompany>("en")
                     .RuleFor(x => x.Name, f => f.Company.CompanyName())
                     .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
-                    .RuleFor(x => x.PhoneNumber, f => null)
-                    .RuleFor(x => x.Mail, f => null)
                 ;
 
             var streetEn = new Faker<ValueString>("en")
                 .RuleFor(x => x.Value, x => x.Address.StreetAddress())
                 .Generate();
 
-            var addressEn = new DbAddress()
+            var addressEn = new DbTranslationAddress()
             {
                 Country = geo.CountryEn,
                 City = geo.CityEn,
-                Street = streetEn.Value,
-                Location = dbLocation
+                Street = streetEn.Value
             }
                 ;
 
