@@ -63,7 +63,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
             ConnectionString = configuration.ToStringWithValue("Database:ConnectionStrings:DefaultConnection")
                 .OverLoadString(seederConfiguration.ConnectionString, args, "-s", "--connectionStrings");
             Database = configuration.ToStringWithValue("Database:ConnectionStrings:Name")
-                .OverLoadString(seederConfiguration.Database, args, "-d", "--database");
+                .OverLoadString(seederConfiguration.Database, args, "-m", "--mongoName");
             Path = configuration.ToStringWithValue("Files:Path", "", false)
                 .OverLoadString(seederConfiguration.Path, args, "-p", "--path");
 
