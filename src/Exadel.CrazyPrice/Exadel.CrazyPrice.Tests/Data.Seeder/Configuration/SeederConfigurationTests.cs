@@ -17,7 +17,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Seeder.Configuration
             {
                 c.ConnectionString = "str";
                 c.CreateTags = false;
-                c.ClearDatabaseBeforeSeed = false;
+                c.ClearDataBeforeSeed = false;
                 c.CreateUsers = false;
                 c.Database = "database";
                 c.DefaultCountSeed = 1000;
@@ -28,16 +28,18 @@ namespace Exadel.CrazyPrice.Tests.Data.Seeder.Configuration
                 b.AddInMemoryCollection(new KeyValuePair<string, string>[]
                 {
                     new("Database:ConnectionStrings:DefaultConnection", "DefaultConnection"),
-                    new("Database:ConnectionStrings:Database","Database"),
+                    new("Database:ConnectionStrings:Name","Database"),
 
-                    new("Database:HideDetailsInfo","true"),
                     new("Database:RewriteIndexes","true"),
-                    new("Database:ClearDatabaseBeforeSeed","true"),
-                    new("Database:CreateTags","true"),
-                    new("Database:CreateUsers","true"),
+                    new("Files:Path","true"),
+                    new("HideDetailsInfo","true"),
+                    new("ClearDataBeforeSeed","true"),
+                    new("CreateTags","true"),
+                    new("CreateUsers","true"),
+                    new("Destination","fs"),
 
-                    new("Database:TimeReportSec","1"),
-                    new("Database:DefaultCountSeed","5000"),
+                    new("TimeReportSec","1"),
+                    new("DefaultCountSeed","5000"),
                 });
             });
             seederConfiguration.ConnectionString.Should().BeEquivalentTo("DefaultConnection");
@@ -61,7 +63,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Seeder.Configuration
             {
                 c.ConnectionString = "str";
                 c.CreateTags = false;
-                c.ClearDatabaseBeforeSeed = false;
+                c.ClearDataBeforeSeed = false;
                 c.CreateUsers = false;
                 c.Database = "database";
                 c.DefaultCountSeed = 1000;

@@ -1,4 +1,4 @@
-﻿namespace Exadel.CrazyPrice.Common.Models.Option
+namespace Exadel.CrazyPrice.Common.Models.Option
 {
     /// <summary>
     /// Represents user roles.

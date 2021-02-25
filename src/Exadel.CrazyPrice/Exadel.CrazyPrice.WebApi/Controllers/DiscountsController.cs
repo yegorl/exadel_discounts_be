@@ -108,7 +108,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             var incomingUser = ControllerContext.IncomingUser();
             searchCriteria.IncomingUser = incomingUser;
 
-            if (searchCriteria.IsSortByDateCreate(incomingUser.Role))
+            if (searchCriteria.IsNotAdministratorSortByDateCreate(incomingUser.Role))
             {
                 _logger.LogWarning("Sorting by creation date is available only for administrator role. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", searchCriteria, incomingUser);
                 return Unauthorized();

@@ -7,6 +7,8 @@ namespace Exadel.CrazyPrice.Data.Seeder
 {
     public partial class Program
     {
+        private StateExecutionConfiguration _stateExecutionConfiguration;
+
         private static void Main(string[] args) => CommandLineApplication.Execute<Program>(args);
 
         private void OnExecute()
@@ -21,12 +23,14 @@ namespace Exadel.CrazyPrice.Data.Seeder
 
                     c.ConnectionString = ConnectionString;
                     c.Database = Database;
-                    c.ClearDatabaseBeforeSeed = ClearDatabaseBeforeSeed;
+                    c.ClearDataBeforeSeed = ClearDataBeforeSeed;
                     c.RewriteIndexes = RewriteIndexes;
                     c.DefaultCountSeed = DefaultCountSeed;
                     c.TimeReportSec = TimeReportSec;
                     c.CreateTags = CreateTags;
                     c.CreateUsers = CreateUsers;
+                    c.Path = Path;
+                    c.Destination = Destination;
                 });
             }
             catch (Exception e)
@@ -38,21 +42,35 @@ namespace Exadel.CrazyPrice.Data.Seeder
             if (!seederConfiguration.HideDetailsInfo)
             {
                 Console.WriteLine(Environment.NewLine);
-                DetailsInfoMongoDbConfiguration(seederConfiguration);
+                DetailsInfoConfiguration(seederConfiguration);
             }
 
             Console.WriteLine(new string('*', 30));
 
+            _stateExecutionConfiguration = new StateExecutionConfiguration();
             Task.Run(async () =>
             {
                 var seeder = new SeedManager(seederConfiguration);
-                await seeder.Seed();
+                await seeder.Seed(_stateExecutionConfiguration);
+                _stateExecutionConfiguration.Success();
             });
 
             Console.WriteLine("Press any key to Abort.");
             Console.WriteLine(new string('*', 30));
 
             Console.ReadKey();
+
+            if (!_stateExecutionConfiguration.Aborted)
+            {
+                return;
+            }
+
+            Console.WriteLine("Execution aborted. Please wait.");
+            
+            foreach (var action in _stateExecutionConfiguration.ExecutionActionsAfterAbort.GetInvocationList())
+            {
+                action.DynamicInvoke();
+            }
         }
     }
 }

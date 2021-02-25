@@ -40,6 +40,6 @@ namespace Exadel.CrazyPrice.Data.Models
 
         [BsonIgnoreIfNull]
         [BsonIgnoreIfDefault]
-        public ProviderOptions Provider { get; set; }
+        public ProviderOption Provider { get; set; }
     }
 }
