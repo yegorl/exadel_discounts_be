@@ -36,8 +36,14 @@ namespace Exadel.CrazyPrice.Common.Extentions
 
             discount.Name = translation.Name;
             discount.Description = translation.Description;
-            discount.Address = translation.Address.Clone(discount);
-            discount.Company = translation.Company.Clone(discount);
+
+            discount.Address.Country = translation.Address.Country;
+            discount.Address.City = translation.Address.City;
+            discount.Address.Street = translation.Address.Street;
+
+            discount.Company.Name = translation.Company.Name;
+            discount.Company.Description = translation.Company.Description;
+
             discount.Tags = translation.Tags;
 
             discount.Translations = null;
@@ -77,24 +83,30 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static UpsertDiscountRequest ToUpsertDiscountRequest(this Discount discount)
         {
-            return discount.IsEmpty()
-                ? null
-                : new UpsertDiscountRequest
-                {
-                    Id = discount.Id,
-                    Name = discount.Name,
-                    Description = discount.Description,
-                    AmountOfDiscount = discount.AmountOfDiscount,
-                    StartDate = discount.StartDate,
-                    EndDate = discount.EndDate,
-                    Address = discount.Address,
-                    Company = discount.Company,
-                    WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
-                    Tags = discount.Tags,
-                    PictureUrl = discount.PictureUrl,
-                    Language = discount.Language,
-                    Translations = discount.Translations
-                };
+            if (discount.IsEmpty())
+            {
+                return null;
+            }
+
+            var upsert = new UpsertDiscountRequest
+            {
+                Id = discount.Id,
+                Name = discount.Name,
+                Description = discount.Description,
+                AmountOfDiscount = discount.AmountOfDiscount,
+                StartDate = discount.StartDate,
+                EndDate = discount.EndDate,
+                Address = discount.Address,
+                Company = discount.Company,
+                WorkingDaysOfTheWeek = discount.WorkingDaysOfTheWeek,
+                Tags = discount.Tags,
+                PictureUrl = discount.PictureUrl,
+                Language = discount.Language,
+                Translations = discount.Translations,
+                PromocodeOptions = discount.PromocodeOptions
+            };
+
+            return upsert;
         }
 
         /// <summary>

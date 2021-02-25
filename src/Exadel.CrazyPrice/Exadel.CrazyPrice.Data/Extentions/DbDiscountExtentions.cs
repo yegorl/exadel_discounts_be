@@ -131,6 +131,19 @@ namespace Exadel.CrazyPrice.Data.Extentions
             };
 
         /// <summary>
+        /// Gets TranslationAddress entity from DbAddress entity.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static TranslationAddress ToTranslationAddress(this DbTranslationAddress value) =>
+            value == null ? null : new TranslationAddress
+            {
+                Country = value.Country,
+                City = value.City,
+                Street = value.Street
+            };
+
+        /// <summary>
         /// Gets DbAddress entity from Address entity.
         /// </summary>
         /// <param name="value"></param>
@@ -142,6 +155,19 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 City = value.City,
                 Street = value.Street,
                 Location = value.Location.ToDbLocation()
+            };
+
+        /// <summary>
+        /// Gets DbTranslationAddress entity from Address entity.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DbTranslationAddress ToDbTranslationAddress(this TranslationAddress value) =>
+            value == null ? null : new DbTranslationAddress
+            {
+                Country = value.Country,
+                City = value.City,
+                Street = value.Street
             };
 
         /// <summary>
@@ -183,6 +209,18 @@ namespace Exadel.CrazyPrice.Data.Extentions
             };
 
         /// <summary>
+        /// Gets Translation Company entity from DbCompany entity.
+        /// </summary>
+        /// <param name="dbCompany"></param>
+        /// <returns></returns>
+        public static TranslationCompany ToTranslationCompany(this DbTranslationCompany dbCompany) =>
+            dbCompany == null ? null : new TranslationCompany
+            {
+                Name = dbCompany.Name,
+                Description = dbCompany.Description
+            };
+
+        /// <summary>
         /// Gets DbCompany entity from Company entity.
         /// </summary>
         /// <param name="company"></param>
@@ -197,6 +235,18 @@ namespace Exadel.CrazyPrice.Data.Extentions
             };
 
         /// <summary>
+        /// Gets DbTranslationCompany entity from Company entity.
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
+        public static DbTranslationCompany ToDbTranslationCompany(this TranslationCompany company) =>
+            company == null ? null : new DbTranslationCompany
+            {
+                Name = company.Name,
+                Description = company.Description
+            };
+
+        /// <summary>
         /// Gets List Translation from List DbTranslation.
         /// </summary>
         /// <param name="values"></param>
@@ -208,8 +258,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 Name = dbTranslation.Name,
                 Tags = dbTranslation.Tags,
                 Description = dbTranslation.Description,
-                Address = dbTranslation.Address.ToAddress(),
-                Company = dbTranslation.Company.ToCompany()
+                Address = dbTranslation.Address.ToTranslationAddress(),
+                Company = dbTranslation.Company.ToTranslationCompany()
             })
                 .ToList();
 
@@ -225,8 +275,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 Name = dbTranslation.Name,
                 Tags = dbTranslation.Tags,
                 Description = dbTranslation.Description,
-                Address = dbTranslation.Address.ToDbAddress(),
-                Company = dbTranslation.Company.ToDbCompany()
+                Address = dbTranslation.Address.ToDbTranslationAddress(),
+                Company = dbTranslation.Company.ToDbTranslationCompany()
             })
                 .ToList();
 

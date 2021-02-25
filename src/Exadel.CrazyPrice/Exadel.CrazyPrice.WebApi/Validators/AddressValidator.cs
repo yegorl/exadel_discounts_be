@@ -33,7 +33,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |
-                                     CharOptions.Symbol, " ");
+                                     CharOptions.Symbol, " ,.-");
 
                 RuleFor(x => x.Location)
                     .Location();
