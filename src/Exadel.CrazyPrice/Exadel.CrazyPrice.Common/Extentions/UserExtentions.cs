@@ -41,7 +41,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// </summary>
         /// <param name="externalUser"></param>
         /// <returns></returns>
-        public static bool IsEmpty(this ExternalUser externalUser)
+        public static bool IsEmpty(this AllowedExternalUser externalUser)
         {
             return externalUser == null || string.IsNullOrEmpty(externalUser.Mail);
         }

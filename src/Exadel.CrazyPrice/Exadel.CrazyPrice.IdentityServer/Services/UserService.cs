@@ -9,6 +9,7 @@ using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models.Option;
 using Exadel.CrazyPrice.IdentityServer.Extentions;
+using IdentityModel;
 
 namespace Exadel.CrazyPrice.IdentityServer.Services
 {
@@ -23,19 +24,19 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             _userRepository = userRepository;
         }
 
-        public bool ValidateCredentials(User user, string password) => 
-            user.Type is UserTypeOption.Internal && 
+        public bool ValidateCredentials(User user, string password) =>
             _cryptographicService.ComparePasswordHash(password, user.HashPassword, user.Salt);
 
         public bool TryCreateUser(List<Claim> claims, ProviderOption provider, out User user)
         {
+            var id = claims.GetClaimValue(ClaimTypes.NameIdentifier) ?? claims.GetClaimValue(JwtClaimTypes.Subject);
             var name = claims.GetClaimValue(ClaimTypes.GivenName);
             var surname = claims.GetClaimValue(ClaimTypes.Surname);
             var mail = claims.GetClaimValue(ClaimTypes.Email);
 
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname) && !string.IsNullOrEmpty(mail))
             {
-                var externalUser = _userRepository.GetExternalUserByEmailAsunc(mail).GetAwaiter().GetResult();
+                var externalUser = _userRepository.GetExternalUserByEmailAsync(mail).GetAwaiter().GetResult();
                 if (!externalUser.IsEmpty())
                 {
                     user = new User
@@ -45,8 +46,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
                         Surname = surname,
                         Mail = mail,
                         Roles = externalUser.Roles,
-                        Type = UserTypeOption.External,
-                        Provider = provider,
+                        ExternalUsers = new List<ExternalUser>
+                        {
+                            new ExternalUser
+                            {
+                                Identifier = id,
+                                Provider = provider
+                            }
+                        },
                         HashPassword = "",
                         Salt = "",
                         PhoneNumber = ""

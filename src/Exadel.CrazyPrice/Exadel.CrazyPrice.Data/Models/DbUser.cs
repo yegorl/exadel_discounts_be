@@ -36,10 +36,6 @@ namespace Exadel.CrazyPrice.Data.Models
 
         [BsonIgnoreIfNull]
         [BsonIgnoreIfDefault]
-        public UserTypeOption Type { get; set; }
-
-        [BsonIgnoreIfNull]
-        [BsonIgnoreIfDefault]
-        public ProviderOption Provider { get; set; }
+        public List<DbExternalUser> ExternalUsers { get; set; }
     }
 }

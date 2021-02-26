@@ -25,9 +25,9 @@ namespace Exadel.CrazyPrice.Data.Extentions
         /// </summary>
         /// <param name="dbExternalUsers"></param>
         /// <returns></returns>
-        public static DbExternalUser GetOne(this List<DbExternalUser> dbExternalUsers)
+        public static DbAllowedExternalUser GetOne(this List<DbAllowedExternalUser> dbExternalUsers)
         {
-            return dbExternalUsers == null || dbExternalUsers.Count == 0 ? new DbExternalUser() : dbExternalUsers[0];
+            return dbExternalUsers == null || dbExternalUsers.Count == 0 ? new DbAllowedExternalUser() : dbExternalUsers[0];
         }
 
         /// <summary>
@@ -49,8 +49,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     HashPassword = dbUser.HashPassword,
                     Salt = dbUser.Salt,
                     Roles = dbUser.Roles,
-                    Type = dbUser.Type,
-                    Provider = dbUser.Provider
+                    ExternalUsers = dbUser.ExternalUsers?.ToExternalUsers()
                 };
             }
             catch
@@ -64,11 +63,11 @@ namespace Exadel.CrazyPrice.Data.Extentions
         /// </summary>
         /// <param name="dbUser"></param>
         /// <returns></returns>
-        public static ExternalUser ToExretnalUser(this DbExternalUser dbUser)
+        public static AllowedExternalUser ToAllowedExternalUser(this DbAllowedExternalUser dbUser)
         {
             try
             {
-                return new ExternalUser
+                return new AllowedExternalUser
                 {
                     Id = new Guid(dbUser.Id),
                     Mail = dbUser.Mail,
@@ -77,7 +76,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
             }
             catch
             {
-                return new ExternalUser();
+                return new AllowedExternalUser();
             }
         }
 
@@ -99,8 +98,35 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Roles = user.Roles,
                     HashPassword = user.HashPassword,
                     Salt = user.Salt,
-                    Type = user.Type,
-                    Provider = user.Provider
+                    ExternalUsers = user.ExternalUsers?.ToDbExternalUsers()
                 };
+
+        public static List<ExternalUser> ToExternalUsers(this List<DbExternalUser> dbExternalUsers)
+        {
+            var externalUsers = new List<ExternalUser>();
+            foreach (var dbExternalUser in dbExternalUsers)
+            {
+                externalUsers.Add(ToExternalUser(dbExternalUser));
+            }
+
+            return externalUsers;
+        }
+
+        public static List<DbExternalUser> ToDbExternalUsers(this List<ExternalUser> externalUsers)
+        {
+            var dbExternalUsers = new List<DbExternalUser>();
+            foreach (var externalUser in externalUsers)
+            {
+                dbExternalUsers.Add(ToDbExternalUser(externalUser));
+            }
+
+            return dbExternalUsers;
+        }
+
+        public static DbExternalUser ToDbExternalUser(this ExternalUser externalUser) =>
+            new() { Provider = externalUser.Provider, Identifier = externalUser.Identifier };
+
+        public static ExternalUser ToExternalUser(this DbExternalUser dbExternalUser) =>
+            new() { Provider = dbExternalUser.Provider, Identifier = dbExternalUser.Identifier };
     }
 }

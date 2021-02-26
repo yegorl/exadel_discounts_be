@@ -36,7 +36,6 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
         public ExternalController(
             IIdentityServerInteractionService interaction,
-            //IClientStore clientStore,
             IEventService events,
             ILogger<ExternalController> logger,
             IUserService userService,
@@ -104,19 +103,11 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             // retrieve return URL
             var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
 
-            // lookup our user and external provider info
-            var (user, provider, providerUserId, claims) = await FindUserFromExternalProvider(result);
+            var (user, provider, providerUserId) = await GetUserFromExternalProvider(result);
 
             if (user.IsEmpty())
             {
-                if (_userService.TryCreateUser(claims, provider, out user))
-                {
-                    await _userRepository.AddUserAsunc(user);
-                }
-                else
-                {
-                    return Redirect(returnUrl);
-                }
+                return Redirect(returnUrl);
             }
 
             var additionalLocalClaims = new List<Claim>();
@@ -124,14 +115,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
             
             // issue authentication cookie for user
-            var isuser = new IdentityServerUser(user.Id.ToString())
+            var issuer = new IdentityServerUser(user.Id.ToString())
             {
                 DisplayName = user.Name,
                 IdentityProvider = provider.ToString(),
                 AdditionalClaims = additionalLocalClaims
             };
 
-            await HttpContext.SignInAsync(isuser, localSignInProps);
+            await HttpContext.SignInAsync(issuer, localSignInProps);
 
             // delete temporary cookie used during external authentication
             await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
@@ -153,37 +144,50 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             return Redirect(returnUrl);
         }
 
-        private async Task<(User user, ProviderOption provider, string providerUserId, List<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderOption provider, string providerId)> GetUserFromExternalProvider(AuthenticateResult result)
         {
-            var externalUser = result.Principal;
+            var claimsPrincipal = result.Principal;
 
             // try to determine the unique id of the external user (issued by the provider)
             // the most common claim type for that are the sub claim and the NameIdentifier
             // depending on the external provider, some other claim type might be used
-            var userIdClaim = externalUser.FindFirst(JwtClaimTypes.Subject) ??
-                              externalUser.FindFirst(ClaimTypes.NameIdentifier) ??
+            var userIdClaim = claimsPrincipal.FindFirst(JwtClaimTypes.Subject) ??
+                              claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier) ??
                               throw new Exception("Unknown userid");
 
-            // remove the user id claim so we don't include it as an extra claim if/when we provision the user
-            var claims = externalUser.Claims.ToList();
-            claims.Remove(userIdClaim);
+            var claims = claimsPrincipal.Claims.ToList();
 
-            
             var provider = Enum.Parse<ProviderOption>(result.Properties.Items["scheme"]);
             var providerUserId = userIdClaim.Value;
 
+            var externalUser = new ExternalUser
+            {
+                Identifier = providerUserId,
+                Provider = provider
+            };
 
             // find external user
-            var user = await _userRepository.GetUserByEmailAsync(claims.GetClaimValue(ClaimTypes.Email));
+            var user = await _userRepository.GetUserByExternalUserAsync(externalUser);
 
-            return (user, provider, providerUserId, claims);
+            if (user.IsEmpty())
+            {
+                user = await _userRepository.GetUserByEmailAsync(claims.GetClaimValue(ClaimTypes.Email));
+                if (!user.IsEmpty())
+                {
+                    await _userRepository.AddExternalUserIntoUserAsync(externalUser, user.Id);
+                }
+                else
+                {
+                    if (_userService.TryCreateUser(claims, provider, out user))
+                    {
+                        await _userRepository.AddUserAsync(user);
+                    }
+                }
+            }
+
+            return (user, provider, providerUserId);
         }
 
-        private User AutoProvisionUser(ProviderOption provider, string providerUserId, IEnumerable<Claim> claims)
-        {
-            var user = new User(); //_users.AutoProvisionUser(provider, providerUserId, claims.ToList());
-            return user;
-        }
 
         // if the external login is OIDC-based, there are certain things we need to preserve to make logout work
         // this will be different for WS-Fed, SAML2p or other protocols

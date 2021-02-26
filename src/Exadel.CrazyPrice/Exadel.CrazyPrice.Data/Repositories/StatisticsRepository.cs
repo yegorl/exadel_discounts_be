@@ -39,14 +39,14 @@ namespace Exadel.CrazyPrice.Data.Repositories
             var discountTotal = doc.GetValue("discountTotal").AsInt32;
             var viewsTotal = doc.GetValue("viewsTotal").AsInt32;
             var subscriptionsTotal = doc.GetValue("subscriptionsTotal").AsInt32;
-            var RatedTotal = doc.GetValue("ratedTotal").AsInt32;
-            var inSubscriptionsList = doc.GetValue("inSubscriptionsList").AsInt32;
+            var ratedTotal = doc.GetValue("ratedTotal").AsInt32;
+            var favoritesTotal = doc.GetValue("favoritesTotal").AsInt32;
 
             statistics.DiscountsTotal = discountTotal;
             statistics.ViewsTotal = viewsTotal;
             statistics.SubscriptionsTotal = subscriptionsTotal;
-            statistics.RatedTotal = RatedTotal;
-            statistics.InSubscriptionsListTotal = inSubscriptionsList;
+            statistics.RatedTotal = ratedTotal;
+            statistics.FavoritesTotal = favoritesTotal;
             return statistics;
         }
 

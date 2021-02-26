@@ -11,6 +11,6 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
     public static class ClaimsExtensions
     {
         public static string GetClaimValue(this IEnumerable<Claim> claims, string type) =>
-            claims.FirstOrDefault(c => c.Type == type).Value;
+            claims.FirstOrDefault(c => c.Type == type)?.Value;
     }
 }

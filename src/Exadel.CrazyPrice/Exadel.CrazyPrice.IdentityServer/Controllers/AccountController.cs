@@ -145,7 +145,10 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 _logger.LogInformation("Model state is valid.");
 
                 var user = await _userRepository.GetUserByEmailAsync(model.Email.ToLower());
-                if (!user.IsEmpty())
+
+                var isHavePassword = !string.IsNullOrEmpty(user.HashPassword) && !string.IsNullOrEmpty(user.Salt);
+
+                if (!user.IsEmpty() && isHavePassword)
                 {
                     _logger.LogInformation("User {name} {surname} was found.", user.Name, user.Surname);
                     //Validate found user

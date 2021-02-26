@@ -9,7 +9,7 @@
 
         public int RatedTotal { get; set; }
 
-        public int InSubscriptionsListTotal { get; set; }
+        public int FavoritesTotal { get; set; }
 
         public int ViewsTotal { get; set; }
 
