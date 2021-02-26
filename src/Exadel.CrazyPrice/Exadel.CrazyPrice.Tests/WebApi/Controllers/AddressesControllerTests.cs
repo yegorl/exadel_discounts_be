@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
@@ -16,12 +18,27 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         private readonly Mock<ILogger<AddressesController>> _mockLogger;
         private readonly Mock<IAddressRepository> _mockRepository;
         private readonly List<string> _resultValues;
+        private readonly ControllerContext _controllerContext;
 
         public AddressesControllerTests()
         {
             _resultValues = new List<string>();
             _mockLogger = new Mock<ILogger<AddressesController>>();
             _mockRepository = new Mock<IAddressRepository>();
+            _controllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext()
+                {
+                    User = new ClaimsPrincipal(
+                        new ClaimsIdentity(
+                            new List<Claim>()
+                            {
+                                new("sub", "f7211928-669e-4d40-b9e1-35b685945a04"),
+                                new("role", "employee")
+                            }
+                        ))
+                }
+            };
         }
 
         [Fact]
@@ -33,7 +50,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetCountriesAsync(searchValue, LanguageOption.En))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCountries(searchValue);
 
@@ -52,7 +70,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetCountriesAsync(searchValue, LanguageOption.Ru))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCountries(searchValue);
 
@@ -72,7 +91,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetCitiesAsync(searchCountry, searchCity, LanguageOption.En))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCities(searchCountry, searchCity);
 
@@ -92,7 +112,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetCitiesAsync(searchCountry, searchCity, LanguageOption.Ru))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCities(searchCountry, searchCity);
 
@@ -113,7 +134,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
                         It.IsAny<string>(), It.IsAny<string>(), It.IsAny<LanguageOption>()))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCitiesAll(LanguageOption.Ru, searchCountry);
 
@@ -133,7 +155,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
                     It.IsAny<string>(), It.IsAny<string>(), It.IsAny<LanguageOption>()))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCitiesAll(LanguageOption.Ru, searchCountry);
 
@@ -151,7 +174,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetCountriesAsync(It.IsAny<string>(), It.IsAny<LanguageOption>()))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCountriesAll(LanguageOption.En);
 
@@ -169,7 +193,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetCountriesAsync(It.IsAny<string>(), It.IsAny<LanguageOption>()))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new AddressesController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetCountriesAll(LanguageOption.En);
 

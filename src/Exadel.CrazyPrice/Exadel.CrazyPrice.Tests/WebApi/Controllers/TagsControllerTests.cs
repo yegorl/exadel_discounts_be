@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Xunit;
 
 namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
@@ -16,6 +18,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
         private readonly Mock<ITagRepository> _mockRepository;
         private readonly List<string> _resultValues;
         private readonly string _searchValue;
+        private readonly ControllerContext _controllerContext;
 
         public TagsControllerTests()
         {
@@ -23,6 +26,20 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _resultValues = new List<string>();
             _mockLogger = new Mock<ILogger<TagsController>>();
             _mockRepository = new Mock<ITagRepository>();
+            _controllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext()
+                {
+                    User = new ClaimsPrincipal(
+                        new ClaimsIdentity(
+                            new List<Claim>()
+                            {
+                                new("sub", "f7211928-669e-4d40-b9e1-35b685945a04"),
+                                new("role", "employee")
+                            }
+                        ))
+                }
+            };
         }
 
         [Fact]
@@ -33,7 +50,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetTagAsync(_searchValue))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new TagsController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new TagsController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetTags(_searchValue);
 
@@ -51,7 +69,8 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
             _mockRepository.Setup(r => r.GetTagAsync(_searchValue))
                 .ReturnsAsync(_resultValues);
 
-            var controller = new TagsController(_mockLogger.Object, _mockRepository.Object);
+            var controller = new TagsController(_mockLogger.Object, _mockRepository.Object)
+                { ControllerContext = _controllerContext };
 
             var actionResult = await controller.GetTags(_searchValue);
 

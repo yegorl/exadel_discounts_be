@@ -77,7 +77,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 }
             };
 
-            sort.GetQuery().Should().BeEquivalentTo("{$and : [{\"address.country\" : \"\"}, {\"address.city\" : \"\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"startDate\" : {$gte : ISODate(\"2021-01-01T07:10:10Z\")} }, {\"endDate\" : {$lte : ISODate(\"2021-01-01T07:10:10Z\")} }, {\"amountOfDiscount\" : {$gte : 10} }, {\"amountOfDiscount\" : {$lte : 100} }, {\"ratingTotal\" : {$gte : 1} }, {\"ratingTotal\" : {$lte : 5} }, {\"company.name\" : \"AdvancedName\"}]}");
+            sort.GetQuery().Should().BeEquivalentTo("{$and : [{\"address.country\" : \"\"}, {\"address.city\" : \"\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"startDate\" : {$lte : ISODate(\"2021-01-01T07:10:10Z\")} }, {\"endDate\" : {$gte : ISODate(\"2021-01-01T07:10:10Z\")} }, {\"amountOfDiscount\" : {$gte : 10} }, {\"amountOfDiscount\" : {$lte : 100} }, {\"ratingTotal\" : {$gte : 1} }, {\"ratingTotal\" : {$lte : 5} }, {\"company.name\" : \"AdvancedName\"}]}");
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 }
             };
 
-            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"name\" : /.*tag.*/i},{\"tags\" : /.*Text.*/i},{\"tags\" : /.*tag.*/i},{\"description\" : /.*Text.*/i},{\"description\" : /.*tag.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"usersPromocodes.userId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\"}]}");
+            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"name\" : /.*tag.*/i},{\"tags\" : /.*Text.*/i},{\"tags\" : /.*tag.*/i},{\"description\" : /.*Text.*/i},{\"description\" : /.*tag.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"usersPromocodes.userId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\", \"usersPromocodes.promocodes.deleted\" : false }]}");
         }
 
         [Fact]
