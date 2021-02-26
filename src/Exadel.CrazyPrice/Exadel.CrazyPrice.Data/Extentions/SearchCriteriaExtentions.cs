@@ -240,7 +240,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
             searchCriteria.SearchDiscountOption switch
             {
                 DiscountOption.Favorites => ", {\"favoritesUsersId\" : \"" + searchCriteria.IncomingUser.Id + "\"}",
-                DiscountOption.Subscriptions => ", {\"usersPromocodes.userId\" : \"" + searchCriteria.IncomingUser.Id + "\"}",
+                DiscountOption.Subscriptions => ", {\"usersPromocodes.userId\" : \"" + searchCriteria.IncomingUser.Id + "\", \"usersPromocodes.promocodes.deleted\" : false }",
                 _ => string.Empty
             };
 
