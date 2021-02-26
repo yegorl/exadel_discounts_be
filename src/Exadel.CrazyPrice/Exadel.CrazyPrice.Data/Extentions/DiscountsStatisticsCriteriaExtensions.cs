@@ -41,8 +41,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
 
         public static string GetGroup(this DiscountsStatisticsCriteria criteria)
         {
-            return "{_id: \"\", discountTotal: {$sum: 1}, viewsTotal: {$sum: \"$viewsTotal\"}, subscriptionsTotal: {$sum: \"$subscriptionsTotal\"}" +
-                   ",inFavoritesList: {$sum: {$size: \"$favoritesUsersId\"}}, ratedTotal: {$sum: {$size: \"$ratingUsersId\"}}}";
+            return "{\"_id\": \"\", \"discountTotal\": {$sum: 1}, \"viewsTotal\": {$sum: \"$viewsTotal\"}, \"subscriptionsTotal\": {$sum: \"$subscriptionsTotal\"}" +
+                   ",\"favoritesTotal\": {$sum: {$size: \"$favoritesUsersId\"}}, \"ratedTotal\": {$sum: {$size: \"$ratingUsersId\"}}}";
         }
 
         private static string ToIsoDate(this DateTime? dateTime) =>
