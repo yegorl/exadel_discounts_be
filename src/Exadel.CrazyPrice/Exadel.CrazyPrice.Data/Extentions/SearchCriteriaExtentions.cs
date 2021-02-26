@@ -127,7 +127,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
             return queryParams;
         }
 
-        public static bool IsSortByDateCreate(this SearchCriteria searchCriteria, RoleOption role) =>
+        public static bool IsNotAdministratorSortByDateCreate(this SearchCriteria searchCriteria, RoleOption role) =>
             searchCriteria.SearchSortFieldOption == SortFieldOption.DateCreate && role != RoleOption.Administrator;
 
         private static string GetDateCondition(this SearchCriteria searchCriteria)
@@ -136,13 +136,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var date = searchCriteria.GetStartDate();
             if (!string.IsNullOrEmpty(date))
             {
-                builder.Append(", {\"startDate\" : {$lte : " + date + "} }");
+                builder.Append(", {\"startDate\" : {$gte : " + date + "} }");
             }
 
             date = searchCriteria.GetEndDate();
             if (!string.IsNullOrEmpty(date))
             {
-                builder.Append(", {\"endDate\" : {$gte : " + date + "} }");
+                builder.Append(", {\"endDate\" : {$lte : " + date + "} }");
             }
 
             return builder.ToString();
@@ -164,13 +164,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var value = searchCriteria.GetAmountOfDiscountMin();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"amountOfDiscount\" : {$gte : \"" + value + "\"} }");
+                builder.Append(", {\"amountOfDiscount\" : {$gte : " + value + "} }");
             }
 
             value = searchCriteria.GetAmountOfDiscountMax();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"amountOfDiscount\" : {$lte : \"" + value + "\"} }");
+                builder.Append(", {\"amountOfDiscount\" : {$lte : " + value + "} }");
             }
 
             return builder.ToString();
@@ -196,13 +196,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var value = searchCriteria.GetRatingTotalMin();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"ratingTotal\" : {$gte : \"" + value + "\"} }");
+                builder.Append(", {\"ratingTotal\" : {$gte : " + value + "} }");
             }
 
             value = searchCriteria.GetRatingTotalMax();
             if (!string.IsNullOrEmpty(value))
             {
-                builder.Append(", {\"ratingTotal\" : {$lte : \"" + value + "\"} }");
+                builder.Append(", {\"ratingTotal\" : {$lte : " + value + "} }");
             }
 
             return builder.ToString();

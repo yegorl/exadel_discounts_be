@@ -1,18 +1,18 @@
-﻿using Exadel.CrazyPrice.Data.Indexes;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Exadel.CrazyPrice.Data.Indexes;
 using Exadel.CrazyPrice.Data.Models;
 using Exadel.CrazyPrice.Data.Seeder.Configuration;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Exadel.CrazyPrice.Data.Seeder.Models
+namespace Exadel.CrazyPrice.Data.Seeder.Models.MongoSeed
 {
-    public class DbTagSeed : AbstractSeed<DbTag>
+    public class MongoTagSeed : MongoAbstractSeed<DbTag>
     {
         private readonly IMongoCollection<DbDiscount> _discounts;
 
-        public DbTagSeed(SeederConfiguration configuration) : base(configuration)
+        public MongoTagSeed(SeederConfiguration configuration) : base(configuration)
         {
             CollectionName = "Tags";
             IndexModels = DbTagIndexes.GetIndexes;
@@ -51,7 +51,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
         private async Task UpsertTags(string field, Func<string, UpdateDefinition<DbTag>> updateDefinition)
         {
             var filter = "{$and : [{\"" + field + "\" : {$exists : true } },{\"" + field + "\" : {$ne : null } }] }";
-
+            
             using var cursor = await _discounts.DistinctAsync<string>(field, filter);
             while (await cursor.MoveNextAsync())
             {

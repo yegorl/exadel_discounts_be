@@ -15,10 +15,10 @@ namespace Exadel.CrazyPrice.Data.Models
         public string Description { get; set; }
 
         [BsonIgnoreIfNull]
-        public DbAddress Address { get; set; }
+        public DbTranslationAddress Address { get; set; }
 
         [BsonIgnoreIfNull]
-        public DbCompany Company { get; set; }
+        public DbTranslationCompany Company { get; set; }
 
         [BsonIgnoreIfNull]
         public List<string> Tags { get; set; }

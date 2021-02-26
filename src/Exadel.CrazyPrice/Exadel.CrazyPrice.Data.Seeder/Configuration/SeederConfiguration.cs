@@ -1,4 +1,6 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.Data.Seeder.Extentions;
+using Exadel.CrazyPrice.Data.Seeder.Models.Option;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
@@ -20,7 +22,11 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 
         public string Database { get; set; }
 
-        public bool ClearDatabaseBeforeSeed { get; set; }
+        public string Path { get; set; }
+
+        public DestinationOption Destination { get; set; }
+
+        public bool ClearDataBeforeSeed { get; set; }
 
         public bool RewriteIndexes { get; set; }
 
@@ -56,19 +62,24 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 
             ConnectionString = configuration.ToStringWithValue("Database:ConnectionStrings:DefaultConnection")
                 .OverLoadString(seederConfiguration.ConnectionString, args, "-s", "--connectionStrings");
-            Database = configuration.ToStringWithValue("Database:ConnectionStrings:Database")
-                .OverLoadString(seederConfiguration.Database, args, "-d", "--database");
+            Database = configuration.ToStringWithValue("Database:ConnectionStrings:Name")
+                .OverLoadString(seederConfiguration.Database, args, "-m", "--mongoName");
+            Path = configuration.ToStringWithValue("Files:Path", "", false)
+                .OverLoadString(seederConfiguration.Path, args, "-p", "--path");
 
-            TimeReportSec = configuration.ToUint("Database:TimeReportSec")
+            TimeReportSec = configuration.ToUint("TimeReportSec")
                 .OverLoadUint(seederConfiguration.TimeReportSec, args, "-t", "--time");
-            DefaultCountSeed = configuration.ToUint("Database:DefaultCountSeed")
+            DefaultCountSeed = configuration.ToUint("DefaultCountSeed")
                 .OverLoadUint(seederConfiguration.DefaultCountSeed, args, "-n", "--number");
 
-            HideDetailsInfo = configuration.ToBool("Database:HideDetailsInfo");
             RewriteIndexes = configuration.ToBool("Database:RewriteIndexes");
-            ClearDatabaseBeforeSeed = configuration.ToBool("Database:ClearDatabaseBeforeSeed");
-            CreateTags = configuration.ToBool("Database:CreateTags");
-            CreateUsers = configuration.ToBool("Database:CreateUsers");
+            HideDetailsInfo = configuration.ToBool("HideDetailsInfo");
+            ClearDataBeforeSeed = configuration.ToBool("ClearDataBeforeSeed");
+            CreateTags = configuration.ToBool("CreateTags");
+            CreateUsers = configuration.ToBool("CreateUsers");
+
+            Destination = configuration.ToStringWithValue("Destination")
+                .OverLoadString(seederConfiguration.Destination.ToString(), args, "-d", "--destination").ToDestinationOption(DestinationOption.mg, true);
 
             if (!args.Any(a => a.Length < 20 && a.Contains("-")))
             {
@@ -77,7 +88,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Configuration
 
             HideDetailsInfo = HideDetailsInfo.OverLoadBool(seederConfiguration.HideDetailsInfo, args, "-h", "--hide");
             RewriteIndexes = RewriteIndexes.OverLoadBool(seederConfiguration.RewriteIndexes, args, "-r", "--rewrite");
-            ClearDatabaseBeforeSeed = ClearDatabaseBeforeSeed.OverLoadBool(seederConfiguration.ClearDatabaseBeforeSeed, args, "-c", "--clear");
+            ClearDataBeforeSeed = ClearDataBeforeSeed.OverLoadBool(seederConfiguration.ClearDataBeforeSeed, args, "-c", "--clear");
             CreateTags = CreateTags.OverLoadBool(seederConfiguration.CreateTags, args, "--tags");
             CreateUsers = CreateUsers.OverLoadBool(seederConfiguration.CreateUsers, args, "--users");
         }

@@ -1,31 +1,23 @@
 ﻿using Exadel.CrazyPrice.Data.Seeder.Configuration;
-using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Models
 {
-    /// <summary>
-    /// Represents methods for seed.
-    /// </summary>
-    /// <typeparam name="TCollection"></typeparam>
-    public abstract class AbstractSeed<TCollection> : IDisposable, ISeed where TCollection : class
+    public abstract class AbstractSeed : IDisposable, ISeed
     {
-        private readonly bool _clearDbBeforeSeed;
-        private readonly bool _rewriteIndexes;
         private Timer _timer;
+        private readonly bool _clearDbBeforeSeed;
 
+        protected readonly bool RewriteIndexes;
         protected uint DefaultCountSeed;
-        protected IMongoCollection<TCollection> Collection;
-        protected List<CreateIndexModel<TCollection>> IndexModels;
 
         protected AbstractSeed(SeederConfiguration configuration)
         {
-            _clearDbBeforeSeed = configuration.ClearDatabaseBeforeSeed;
-            _rewriteIndexes = configuration.RewriteIndexes;
+            _clearDbBeforeSeed = configuration.ClearDataBeforeSeed;
+            RewriteIndexes = configuration.RewriteIndexes;
 
             ReportEverySec = configuration.TimeReportSec;
         }
@@ -38,28 +30,10 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
             return $"Total count documents in {CollectionName}: {countDatabase.ToString("N0", new CultureInfo("en-us"))}.";
         }
 
-        public async Task CreateIndexesAsync()
-        {
-            if (_rewriteIndexes)
-            {
-                await Collection.Indexes.DropAllAsync();
-                Console.WriteLine($"Indexes of {CollectionName} removed.");
-                Console.WriteLine($"Indexes of {CollectionName} creating. Please wait..");
-            }
-
-            await Collection.Indexes.CreateManyAsync(IndexModels);
-
-            if (_rewriteIndexes)
-            {
-                Console.WriteLine($"Indexes of {CollectionName} created.");
-            }
-        }
-
         public virtual async Task DeleteIfSetAsync()
         {
             if (_clearDbBeforeSeed)
             {
-                TimerStart();
                 Console.WriteLine($"Documents of {CollectionName} deleting. Please wait..");
                 await DeleteAsync();
                 Console.WriteLine($"{CollectionName} is empty.");
@@ -69,23 +43,27 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
 
         public virtual async Task SeedAsync()
         {
+            await CreateIndexesAsync();
             if (ReportEverySec > 0)
             {
                 TimerStart();
             }
         }
 
+        public abstract Task CreateIndexesAsync();
+
+        protected abstract Task DeleteAsync();
+
+        protected abstract Task<long> CountEstimatedAsync();
+
         protected uint ReportEverySec { get; }
 
-        protected virtual async Task DeleteAsync()
+        protected async Task TimerDisposeAsync()
         {
-            await Collection.DeleteManyAsync(FilterDefinition<TCollection>.Empty);
-        }
-
-        protected virtual async Task StatusAsync()
-        {
-            var countDatabase = await CountEstimatedAsync();
-            Console.WriteLine($"Current {CollectionName} count: {countDatabase.ToString("N0", new CultureInfo("en-us"))}");
+            if (_timer != null)
+            {
+                await _timer.DisposeAsync();
+            }
         }
 
         protected void TimerStart()
@@ -96,17 +74,10 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
             _timer = new Timer(TimerCallback, null, 0, ReportEverySec * 1000);
         }
 
-        protected async Task TimerDisposeAsync()
+        private async Task StatusAsync()
         {
-            if (_timer != null)
-            {
-                await _timer.DisposeAsync();
-            }
-        }
-
-        private async Task<long> CountEstimatedAsync()
-        {
-            return await Collection.EstimatedDocumentCountAsync();
+            var countDatabase = await CountEstimatedAsync();
+            Console.WriteLine($"Current {CollectionName} count: {countDatabase.ToString("N0", new CultureInfo("en-us"))}");
         }
 
         public void Dispose()

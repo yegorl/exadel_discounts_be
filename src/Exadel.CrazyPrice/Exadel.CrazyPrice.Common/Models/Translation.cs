@@ -12,9 +12,9 @@ namespace Exadel.CrazyPrice.Common.Models
 
         public string Description { get; set; }
 
-        public Address Address { get; set; }
+        public TranslationAddress Address { get; set; }
 
-        public Company Company { get; set; }
+        public TranslationCompany Company { get; set; }
 
         public List<string> Tags { get; set; }
 

@@ -16,18 +16,20 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Name)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(30)
-                    .ValidCharacters(CharOptions.Letter, " -");
+                    .MaximumLength(200)
+                    .ValidCharacters(CharOptions.Letter |
+                                     CharOptions.Number |
+                                     CharOptions.Punctuation |
+                                     CharOptions.Symbol, " ,.-");
 
                 RuleFor(x => x.Description)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(200)
-                    .FirstLetter()
+                    .MaximumLength(2000)
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |
-                                     CharOptions.Symbol, " ");
+                                     CharOptions.Symbol, " ,.-");
 
                 RuleFor(x => x.Mail)
                     .NotEmpty()

@@ -55,7 +55,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <param name="defaultValue"></param>
         /// <returns></returns>
         public static string ToStringWithValue(this IConfiguration configuration, string key, string defaultValue = "", bool raiseException = true) =>
-            configuration.GetString(key).ToStringWithValue(defaultValue, raiseException);
+            configuration.GetString(key).ToStringWithValue(key, defaultValue, raiseException);
 
         /// <summary>
         /// Gets bool value from сonfiguration. When raiseException is true and is cast error raises exception otherwise returns defaultValue.

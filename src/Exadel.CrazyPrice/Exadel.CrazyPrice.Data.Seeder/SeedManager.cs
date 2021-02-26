@@ -1,10 +1,9 @@
-﻿using Exadel.CrazyPrice.Data.Configuration;
-using Exadel.CrazyPrice.Data.Seeder.Configuration;
+﻿using Exadel.CrazyPrice.Data.Seeder.Configuration;
 using Exadel.CrazyPrice.Data.Seeder.Models;
+using Exadel.CrazyPrice.Data.Seeder.Models.FileSeed;
+using Exadel.CrazyPrice.Data.Seeder.Models.MongoSeed;
+using Exadel.CrazyPrice.Data.Seeder.Models.Option;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder
@@ -18,45 +17,31 @@ namespace Exadel.CrazyPrice.Data.Seeder
 
         public SeedManager(SeederConfiguration configuration)
         {
-            MongoDbConvention.SetCamelCaseElementNameConvention();
             _configuration = configuration;
         }
 
-        public async Task Seed()
+        public async Task Seed(StateExecutionConfiguration stateExecutionConfiguration)
         {
-            var totalWatch = new Stopwatch();
+            IDataProvider provider;
 
-            var startTime = DateTime.Now;
-            Console.WriteLine($"Seed start: {startTime}");
-
-            totalWatch.Start();
-
-            var collections = new List<ISeed>
+            if (_configuration.Destination == DestinationOption.mg)
             {
-                new DbDiscountSeed(_configuration),
-                new DbTagSeed(_configuration),
-                new DbUserSeed(_configuration)
-            };
-
-            var status = new StringBuilder();
-            foreach (var value in collections)
+                provider = new MongoProvider(_configuration);
+            }
+            else
             {
-                await value.DeleteIfSetAsync();
-                await value.CreateIndexesAsync();
-                await value.SeedAsync();
-                var currentStatus = await value.StatusTotalAsync();
-                status.Append(currentStatus + Environment.NewLine);
+                provider = new FileProvider(_configuration);
             }
 
-            totalWatch.Stop();
+            if (provider.ActionWhenAborted != null)
+            {
+                stateExecutionConfiguration.ExecutionActionsAfterAbort = provider.ActionWhenAborted;
+            }
 
-            var stopTime = DateTime.Now;
-            Console.WriteLine(Environment.NewLine);
-            Console.WriteLine("Finished." + Environment.NewLine +
-                              status +
-                              $"Start time: {startTime}" + Environment.NewLine +
-                              $"End time: {stopTime}" + Environment.NewLine +
-                              $"TotalSeconds: {totalWatch.Elapsed.TotalSeconds:0.000000}");
+            Console.WriteLine($"Seed start: {DateTime.Now}");
+
+            await provider.WriteAsync();
+
             Console.WriteLine("Press any key to Exit.");
         }
     }

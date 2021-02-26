@@ -181,10 +181,11 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// Converts string to string with value. When raiseException is true and is cast error raises exception otherwise returns defaultValue. 
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="name"></param>
         /// <param name="raiseException"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static string ToStringWithValue(this string key, string defaultValue = "", bool raiseException = true)
+        public static string ToStringWithValue(this string key, string name, string defaultValue = "", bool raiseException = true)
         {
             if (!key.IsNullOrEmpty())
             {
@@ -192,7 +193,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
             }
             else
             {
-                return raiseException ? throw new ArgumentException($"'{nameof(key)}' is null or empty.") : defaultValue;
+                return raiseException ? throw new ArgumentException($"'{name}' is null or empty.") : defaultValue;
             }
         }
 
