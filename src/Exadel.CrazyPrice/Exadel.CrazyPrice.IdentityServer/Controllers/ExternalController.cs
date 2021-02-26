@@ -176,13 +176,12 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 {
                     await _userRepository.AddExternalUserIntoUserAsync(externalUser, user.Id);
                 }
-            }
-
-            if (user.IsEmpty())
-            {
-                if (_userService.TryCreateUser(claims, provider, out user))
+                else
                 {
-                    await _userRepository.AddUserAsync(user);
+                    if (_userService.TryCreateUser(claims, provider, out user))
+                    {
+                        await _userRepository.AddUserAsync(user);
+                    }
                 }
             }
 
