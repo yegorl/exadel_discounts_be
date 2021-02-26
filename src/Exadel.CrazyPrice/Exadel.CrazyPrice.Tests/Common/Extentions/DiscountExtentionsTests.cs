@@ -34,8 +34,8 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
                     {
                         Name = "Name",
                         Description = "Description",
-                        Address = new Address(),
-                        Company = new Company(),
+                        Address = new TranslationAddress(),
+                        Company = new TranslationCompany(),
                         Tags = new List<string>(),
                         Language = LanguageOption.En
 

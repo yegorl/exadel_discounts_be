@@ -1,4 +1,6 @@
-﻿using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -54,16 +56,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetCompanyNames([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string companyName)
         {
-            _logger.LogInformation("Company name incoming: {companyName}", companyName);
+            var incomingUser = ControllerContext.IncomingUser();
+
             var companies = await _repository.GetCompanyNamesAsync(companyName);
 
-            if (companies == null || companies.Count == 0)
+            if (companies.IsNullOrEmpty())
             {
-                _logger.LogWarning("Companies get: {@companies}.", companies);
+                _logger.LogWarning("Get Company names. Company name: {companyName}. Result is Empty. User: {@incomingUser}.", companyName, incomingUser);
                 return NotFound("No company names found.");
             }
 
-            _logger.LogInformation("Companies get: {@companies}", companies);
+            _logger.LogInformation("Get Company names. Company name: {companyName}. Result: {@companies}. User: {@incomingUser}.", companyName, companies, incomingUser);
             return Ok(companies);
         }
     }

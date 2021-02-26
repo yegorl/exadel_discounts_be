@@ -2,7 +2,7 @@
   "profiles": {
     "Exadel.CrazyPrice.Data.Seeder": {
       "commandName": "Project",
-      "commandLineArgs": "-n 1000 -r -c --tags --users -t 2 -d mg",
+      "commandLineArgs": "-n 2000 -r -c --tags --users -t 2 -d mg",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
