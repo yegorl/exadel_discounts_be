@@ -22,14 +22,13 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.City)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(20)
+                    .MaximumLength(30)
                     .ValidCharacters(CharOptions.Letter, " -");
 
                 RuleFor(x => x.Street)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(40)
-                    .FirstLetter()
+                    .MaximumLength(300)
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |

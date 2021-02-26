@@ -16,7 +16,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Name)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(30)
+                    .MaximumLength(200)
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |
@@ -25,8 +25,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Description)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(200)
-                    .FirstLetter()
+                    .MaximumLength(2000)
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |

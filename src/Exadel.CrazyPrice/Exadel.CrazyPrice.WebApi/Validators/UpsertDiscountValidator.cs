@@ -24,7 +24,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Name)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(50)
+                    .MaximumLength(200)
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |
@@ -33,7 +33,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Description)
                     .NotEmpty()
                     .MinimumLength(3)
-                    .MaximumLength(1000)
+                    .MaximumLength(5000)
                     .ValidCharacters(CharOptions.Letter |
                                      CharOptions.Number |
                                      CharOptions.Punctuation |
@@ -79,7 +79,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                         {
                             i.RuleFor(t => t.Name)
                                 .MinimumLength(3)
-                                .MaximumLength(50)
+                                .MaximumLength(200)
                                 .ValidCharacters(CharOptions.Letter |
                                                  CharOptions.Number |
                                                  CharOptions.Symbol, " ,.-");
@@ -90,7 +90,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                             i.RuleFor(t => t.Description)
                             .NotEmpty()
                             .MinimumLength(3)
-                            .MaximumLength(1000)
+                            .MaximumLength(5000)
                             .ValidCharacters(CharOptions.Letter |
                                              CharOptions.Number |
                                              CharOptions.Punctuation |
@@ -108,14 +108,13 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                              i.RuleFor(t => t.Address.City)
                                  .NotEmpty()
                                  .MinimumLength(3)
-                                 .MaximumLength(20)
+                                 .MaximumLength(30)
                                  .ValidCharacters(CharOptions.Letter, " -");
 
                              i.RuleFor(t => t.Address.Street)
                                  .NotEmpty()
                                  .MinimumLength(3)
-                                 .MaximumLength(40)
-                                 .FirstLetter()
+                                 .MaximumLength(300)
                                  .ValidCharacters(CharOptions.Letter |
                                                   CharOptions.Number |
                                                   CharOptions.Punctuation |
@@ -127,7 +126,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                               i.RuleFor(t => t.Company.Name)
                                   .NotEmpty()
                                   .MinimumLength(3)
-                                  .MaximumLength(30)
+                                  .MaximumLength(200)
                                   .ValidCharacters(CharOptions.Letter |
                                                    CharOptions.Number |
                                                    CharOptions.Punctuation |
@@ -136,8 +135,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                               i.RuleFor(t => t.Company.Description)
                                   .NotEmpty()
                                   .MinimumLength(3)
-                                  .MaximumLength(200)
-                                  .FirstLetter()
+                                  .MaximumLength(2000)
                                   .ValidCharacters(CharOptions.Letter |
                                                    CharOptions.Number |
                                                    CharOptions.Punctuation |
