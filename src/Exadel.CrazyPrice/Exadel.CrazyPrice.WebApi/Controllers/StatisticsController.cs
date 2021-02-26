@@ -1,6 +1,7 @@
 ﻿using Exadel.CrazyPrice.Common.Interfaces;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.Common.Models.Statistics;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,21 +47,23 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetDiscountsStatistics([FromBody] DiscountsStatisticsCriteria criteria)
         {
+            var incomingUser = ControllerContext.IncomingUser();
+
             if (criteria.CreateEndDate < criteria.CreateStartDate)
             {
-                _logger.LogWarning("Not valid request. CreateEndDate field must be greater than CreateStartDate field.");
+                _logger.LogWarning("Get Discounts Statistics. Criteria: {@criteria}. Result is not enabled, user does not have permission. User: {@incomingUser}.", criteria, incomingUser);
                 return BadRequest("CreateEndDate field must be greater than CreateStartDate field.");
             }
-            _logger.LogInformation("DiscountsStatisticsCriteria incoming: {@criteria}", criteria);
+
             var statistics = await _statistics.GetDiscountsStatistics(criteria);
 
             if (statistics == null)
             {
-                _logger.LogWarning("Can't generate statistics.");
+                _logger.LogWarning("Get Discounts Statistics. Criteria: {@criteria}. Result is Empty. User: {@incomingUser}.", criteria, incomingUser);
                 return NotFound("Can't generate statistics for the specified criteria.");
             }
 
-            _logger.LogInformation("Discounts statistics get: {@statistics}", statistics);
+            _logger.LogInformation("Get Discounts Statistics. Criteria: {@criteria}. Result: {@statistics}. User: {@incomingUser}.", criteria, statistics, incomingUser);
             return Ok(statistics);
         }
 
@@ -84,8 +87,10 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetUsersStatistics()
         {
+            var incomingUser = ControllerContext.IncomingUser();
+
             var statistics = await _statistics.GetUsersStatistics();
-            _logger.LogInformation("Users statistics get: {@statistics}", statistics);
+            _logger.LogInformation("Get Users Statistics. Result: {@statistics}. User: {@incomingUser}.", statistics, incomingUser);
             return Ok(statistics);
         }
     }

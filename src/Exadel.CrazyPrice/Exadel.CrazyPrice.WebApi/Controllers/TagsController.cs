@@ -1,4 +1,6 @@
-﻿using Exadel.CrazyPrice.Common.Interfaces;
+﻿using Exadel.CrazyPrice.Common.Extentions;
+using Exadel.CrazyPrice.Common.Interfaces;
+using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -48,16 +50,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTags([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string name)
         {
-            _logger.LogInformation("Tag name incoming: {name}", name);
+            var incomingUser = ControllerContext.IncomingUser();
+
             var tags = await _repository.GetTagAsync(name);
 
-            if (tags == null || tags.Count == 0)
+            if (tags.IsNullOrEmpty())
             {
-                _logger.LogWarning("Tags get: {@tags}.", tags);
+                _logger.LogWarning("Get Tags. Name: {name}. Result is Empty. User: {@incomingUser}.", name, incomingUser);
                 return NotFound("No tags found.");
             }
 
-            _logger.LogInformation("Tags get: {@tags}.", tags);
+            _logger.LogInformation("Get Tags. Name: {name}. Result: {@tags}. User: {@incomingUser}.", name, tags, incomingUser);
             return Ok(tags);
         }
     }

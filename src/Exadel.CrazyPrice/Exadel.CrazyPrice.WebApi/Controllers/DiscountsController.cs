@@ -72,13 +72,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (discount.IsEmpty())
             {
-                _logger.LogWarning("Discount is Empty. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogWarning("Get Discount. Guid: {@id}. Language: {@language}. Result is Empty.  User: {@incomingUser}.", id, language, incomingUser);
                 return NotFound("No discount found.");
             }
 
             var response = discount.Translate(language).ToDiscountResponse();
 
-            _logger.LogInformation("Discount get: {@response}. Guid: {@id}. User: {@incomingUser}.", response, id, incomingUser);
+            _logger.LogInformation("Get Discount. Guid: {@id}. Language: {@language}. Result: {@response}.  User: {@incomingUser}.", id, language, response, incomingUser);
             return Ok(response);
         }
 
@@ -110,7 +110,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (searchCriteria.IsNotAdministratorSortByDateCreate(incomingUser.Role))
             {
-                _logger.LogWarning("Sorting by creation date is available only for administrator role. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", searchCriteria, incomingUser);
+                _logger.LogWarning("Get Discounts. SearchCriteria: {@searchCriteria}. Result is Empty, user does not have permission. User: {@incomingUser}.", searchCriteria, incomingUser);
                 return Unauthorized();
             }
 
@@ -118,13 +118,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (discounts == null || discounts.Count == 0)
             {
-                _logger.LogWarning("Discounts are Empty. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", searchCriteria, incomingUser);
+                _logger.LogWarning("Get Discounts. SearchCriteria: {@searchCriteria}. Result is Empty. User: {@incomingUser}.", searchCriteria, incomingUser);
                 return NotFound("No discounts found.");
             }
 
             var discountsResponse = discounts.ToListDiscountResponse(searchCriteria.SearchLanguage);
 
-            _logger.LogInformation("Discounts get: {@discountsResponse}. SearchCriteria {@searchCriteria}. User: {@incomingUser}.", discountsResponse, searchCriteria, incomingUser);
+            _logger.LogInformation("Get Discounts. SearchCriteria: {@searchCriteria}. Result: {@discountsResponse}. User: {@incomingUser}.", searchCriteria, discountsResponse, incomingUser);
             return Ok(discountsResponse);
         }
 
@@ -156,13 +156,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (discount.IsEmpty())
             {
-                _logger.LogWarning("Discount is Empty. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogWarning("Get Upsert Discount. Guid: {@id}. Result is Empty. User: {@incomingUser}.", id, incomingUser);
                 return NotFound("No discount found.");
             }
 
             var response = discount.ToUpsertDiscountRequest();
 
-            _logger.LogInformation("Discount get: {@response}. Guid: {@id}. User: {@incomingUser}.", response, id, incomingUser);
+            _logger.LogInformation("Get Upsert Discount. Guid: {@id}. Result: {@response}. User: {@incomingUser}.", id, response, incomingUser);
             return Ok(response);
         }
 
@@ -196,13 +196,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (responseDiscount.IsEmpty())
             {
-                _logger.LogWarning("Discount upsert is Empty. User: {@incomingUser}.", incomingUser);
+                _logger.LogWarning("Upsert Discount. UpsertDiscountRequest: {@upsertDiscountRequest}. Result is Empty. User: {@incomingUser}.", upsertDiscountRequest, incomingUser);
                 return BadRequest("No discounts were create or update.");
             }
 
             var response = responseDiscount.ToUpsertDiscountRequest();
 
-            _logger.LogInformation("Discount upsert: {@response}. User: {@incomingUser}.", response, incomingUser);
+            _logger.LogInformation("Upsert Discount. UpsertDiscountRequest: {@upsertDiscountRequest}. Result: {@response}. User: {@incomingUser}.", upsertDiscountRequest, response, incomingUser);
             return Ok(response);
         }
 
@@ -229,7 +229,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             var incomingUser = ControllerContext.IncomingUser();
             await _discounts.RemoveDiscountByUidAsync(id, incomingUser.Id);
-            _logger.LogInformation("Discounts deleted. Guid: {@id}. User: {@incomingUser}", id, incomingUser);
+            _logger.LogInformation("Delete Discount. Guid: {@id}. Result: deleted. User: {@incomingUser}.", id, incomingUser);
 
             return Ok();
         }
@@ -257,7 +257,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             var incomingUser = ControllerContext.IncomingUser();
             await _discounts.RemoveDiscountAsync(ids, incomingUser.Id);
-            _logger.LogInformation("Discounts deleted. Guids: {@ids}. User: {@incomingUser}", ids, incomingUser);
+            _logger.LogInformation("Delete Discounts. Guid[]: {@ids}. Result: deleted. User: {@incomingUser}", ids, incomingUser);
 
             return Ok();
         }
@@ -285,7 +285,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             var incomingUser = ControllerContext.IncomingUser();
             await _discounts.AddToFavoritesAsync(id, incomingUser.Id);
-            _logger.LogInformation("Added to discount favorites. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
+            _logger.LogInformation("Add To Favorites. Guid: {@id}. Result: added. User: {@incomingUser}.", id, incomingUser);
 
             return Ok();
         }
@@ -313,7 +313,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             var incomingUser = ControllerContext.IncomingUser();
             await _discounts.RemoveFromFavoritesAsync(id, incomingUser.Id);
-            _logger.LogInformation("Deleted from discount favorites. Guid: {@id}. User: {@incomingUser}.", id, incomingUser);
+            _logger.LogInformation("Delete From Favorites. Guid: {@id}. Result: deleted. User: {@incomingUser}.", id, incomingUser);
 
             return Ok();
         }
@@ -344,11 +344,11 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (userPromocodes.IsEmpty())
             {
-                _logger.LogWarning("Not found the subscriptions of discount. User: {@incomingUser}.", incomingUser);
+                _logger.LogWarning("Get Subscriptions. Guid: {@id}. Result is Empty. User: {@incomingUser}.", id, incomingUser);
                 return BadRequest("Not found the subscriptions of discount.");
             }
 
-            _logger.LogInformation("Gets subscriptions. Guid: {@id}. User: {@incomingUser}. Promocodes: {@userPromocodes}.", id, incomingUser, userPromocodes);
+            _logger.LogInformation("Gets subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, userPromocodes, incomingUser);
 
             return Ok(userPromocodes);
         }
@@ -376,7 +376,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             var incomingUser = ControllerContext.IncomingUser();
             var userPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
-            _logger.LogInformation("Added to discount subscriptions. Guid: {@id}. User: {@incomingUser}. Promocodes: {@userPromocodes}.", id, incomingUser, userPromocodes);
+            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, userPromocodes, incomingUser);
 
             return Ok(userPromocodes);
         }
@@ -405,7 +405,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         {
             var incomingUser = ControllerContext.IncomingUser();
             var userPromocodes = await _discounts.RemoveFromSubscriptionsAsync(discountId, incomingUser.Id, promocodeId);
-            _logger.LogInformation("Removed from discount subscriptions. Guid: {@discountId}. User: {@incomingUser}. Promocode id: {@promocodeId}. Promocodes : {@userPromocodes}", discountId, incomingUser, promocodeId, userPromocodes);
+            _logger.LogInformation("Delete From Subscriptions. Guid: {@discountId}. Promocode id: {@promocodeId}. Result: {@userPromocodes}. User: {@incomingUser}.", discountId, promocodeId, userPromocodes, incomingUser);
 
             return Ok(userPromocodes);
         }
@@ -436,11 +436,11 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             var result = await _discounts.VoteDiscountAsync(value, id, incomingUser.Id);
             if (!result)
             {
-                _logger.LogWarning("User already voted. Discount Guid: {@id}. User id: {@incomingUser}. Vote: {@value}.", id, incomingUser, value);
+                _logger.LogWarning("Add Vote. Guid: {@id}. Vote: {@value}. Result is Empty, user already voted. User id: {@incomingUser}.", id, value, incomingUser);
                 return Forbid();
             }
 
-            _logger.LogInformation("User voted. Discount Guid: {@id}. User: {@incomingUser}. Vote: {@value}.", id, incomingUser, value);
+            _logger.LogInformation("Add Vote. Guid: {@id}. Vote: {@value}. Result: user voted. User: {@incomingUser}.", id, value, incomingUser);
 
             return Ok();
         }
