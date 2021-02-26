@@ -39,8 +39,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.MongoSeed
                         .Set(f => f.HashPassword, dbUser.HashPassword)
                         .Set(f => f.Salt, dbUser.Salt)
                         .Set(f => f.Roles, dbUser.Roles)
-                        .Set(f => f.Type, dbUser.Type)
-                        .Set(f => f.Provider, dbUser.Provider),
+                        .Set(f => f.ExternalUsers, dbUser.ExternalUsers),
                     new UpdateOptions { IsUpsert = true });
             }
 

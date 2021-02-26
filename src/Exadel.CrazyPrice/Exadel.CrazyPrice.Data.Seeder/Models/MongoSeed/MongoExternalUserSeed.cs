@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Models.MongoSeed
 {
-    public class MongoExternalUserSeed : MongoAbstractSeed<DbExternalUser>
+    public class MongoExternalUserSeed : MongoAbstractSeed<DbAllowedExternalUser>
     {
         public MongoExternalUserSeed(SeederConfiguration configuration) : base(configuration)
         {
-            CollectionName = "ExternalUsers";
-            IndexModels = DbExternalUserIndexes.GetIndexes;
+            CollectionName = "AllowedExternalUsers";
+            IndexModels = DbAllowedExternalUserIndexes.GetIndexes;
             DefaultCountSeed = configuration.DefaultCountSeed;
 
             var client = new MongoClient(configuration.ConnectionString);
             var db = client.GetDatabase(configuration.Database);
 
-            Collection = db.GetCollection<DbExternalUser>(CollectionName);
+            Collection = db.GetCollection<DbAllowedExternalUser>(CollectionName);
         }
 
         public override async Task SeedAsync()
         {
-            var users = FakeData.ExternalUsers;
+            var users = FakeData.AllowedExternalUsers;
 
             await base.SeedAsync();
 
@@ -31,7 +31,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.MongoSeed
             {
                 await Collection.UpdateOneAsync(
                     u => u.Id == user.Id,
-                    Builders<DbExternalUser>.Update
+                    Builders<DbAllowedExternalUser>.Update
                         .Set(f => f.Mail, user.Mail)
                         .Set(f => f.Roles, user.Roles),
                     new UpdateOptions { IsUpsert = true });

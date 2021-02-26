@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Data.Seeder.Models.FileSeed
 {
-    public class FileExternalUserSeed : FileAbstractSeed<DbExternalUser>
+    public class FileAllowedExternalUserSeed : FileAbstractSeed<DbAllowedExternalUser>
     {
-        public FileExternalUserSeed(SeederConfiguration configuration) : base(configuration)
+        public FileAllowedExternalUserSeed(SeederConfiguration configuration) : base(configuration)
         {
-            CollectionName = "ExternalUsers.json";
+            CollectionName = "AllowedExternalUsers.json";
             DefaultCountSeed = configuration.DefaultCountSeed;
 
-            Collection = FakeData.ExternalUsers;
+            Collection = FakeData.AllowedExternalUsers;
         }
 
         public override async Task SeedAsync()

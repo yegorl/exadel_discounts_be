@@ -49,7 +49,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     HashPassword = dbUser.HashPassword,
                     Salt = dbUser.Salt,
                     Roles = dbUser.Roles,
-                    ExternalUsers = dbUser.ExternalUsers.ToExternalUsers()
+                    ExternalUsers = dbUser.ExternalUsers?.ToExternalUsers()
                 };
             }
             catch
@@ -98,7 +98,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Roles = user.Roles,
                     HashPassword = user.HashPassword,
                     Salt = user.Salt,
-                    ExternalUsers = user.ExternalUsers.ToDbExternalUsers()
+                    ExternalUsers = user.ExternalUsers?.ToDbExternalUsers()
                 };
 
         public static List<ExternalUser> ToExternalUsers(this List<DbExternalUser> dbExternalUsers)

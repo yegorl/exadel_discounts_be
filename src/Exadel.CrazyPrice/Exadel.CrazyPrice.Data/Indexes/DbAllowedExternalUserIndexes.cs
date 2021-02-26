@@ -7,14 +7,14 @@ namespace Exadel.CrazyPrice.Data.Indexes
     /// <summary>
     /// Determines external user indexes.
     /// </summary>
-    public static class DbExternalUserIndexes
+    public static class DbAllowedExternalUserIndexes
     {
         /// <summary>
         /// Gets external user indexes.
         /// </summary>
-        public static List<CreateIndexModel<DbExternalUser>> GetIndexes => new()
+        public static List<CreateIndexModel<DbAllowedExternalUser>> GetIndexes => new()
         {
-            new CreateIndexModel<DbExternalUser>(Builders<DbExternalUser>
+            new CreateIndexModel<DbAllowedExternalUser>(Builders<DbAllowedExternalUser>
                             .IndexKeys
                             .Text(c => c.Mail),
                                 new CreateIndexOptions
@@ -22,7 +22,7 @@ namespace Exadel.CrazyPrice.Data.Indexes
                                     Name = "idx_text"
                                 }),
 
-            new CreateIndexModel<DbExternalUser>(Builders<DbExternalUser>.IndexKeys.Ascending(c => c.Mail))
+            new CreateIndexModel<DbAllowedExternalUser>(Builders<DbAllowedExternalUser>.IndexKeys.Ascending(c => c.Mail))
         };
     }
 }
