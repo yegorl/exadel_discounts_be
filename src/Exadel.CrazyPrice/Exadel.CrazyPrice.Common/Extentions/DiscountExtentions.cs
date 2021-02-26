@@ -72,7 +72,8 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 Tags = upsertDiscountRequest.Tags,
                 PictureUrl = upsertDiscountRequest.PictureUrl,
                 Language = upsertDiscountRequest.Language,
-                Translations = upsertDiscountRequest.Translations
+                Translations = upsertDiscountRequest.Translations,
+                PromocodeOptions = upsertDiscountRequest.PromocodeOptions
             };
         }
 

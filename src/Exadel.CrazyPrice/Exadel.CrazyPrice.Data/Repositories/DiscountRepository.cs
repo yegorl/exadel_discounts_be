@@ -126,6 +126,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
                     .Set(f => f.PictureUrl, discount.PictureUrl)
                     .Set(f => f.Language, discount.Language.ToStringLookup())
                     .Set(f => f.Translations, discount.Translations.ToDbTranslations())
+                    .Set(f => f.PromocodeOptions, discount.PromocodeOptions.ToDbPromocodeOptions())
                 , new FindOneAndUpdateOptions<DbDiscount>()
                 {
                     ReturnDocument = ReturnDocument.After
