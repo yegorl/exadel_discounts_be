@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Common.Models.Option
 {
-    public enum ProviderOptions
+    public enum ProviderOption
     {
-        None = 0,
+        Unknown = 0,
         Google = 1,
-        Facebook= 2
+        Facebook = 2
     }
 }
