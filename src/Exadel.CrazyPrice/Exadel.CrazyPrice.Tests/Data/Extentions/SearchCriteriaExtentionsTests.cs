@@ -5,6 +5,7 @@ using Exadel.CrazyPrice.Data.Extentions;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Exadel.CrazyPrice.Common.Models;
 using Xunit;
 
@@ -51,7 +52,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "",
-                IncomingUser =  new IncomingUser()
+                IncomingUser = new IncomingUser()
                 {
                     Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
                     Role = RoleOption.Employee
@@ -77,7 +78,15 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 }
             };
 
-            sort.GetQuery().Should().BeEquivalentTo("{$and : [{\"address.country\" : \"\"}, {\"address.city\" : \"\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"startDate\" : {$lte : ISODate(\"2021-01-01T07:10:10Z\")} }, {\"endDate\" : {$gte : ISODate(\"2021-01-01T07:10:10Z\")} }, {\"amountOfDiscount\" : {$gte : 10} }, {\"amountOfDiscount\" : {$lte : 100} }, {\"ratingTotal\" : {$gte : 1} }, {\"ratingTotal\" : {$lte : 5} }, {\"company.name\" : \"AdvancedName\"}]}");
+            var startExpectedResult =
+                DateTime.ParseExact("01.01.2021 10:10:10", "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUniversalTime();
+
+            var endExpectedResult =
+                DateTime.ParseExact("01.01.2021 10:10:10", "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUniversalTime();
+
+            sort.GetQuery().Should().BeEquivalentTo("{$and : [{\"address.country\" : \"\"}, {\"address.city\" : \"\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"startDate\" : {$lte : ISODate(\"" 
+                                                    + startExpectedResult.ToString("yyyy-MM-ddTHH:mm:ssZ") + "\")} }, {\"endDate\" : {$gte : ISODate(\"" 
+                                                    + endExpectedResult.ToString("yyyy-MM-ddTHH:mm:ssZ") + "\")} }, {\"amountOfDiscount\" : {$gte : 10} }, {\"amountOfDiscount\" : {$lte : 100} }, {\"ratingTotal\" : {$gte : 1} }, {\"ratingTotal\" : {$lte : 5} }, {\"company.name\" : \"AdvancedName\"}]}");
         }
 
         [Fact]
