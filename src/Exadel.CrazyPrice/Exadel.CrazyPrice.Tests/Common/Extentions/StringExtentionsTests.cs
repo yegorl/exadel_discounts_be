@@ -132,9 +132,9 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
         {
             const string value = "31.12.2009 22:00:00";
             var expectedResult =
-                DateTime.ParseExact(value, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                DateTime.ParseExact(value, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUniversalTime();
 
-            value.GetUtcDateTime().ToString().Should().Be("31.12.2009 20:00:00");
+            value.GetUtcDateTime().ToString().Should().Be(expectedResult.ToString());
         }
 
         [Fact]
