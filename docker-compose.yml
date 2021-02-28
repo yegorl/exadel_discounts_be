@@ -2,7 +2,7 @@
 
 services:
  database:
-  image: mongo
+  image: mongo:4.4.4
   ports:
    - 27017:27017
   restart: always
@@ -19,6 +19,19 @@ services:
    /seed/import.sh
   depends_on:
    - database
+
+ messagebroker:
+  image: rabbitmq:3-management
+  hostname: cprabbit
+  ports:
+   - 5672:5672
+   - 15672:15672
+  restart: always
+  volumes:
+   - ./volumes/configuration/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+   - ./volumes/configuration/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+   - ./volumes/rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@cprabbit
+   - ./volumes/logs/rabbitmq:/var/log/rabbitmq/log
 
  identityserver:
   image: identityserver
