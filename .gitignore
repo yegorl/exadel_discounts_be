@@ -32,6 +32,7 @@ bld/
 [Ll]ogs/
 
 [Dd]atabase/data/
+[Rr]abbitmq/data/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -355,3 +356,4 @@ MigrationBackup/
 *.cs text eol=crlf
 *.csproj text eol=crlf
 /volumes/database/data
+/volumes/rabbitmq/data
