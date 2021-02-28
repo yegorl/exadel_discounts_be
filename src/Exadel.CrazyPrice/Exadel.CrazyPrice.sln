@@ -13,9 +13,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.Data", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.IdentityServer", "Exadel.CrazyPrice.IdentityServer\Exadel.CrazyPrice.IdentityServer.csproj", "{611BA737-44AE-421F-ADE6-1893ECA7F651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exadel.CrazyPrice.Data.Seeder", "Exadel.CrazyPrice.Data.Seeder\Exadel.CrazyPrice.Data.Seeder.csproj", "{785992C3-3FE3-4D03-92BD-84674E28A01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.Data.Seeder", "Exadel.CrazyPrice.Data.Seeder\Exadel.CrazyPrice.Data.Seeder.csproj", "{785992C3-3FE3-4D03-92BD-84674E28A01D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exadel.CrazyPrice.TestClient", "Exadel.CrazyPrice.TestClient\Exadel.CrazyPrice.TestClient.csproj", "{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exadel.CrazyPrice.Modules", "Exadel.CrazyPrice.Modules", "{6E0504F5-6F93-4DF4-A3E4-3928820687F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{67A53701-512B-469E-9513-EF7C71F7B976}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus", "..\..\..\..\..\Users\dmace\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.Modules\EventBus\EventBus\EventBus.csproj", "{5613843C-693A-4FFF-BBB7-8CAF46F8F06E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBusRabbitMQ", "..\..\..\..\..\Users\dmace\Source\Repos\Exadel\src\Exadel.CrazyPrice\Exadel.CrazyPrice.Modules\EventBus\EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{6B372E8B-6758-4065-B49E-A67986C9D08B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{5D842770-1813-472C-897A-8CE879D1C478}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "Exadel.CrazyPrice.Modules\Mail\MailSender\MailSender.csproj", "{856B90E5-561C-47FF-991C-4B403A6E0A26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSenderMailKit", "Exadel.CrazyPrice.Modules\Mail\MailSenderMailKit\MailSenderMailKit.csproj", "{ED190FE6-46DB-497D-ADAA-1C44A24130C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +65,33 @@ Global
 		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6913AF75-8F45-4DB3-86BA-13DDE0DFF488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5613843C-693A-4FFF-BBB7-8CAF46F8F06E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5613843C-693A-4FFF-BBB7-8CAF46F8F06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5613843C-693A-4FFF-BBB7-8CAF46F8F06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5613843C-693A-4FFF-BBB7-8CAF46F8F06E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B372E8B-6758-4065-B49E-A67986C9D08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B372E8B-6758-4065-B49E-A67986C9D08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B372E8B-6758-4065-B49E-A67986C9D08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B372E8B-6758-4065-B49E-A67986C9D08B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{856B90E5-561C-47FF-991C-4B403A6E0A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856B90E5-561C-47FF-991C-4B403A6E0A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856B90E5-561C-47FF-991C-4B403A6E0A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856B90E5-561C-47FF-991C-4B403A6E0A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED190FE6-46DB-497D-ADAA-1C44A24130C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED190FE6-46DB-497D-ADAA-1C44A24130C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED190FE6-46DB-497D-ADAA-1C44A24130C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED190FE6-46DB-497D-ADAA-1C44A24130C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67A53701-512B-469E-9513-EF7C71F7B976} = {6E0504F5-6F93-4DF4-A3E4-3928820687F4}
+		{5613843C-693A-4FFF-BBB7-8CAF46F8F06E} = {67A53701-512B-469E-9513-EF7C71F7B976}
+		{6B372E8B-6758-4065-B49E-A67986C9D08B} = {67A53701-512B-469E-9513-EF7C71F7B976}
+		{5D842770-1813-472C-897A-8CE879D1C478} = {6E0504F5-6F93-4DF4-A3E4-3928820687F4}
+		{856B90E5-561C-47FF-991C-4B403A6E0A26} = {5D842770-1813-472C-897A-8CE879D1C478}
+		{ED190FE6-46DB-497D-ADAA-1C44A24130C5} = {5D842770-1813-472C-897A-8CE879D1C478}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3094045A-D91C-4865-B6CA-1136457E8A22}
