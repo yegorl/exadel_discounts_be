@@ -355,3 +355,7 @@ MigrationBackup/
 *.cs text eol=crlf
 *.csproj text eol=crlf
 /volumes/database/data
+/volumes/database/seed/AllowedExternalUsers.json
+/volumes/database/seed/Discounts.json
+/volumes/database/seed/Tags.json
+/volumes/database/seed/Users.json

@@ -22,8 +22,10 @@ namespace Exadel.CrazyPrice.Data.Extentions
         public static string GetSort(this SearchCriteria searchCriteria)
         {
             var startDateSort = searchCriteria.SearchSortFieldOption == SortFieldOption.DateStart ? "" : ", \"startDate\": -1";
+            var endDateSort = searchCriteria.SearchSortFieldOption == SortFieldOption.DateEnd ? "" : ", \"endDate\": 1";
+
             return "{ \"" + searchCriteria.GetTranslationsPrefix() + searchCriteria.SearchSortFieldOption.ToStringLookup() + "\": " +
-                       (int)searchCriteria.SearchSortOption + startDateSort + ", \"endDate\": 1}";
+                   (int)searchCriteria.SearchSortOption + startDateSort + endDateSort + "}";
         }
 
         /// <summary>
