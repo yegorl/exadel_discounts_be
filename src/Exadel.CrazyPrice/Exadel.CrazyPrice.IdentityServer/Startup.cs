@@ -2,6 +2,7 @@ using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.IdentityServer.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,6 +48,8 @@ namespace Exadel.CrazyPrice.IdentityServer
             app.UseRouting();
 
             app.UseCrazyPriceIdentityServer(Configuration);
+
+            app.UseCustomForwardedHeaders();
 
             // uncomment, if you want to add MVC
             app.UseAuthorization();
