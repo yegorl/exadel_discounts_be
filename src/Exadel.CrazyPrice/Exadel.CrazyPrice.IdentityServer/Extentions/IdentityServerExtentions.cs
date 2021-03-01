@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Exadel.CrazyPrice.IdentityServer.Extentions
 {
@@ -77,5 +78,19 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
             app
                 .UseCors(new IdentityServerConfiguration(configuration).PolicyName)
                 .UseIdentityServer();
+
+        public static IApplicationBuilder UseCustomForwardedHeaders(this IApplicationBuilder app)
+        {
+            var forwardOptions = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+                RequireHeaderSymmetry = false
+            };
+
+            forwardOptions.KnownNetworks.Clear();
+            forwardOptions.KnownProxies.Clear();
+
+            return app.UseForwardedHeaders(forwardOptions);
+        }
     }
 }
