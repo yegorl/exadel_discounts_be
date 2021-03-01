@@ -178,6 +178,25 @@ namespace Exadel.CrazyPrice.Common.Extentions
         }
 
         /// <summary>
+        /// Converts string to int. When raiseException is true and is cast error raises exception otherwise returns defaultValue.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="raiseException"></param>
+        /// <returns></returns>
+        public static int ToInt(this string key, int defaultValue = 0, bool raiseException = true)
+        {
+            if (int.TryParse(key, out var value))
+            {
+                return value;
+            }
+            else
+            {
+                return raiseException ? throw new ArgumentException($"'{key}' is not int value.") : defaultValue;
+            }
+        }
+
+        /// <summary>
         /// Converts string to string with value. When raiseException is true and is cast error raises exception otherwise returns defaultValue. 
         /// </summary>
         /// <param name="key"></param>
