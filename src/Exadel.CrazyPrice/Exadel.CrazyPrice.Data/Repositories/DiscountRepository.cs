@@ -322,18 +322,31 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
         #region Subscriptions
 
-        public async Task<UserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid)
+        public async Task<DiscountUserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid)
         {
             var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
-
-            if (dbDiscount.Deleted)
+            var discountUserPromocodes = new DiscountUserPromocodes()
             {
-                return new UserPromocodes();
+                DiscountId = discountUid,
+                DiscountName = dbDiscount?.Name,
+                Company = dbDiscount?.Company.ToCompany(),
+                CurrentPromocode = null,
+                UserPromocodes = new UserPromocodes
+                {
+                    UserId = userUid,
+                    Promocodes = new List<Promocode>()
+                }
+            };
+
+            if (dbDiscount.IsEmpty() || dbDiscount!.Deleted)
+            {
+                return discountUserPromocodes;
             }
 
             if (!dbDiscount.CanAddUserPromocode(userUid, DateTime.UtcNow))
             {
-                return dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
+                discountUserPromocodes.UserPromocodes = dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
+                return discountUserPromocodes;
             }
 
             var newPromocode = DbPromocode.New(Guid.NewGuid(), DateTime.Now, dbDiscount.PromocodeOptions.DaysDurationPromocode, StringExtentions.NewPromocodeValue(dbDiscount.PromocodeOptions?.CountSymbolsPromocode ?? 4));
@@ -342,7 +355,10 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             await UpsertSubscriptions(dbDiscount);
 
-            return dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
+            discountUserPromocodes.CurrentPromocode = newPromocode.ToPromocode();
+            discountUserPromocodes.UserPromocodes = dbDiscount.GetDbUserPromocodes(userUid).ToUserPromocodes();
+
+            return discountUserPromocodes;
         }
 
         public async Task<UserPromocodes> GetSubscriptionsAsync(Guid discountUid, Guid userUid)
