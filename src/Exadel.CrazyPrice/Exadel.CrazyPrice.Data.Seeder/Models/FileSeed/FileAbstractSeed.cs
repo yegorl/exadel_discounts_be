@@ -21,6 +21,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.FileSeed
 
         public override async Task CreateIndexesAsync()
         {
+            await Task.CompletedTask;
         }
 
         protected string FullName => Path.Combine(_configuration.Path, CollectionName);
@@ -28,10 +29,13 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.FileSeed
         protected override async Task DeleteAsync()
         {
             File.Delete(FullName);
+            await Task.CompletedTask;
         }
 
         protected override async Task<long> CountEstimatedAsync()
         {
+            await Task.CompletedTask;
+
             return Collection.Count;
         }
     }
