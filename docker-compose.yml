@@ -30,7 +30,6 @@ services:
    - 8001:443
   volumes:
    - ./volumes/logs/identityServer:/app/Logs/
-   - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.IdentityServer:/root/IdentityServer:cached
    - type: bind
      source: ./volumes/certificates/aspnetapp-root-cert.cer
      target: /https-root/aspnetapp-root-cert.cer
@@ -62,7 +61,6 @@ services:
    - 9001:443
   volumes:
    - ./volumes/logs/api:/app/Logs/
-   - ./src/Exadel.CrazyPrice/Exadel.CrazyPrice.WebApi:/root/Api:cached
    - type: bind
      source: ./volumes/certificates/update-ca-cert.sh
      target: /https-root/update-ca-cert.sh 
