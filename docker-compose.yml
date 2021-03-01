@@ -93,7 +93,7 @@ services:
    - ASPNETCORE_HTTPS_PORT=9001
    - ASPNETCORE_ENVIRONMENT=Docker
    - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-   - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx
+   - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx   
   entrypoint: bash -c "/https-root/update-ca-cert.sh && dotnet Exadel.CrazyPrice.WebApi.dll"
   links:
    - database
