@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Exadel.CrazyPrice.Modules.EventBus.Events
 {
@@ -18,10 +18,8 @@ namespace Exadel.CrazyPrice.Modules.EventBus.Events
             CreationDate = createDate;
         }
 
-        [JsonProperty]
         public Guid Id { get; private init; }
 
-        [JsonProperty]
         public DateTime CreationDate { get; private init; }
     }
 }

@@ -1,19 +1,22 @@
-﻿using Autofac;
-using Exadel.CrazyPrice.Modules.EventBus;
+﻿using Exadel.CrazyPrice.Modules.EventBus;
 using Exadel.CrazyPrice.Modules.EventBus.Abstractions;
 using Exadel.CrazyPrice.Modules.EventBus.Events;
 using Exadel.CrazyPrice.Modules.EventBus.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Polly;
 using Polly.Retry;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using System;
+using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
@@ -21,30 +24,33 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
         private const string BROKER_NAME = "crazyprice_event_bus";
-        private const string AUTOFAC_SCOPE_NAME = "crazyprice_event_bus";
 
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subsManager;
-        private readonly ILifetimeScope _autofac;
         private readonly int _retryCount;
 
         private IModel _consumerChannel;
+        private readonly IServiceProvider _serviceProvider;
         private string _queueName;
 
-        public EventBusRabbitMQ(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQ> logger,
-            ILifetimeScope autofac, IEventBusSubscriptionsManager subsManager, string queueName = null, int retryCount = 5)
+        public EventBusRabbitMQ(IServiceProvider serviceProvider, string queueName = null, int retryCount = 5)
         {
+            _serviceProvider = serviceProvider;
+
+            var persistentConnection = _serviceProvider.GetRequiredService<IRabbitMQPersistentConnection>();
+            var logger = _serviceProvider.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+            var subsManager = _serviceProvider.GetRequiredService<IEventBusSubscriptionsManager>();
+
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
             _queueName = queueName;
             _consumerChannel = CreateConsumerChannel();
-            _autofac = autofac;
             _retryCount = retryCount;
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
-        
+
         public void Publish(IntegrationEvent @event)
         {
             if (!_persistentConnection.IsConnected)
@@ -68,7 +74,12 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
 
             channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
 
-            var message = JsonConvert.SerializeObject(@event);
+            var message = JsonSerializer.Serialize(@event, @event.GetType(), new JsonSerializerOptions
+            {
+                WriteIndented = false,
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
+
+            });
             var body = Encoding.UTF8.GetBytes(message);
 
             policy.Execute(() =>
@@ -109,7 +120,7 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
             _subsManager.AddSubscription<T, TH>();
             StartBasicConsume();
         }
-        
+
         public void Unsubscribe<T, TH>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
@@ -126,7 +137,7 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
         {
             _subsManager.RemoveDynamicSubscription<TH>(eventName);
         }
-        
+
         private void StartBasicConsume()
         {
             _logger.LogTrace("Starting RabbitMQ basic consume");
@@ -161,16 +172,19 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
                 }
 
                 await ProcessEvent(eventName, message);
+                _consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "----- ERROR Processing message \"{Message}\"", message);
+                _logger.LogWarning(ex, "ERROR Processing message \"{Message}\"", message);
             }
 
             // Even on exception we take the message off the queue.
             // in a REAL WORLD app this should be handled with a Dead Letter Exchange (DLX). 
             // For more information see: https://www.rabbitmq.com/dlx.html
-            _consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
+            //_consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
+
+            await Task.CompletedTask;
         }
 
         private IModel CreateConsumerChannel()
@@ -211,39 +225,46 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
 
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
-                using (var scope = _autofac.BeginLifetimeScope(AUTOFAC_SCOPE_NAME))
+                var subscriptions = _subsManager.GetHandlersForEvent(eventName);
+                foreach (var subscription in subscriptions)
                 {
-                    var subscriptions = _subsManager.GetHandlersForEvent(eventName);
-                    foreach (var subscription in subscriptions)
+                    if (subscription.IsDynamic)
                     {
-                        if (subscription.IsDynamic)
+                        var handler = subscription.HandlerType as IDynamicIntegrationEventHandler;
+                        if (handler == null)
                         {
-                            var handler = scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
-                            if (handler == null)
-                            {
-                                continue;
-                            }
-
-                            dynamic eventData = JObject.Parse(message);
-
-                            await Task.Yield();
-                            await handler.Handle(eventData);
+                            continue;
                         }
-                        else
+
+                        var eventType = _subsManager.GetEventTypeByName(eventName);
+                        dynamic eventData = JsonSerializer.Deserialize(message, eventType);
+
+                        await Task.Yield();
+                        await handler.Handle(eventData);
+                    }
+                    else
+                    {
+                        var handler = subscription.HandlerType;
+                        if (handler == null)
                         {
-                            var handler = scope.ResolveOptional(subscription.HandlerType);
-                            if (handler == null)
-                            {
-                                continue;
-                            }
-
-                            var eventType = _subsManager.GetEventTypeByName(eventName);
-                            var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-                            var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-
-                            await Task.Yield();
-                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                            continue;
                         }
+
+                        var handlerConstructor = handler.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
+                            .OrderByDescending(c => c.GetParameters().Length).First();
+
+                        var parameters = handlerConstructor.GetParameters();
+                        var arguments = parameters.Select(p => _serviceProvider.GetService(p.ParameterType)).ToArray();
+
+                        dynamic objectHandler = handlerConstructor.Invoke(arguments);
+
+                        var eventType = _subsManager.GetEventTypeByName(eventName);
+                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+
+                        dynamic integrationEvent = JsonSerializer.Deserialize(message, eventType);
+
+                        await Task.Yield();
+                        await (Task)concreteType.GetMethod("Handle").Invoke(objectHandler, new object[] { integrationEvent });
                     }
                 }
             }
@@ -265,7 +286,11 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
                 exchange: BROKER_NAME,
                 routingKey: eventName);
 
-            if (!_subsManager.IsEmpty) return;
+            if (!_subsManager.IsEmpty)
+            {
+                return;
+            }
+
             _queueName = string.Empty;
             _consumerChannel.Close();
         }
@@ -273,7 +298,10 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
         private void DoInternalSubscription(string eventName)
         {
             var containsKey = _subsManager.HasSubscriptionsForEvent(eventName);
-            if (containsKey) return;
+            if (containsKey)
+            {
+                return;
+            }
 
             if (!_persistentConnection.IsConnected)
             {
@@ -291,7 +319,7 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
         {
             _consumerChannel?.Dispose();
             _subsManager.Clear();
-        } 
+        }
         #endregion
     }
 }
