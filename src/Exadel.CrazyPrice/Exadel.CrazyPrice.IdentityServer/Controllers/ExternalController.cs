@@ -87,17 +87,20 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Callback()
         {
+            _logger.LogInformation("Post processing of external authentication.");
+
             // read external identity from the temporary cookie
             var result = await HttpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
             if (result?.Succeeded != true)
             {
                 throw new Exception("External authentication error");
             }
+            _logger.LogInformation("Got response from external provider.");
 
             if (_logger.IsEnabled(LogLevel.Debug))
             {
                 var externalClaims = result.Principal.Claims.Select(c => $"{c.Type}: {c.Value}");
-                _logger.LogDebug("External claims: {@claims}", externalClaims);
+                _logger.LogDebug("External claims: {@claims}.", externalClaims);
             }
 
             // retrieve return URL
@@ -107,6 +110,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             if (user.IsEmpty())
             {
+                _logger.LogInformation("Redirected to: {returnUrl}.", returnUrl);
                 return Redirect(returnUrl);
             }
 
@@ -122,10 +126,13 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 AdditionalClaims = additionalLocalClaims
             };
 
+            _logger.LogInformation("Issue authentication cookie for user: {@issuer}.", issuer);
+
             await HttpContext.SignInAsync(issuer, localSignInProps);
 
             // delete temporary cookie used during external authentication
             await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
+            _logger.LogInformation("Deleted temporary cookie used during external authentication.");
 
             // check if external login is in the context of an OIDC request
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
@@ -135,12 +142,14 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             {
                 if (context.IsNativeClient())
                 {
+                    _logger.LogInformation("Redirected to: {returnUrl}.", returnUrl);
                     // The client is native, so this change in how to
                     // return the response is for better UX for the end user.
                     return this.LoadingPage("Redirect", returnUrl);
                 }
             }
 
+            _logger.LogInformation("Redirected to: {returnUrl}.", returnUrl);
             return Redirect(returnUrl);
         }
 
@@ -166,21 +175,36 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 Provider = provider
             };
 
+            _logger.LogInformation("Incoming external user: {@externalUser}.", externalUser);
+
             // find external user
             var user = await _userRepository.GetUserByExternalUserAsync(externalUser);
 
             if (user.IsEmpty())
             {
-                user = await _userRepository.GetUserByEmailAsync(claims.GetClaimValue(ClaimTypes.Email));
+                _logger.LogWarning("External user not found.");
+
+                var mail = claims.GetClaimValue(ClaimTypes.Email);
+                user = await _userRepository.GetUserByEmailAsync(mail);
+
                 if (!user.IsEmpty())
                 {
+                    _logger.LogInformation("Internal user with the same mail {mail} is exist.", mail);
                     await _userRepository.AddExternalUserIntoUserAsync(externalUser, user.Id);
+                    _logger.LogInformation("Added external user into internal user.");
                 }
                 else
                 {
+                    _logger.LogWarning("Internal user with the same mail {mail} is not exist.", mail);
+                    _logger.LogInformation("Attempting to create a new user from an allowed pool.");
                     if (_userService.TryCreateUser(claims, provider, out user))
                     {
                         await _userRepository.AddUserAsync(user);
+                        _logger.LogInformation("Created new user: {@user}.", user);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("User was not created. Not allowed mail: {mail}", mail);
                     }
                 }
             }
