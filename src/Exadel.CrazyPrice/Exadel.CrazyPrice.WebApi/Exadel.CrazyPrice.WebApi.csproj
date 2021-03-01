@@ -33,6 +33,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
 		<ProjectReference Include="..\Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj" />
+		<ProjectReference Include="..\Exadel.CrazyPrice.Services\Bus\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+		<ProjectReference Include="..\Exadel.CrazyPrice.Services\Bus\IntegrationBus\IntegrationBus.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

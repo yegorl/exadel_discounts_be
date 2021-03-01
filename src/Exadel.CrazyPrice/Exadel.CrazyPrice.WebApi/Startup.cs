@@ -1,5 +1,6 @@
 using Exadel.CrazyPrice.Data.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
+using IntegrationBus.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +29,13 @@ namespace Exadel.CrazyPrice.WebApi
         }
 
         /// <summary>
-        /// Gets Configuration
+        /// Gets Configuration.
         /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Gets WebHostEnvironment.
+        /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
 
         /// <summary>
@@ -41,8 +45,14 @@ namespace Exadel.CrazyPrice.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddControllers()
+            services
+                .AddControllers()
                 .AddCrazyPriceValidation();
+
+            services
+                .AddRabbitMQ(Configuration)
+                .AddEventBus(Configuration)
+                .AddEventBusHandlers(Configuration);
 
             services.AddApiVersioning(options =>
             {
