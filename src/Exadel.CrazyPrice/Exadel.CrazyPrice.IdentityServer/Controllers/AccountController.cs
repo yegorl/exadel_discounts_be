@@ -89,7 +89,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
 
-            _logger.LogInformation("Got access to Login page from URL: {returnUrl}.", returnUrl);
+            _logger.LogTrace("Got access to Login page from URL: {returnUrl}.", returnUrl);
 
             return View(vm);
         }

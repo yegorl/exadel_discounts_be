@@ -103,7 +103,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             // retrieve return URL
             var returnUrl = result.Properties?.Items["returnUrl"] ?? "~/";
 
-            _logger.LogInformation("Callback. Post processing of external authentication from URL: {returnUrl}.", returnUrl);
+            _logger.LogTrace("Callback. Post processing of external authentication from URL: {returnUrl}.", returnUrl);
 
             var (user, provider, providerUserId) = await GetUserFromExternalProvider(result);
 
