@@ -87,15 +87,12 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Callback()
         {
-            _logger.LogInformation("Post processing of external authentication.");
-
             // read external identity from the temporary cookie
             var result = await HttpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
             if (result?.Succeeded != true)
             {
                 throw new Exception("External authentication error");
             }
-            _logger.LogInformation("Got response from external provider.");
 
             if (_logger.IsEnabled(LogLevel.Debug))
             {
@@ -104,15 +101,21 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             }
 
             // retrieve return URL
-            var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
+            var returnUrl = result.Properties?.Items["returnUrl"] ?? "~/";
+
+            _logger.LogInformation("Callback. Post processing of external authentication from URL: {returnUrl}.", returnUrl);
 
             var (user, provider, providerUserId) = await GetUserFromExternalProvider(result);
 
             if (user.IsEmpty())
             {
-                _logger.LogInformation("Redirected to: {returnUrl}.", returnUrl);
+                _logger.LogWarning("Callback. Provider:{provider}. UserId: {providerUserId}  " +
+                                       "Redirected to: {returnUrl}.", provider, providerUserId, returnUrl);
                 return Redirect(returnUrl);
             }
+
+            _logger.LogInformation("Callback. Found user: id {id}, name {name}, surname {surname}, mail {mail}.",
+                user.Id, user.Name, user.Surname, user.Mail);
 
             var additionalLocalClaims = new List<Claim>();
             var localSignInProps = new AuthenticationProperties();
@@ -126,30 +129,39 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 AdditionalClaims = additionalLocalClaims
             };
 
-            _logger.LogInformation("Issue authentication cookie for user: {@issuer}.", issuer);
+            _logger.LogInformation("Callback. Provider:{provider}. UserId: {providerUserId}. " +
+                                   "Issue authentication cookie for user: {@issuer}.", provider, providerUserId, issuer);
 
             await HttpContext.SignInAsync(issuer, localSignInProps);
 
             // delete temporary cookie used during external authentication
-            await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
-            _logger.LogInformation("Deleted temporary cookie used during external authentication.");
+            var cookie = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            await HttpContext.SignOutAsync(cookie);
+
+            _logger.LogInformation("Callback. Provider:{provider}. UserId: {providerUserId}. " +
+                                   "Deleted temporary cookie: {cookie}.",provider, providerUserId, cookie);
 
             // check if external login is in the context of an OIDC request
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            await _events.RaiseAsync(new UserLoginSuccessEvent(provider.ToString(), providerUserId, user.Id.ToString(), user.Name, true, context?.Client.ClientId));
+            await _events.RaiseAsync(new UserLoginSuccessEvent(provider.ToString(), providerUserId, user.Id.ToString(), 
+                user.Name, true, context?.Client.ClientId));
 
             if (context != null)
             {
                 if (context.IsNativeClient())
                 {
-                    _logger.LogInformation("Redirected to: {returnUrl}.", returnUrl);
+                    _logger.LogInformation("Callback. Provider:{provider}. UserId: {providerUserId}. Redirected to native client: {returnUrl}.",
+                        provider, providerUserId, returnUrl);
+
                     // The client is native, so this change in how to
                     // return the response is for better UX for the end user.
                     return this.LoadingPage("Redirect", returnUrl);
                 }
             }
 
-            _logger.LogInformation("Redirected to: {returnUrl}.", returnUrl);
+            _logger.LogInformation("Callback. Provider:{provider}. UserId: {providerUserId}. Redirected to: {returnUrl}.", 
+                provider, providerUserId, returnUrl);
+
             return Redirect(returnUrl);
         }
 
@@ -175,36 +187,41 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                 Provider = provider
             };
 
-            _logger.LogInformation("Incoming external user: {@externalUser}.", externalUser);
+            _logger.LogInformation("Callback. Getting user. Incoming external user: {@externalUser}.", externalUser);
 
             // find external user
             var user = await _userRepository.GetUserByExternalUserAsync(externalUser);
 
             if (user.IsEmpty())
             {
-                _logger.LogWarning("External user not found.");
+                _logger.LogWarning("Callback. Getting user. External user not found: {@externalUser}.", externalUser);
 
                 var mail = claims.GetClaimValue(ClaimTypes.Email);
                 user = await _userRepository.GetUserByEmailAsync(mail);
 
                 if (!user.IsEmpty())
                 {
-                    _logger.LogInformation("Internal user with the same mail {mail} is exist.", mail);
+                    _logger.LogInformation("Callback. Getting user. Internal user with the same mail {mail} is exist. " +
+                                           "External user: {@externalUser}", mail, externalUser);
                     await _userRepository.AddExternalUserIntoUserAsync(externalUser, user.Id);
-                    _logger.LogInformation("Added external user into internal user.");
+                    _logger.LogInformation("Callback. Getting user. Added external user {@externalUser} into internal user {id}.",
+                        externalUser, user.Id);
                 }
                 else
                 {
-                    _logger.LogWarning("Internal user with the same mail {mail} is not exist.", mail);
-                    _logger.LogInformation("Attempting to create a new user from an allowed pool.");
+                    _logger.LogWarning("Callback. Getting user. Internal user with the same mail {mail} is not exist. " +
+                                       "External user: {@externalUser}.", mail, externalUser);
+
                     if (_userService.TryCreateUser(claims, provider, out user))
                     {
                         await _userRepository.AddUserAsync(user);
-                        _logger.LogInformation("Created new user: {@user}.", user);
+                        _logger.LogInformation("Callback. Getting user. Attempting to create a new user from an allowed pool " +
+                                               "was successful. User: {@user}.", user);
                     }
                     else
                     {
-                        _logger.LogWarning("User was not created. Not allowed mail: {mail}", mail);
+                        _logger.LogWarning("Callback. Getting user. User was not created. Not allowed mail: {mail}. " +
+                                           "External user: {@externalUser}", mail, externalUser);
                     }
                 }
             }
