@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Bus\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\..\Bus\IntegrationBus\IntegrationBus.csproj" />
     <ProjectReference Include="..\..\..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+    <ProjectReference Include="..\..\Common\IntegrationEvents\IntegrationEvents.csproj" />
     <ProjectReference Include="..\MailClient\MailClient.csproj" />
   </ItemGroup>
 

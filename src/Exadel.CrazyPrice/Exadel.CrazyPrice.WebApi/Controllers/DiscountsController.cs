@@ -6,10 +6,11 @@ using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.Data.Extentions;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Events;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Models;
 using Exadel.CrazyPrice.WebApi.Extentions;
-using Exadel.CrazyPrice.WebApi.Helpers;
-using Exadel.CrazyPrice.WebApi.IntegrationEvents.Events;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -387,13 +388,28 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             if (discountUserPromocodes != null && !discountUserPromocodes.CurrentPromocode.IsEmpty())
             {
                 var employee = (await _users.GetUserByUidAsync(incomingUser.Id)).ToEmployee();
-                var promocodeAddedEvent = new PromocodeAddedIntegrationEvent(
-                    id, discountUserPromocodes.DiscountName, discountUserPromocodes.Company?.Mail,
-                    employee.Name, employee.Mail, discountUserPromocodes.CurrentPromocode.PromocodeValue);
-                await _integrationEventService.PublishThroughEventBusAsync(promocodeAddedEvent, ApplicationInfo.ApplicationName);
+
+                var userEvent = new PromocodeAddedIntegrationEvent<UserMailContent>
+                    (new UserMailContent(employee, id, discountUserPromocodes.DiscountName,
+                    discountUserPromocodes.CurrentPromocode.PromocodeValue),
+                    "WebApi", new BusParams("crazyprice.direct", "mail.user"));
+
+                await PublishThroughEventBusAsync(userEvent);
+
+                var companyEvent = new PromocodeAddedIntegrationEvent<CompanyMailContent>
+                    (new CompanyMailContent(discountUserPromocodes.Company, id, discountUserPromocodes.DiscountName,
+                    discountUserPromocodes.CurrentPromocode.PromocodeValue),
+                    "WebApi", new BusParams("crazyprice.direct", "mail.company"));
+
+                await PublishThroughEventBusAsync(companyEvent);
             }
 
             return Ok(discountUserPromocodes?.UserPromocodes);
+        }
+
+        private async Task PublishThroughEventBusAsync(IntegrationEvent @event)
+        {
+            await _integrationEventService.PublishThroughEventBusAsync(@event);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Exadel.CrazyPrice.WebApi.IntegrationEvents.EventHandling;
+﻿using Exadel.CrazyPrice.Services.Common.IntegrationEvents.EventHandling;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,7 +9,9 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
     {
         public static IServiceCollection AddEventBusHandlers(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddTransient<PromocodeAddedIntegrationEventHandler>();
+            services.AddTransient<PromocodeAddedIntegrationEventHandler<UserMailContent>>();
+            services.AddTransient<PromocodeAddedIntegrationEventHandler<CompanyMailContent>>();
+            return services;
         }
     }
 }

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Exadel.CrazyPrice.Services.Common.IntegrationEvents</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+    <ProjectReference Include="..\..\Bus\EventBus\EventBus.csproj" />
+    <ProjectReference Include="..\..\Bus\IntegrationBus\IntegrationBus.csproj" />
+  </ItemGroup>
+
+</Project>

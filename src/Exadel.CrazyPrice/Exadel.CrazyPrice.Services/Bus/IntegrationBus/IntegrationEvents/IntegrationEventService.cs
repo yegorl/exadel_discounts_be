@@ -17,17 +17,17 @@ namespace Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
-        public async Task PublishThroughEventBusAsync(IntegrationEvent evt, string appName)
+        public async Task PublishThroughEventBusAsync(IntegrationEvent evt)
         {
             try
             {
-                _logger.LogInformation("Publishing integration event: {IntegrationEventId_published} from {AppName} - ({@IntegrationEvent})", evt.Id, appName, evt);
+                _logger.LogInformation("Publishing integration event: {IntegrationEventId_published} from {AppName} - ({@IntegrationEvent})", evt.EventId, evt.ApplicationName, evt);
 
                 _eventBus.Publish(evt);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName} - ({@IntegrationEvent})", evt.Id, appName, evt);
+                _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName} - ({@IntegrationEvent})", evt.EventId, evt.ApplicationName, evt);
             }
 
             await Task.CompletedTask;

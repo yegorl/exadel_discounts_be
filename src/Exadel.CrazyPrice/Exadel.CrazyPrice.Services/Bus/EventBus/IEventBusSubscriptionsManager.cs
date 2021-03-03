@@ -15,9 +15,10 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus
         void AddDynamicSubscription<TH>(string eventName)
            where TH : IDynamicIntegrationEventHandler;
 
-        void AddSubscription<T, TH>()
+        void AddSubscription<T, TH, TP>()
            where T : IntegrationEvent
-           where TH : IIntegrationEventHandler<T>;
+           where TH : IIntegrationEventHandler<T>
+           where TP : BusParams<T>;
 
         void RemoveSubscription<T, TH>()
              where TH : IIntegrationEventHandler<T>
@@ -39,5 +40,7 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus
         IEnumerable<SubscriptionInfo> GetHandlersForEvent(string eventName);
 
         string GetEventKey<T>();
+
+        Type GetTypeParams(string eventName);
     }
 }

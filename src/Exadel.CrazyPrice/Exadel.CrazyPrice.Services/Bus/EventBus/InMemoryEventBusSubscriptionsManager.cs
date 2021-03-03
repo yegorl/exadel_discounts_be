@@ -1,5 +1,6 @@
 ﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
 using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {
         private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
-        private readonly List<Type> _eventTypes;
+        private readonly Dictionary<Type, Type> _eventTypes;
 
         public event EventHandler<string> OnEventRemoved;
 
         public InMemoryEventBusSubscriptionsManager()
         {
             _handlers = new Dictionary<string, List<SubscriptionInfo>>();
-            _eventTypes = new List<Type>();
+            _eventTypes = new Dictionary<Type, Type>();
         }
 
         public bool IsEmpty => !_handlers.Keys.Any();
@@ -27,17 +28,18 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus
             where TH : IDynamicIntegrationEventHandler =>
             DoAddSubscription(typeof(TH), eventName, isDynamic: true);
 
-        public void AddSubscription<T, TH>()
+        public void AddSubscription<T, TH, TP>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
+            where TP : BusParams<T>
         {
             var eventName = GetEventKey<T>();
 
             DoAddSubscription(typeof(TH), eventName, isDynamic: false);
 
-            if (!_eventTypes.Contains(typeof(T)))
+            if (!_eventTypes.ContainsKey(typeof(T)))
             {
-                _eventTypes.Add(typeof(T));
+                _eventTypes.Add(typeof(T), typeof(TP));
             }
         }
 
@@ -60,10 +62,13 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus
         public bool HasSubscriptionsForEvent(string eventName) => _handlers.ContainsKey(eventName);
 
         public Type GetEventTypeByName(string eventName) =>
-            _eventTypes.SingleOrDefault(t => t.Name == eventName);
+            _eventTypes.SingleOrDefault(t => t.Key.GetNormalizeTypeName() == eventName).Key;
 
         public string GetEventKey<T>() =>
-            typeof(T).Name;
+            typeof(T).GetNormalizeTypeName();
+
+        public Type GetTypeParams(string eventName) => 
+            _eventTypes.SingleOrDefault(t => t.Key.GetNormalizeTypeName() == eventName).Value;
 
         private void DoAddSubscription(Type handlerType, string eventName, bool isDynamic)
         {
@@ -97,7 +102,7 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus
             }
 
             _handlers.Remove(eventName);
-            var eventType = _eventTypes.SingleOrDefault(e => e.Name == eventName);
+            var eventType = GetEventTypeByName(eventName);
             if (eventType != null)
             {
                 _eventTypes.Remove(eventType);

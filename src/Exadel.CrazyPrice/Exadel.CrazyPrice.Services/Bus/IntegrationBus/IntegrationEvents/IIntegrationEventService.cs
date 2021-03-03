@@ -5,6 +5,6 @@ namespace Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents
 {
     public interface IIntegrationEventService
     {
-        Task PublishThroughEventBusAsync(IntegrationEvent evt, string appName);
+        Task PublishThroughEventBusAsync(IntegrationEvent evt);
     }
 }

@@ -43,10 +43,9 @@ namespace Exadel.CrazyPrice.Services.Bus.IntegrationBus.Extentions
 
         public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
         {
-            var subscriptionClientName = configuration["MessageBroker:SubscriptionClientName"];
             var retryCount = configuration.GetString("MessageBroker:EventBusRetryCount").ToInt(5, false);
 
-            services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp => new EventBusRabbitMQ.EventBusRabbitMQ(sp, subscriptionClientName, retryCount));
+            services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp => new EventBusRabbitMQ.EventBusRabbitMQ(sp, retryCount));
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 

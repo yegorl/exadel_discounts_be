@@ -10,6 +10,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
@@ -24,35 +25,36 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
 {
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
-        private const string BROKER_NAME = "crazyprice_event_bus";
+        //private const string BROKER_NAME = "crazyprice_event_bus";
 
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly int _retryCount;
 
-        private IModel _consumerChannel;
+        //private IModel _consumerChannel;
+        private readonly Dictionary<string, IModel> _consumerChannels;
         private readonly IServiceProvider _serviceProvider;
-        private string _queueName;
+        //private string _queueName;
 
-        public EventBusRabbitMQ(IServiceProvider serviceProvider, string queueName = null, int retryCount = 5)
+        public EventBusRabbitMQ(IServiceProvider serviceProvider, int retryCount = 5)
         {
             _serviceProvider = serviceProvider;
 
-            var persistentConnection = _serviceProvider.GetRequiredService<IRabbitMQPersistentConnection>();
             var logger = _serviceProvider.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+            var persistentConnection = _serviceProvider.GetRequiredService<IRabbitMQPersistentConnection>();
             var subsManager = _serviceProvider.GetRequiredService<IEventBusSubscriptionsManager>();
 
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
-            _queueName = queueName;
-            _consumerChannel = CreateConsumerChannel();
+            //_consumerChannel = CreateConsumerChannel();
+            _consumerChannels = new Dictionary<string, IModel>();
             _retryCount = retryCount;
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
-        public void Publish(IntegrationEvent @event)
+        public void Publish(IntegrationEvent evt)
         {
             if (!_persistentConnection.IsConnected)
             {
@@ -63,18 +65,18 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
                 .Or<SocketException>()
                 .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                 {
-                    _logger.LogWarning(ex, "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})", @event.Id, $"{time.TotalSeconds:n1}", ex.Message);
+                    _logger.LogWarning(ex, "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})", evt.EventId, $"{time.TotalSeconds:n1}", ex.Message);
                 });
 
-            var eventName = @event.GetType().Name;
+            var eventName = evt.GetNormalizeTypeName();
 
-            _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", @event.Id, eventName);
-            _logger.LogTrace("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
-            using var channel = GetChannelWithDeclare();
+            _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", evt.EventId, eventName);
+            _logger.LogTrace("Declaring RabbitMQ exchange to publish event: {EventId}", evt.EventId);
+            using var channel = GetChannelWithDeclare(evt.BusParams);
 
-            channel.QueueBind(_queueName, BROKER_NAME, eventName);
+            channel.QueueBind(evt.BusParams.QueueName, evt.BusParams.ExchangeName, eventName);
 
-            var message = JsonSerializer.Serialize(@event, @event.GetType(), new JsonSerializerOptions
+            var message = JsonSerializer.Serialize(evt, evt.GetType(), new JsonSerializerOptions
             {
                 WriteIndented = false,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
@@ -87,10 +89,10 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
                 var properties = channel.CreateBasicProperties();
                 properties.DeliveryMode = 2; // persistent
 
-                _logger.LogTrace("Publishing event to RabbitMQ: {EventId}", @event.Id);
+                _logger.LogTrace("Publishing event to RabbitMQ: {EventId}", evt.EventId);
 
                 channel.BasicPublish(
-                    exchange: BROKER_NAME,
+                    exchange: evt.BusParams.ExchangeName,
                     routingKey: eventName,
                     mandatory: true,
                     basicProperties: properties,
@@ -101,24 +103,34 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
         public void SubscribeDynamic<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler
         {
-            _logger.LogInformation("Subscribing to dynamic event {EventName} with {EventHandler}", eventName, typeof(TH).GetGenericTypeName());
+            _logger.LogInformation("Subscribing to dynamic event {EventName} with {EventHandler}", eventName, typeof(TH).GetNormalizeTypeName());
 
             DoInternalSubscription(eventName);
             _subsManager.AddDynamicSubscription<TH>(eventName);
-            StartBasicConsume();
+            StartBasicConsume(eventName);
         }
 
-        public void Subscribe<T, TH>()
+        public void Subscribe<T, TH, TP>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
+            where TP : BusParams<T>
         {
             var eventName = _subsManager.GetEventKey<T>();
+
+            _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName, typeof(TH).GetNormalizeTypeName());
+
+            _subsManager.AddSubscription<T, TH, TP>();
+
             DoInternalSubscription(eventName);
 
-            _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName, typeof(TH).GetGenericTypeName());
+            var busParams = _serviceProvider.GetService<TP>();
+            var key = GetBusParamsKey(busParams);
 
-            _subsManager.AddSubscription<T, TH>();
-            StartBasicConsume();
+            if (!_consumerChannels.ContainsKey(key))
+            {
+                _consumerChannels.Add(key, CreateConsumerChannel(eventName));
+            }
+            StartBasicConsume(eventName);
         }
 
         public void Unsubscribe<T, TH>()
@@ -138,18 +150,56 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
             _subsManager.RemoveDynamicSubscription<TH>(eventName);
         }
 
-        private void StartBasicConsume()
+        private IModel GetChannelWithDeclare(BusParams busParams)
+        {
+            var channel = _persistentConnection.CreateModel();
+
+            channel.ExchangeDeclare(exchange: busParams.ExchangeName, type: ExchangeType.Direct, durable: true, autoDelete: false);
+            channel.QueueDeclare(queue: busParams.QueueName, durable: true, exclusive: false, autoDelete: false);
+
+            return channel;
+        }
+
+        private IModel CreateConsumerChannel(string eventName)
+        {
+            if (!_persistentConnection.IsConnected)
+            {
+                _persistentConnection.TryConnect();
+            }
+
+            _logger.LogTrace("Creating RabbitMQ consumer channel.");
+
+            var busParams = GetBusParams(eventName);
+            var channel = GetChannelWithDeclare(busParams);
+
+            channel.CallbackException += (sender, ea) =>
+            {
+                _logger.LogWarning(ea.Exception, "Recreating RabbitMQ consumer channel.");
+                var key = GetBusParamsKey(busParams);
+
+                _consumerChannels[key].Dispose();
+                _consumerChannels[key] = CreateConsumerChannel(eventName);
+                StartBasicConsume(eventName);
+            };
+
+            return channel;
+        }
+
+        private void StartBasicConsume(string eventName)
         {
             _logger.LogTrace("Starting RabbitMQ basic consume");
 
-            if (_consumerChannel != null)
+            var busParams = GetBusParams(eventName);
+
+            var consumerChannel = _consumerChannels[GetBusParamsKey(busParams)];
+            if (consumerChannel != null)
             {
-                var consumer = new AsyncEventingBasicConsumer(_consumerChannel);
+                var consumer = new AsyncEventingBasicConsumer(consumerChannel);
 
                 consumer.Received += Consumer_Received;
 
-                _consumerChannel.BasicConsume(
-                    queue: _queueName,
+                consumerChannel.BasicConsume(
+                    queue: busParams.QueueName,
                     autoAck: false,
                     consumer: consumer);
             }
@@ -172,7 +222,7 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
                 }
 
                 await ProcessEvent(eventName, message);
-                _consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
+                _consumerChannels[GetBusParamsKey(GetBusParams(eventName))].BasicAck(eventArgs.DeliveryTag, multiple: false);
             }
             catch (Exception ex)
             {
@@ -185,39 +235,6 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
             //_consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
 
             await Task.CompletedTask;
-        }
-
-        private IModel CreateConsumerChannel()
-        {
-            if (!_persistentConnection.IsConnected)
-            {
-                _persistentConnection.TryConnect();
-            }
-
-            _logger.LogTrace("Creating RabbitMQ consumer channel.");
-
-            var channel = GetChannelWithDeclare();
-
-            channel.CallbackException += (sender, ea) =>
-            {
-                _logger.LogWarning(ea.Exception, "Recreating RabbitMQ consumer channel.");
-
-                _consumerChannel.Dispose();
-                _consumerChannel = CreateConsumerChannel();
-                StartBasicConsume();
-            };
-
-            return channel;
-        }
-
-        private IModel GetChannelWithDeclare()
-        {
-            var channel = _persistentConnection.CreateModel();
-
-            channel.ExchangeDeclare(exchange: BROKER_NAME, type: ExchangeType.Direct, durable: true, autoDelete: false);
-            channel.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false);
-
-            return channel;
         }
 
         private async Task ProcessEvent(string eventName, string message)
@@ -283,8 +300,9 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
             }
 
             using var channel = _persistentConnection.CreateModel();
-            channel.QueueUnbind(queue: _queueName,
-                exchange: BROKER_NAME,
+            var busParams = GetBusParams(eventName);
+            channel.QueueUnbind(queue: busParams.QueueName,
+                exchange: busParams.ExchangeName,
                 routingKey: eventName);
 
             if (!_subsManager.IsEmpty)
@@ -292,8 +310,7 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
                 return;
             }
 
-            _queueName = string.Empty;
-            _consumerChannel.Close();
+            _consumerChannels[GetBusParamsKey(busParams)].Close();
         }
 
         private void DoInternalSubscription(string eventName)
@@ -309,16 +326,29 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
                 _persistentConnection.TryConnect();
             }
 
+            var busParams = GetBusParams(eventName);
+
             using var channel = _persistentConnection.CreateModel();
-            channel.QueueBind(queue: _queueName,
-                exchange: BROKER_NAME,
+            channel.QueueBind(queue: busParams!.QueueName,
+                exchange: busParams.ExchangeName,
                 routingKey: eventName);
         }
+
+        private BusParams GetBusParams(string eventName) =>
+            (BusParams)_serviceProvider.GetService(_subsManager.GetTypeParams(eventName));
+
+        private string GetBusParamsKey(BusParams busParams) =>
+            $"{busParams.ExchangeName}.{busParams.QueueName}";
 
         #region Dispose
         public void Dispose()
         {
-            _consumerChannel?.Dispose();
+
+            foreach (var (key, model) in _consumerChannels)
+            {
+                model?.Dispose();
+            }
+
             _subsManager.Clear();
         }
         #endregion

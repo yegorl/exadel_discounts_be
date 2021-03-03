@@ -7,19 +7,34 @@ namespace Exadel.CrazyPrice.Services.Bus.EventBus.Events
     {
         public IntegrationEvent()
         {
-            Id = Guid.NewGuid();
-            CreationDate = DateTime.UtcNow;
+            EventId = Guid.NewGuid();
+            EventCreationDate = DateTime.UtcNow;
+        }
+
+        public IntegrationEvent(string applicationName, BusParams busParams)
+        {
+            EventId = Guid.NewGuid();
+            EventCreationDate = DateTime.UtcNow;
+
+            ApplicationName = applicationName;
+            BusParams = busParams;
         }
 
         [JsonConstructor]
-        public IntegrationEvent(Guid id, DateTime createDate)
+        public IntegrationEvent(Guid eventId, DateTime eventCreateDate, string applicationName, BusParams busParams)
         {
-            Id = id;
-            CreationDate = createDate;
+            EventId = eventId;
+            EventCreationDate = eventCreateDate;
+            ApplicationName = applicationName;
+            BusParams = busParams;
         }
 
-        public Guid Id { get; private init; }
+        public Guid EventId { get; private init; }
 
-        public DateTime CreationDate { get; private init; }
+        public DateTime EventCreationDate { get; private init; }
+
+        public string ApplicationName { get; private init; }
+
+        public BusParams BusParams { get; private init; }
     }
 }

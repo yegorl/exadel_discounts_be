@@ -1,29 +1,30 @@
-﻿using System.Threading.Tasks;
-using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Events;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Models;
 using Exadel.CrazyPrice.Services.Mail.MailClient;
 using Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.Helpers;
-using Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.IntegrationEvents.Events;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 using MimeKit.Text;
+using System.Threading.Tasks;
 
 namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.IntegrationEvents.EventHandling
 {
-    public class PromocodeAddedMailIntegrationEventHandler :
-        IIntegrationEventHandler<PromocodeAddedIntegrationEvent>
+    public class PromocodeAddedUserMailIntegrationEventHandler :
+        IIntegrationEventHandler<PromocodeAddedIntegrationEvent<UserMailContent>>
     {
         private readonly IMailClient _mailClient;
-        private readonly ILogger<PromocodeAddedMailIntegrationEventHandler> _logger;
+        private readonly ILogger<PromocodeAddedUserMailIntegrationEventHandler> _logger;
 
-        public PromocodeAddedMailIntegrationEventHandler(IMailClient mailClient, ILogger<PromocodeAddedMailIntegrationEventHandler> logger)
+        public PromocodeAddedUserMailIntegrationEventHandler(IMailClient mailClient, ILogger<PromocodeAddedUserMailIntegrationEventHandler> logger)
         {
             _mailClient = mailClient ?? throw new System.ArgumentNullException(nameof(mailClient));
             _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
         }
 
-        public async Task Handle(PromocodeAddedIntegrationEvent @event)
+        public async Task Handle(PromocodeAddedIntegrationEvent<UserMailContent> @event)
         {
-            _logger.LogInformation("Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, ApplicationInfo.ApplicationName, @event);
+            _logger.LogInformation("Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.EventId, ApplicationInfo.ApplicationName, @event);
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Exadel Info", "temporarytestinguser@gmail.com"));
@@ -32,7 +33,7 @@ namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.IntegrationEvents.Ev
 
             message.Body = new TextPart(TextFormat.Plain)
             {
-                Text = $"Hello, {@event.UserName}. Service Name: {@event.DiscountName}. Promocode Number: {@event.PromocodeValue}."
+                Text = $"Hello, {@event.Content.Employee.Name}. Service Name: {@event.Content.DiscountName}. Promocode Number: {@event.Content.PromocodeValue}."
             };
 
             await _mailClient.SendAsync(message);
