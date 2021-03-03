@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Exadel.CrazyPrice.Modules.EventBus.Events
+namespace Exadel.CrazyPrice.Services.Bus.EventBus.Events
 {
     public record IntegrationEvent
     {

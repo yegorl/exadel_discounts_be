@@ -1,4 +1,4 @@
-﻿namespace MailSenderMailKit.Helpers
+﻿namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.Helpers
 {
     public static class ApplicationInfo
     {

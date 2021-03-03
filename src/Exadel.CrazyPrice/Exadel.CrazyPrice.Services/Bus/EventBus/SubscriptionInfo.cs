@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exadel.CrazyPrice.Modules.EventBus
+namespace Exadel.CrazyPrice.Services.Bus.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager
     {

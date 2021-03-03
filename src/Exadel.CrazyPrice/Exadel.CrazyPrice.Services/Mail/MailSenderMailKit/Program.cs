@@ -2,7 +2,7 @@ using Exadel.CrazyPrice.Common.Extentions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace MailSenderMailKit
+namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit
 {
     public class Program
     {

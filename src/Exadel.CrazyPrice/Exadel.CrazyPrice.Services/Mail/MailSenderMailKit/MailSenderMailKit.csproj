@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Exadel.CrazyPrice.Services.Mail.MailSenderMailKit</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
     <ProjectReference Include="..\..\Bus\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\..\Bus\IntegrationBus\IntegrationBus.csproj" />
     <ProjectReference Include="..\..\..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+    <ProjectReference Include="..\MailClient\MailClient.csproj" />
   </ItemGroup>
 
 </Project>

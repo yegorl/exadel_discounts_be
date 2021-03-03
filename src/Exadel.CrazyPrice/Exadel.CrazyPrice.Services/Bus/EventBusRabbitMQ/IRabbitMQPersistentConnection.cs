@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
 using System;
 
-namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
+namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
 {
     public interface IRabbitMQPersistentConnection : IDisposable
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Exadel.CrazyPrice.Modules.EventBus.Extensions
+namespace Exadel.CrazyPrice.Services.Bus.EventBus.Extensions
 {
     public static class GenericTypeExtensions
     {

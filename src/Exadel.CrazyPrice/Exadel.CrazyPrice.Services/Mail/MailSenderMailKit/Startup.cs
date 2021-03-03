@@ -1,5 +1,5 @@
-using IntegrationBus.Extentions;
-using MailSenderMailKit.Extentions;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.Extentions;
+using Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace MailSenderMailKit
+namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit
 {
     /// <summary>
     /// Determines Startup configuration.
@@ -40,7 +40,7 @@ namespace MailSenderMailKit
             services
                 .AddRabbitMQ(Configuration)
                 .AddEventBus(Configuration)
-                .AddEventBusHandlers(Configuration);
+                .AddEventBusServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

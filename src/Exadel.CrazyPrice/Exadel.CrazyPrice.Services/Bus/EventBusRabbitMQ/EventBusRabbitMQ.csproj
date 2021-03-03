@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Exadel.CrazyPrice.Modules.EventBusRabbitMQ</RootNamespace>
+    <RootNamespace>Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

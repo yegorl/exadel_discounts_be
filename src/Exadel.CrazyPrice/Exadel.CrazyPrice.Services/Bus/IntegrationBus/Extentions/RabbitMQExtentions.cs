@@ -1,14 +1,15 @@
 ﻿using Exadel.CrazyPrice.Common.Extentions;
-using Exadel.CrazyPrice.Modules.EventBus;
-using Exadel.CrazyPrice.Modules.EventBus.Abstractions;
-using Exadel.CrazyPrice.Modules.EventBusRabbitMQ;
-using IntegrationBus.IntegrationEvents;
+using Exadel.CrazyPrice.Services.Bus.EventBus;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+using Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
+using InMemoryEventBusSubscriptionsManager = Exadel.CrazyPrice.Services.Bus.EventBus.InMemoryEventBusSubscriptionsManager;
 
-namespace IntegrationBus.Extentions
+namespace Exadel.CrazyPrice.Services.Bus.IntegrationBus.Extentions
 {
     public static class RabbitMQExtentions
     {
@@ -45,7 +46,7 @@ namespace IntegrationBus.Extentions
             var subscriptionClientName = configuration["MessageBroker:SubscriptionClientName"];
             var retryCount = configuration.GetString("MessageBroker:EventBusRetryCount").ToInt(5, false);
 
-            services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp => new EventBusRabbitMQ(sp, subscriptionClientName, retryCount));
+            services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp => new EventBusRabbitMQ.EventBusRabbitMQ(sp, subscriptionClientName, retryCount));
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 

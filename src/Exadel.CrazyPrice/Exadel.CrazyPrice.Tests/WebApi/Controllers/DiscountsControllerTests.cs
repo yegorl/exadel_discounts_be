@@ -5,7 +5,7 @@ using Exadel.CrazyPrice.Common.Models.Promocode;
 using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
-using Exadel.CrazyPrice.Modules.EventBus.Events;
+using Exadel.CrazyPrice.Services.EventBus.Events;
 using Exadel.CrazyPrice.WebApi.Controllers;
 using FluentAssertions;
 using IntegrationBus.IntegrationEvents;

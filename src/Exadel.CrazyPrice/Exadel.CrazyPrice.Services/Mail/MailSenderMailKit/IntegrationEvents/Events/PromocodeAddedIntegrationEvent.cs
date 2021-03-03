@@ -1,7 +1,7 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus.Events;
-using System;
+﻿using System;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 
-namespace MailSenderMailKit.IntegrationEvents.Events
+namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.IntegrationEvents.Events
 {
     public record PromocodeAddedIntegrationEvent(
         Guid DiscountId,

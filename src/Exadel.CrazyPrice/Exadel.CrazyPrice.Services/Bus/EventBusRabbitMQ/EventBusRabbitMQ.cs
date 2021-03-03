@@ -1,7 +1,7 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus;
-using Exadel.CrazyPrice.Modules.EventBus.Abstractions;
-using Exadel.CrazyPrice.Modules.EventBus.Events;
-using Exadel.CrazyPrice.Modules.EventBus.Extensions;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
@@ -18,8 +18,9 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using InMemoryEventBusSubscriptionsManager = Exadel.CrazyPrice.Services.Bus.EventBus.InMemoryEventBusSubscriptionsManager;
 
-namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
+namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
 {
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
@@ -68,11 +69,10 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
             var eventName = @event.GetType().Name;
 
             _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", @event.Id, eventName);
-
-            using var channel = _persistentConnection.CreateModel();
             _logger.LogTrace("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
+            using var channel = GetChannelWithDeclare();
 
-            channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
+            channel.QueueBind(_queueName, BROKER_NAME, eventName);
 
             var message = JsonSerializer.Serialize(@event, @event.GetType(), new JsonSerializerOptions
             {
@@ -194,27 +194,28 @@ namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
                 _persistentConnection.TryConnect();
             }
 
-            _logger.LogTrace("Creating RabbitMQ consumer channel");
+            _logger.LogTrace("Creating RabbitMQ consumer channel.");
 
-            var channel = _persistentConnection.CreateModel();
-
-            channel.ExchangeDeclare(exchange: BROKER_NAME,
-                                    type: "direct");
-
-            channel.QueueDeclare(queue: _queueName,
-                                 durable: true,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+            var channel = GetChannelWithDeclare();
 
             channel.CallbackException += (sender, ea) =>
             {
-                _logger.LogWarning(ea.Exception, "Recreating RabbitMQ consumer channel");
+                _logger.LogWarning(ea.Exception, "Recreating RabbitMQ consumer channel.");
 
                 _consumerChannel.Dispose();
                 _consumerChannel = CreateConsumerChannel();
                 StartBasicConsume();
             };
+
+            return channel;
+        }
+
+        private IModel GetChannelWithDeclare()
+        {
+            var channel = _persistentConnection.CreateModel();
+
+            channel.ExchangeDeclare(exchange: BROKER_NAME, type: ExchangeType.Direct, durable: true, autoDelete: false);
+            channel.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false);
 
             return channel;
         }

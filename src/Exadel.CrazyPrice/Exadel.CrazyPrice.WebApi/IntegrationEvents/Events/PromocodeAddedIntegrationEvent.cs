@@ -1,4 +1,4 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus.Events;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 using System;
 
 namespace Exadel.CrazyPrice.WebApi.IntegrationEvents.Events

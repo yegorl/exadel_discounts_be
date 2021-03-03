@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 
-namespace Exadel.CrazyPrice.Modules.EventBusRabbitMQ
+namespace Exadel.CrazyPrice.Services.Bus.EventBusRabbitMQ
 {
     public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     {

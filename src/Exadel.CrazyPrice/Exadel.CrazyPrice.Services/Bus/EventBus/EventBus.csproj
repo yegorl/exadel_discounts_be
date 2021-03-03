@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Exadel.CrazyPrice.Modules.EventBus</RootNamespace>
+    <RootNamespace>Exadel.CrazyPrice.Services.Bus.EventBus</RootNamespace>
   </PropertyGroup>
 
 </Project>

@@ -1,10 +1,10 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus.Abstractions;
-using Exadel.CrazyPrice.Modules.EventBus.Events;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace IntegrationBus.IntegrationEvents
+namespace Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents
 {
     public class IntegrationEventService : IIntegrationEventService
     {

@@ -6,10 +6,11 @@ using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.Data.Extentions;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using Exadel.CrazyPrice.WebApi.Helpers;
+using Exadel.CrazyPrice.WebApi.IntegrationEvents.Events;
 using FluentValidation.AspNetCore;
-using IntegrationBus.IntegrationEvents;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Exadel.CrazyPrice.WebApi.IntegrationEvents.Events;
 
 namespace Exadel.CrazyPrice.WebApi.Controllers
 {

@@ -1,7 +1,7 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus.Events;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 using System.Threading.Tasks;
 
-namespace IntegrationBus.IntegrationEvents
+namespace Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents
 {
     public interface IIntegrationEventService
     {

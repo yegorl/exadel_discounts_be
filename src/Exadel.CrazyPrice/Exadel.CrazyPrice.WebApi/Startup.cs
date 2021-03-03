@@ -1,6 +1,6 @@
 using Exadel.CrazyPrice.Data.Extentions;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.Extentions;
 using Exadel.CrazyPrice.WebApi.Extentions;
-using IntegrationBus.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

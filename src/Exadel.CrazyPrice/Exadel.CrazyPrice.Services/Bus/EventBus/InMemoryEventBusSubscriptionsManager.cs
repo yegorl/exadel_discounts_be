@@ -1,10 +1,10 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus.Abstractions;
-using Exadel.CrazyPrice.Modules.EventBus.Events;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Exadel.CrazyPrice.Modules.EventBus
+namespace Exadel.CrazyPrice.Services.Bus.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {

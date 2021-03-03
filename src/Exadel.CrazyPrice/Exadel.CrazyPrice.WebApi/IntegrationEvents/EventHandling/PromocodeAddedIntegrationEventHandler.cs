@@ -1,7 +1,7 @@
-﻿using Exadel.CrazyPrice.Modules.EventBus.Abstractions;
+﻿using Exadel.CrazyPrice.Services.Bus.EventBus.Abstractions;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
 using Exadel.CrazyPrice.WebApi.Helpers;
 using Exadel.CrazyPrice.WebApi.IntegrationEvents.Events;
-using IntegrationBus.IntegrationEvents;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
