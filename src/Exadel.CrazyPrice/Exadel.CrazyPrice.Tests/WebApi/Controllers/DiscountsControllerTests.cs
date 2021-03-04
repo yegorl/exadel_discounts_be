@@ -5,10 +5,10 @@ using Exadel.CrazyPrice.Common.Models.Promocode;
 using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
-using Exadel.CrazyPrice.Services.EventBus.Events;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
 using Exadel.CrazyPrice.WebApi.Controllers;
 using FluentAssertions;
-using IntegrationBus.IntegrationEvents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -48,7 +48,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Controllers
                 }
             };
             _mockWebApiIntegrationEventService = new Mock<IIntegrationEventService>();
-            _mockWebApiIntegrationEventService.Setup(s => s.PublishThroughEventBusAsync(It.IsAny<IntegrationEvent>(), It.IsAny<string>()));
+            _mockWebApiIntegrationEventService.Setup(s => s.PublishThroughEventBusAsync(It.IsAny<IntegrationEvent>()));
         }
 
         [Fact]
