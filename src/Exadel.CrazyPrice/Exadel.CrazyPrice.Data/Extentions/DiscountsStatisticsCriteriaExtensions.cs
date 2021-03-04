@@ -11,10 +11,10 @@ namespace Exadel.CrazyPrice.Data.Extentions
         {
             var matchBuilder = new StringBuilder();
             matchBuilder.Append("{");
-            if (criteria.SearchAddressCountry != null)
+            if (!string.IsNullOrEmpty(criteria.SearchAddressCountry))
             {
                 matchBuilder.Append($"\"address.country\": \"{criteria.SearchAddressCountry}\", ");
-                if (criteria.SearchAddressCity != null)
+                if (!string.IsNullOrEmpty(criteria.SearchAddressCity))
                 {
                     matchBuilder.Append($"\"address.city\": \"{criteria.SearchAddressCity}\" ");
                 }
