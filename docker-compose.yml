@@ -2,7 +2,7 @@
 
 services:
  database:
-  image: mongo
+  image: mongo:4.4.4
   ports:
    - 27017:27017
   restart: always
@@ -19,6 +19,36 @@ services:
    /seed/import.sh
   depends_on:
    - database
+
+ cprabbit:
+  image: rabbitmq:3-management
+  ports:
+   - 5672:5672
+   - 15672:15672
+  restart: always
+  volumes:
+   - ./volumes/configuration/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+   - ./volumes/configuration/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+   - ./volumes/rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@cprabbit
+   - ./volumes/logs/rabbitmq:/var/log/rabbitmq/log
+
+ mailsender:
+  image: mailsender
+  build:
+   context: ./src/Exadel.CrazyPrice
+   dockerfile: Exadel.CrazyPrice.Services/Mail/MailSenderMailKit/Dockerfile
+  ports:
+   - 7000:80
+  volumes:
+   - ./volumes/logs/mailsender:/app/Logs/
+   - type: bind
+     source: ./volumes/configuration/mailsender/appsettings.Docker.json
+     target: /app/appsettings.Docker.json
+  environment:
+   - ASPNETCORE_URLS=http://+
+   - ASPNETCORE_ENVIRONMENT=Docker
+  links:
+   - cprabbit
 
  identityserver:
   image: identityserver
@@ -78,7 +108,7 @@ services:
    - ASPNETCORE_HTTPS_PORT=9001
    - ASPNETCORE_ENVIRONMENT=Docker
    - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-   - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx
+   - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx   
   entrypoint: bash -c "/https-root/update-ca-cert.sh && dotnet Exadel.CrazyPrice.WebApi.dll"
   links:
    - database

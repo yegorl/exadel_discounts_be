@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Exadel.CrazyPrice.Data.Extentions;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +18,27 @@ namespace Exadel.CrazyPrice.Data.Models.Promocode
         /// Returns true when time since last addition great than timeLimit seconds
         /// and count of promocodes less than countLimit otherwise false.
         /// </summary>
-        /// <param name="timeLimit"></param>
-        /// <param name="countLimit"></param>
+        /// <param name="dbPromocodeOptions"></param>
         /// <param name="dateTimeNow"></param>
         /// <returns></returns>
-        public bool CanAdd(int? timeLimit, int? countLimit, DateTime dateTimeNow)
+        public bool CanAdd(DbPromocodeOptions dbPromocodeOptions, DateTime dateTimeNow)
         {
+            var timeLimit = dbPromocodeOptions.TimeLimitAddingInSeconds;
+            var countLimit = dbPromocodeOptions.CountActivePromocodePerUser;
+            var enabledPromocodes = dbPromocodeOptions.EnabledPromocodes ?? false;
+
+            if (!enabledPromocodes)
+            {
+                return false;
+            }
+
             if (countLimit == null)
             {
                 return IsTimeLimitExpired(timeLimit, dateTimeNow);
             }
 
             return (IsTimeLimitExpired(timeLimit, dateTimeNow)
-                    && ((Promocodes?.Count ?? 0) == 0
+                    && (Promocodes.IsEmpty()
                     || Promocodes
                         .Where(i => i.Deleted == false && i.EndDate > dateTimeNow)
                         .ToList()
@@ -43,7 +52,7 @@ namespace Exadel.CrazyPrice.Data.Models.Promocode
         /// <returns></returns>
         public bool RemovePromocode(Guid promocodeId)
         {
-            if ((Promocodes?.Count ?? 0) == 0)
+            if (Promocodes.IsEmpty())
             {
                 return false;
             }

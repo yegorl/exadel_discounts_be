@@ -68,7 +68,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models
 
         protected void TimerStart()
         {
-            async void TimerCallback(object? state) =>
+            async void TimerCallback(object state) =>
                 await StatusAsync();
 
             _timer = new Timer(TimerCallback, null, 0, ReportEverySec * 1000);

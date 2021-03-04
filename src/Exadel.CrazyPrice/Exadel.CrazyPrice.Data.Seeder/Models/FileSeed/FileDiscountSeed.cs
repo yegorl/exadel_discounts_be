@@ -69,6 +69,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Models.FileSeed
 
         protected override async Task<long> CountEstimatedAsync()
         {
+            await Task.CompletedTask;
             return _counter;
         }
 

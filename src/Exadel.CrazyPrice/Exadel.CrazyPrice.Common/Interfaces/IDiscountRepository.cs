@@ -80,7 +80,7 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <param name="discountUid"></param>
         /// <param name="userUid"></param>
         /// <returns></returns>
-        Task<UserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid);
+        Task<DiscountUserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid);
 
         /// <summary>
         /// Gets subscriptions of discount.

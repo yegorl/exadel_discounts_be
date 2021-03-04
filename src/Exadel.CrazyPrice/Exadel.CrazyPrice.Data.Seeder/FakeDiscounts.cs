@@ -80,6 +80,7 @@ namespace Exadel.CrazyPrice.Data.Seeder
                 ;
 
             var promocodeOptionGenerator = new Faker<DbPromocodeOptions>()
+                    .RuleFor(x => x.EnabledPromocodes, f => f.Random.Bool())
                     .RuleFor(x => x.CountActivePromocodePerUser, f => f.Random.Int(1, 5))
                     .RuleFor(x => x.CountSymbolsPromocode, f => f.Random.Int(4, 7))
                     .RuleFor(x => x.DaysDurationPromocode, f => f.Random.Int(5, 15))

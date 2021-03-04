@@ -156,8 +156,8 @@ namespace Exadel.CrazyPrice.Data.Models
         {
             var userPromocodes = UsersPromocodes?.FirstOrDefault(p => p.UserId == userUid.ToString());
 
-            return (userPromocodes == null ||
-                    userPromocodes.CanAdd(PromocodeOptions.TimeLimitAddingInSeconds, PromocodeOptions.CountActivePromocodePerUser, dateTimeNow));
+            return (userPromocodes.IsEmpty() ||
+                    userPromocodes!.CanAdd(PromocodeOptions, dateTimeNow));
         }
 
         /// <summary>

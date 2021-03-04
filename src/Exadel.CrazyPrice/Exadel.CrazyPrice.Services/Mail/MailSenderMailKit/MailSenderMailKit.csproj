@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Exadel.CrazyPrice.Services.Mail.MailSenderMailKit</RootNamespace>
+    <UserSecretsId>cf476b9c-43b1-4165-8072-74cd7b03a6b5</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.10.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bus\EventBus\EventBus.csproj" />
+    <ProjectReference Include="..\..\Bus\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\..\Bus\IntegrationBus\IntegrationBus.csproj" />
+    <ProjectReference Include="..\..\..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
+    <ProjectReference Include="..\..\Common\IntegrationEvents\IntegrationEvents.csproj" />
+    <ProjectReference Include="..\MailBuilder\MailBuilder.csproj" />
+    <ProjectReference Include="..\MailClient\MailClient.csproj" />
+  </ItemGroup>
+
+</Project>

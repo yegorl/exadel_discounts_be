@@ -5,6 +5,8 @@
     /// </summary>
     public class PromocodeOptions
     {
+        public bool? EnabledPromocodes { get; set; }
+
         public int? CountActivePromocodePerUser { get; set; }
 
         public int? DaysDurationPromocode { get; set; }

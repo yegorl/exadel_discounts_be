@@ -6,6 +6,10 @@ using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.Data.Extentions;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Events;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Models;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +33,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         private readonly ILogger<DiscountsController> _logger;
         private readonly IDiscountRepository _discounts;
         private readonly IUserRepository _users;
+        private readonly IIntegrationEventService _integrationEventService;
 
         /// <summary>
         /// Creates Discount Controller.
@@ -36,11 +41,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="logger"></param>
         /// <param name="discounts"></param>
         /// <param name="users"></param>
-        public DiscountsController(ILogger<DiscountsController> logger, IDiscountRepository discounts, IUserRepository users)
+        /// <param name="integrationEventService"></param>
+        public DiscountsController(ILogger<DiscountsController> logger, IDiscountRepository discounts, IUserRepository users, IIntegrationEventService integrationEventService)
         {
             _logger = logger;
             _discounts = discounts;
             _users = users;
+            _integrationEventService = integrationEventService ?? throw new ArgumentNullException(nameof(integrationEventService));
         }
 
         /// <summary>
@@ -375,10 +382,34 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> AddToSubscriptions([FromRoute] Guid id)
         {
             var incomingUser = ControllerContext.IncomingUser();
-            var userPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
-            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, userPromocodes, incomingUser);
+            var discountUserPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
+            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, discountUserPromocodes, incomingUser);
 
-            return Ok(userPromocodes);
+            if (discountUserPromocodes != null && !discountUserPromocodes.CurrentPromocode.IsEmpty())
+            {
+                var employee = (await _users.GetUserByUidAsync(incomingUser.Id)).ToEmployee();
+
+                var userEvent = new PromocodeAddedIntegrationEvent<UserMailContent>
+                    (new UserMailContent(employee, id, discountUserPromocodes.DiscountName,
+                    discountUserPromocodes.CurrentPromocode.PromocodeValue),
+                    "WebApi", new BusParams("crazyprice.direct", "mail.user"));
+
+                await PublishThroughEventBusAsync(userEvent);
+
+                var companyEvent = new PromocodeAddedIntegrationEvent<CompanyMailContent>
+                    (new CompanyMailContent(discountUserPromocodes.Company, id, discountUserPromocodes.DiscountName,
+                    discountUserPromocodes.CurrentPromocode.PromocodeValue),
+                    "WebApi", new BusParams("crazyprice.direct", "mail.company"));
+
+                await PublishThroughEventBusAsync(companyEvent);
+            }
+
+            return Ok(discountUserPromocodes?.UserPromocodes);
+        }
+
+        private async Task PublishThroughEventBusAsync(IntegrationEvent @event)
+        {
+            await _integrationEventService.PublishThroughEventBusAsync(@event);
         }
 
         /// <summary>
