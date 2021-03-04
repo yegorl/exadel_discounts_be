@@ -50,10 +50,12 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var queryBuilder = new StringBuilder();
             queryBuilder.Append('{');
 
-            if (!string.IsNullOrEmpty(searchCriteria.SearchText))
+            var containsСondition = searchCriteria.GetContainsСondition();
+            var isOrContainsСondition = containsСondition.Substring(0, 3).ToLowerInvariant() == "$or";
+
+            if (!searchCriteria.SearchText.IsNullOrEmpty() && isOrContainsСondition)
             {
-                queryBuilder.Append($"$or : [{searchCriteria.GetContainsСondition()}]");
-                queryBuilder.Append(", ");
+                queryBuilder.Append(searchCriteria.GetContainsСondition() + ", ");
             }
 
             queryBuilder.Append("$and : [" +
@@ -64,8 +66,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
                                 searchCriteria.GetDateCondition() +
                                 searchCriteria.GetAmountOfDiscountCondition() +
                                 searchCriteria.GetRatingTotalCondition() +
-                                searchCriteria.GetCompanyNameCondition() +
-                                ']');
+                                searchCriteria.GetCompanyNameCondition());
+            if (!isOrContainsСondition)
+            {
+                queryBuilder.Append(", " + searchCriteria.GetContainsСondition());
+            }
+
+            queryBuilder.Append(']');
             queryBuilder.Append('}');
 
             var queryCompile = new Dictionary<string, string>
@@ -271,8 +278,32 @@ namespace Exadel.CrazyPrice.Data.Extentions
 
         private static string GetContainsСondition(this SearchCriteria searchCriteria)
         {
+            var stringBuilder = new StringBuilder();
+
+            if (searchCriteria.SearchAdvanced == null)
+            {
+                return $"$or : [{searchCriteria.GetContainsСondition(new[] {"Name", "Tags", "Description"})}]";
+            }
+
+            switch (searchCriteria.SearchAdvanced.SearchOnlyTagsOption)
+            {
+                case SearchOnlyTagsOption.And:
+                    stringBuilder.Append(searchCriteria.GetContainsСondition(new[] { "Tags" }));
+                    break;
+                case SearchOnlyTagsOption.Or:
+                    stringBuilder.Append($"$or : [{searchCriteria.GetContainsСondition(new[] { "Tags" })}]");
+                    break;
+                default:
+                    stringBuilder.Append($"$or : [{searchCriteria.GetContainsСondition(new[] { "Name", "Tags", "Description" })}]");
+                    break;
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        private static string GetContainsСondition(this SearchCriteria searchCriteria, string[] fields)
+        {
             var words = searchCriteria.SearchText.Split(" ");
-            var fields = new[] { "Name", "Tags", "Description" };
             var builder = new StringBuilder();
             var comma = ',';
             foreach (var field in fields)
