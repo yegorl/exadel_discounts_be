@@ -65,7 +65,7 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     CountryRu = "Польша",
                     CityRu = "Беласток",
                     CountryEn = "Poland",
-                    CityEn = "Bialystok"
+                    CityEn = "Bialystock"
                 },
                 new()
                 {
@@ -73,6 +73,20 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     CityRu = "Варшава",
                     CountryEn = "Poland",
                     CityEn = "Warsaw"
+                },
+                new()
+                {
+                    CountryRu = "Польша",
+                    CityRu = "Щецин",
+                    CountryEn = "Poland",
+                    CityEn = "Szczecin"
+                },
+                new()
+                {
+                    CountryRu = "Польша",
+                    CityRu = "Познань",
+                    CountryEn = "Poland",
+                    CityEn = "Poznan"
                 },
                 new()
                 {
@@ -87,6 +101,13 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     CityRu = "Клайпеда",
                     CountryEn = "Lithuania",
                     CityEn = "Klaipeda"
+                },
+                new()
+                {
+                    CountryRu = "Украина",
+                    CityRu = "Киев",
+                    CountryEn = "Ukraine",
+                    CityEn = "Kyiv"
                 },
                 new()
                 {
@@ -122,6 +143,41 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     CityRu = "Ташкент",
                     CountryEn = "Uzbekistan",
                     CityEn = "Tashkent"
+                },
+                new()
+                {
+                    CountryRu = "Германия",
+                    CityRu = "Дресден",
+                    CountryEn = "Germany",
+                    CityEn = "Dresden"
+                },
+                new()
+                {
+                    CountryRu = "Россия",
+                    CityRu = "Челябинск",
+                    CountryEn = "Russia",
+                    CityEn = "Chelyabinsk"
+                },
+                new()
+                {
+                    CountryRu = "Россия",
+                    CityRu = "Екатеринбург",
+                    CountryEn = "Russia",
+                    CityEn = "Yekaterinburg"
+                },
+                new()
+                {
+                    CountryRu = "США",
+                    CityRu = "Уолнат-Крик",
+                    CountryEn = "USA",
+                    CityEn = "Walnut Creek"
+                },
+                new()
+                {
+                    CountryRu = "США",
+                    CityRu = "Боулдер",
+                    CountryEn = "USA",
+                    CityEn = "Boulder"
                 },
             };
 
