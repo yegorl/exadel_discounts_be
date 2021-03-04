@@ -2,6 +2,7 @@
 using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
 using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Events;
 using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Models;
+using Exadel.CrazyPrice.Services.Mail.MailBuilder;
 using Exadel.CrazyPrice.Services.Mail.MailClient;
 using Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.Configuration;
 using Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.IntegrationEvents;
@@ -22,13 +23,15 @@ namespace Exadel.CrazyPrice.Services.Mail.MailSenderMailKit.Extentions
             services.Configure<SmtpConfiguration>(configuration.GetSection("Smtp"));
             services.TryAddSingleton<IValidateOptions<SmtpConfiguration>, SmtpConfigurationValidation>();
 
-            services.AddTransient<IMailClient, CrazyPriceMailClient>();
+            services.AddSingleton<IMailClient, CrazyPriceMailClient>();
+            services.AddSingleton<IMailBuilder, MailBuilder.MailBuilder>();
 
-            services.AddTransient<PromocodeAddedUserMailIntegrationEventHandler>();
-            services.AddTransient<PromocodeAddedCompanyMailIntegrationEventHandler>();
+            services.AddSingleton<PromocodeAddedUserMailIntegrationEventHandler>();
+            services.AddSingleton<PromocodeAddedCompanyMailIntegrationEventHandler>();
 
             services.AddTransient<BusParams<PromocodeAddedIntegrationEvent<UserMailContent>>, UserBusParams>();
             services.AddTransient<BusParams<PromocodeAddedIntegrationEvent<CompanyMailContent>>, CompanyBusParams>();
+
 
             services.AddTransient<UserBusParams>();
             services.AddTransient<CompanyBusParams>();
