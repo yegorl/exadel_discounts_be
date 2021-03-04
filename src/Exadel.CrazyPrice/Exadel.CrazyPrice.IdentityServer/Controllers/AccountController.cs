@@ -89,13 +89,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
 
-            _logger.LogInformation("Got access to Login page.");
-
-            if (vm.IsExternalLoginOnly)
-            {
-                // we only have one option for logging in and it's an external provider
-                //return RedirectToAction("Challenge", "External", new { scheme = vm.ExternalLoginScheme, returnUrl });
-            }
+            _logger.LogTrace("Got access to Login page from URL: {returnUrl}.", returnUrl);
 
             return View(vm);
         }
@@ -107,7 +101,7 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
-            _logger.LogInformation("Login request. Email: {Email}, Remember login: {RememberLogin}.",
+            _logger.LogInformation("Login. Email: {Email}, Remember login: {RememberLogin}.",
                 model.Email, model.RememberLogin);
 
             // check if we are in the context of an authorization request
@@ -142,19 +136,20 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
 
             if (ModelState.IsValid)
             {
-                _logger.LogInformation("Model state is valid.");
-
                 var user = await _userRepository.GetUserByEmailAsync(model.Email.ToLower());
 
                 var isHavePassword = !string.IsNullOrEmpty(user.HashPassword) && !string.IsNullOrEmpty(user.Salt);
 
                 if (!user.IsEmpty() && isHavePassword)
                 {
-                    _logger.LogInformation("User {name} {surname} was found.", user.Name, user.Surname);
+                    _logger.LogInformation("Login. Found user by mail: id {Id}, name {Name}, Surname {Surname}, mail {Mail}.",
+                        user.Id, user.Name, user.Surname, user.Mail);
+
                     //Validate found user
                     if (_userService.ValidateCredentials(user, model.Password))
                     {
-                        _logger.LogInformation("Validate Credentials was success.");
+                        _logger.LogInformation("Login. Validate Credentials was success. User: id {Id}, name {Name}, " +
+                                               "Surname {Surname}, mail {Mail}.", user.Id, user.Name, user.Surname, user.Mail);
 
                         await _events.RaiseAsync(new UserLoginSuccessEvent(user.Name, user.Id.ToString(), user.Name));
 
@@ -206,15 +201,18 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                             throw new Exception("invalid return URL");
                         }
                     }
+                    else
+                    {
+                        _logger.LogWarning("Login. Validate Credentials was failed. User: id {Id}, name {Name}, " +
+                                               "Surname {Surname}, mail {Mail}.", user.Id, user.Name, user.Surname, user.Mail);
+                    }
                 }
 
-                _logger.LogWarning("User with email {email} not exist.", model.Email.ToLower());
+                _logger.LogWarning("Login. User with email {email} not exist.", model.Email.ToLower());
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials", clientId: context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, _localizer["Invalid_email_or_password"].Value);
             }
-
-            _logger.LogError("Model state is not valid.");
 
             // something went wrong, show form with error
             var vm = await BuildLoginViewModelAsync(model);
