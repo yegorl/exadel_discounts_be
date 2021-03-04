@@ -57,9 +57,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
             }
 
             queryBuilder.Append("$and : [" +
-                                searchCriteria.GetEqualsСondition("Country") + ", " +
-                                searchCriteria.GetEqualsСondition("City") + ", " +
-                                searchCriteria.GetEqualsСondition("Language") +
+                                searchCriteria.GetEqualsСondition() +
 
                                 searchCriteria.GetDeletedСondition() +
                                 searchCriteria.GetDiscountOptionCondition() +
@@ -249,6 +247,21 @@ namespace Exadel.CrazyPrice.Data.Extentions
         private static string GetDeletedСondition(this SearchCriteria searchCriteria)
             => searchCriteria.SearchShowDeleted ? string.Empty : ", {\"deleted\" : false}";
 
+        private static string GetEqualsСondition(this SearchCriteria searchCriteria)
+        {
+            var stringBuilder = new StringBuilder();
+            if (searchCriteria.SearchDiscountOption == DiscountOption.All)
+            {
+                stringBuilder.Append(searchCriteria.GetEqualsСondition("Country") + ", ");
+                stringBuilder.Append(searchCriteria.GetEqualsСondition("City") + ", ");
+                stringBuilder.Append(searchCriteria.GetEqualsСondition("Language"));
+            }
+            else
+            {
+                stringBuilder.Append("{\"_id\" : {$ne : null } }");
+            }
+            return stringBuilder.ToString();
+        }
 
         private static string GetEqualsСondition(this SearchCriteria searchCriteria, string field, string overrideSearchPostfix = "")
             => "{\"%fieldTranslations%%field" + field + "%\" : \"%search" + (overrideSearchPostfix == "" ? field : overrideSearchPostfix) + "%\"}";
