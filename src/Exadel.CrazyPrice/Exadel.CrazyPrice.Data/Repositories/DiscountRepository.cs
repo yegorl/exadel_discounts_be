@@ -250,6 +250,8 @@ namespace Exadel.CrazyPrice.Data.Repositories
             return user.ToDbUser();
         }
 
+        #region Votes
+
         public async Task<bool> VoteDiscountAsync(int value, Guid discountUid, Guid userUid)
         {
             var uidUser = userUid.ToString();
@@ -285,6 +287,23 @@ namespace Exadel.CrazyPrice.Data.Repositories
 
             return true;
         }
+
+        public async Task<bool> ExistsVoteAsync(Guid discountUid, Guid userUid)
+        {
+            var uidUser = userUid.ToString();
+
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
+            if (dbDiscount.Deleted)
+            {
+                return false;
+            }
+
+            var voteUsers = dbDiscount.RatingUsersId;
+
+            return voteUsers != null && voteUsers.Contains(uidUser);
+        }
+        
+        #endregion
 
         #region Favorites
         public async Task<bool> ExistsInFavoritesAsync(Guid discountUid, Guid userUid)
