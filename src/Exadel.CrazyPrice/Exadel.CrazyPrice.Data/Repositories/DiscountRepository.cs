@@ -287,6 +287,20 @@ namespace Exadel.CrazyPrice.Data.Repositories
         }
 
         #region Favorites
+        public async Task<bool> ExistsInFavoritesAsync(Guid discountUid, Guid userUid)
+        {
+            var dbDiscount = await GetDbDiscountByUidAsync(discountUid);
+
+            if (dbDiscount.Deleted)
+            {
+                return false;
+            }
+
+            var favoritesUsersId = dbDiscount.FavoritesUsersId;
+
+            return !favoritesUsersId.IsNullOrEmpty() && favoritesUsersId.Contains(userUid.ToString());
+        }
+
         public async Task AddToFavoritesAsync(Guid discountUid, Guid userUid)
         {
             var dbDiscount = await GetDbDiscountByUidAsync(discountUid);

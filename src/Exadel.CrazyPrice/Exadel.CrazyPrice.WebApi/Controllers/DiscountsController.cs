@@ -270,6 +270,43 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
+        /// Checks the discount in favorites.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">The discount in favorites.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="404">Not found.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpPut, Route("favorites/exists/{id}"),
+         ProducesResponseType(StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee,Moderator,Administrator")]
+        public async Task<IActionResult> ExistsInFavorites([FromRoute] Guid id)
+        {
+            var incomingUser = ControllerContext.IncomingUser();
+            var exists = await _discounts.ExistsInFavoritesAsync(id, incomingUser.Id);
+
+            if (!exists)
+            {
+                _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Not exists. User: {@incomingUser}.", id, incomingUser);
+                return NotFound();
+            }
+            
+            _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Exists. User: {@incomingUser}.", id, incomingUser);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Adds the discount in favorites.
         /// </summary>
         /// <param name="id"></param>
