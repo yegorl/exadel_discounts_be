@@ -6,6 +6,11 @@ namespace Exadel.CrazyPrice.Data.Models.Promocode
     {
         [BsonIgnoreIfDefault]
         [BsonIgnoreIfNull]
+        [BsonDefaultValue(false)]
+        public bool? EnabledPromocodes { get; set; }
+
+        [BsonIgnoreIfDefault]
+        [BsonIgnoreIfNull]
         [BsonDefaultValue(5)]
         public int? CountActivePromocodePerUser { get; set; }
 

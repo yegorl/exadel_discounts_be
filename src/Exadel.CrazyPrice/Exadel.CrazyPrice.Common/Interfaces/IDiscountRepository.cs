@@ -59,6 +59,22 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         Task<bool> VoteDiscountAsync(int value, Guid discountUid, Guid userUid);
 
         /// <summary>
+        /// Gets true when the discount is voted otherwise false.
+        /// </summary>
+        /// <param name="discountUid"></param>
+        /// <param name="userUid"></param>
+        /// <returns></returns>
+        Task<bool> ExistsVoteAsync(Guid discountUid, Guid userUid);
+
+        /// <summary>
+        /// Gets true when the discount in favorites otherwise false.
+        /// </summary>
+        /// <param name="discountUid"></param>
+        /// <param name="userUid"></param>
+        /// <returns></returns>
+        Task<bool> ExistsInFavoritesAsync(Guid discountUid, Guid userUid);
+
+        /// <summary>
         /// Adds the discount in favorites.
         /// </summary>
         /// <param name="discountUid"></param>
@@ -80,7 +96,7 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <param name="discountUid"></param>
         /// <param name="userUid"></param>
         /// <returns></returns>
-        Task<UserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid);
+        Task<DiscountUserPromocodes> AddToSubscriptionsAsync(Guid discountUid, Guid userUid);
 
         /// <summary>
         /// Gets subscriptions of discount.

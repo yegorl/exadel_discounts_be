@@ -1,4 +1,6 @@
-﻿namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
+﻿using Exadel.CrazyPrice.Common.Models.Option;
+
+namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
 {
     /// <summary>
     /// Represents optional criteria for search advanced.
@@ -12,5 +14,7 @@
         public SearchAmountOfDiscountCriteria SearchAmountOfDiscount { get; set; }
 
         public SearchRatingTotalCriteria SearchRatingTotal { get; set; }
+
+        public SearchOnlyTagsOption SearchOnlyTagsOption { get; set; }
     }
 }

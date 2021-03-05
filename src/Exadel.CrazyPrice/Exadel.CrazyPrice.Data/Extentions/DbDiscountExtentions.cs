@@ -407,6 +407,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
         public static PromocodeOptions ToPromocodeOptions(this DbPromocodeOptions dbPromocodeOptions) =>
             dbPromocodeOptions.IsEmpty() ? null : new PromocodeOptions
             {
+                EnabledPromocodes = dbPromocodeOptions.EnabledPromocodes,
                 CountActivePromocodePerUser = dbPromocodeOptions.CountActivePromocodePerUser,
                 CountSymbolsPromocode = dbPromocodeOptions.CountSymbolsPromocode,
                 DaysDurationPromocode = dbPromocodeOptions.DaysDurationPromocode,
@@ -421,6 +422,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
         public static DbPromocodeOptions ToDbPromocodeOptions(this PromocodeOptions promocodeOptions) =>
             promocodeOptions.IsEmpty() ? null : new DbPromocodeOptions
             {
+                EnabledPromocodes = promocodeOptions.EnabledPromocodes,
                 CountActivePromocodePerUser = promocodeOptions.CountActivePromocodePerUser,
                 CountSymbolsPromocode = promocodeOptions.CountSymbolsPromocode,
                 DaysDurationPromocode = promocodeOptions.DaysDurationPromocode,
@@ -499,6 +501,14 @@ namespace Exadel.CrazyPrice.Data.Extentions
         /// <returns></returns>
         public static bool IsEmpty(this DbPromocode value) =>
             value == null || value.Id.IsNullOrEmpty();
+
+        /// <summary>
+        /// Gets true when the List DbPromocode entity is Null or Empty otherwise false.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this List<DbPromocode> values) =>
+            values == null || values.Count == 0;
 
         /// <summary>
         /// Gets true when the List DbUserPromocodes entity is Null or Empty otherwise false.

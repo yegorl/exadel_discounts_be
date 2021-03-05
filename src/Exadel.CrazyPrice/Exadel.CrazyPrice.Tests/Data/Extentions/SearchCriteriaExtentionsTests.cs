@@ -136,7 +136,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 }
             };
 
-            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"tags\" : /.*Text.*/i},{\"description\" : /.*Text.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"favoritesUsersId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\"}]}");
+            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"tags\" : /.*Text.*/i},{\"description\" : /.*Text.*/i}], $and : [{\"_id\" : {$ne : null } }, {\"deleted\" : false}, {\"favoritesUsersId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\"}]}");
         }
 
         [Fact]
@@ -161,7 +161,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 }
             };
 
-            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"name\" : /.*tag.*/i},{\"tags\" : /.*Text.*/i},{\"tags\" : /.*tag.*/i},{\"description\" : /.*Text.*/i},{\"description\" : /.*tag.*/i}], $and : [{\"address.country\" : \"Country\"}, {\"address.city\" : \"City\"}, {\"language\" : \"russian\"}, {\"deleted\" : false}, {\"usersPromocodes.userId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\", \"usersPromocodes.promocodes.deleted\" : false }]}");
+            sort.GetQuery().Should().BeEquivalentTo("{$or : [{\"name\" : /.*Text.*/i},{\"name\" : /.*tag.*/i},{\"tags\" : /.*Text.*/i},{\"tags\" : /.*tag.*/i},{\"description\" : /.*Text.*/i},{\"description\" : /.*tag.*/i}], $and : [{\"_id\" : {$ne : null } }, {\"deleted\" : false}, {\"usersPromocodes.userId\" : \"82cabda2-2e10-4fe5-a78f-ade3bcb6d854\", \"usersPromocodes.promocodes.deleted\" : false }]}");
         }
 
         [Fact]

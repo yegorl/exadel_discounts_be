@@ -126,15 +126,15 @@ namespace Exadel.CrazyPrice.Tests.Data.Models
         }
 
         [Theory]
-        [InlineData(100,2, false, false)]
-        [InlineData(1,1, false, false)]
-        [InlineData(20,2, false, false)]
-        [InlineData(15,1, false, false)]
-        [InlineData(15,0, false, false)]
-        [InlineData(20,3, false, true)]
-        [InlineData(20,5, true, true)]
-        [InlineData(10,5, true, true)]
-        [InlineData(null,null, false, true)]
+        [InlineData(100, 2, false, false)]
+        [InlineData(1, 1, false, false)]
+        [InlineData(20, 2, false, false)]
+        [InlineData(15, 1, false, false)]
+        [InlineData(15, 0, false, false)]
+        [InlineData(20, 3, false, true)]
+        [InlineData(20, 5, true, true)]
+        [InlineData(10, 5, true, true)]
+        [InlineData(null, null, false, true)]
         public void ToUsersPromocodesCanAddTest(
             int? time,
             int? count,
@@ -182,8 +182,18 @@ namespace Exadel.CrazyPrice.Tests.Data.Models
                     }
                 }
             };
+
+            var options = new DbPromocodeOptions()
+            {
+                EnabledPromocodes = true,
+                CountActivePromocodePerUser = count,
+                DaysDurationPromocode = time,
+                CountSymbolsPromocode = 4,
+                TimeLimitAddingInSeconds = 1
+            };
+
             var timeNow = "10.10.2021 10:10:35".GetUtcDateTime();
-            usersPromocodes.CanAdd(time, count, timeNow).Should().Be(expectedValue);
+            usersPromocodes.CanAdd(options, timeNow).Should().Be(expectedValue);
         }
 
         [Fact]
@@ -204,7 +214,17 @@ namespace Exadel.CrazyPrice.Tests.Data.Models
                     }
                 }
             };
-            usersPromocodes.CanAdd(1, 2, DateTime.UtcNow).Should().BeTrue();
+
+            var options = new DbPromocodeOptions()
+            {
+                EnabledPromocodes = true,
+                CountActivePromocodePerUser = 2,
+                DaysDurationPromocode = 1,
+                CountSymbolsPromocode = 4,
+                TimeLimitAddingInSeconds = 1
+            };
+
+            usersPromocodes.CanAdd(options, DateTime.UtcNow).Should().BeTrue();
         }
     }
 }

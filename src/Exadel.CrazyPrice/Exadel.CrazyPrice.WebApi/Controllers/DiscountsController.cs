@@ -6,6 +6,10 @@ using Exadel.CrazyPrice.Common.Models.Request;
 using Exadel.CrazyPrice.Common.Models.Response;
 using Exadel.CrazyPrice.Common.Models.SearchCriteria;
 using Exadel.CrazyPrice.Data.Extentions;
+using Exadel.CrazyPrice.Services.Bus.EventBus.Events;
+using Exadel.CrazyPrice.Services.Bus.IntegrationBus.IntegrationEvents;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Events;
+using Exadel.CrazyPrice.Services.Common.IntegrationEvents.Models;
 using Exadel.CrazyPrice.WebApi.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +33,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         private readonly ILogger<DiscountsController> _logger;
         private readonly IDiscountRepository _discounts;
         private readonly IUserRepository _users;
+        private readonly IIntegrationEventService _integrationEventService;
 
         /// <summary>
         /// Creates Discount Controller.
@@ -36,11 +41,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <param name="logger"></param>
         /// <param name="discounts"></param>
         /// <param name="users"></param>
-        public DiscountsController(ILogger<DiscountsController> logger, IDiscountRepository discounts, IUserRepository users)
+        /// <param name="integrationEventService"></param>
+        public DiscountsController(ILogger<DiscountsController> logger, IDiscountRepository discounts, IUserRepository users, IIntegrationEventService integrationEventService)
         {
             _logger = logger;
             _discounts = discounts;
             _users = users;
+            _integrationEventService = integrationEventService ?? throw new ArgumentNullException(nameof(integrationEventService));
         }
 
         /// <summary>
@@ -263,6 +270,43 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
+        /// Checks the discount in favorites.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">The discount in favorites.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="404">Not found.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpPut, Route("favorites/exists/{id}"),
+         ProducesResponseType(StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee,Moderator,Administrator")]
+        public async Task<IActionResult> ExistsInFavorites([FromRoute] Guid id)
+        {
+            var incomingUser = ControllerContext.IncomingUser();
+            var exists = await _discounts.ExistsInFavoritesAsync(id, incomingUser.Id);
+
+            if (!exists)
+            {
+                _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Not exists. User: {@incomingUser}.", id, incomingUser);
+                return NotFound("Discount not exists in Favorites.");
+            }
+
+            _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Exists. User: {@incomingUser}.", id, incomingUser);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Adds the discount in favorites.
         /// </summary>
         /// <param name="id"></param>
@@ -354,6 +398,43 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
+        /// Checks the discount in subscriptions.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">The discount in subscriptions.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="404">Not found.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpPut, Route("subscriptions/exists/{id}"),
+         ProducesResponseType(StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee,Moderator,Administrator")]
+        public async Task<IActionResult> ExistsInSubscriptions([FromRoute] Guid id)
+        {
+            var incomingUser = ControllerContext.IncomingUser();
+            var userPromocodes = await _discounts.GetSubscriptionsAsync(id, incomingUser.Id);
+
+            if (userPromocodes.IsEmpty())
+            {
+                _logger.LogInformation("Exists In Subscriptions. Guid: {@id}. Result: Not exists. User: {@incomingUser}.", id, incomingUser);
+                return NotFound("Discount not exists in Subscriptions.");
+            }
+
+            _logger.LogInformation("Exists In Subscriptions. Guid: {@id}. Result: Exists. User: {@incomingUser}.", id, incomingUser);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Adds the discount in subscriptions.
         /// </summary>
         /// <param name="id"></param>
@@ -375,10 +456,34 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         public async Task<IActionResult> AddToSubscriptions([FromRoute] Guid id)
         {
             var incomingUser = ControllerContext.IncomingUser();
-            var userPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
-            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, userPromocodes, incomingUser);
+            var discountUserPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
+            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, discountUserPromocodes, incomingUser);
 
-            return Ok(userPromocodes);
+            if (discountUserPromocodes != null && !discountUserPromocodes.CurrentPromocode.IsEmpty())
+            {
+                var employee = (await _users.GetUserByUidAsync(incomingUser.Id)).ToEmployee();
+
+                var userEvent = new PromocodeAddedIntegrationEvent<UserMailContent>
+                    (new UserMailContent(employee, id, discountUserPromocodes.DiscountName,
+                    discountUserPromocodes.CurrentPromocode.PromocodeValue),
+                    "WebApi", new BusParams("crazyprice.direct", "mail.user"));
+
+                await PublishThroughEventBusAsync(userEvent);
+
+                var companyEvent = new PromocodeAddedIntegrationEvent<CompanyMailContent>
+                    (new CompanyMailContent(discountUserPromocodes.Company, id, discountUserPromocodes.DiscountName,
+                    discountUserPromocodes.CurrentPromocode.PromocodeValue),
+                    "WebApi", new BusParams("crazyprice.direct", "mail.company"));
+
+                await PublishThroughEventBusAsync(companyEvent);
+            }
+
+            return Ok(discountUserPromocodes?.UserPromocodes);
+        }
+
+        private async Task PublishThroughEventBusAsync(IntegrationEvent @event)
+        {
+            await _integrationEventService.PublishThroughEventBusAsync(@event);
         }
 
         /// <summary>
@@ -441,6 +546,43 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             }
 
             _logger.LogInformation("Add Vote. Guid: {@id}. Vote: {@value}. Result: user voted. User: {@incomingUser}.", id, value, incomingUser);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Checks the discount is voted.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">The discount is voted.</response>
+        /// <response code="400">Bad request.</response>
+        /// <response code="401">Unauthorized.</response>
+        /// <response code="403">Forbidden.</response>
+        /// <response code="404">Not voted.</response>
+        /// <response code="405">Method not allowed.</response>
+        /// <response code="500">Internal server error.</response>
+        [HttpPut, Route("vote/exists/{id}"),
+         ProducesResponseType(StatusCodes.Status200OK),
+         ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
+         ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
+         ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
+         ProducesResponseType(typeof(string), StatusCodes.Status404NotFound),
+         ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
+         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Employee,Moderator,Administrator")]
+        public async Task<IActionResult> ExistsVote([FromRoute] Guid id)
+        {
+            var incomingUser = ControllerContext.IncomingUser();
+            var exists = await _discounts.ExistsVoteAsync(id, incomingUser.Id);
+
+            if (!exists)
+            {
+                _logger.LogInformation("Exists Vote. Guid: {@id}. Result: Not voted. User: {@incomingUser}.", id, incomingUser);
+                return NotFound("Discount not voted.");
+            }
+
+            _logger.LogInformation("Exists Vote. Guid: {@id}. Result: Voted. User: {@incomingUser}.", id, incomingUser);
 
             return Ok();
         }
