@@ -25,6 +25,13 @@ namespace Exadel.CrazyPrice.Data.Models
         public string Mail { get; set; }
 
         [BsonIgnoreIfNull]
+        public string PhotoUrl { get; set; }
+
+        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
+        public LanguageOption DefaultLanguage { get; set; }
+
+        [BsonIgnoreIfNull]
         public string HashPassword { get; set; }
 
         [BsonIgnoreIfNull]

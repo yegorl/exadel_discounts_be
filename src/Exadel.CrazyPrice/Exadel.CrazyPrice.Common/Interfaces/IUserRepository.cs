@@ -51,5 +51,12 @@ namespace Exadel.CrazyPrice.Common.Interfaces
         /// <param name="userUid"></param>
         /// <returns></returns>
         Task AddExternalUserIntoUserAsync(ExternalUser externalUser, Guid userUid);
+
+        /// <summary>
+        /// Update user async
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<User> UpdateUserAsync(User user);
     }
 }

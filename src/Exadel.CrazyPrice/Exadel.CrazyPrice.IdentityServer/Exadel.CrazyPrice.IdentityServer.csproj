@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Exadel.CrazyPrice.Common\Exadel.CrazyPrice.Common.csproj" />
     <ProjectReference Include="..\Exadel.CrazyPrice.Data\Exadel.CrazyPrice.Data.csproj" />
+    <ProjectReference Include="..\Exadel.CrazyPrice.Services\Common\Cryptography\Cryptography.csproj" />
   </ItemGroup>
   
   <ItemGroup>
