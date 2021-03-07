@@ -43,11 +43,11 @@ namespace Exadel.CrazyPrice.Common.Models.Response
 
         public DateTime? CreateDate { get; set; }
 
-        public User UserCreateDate { get; set; }
+        public Employee UserCreateDate { get; set; }
 
         public DateTime? LastChangeDate { get; set; }
 
-        public User UserLastChangeDate { get; set; }
+        public Employee UserLastChangeDate { get; set; }
 
         public bool Deleted { get; set; }
     }
