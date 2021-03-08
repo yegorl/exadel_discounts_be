@@ -63,7 +63,7 @@ namespace Exadel.CrazyPrice.Common.Models.SearchCriteria
         /// Gets or sets a search User Id.
         /// </summary>
         [JsonIgnore]
-        public IncomingUser IncomingUser { get; set; }
+        public CurrentUser CurrentUser { get; set; }
 
         /// <summary>
         /// Gets or sets a search all when SearchShowDeleted is true otherwise search when deleted is false.

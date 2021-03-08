@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exadel.CrazyPrice.Common.Extentions;
 using Exadel.CrazyPrice.Common.Models.Option;
 using MongoDB.Bson;
 
@@ -34,7 +35,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
         }
 
         /// <summary>
-        /// Add externalUser into user async
+        /// Adds externalUser into user async
         /// </summary>
         /// <param name="externalUser"></param>
         /// <param name="userUid"></param>
@@ -43,11 +44,56 @@ namespace Exadel.CrazyPrice.Data.Repositories
             await _users.UpdateOneAsync(Builders<DbUser>.Filter.Eq(v => v.Id, userUid.ToString()), 
                 Builders<DbUser>.Update.AddToSet(items => items.ExternalUsers, externalUser.ToDbExternalUser()), 
                 new UpdateOptions() { IsUpsert = true });
-        
 
+        /// <summary>
+        /// Adds new user async
+        /// </summary> 
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task AddUserAsync(User user)
         {
             await _users.InsertOneAsync(user.ToDbUser());
+        }
+
+        /// <summary>
+        /// Updates user async
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<User> UpdateUserAsync(User user)
+        {
+            var dbUser = (await _users.FindSync(Builders<DbUser>.Filter.Eq(d => d.Id, user.Id.ToString()), 
+                new FindOptions<DbUser> { Limit = 1 }).ToListAsync()).GetOne();
+
+            if (!user.HashPassword.IsNullOrEmpty())
+            {
+                dbUser.HashPassword = user.HashPassword;
+            }
+            if (!user.Salt.IsNullOrEmpty())
+            {
+                dbUser.Salt = user.Salt;
+            }
+            if (!user.PhoneNumber.IsNullOrEmpty())
+            {
+                dbUser.PhoneNumber = user.PhoneNumber;
+            }
+            if (!user.PhotoUrl.IsNullOrEmpty())
+            {
+                dbUser.PhotoUrl = user.PhotoUrl;
+            }
+            dbUser.DefaultLanguage = user.Language;
+
+            return (await _users.FindOneAndUpdateAsync(Builders<DbUser>.Filter.Where(u => u.Id == user.Id.ToString()),
+                Builders<DbUser>.Update
+                    .Set(f => f.HashPassword, dbUser.HashPassword)
+                    .Set(f => f.Salt, dbUser.Salt)
+                    .Set(f => f.PhoneNumber, dbUser.PhoneNumber)
+                    .Set(f => f.DefaultLanguage, dbUser.DefaultLanguage)
+                    .Set(f => f.PhotoUrl, dbUser.PhotoUrl),
+                new FindOneAndUpdateOptions<DbUser>
+                {
+                    ReturnDocument = ReturnDocument.After
+                })).ToUser();
         }
 
         /// <summary>
@@ -71,7 +117,7 @@ namespace Exadel.CrazyPrice.Data.Repositories
             await GetUserAsync(Builders<DbUser>.Filter.Eq(d => d.Mail, mail));
 
         /// <summary>
-        /// Get user by external user async
+        /// Gets user by external user async
         /// </summary>
         /// <param name="externalUser"></param>
         /// <returns></returns>

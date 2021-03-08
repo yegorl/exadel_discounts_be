@@ -3,7 +3,7 @@ using System;
 
 namespace Exadel.CrazyPrice.Common.Models
 {
-    public class IncomingUser
+    public class CurrentUser
     {
         public Guid Id { get; set; }
 

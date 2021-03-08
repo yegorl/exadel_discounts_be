@@ -56,7 +56,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
                         },
                         HashPassword = "",
                         Salt = "",
-                        PhoneNumber = ""
+                        PhoneNumber = "",
+                        Language = LanguageOption.En,
+                        PhotoUrl = ""
                     };
 
                     return true;

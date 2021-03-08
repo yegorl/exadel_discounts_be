@@ -47,11 +47,11 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetDiscountsStatistics([FromBody] DiscountsStatisticsCriteria criteria)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             if (criteria.CreateEndDate < criteria.CreateStartDate)
             {
-                _logger.LogWarning("Get Discounts Statistics. Criteria: {@criteria}. Result is not enabled, user does not have permission. User: {@incomingUser}.", criteria, incomingUser);
+                _logger.LogWarning("Get Discounts Statistics. Criteria: {@criteria}. Result is not enabled, user does not have permission. User: {@currentUser}.", criteria, currentUser);
                 return BadRequest("CreateEndDate field must be greater than CreateStartDate field.");
             }
 
@@ -59,11 +59,11 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (statistics == null)
             {
-                _logger.LogWarning("Get Discounts Statistics. Criteria: {@criteria}. Result is Empty. User: {@incomingUser}.", criteria, incomingUser);
+                _logger.LogWarning("Get Discounts Statistics. Criteria: {@criteria}. Result is Empty. User: {@currentUser}.", criteria, currentUser);
                 return NotFound("Can't generate statistics for the specified criteria.");
             }
 
-            _logger.LogInformation("Get Discounts Statistics. Criteria: {@criteria}. Result: {@statistics}. User: {@incomingUser}.", criteria, statistics, incomingUser);
+            _logger.LogInformation("Get Discounts Statistics. Criteria: {@criteria}. Result: {@statistics}. User: {@currentUser}.", criteria, statistics, currentUser);
             return Ok(statistics);
         }
 
@@ -87,10 +87,10 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetUsersStatistics()
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var statistics = await _statistics.GetUsersStatistics();
-            _logger.LogInformation("Get Users Statistics. Result: {@statistics}. User: {@incomingUser}.", statistics, incomingUser);
+            _logger.LogInformation("Get Users Statistics. Result: {@statistics}. User: {@currentUser}.", statistics, currentUser);
             return Ok(statistics);
         }
     }

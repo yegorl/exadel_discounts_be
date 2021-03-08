@@ -13,11 +13,11 @@ namespace Exadel.CrazyPrice.WebApi.Extentions
     public static class ControllerExtentions
     {
         /// <summary>
-        /// Gets IncomingUser from ControllerContext.
+        /// Gets CurrentUser from ControllerContext.
         /// </summary>
         /// <param name="controllerContext"></param>
         /// <returns></returns>
-        public static IncomingUser IncomingUser(this ControllerContext controllerContext) =>
+        public static CurrentUser CurrentUser(this ControllerContext controllerContext) =>
             new()
             {
                 Id = controllerContext.GetUserId(),

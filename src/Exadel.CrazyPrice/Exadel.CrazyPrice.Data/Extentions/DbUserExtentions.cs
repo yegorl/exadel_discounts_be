@@ -49,6 +49,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     HashPassword = dbUser.HashPassword,
                     Salt = dbUser.Salt,
                     Roles = dbUser.Roles,
+                    Language = dbUser.DefaultLanguage,
+                    PhotoUrl = dbUser.PhotoUrl,
                     ExternalUsers = dbUser.ExternalUsers?.ToExternalUsers()
                 };
             }
@@ -98,6 +100,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
                     Roles = user.Roles,
                     HashPassword = user.HashPassword,
                     Salt = user.Salt,
+                    DefaultLanguage = user.Language,
+                    PhotoUrl = user.PhotoUrl,
                     ExternalUsers = user.ExternalUsers?.ToDbExternalUsers()
                 };
 

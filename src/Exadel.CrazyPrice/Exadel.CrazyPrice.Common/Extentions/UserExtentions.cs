@@ -1,5 +1,7 @@
 ﻿using Exadel.CrazyPrice.Common.Models;
 using System;
+using Exadel.CrazyPrice.Common.Models.Request;
+using Exadel.CrazyPrice.Services.Common.Cryptography.Extentions;
 
 namespace Exadel.CrazyPrice.Common.Extentions
 {
@@ -24,6 +26,46 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 PhoneNumber = user.PhoneNumber,
                 Mail = user.Mail
             };
+        }
+
+        /// <summary>
+        /// Gets the UserInfo User entity.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static UserInfo ToUserInfo(this User user)
+        {
+            return user == null ? null : new UserInfo
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                PhoneNumber = user.PhoneNumber,
+                Mail = user.Mail,
+                PhotoUrl = user.PhotoUrl,
+                Language = user.Language
+            };
+        }
+
+        /// <summary>
+        /// Gets the Employee entity from User entity.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static User UpdateUser(this User user, UpdateUserRequest request)
+        {
+            var (hashPassword, salt) = request.Password.GetCryptPassword();
+            return new User
+            {
+                Id = user.Id,
+                HashPassword = hashPassword,
+                Salt = salt,
+                Language = request.Language,
+                PhotoUrl = request.PhotoUrl,
+                PhoneNumber = request.PhoneNumber
+            };
+
         }
 
         /// <summary>
@@ -59,7 +101,9 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 Name = user.Name,
                 Surname = user.Surname,
                 PhoneNumber = user.PhoneNumber,
-                Mail = user.Mail
+                Mail = user.Mail,
+                PhotoUrl = user.PhotoUrl,
+                Language = user.Language
             };
         }
     }

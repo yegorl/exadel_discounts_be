@@ -50,17 +50,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTags([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string name)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var tags = await _repository.GetTagAsync(name);
 
             if (tags.IsNullOrEmpty())
             {
-                _logger.LogWarning("Get Tags. Name: {name}. Result is Empty. User: {@incomingUser}.", name, incomingUser);
+                _logger.LogWarning("Get Tags. Name: {name}. Result is Empty. User: {@currentUser}.", name, currentUser);
                 return NotFound("No tags found.");
             }
 
-            _logger.LogInformation("Get Tags. Name: {name}. Result: {@tags}. User: {@incomingUser}.", name, tags, incomingUser);
+            _logger.LogInformation("Get Tags. Name: {name}. Result: {@tags}. User: {@currentUser}.", name, tags, currentUser);
             return Ok(tags);
         }
     }

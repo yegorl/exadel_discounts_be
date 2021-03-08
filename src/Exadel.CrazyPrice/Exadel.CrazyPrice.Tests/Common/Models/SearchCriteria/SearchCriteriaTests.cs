@@ -24,7 +24,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Models.SearchCriteria
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchSortOption = SortOption.Asc,
                 SearchText = "SearchText",
-                IncomingUser = new IncomingUser()
+                CurrentUser = new CurrentUser()
                 {
                     Id = Guid.Parse("f22960bc-b378-4d2f-b546-eb9700156f8f"),
                     Role = RoleOption.Employee
@@ -60,7 +60,7 @@ namespace Exadel.CrazyPrice.Tests.Common.Models.SearchCriteria
             searchCriteria.SearchSortFieldOption.Should().NotBeNull();
             searchCriteria.SearchSortOption.Should().NotBeNull();
             searchCriteria.SearchText.Should().NotBeNull();
-            searchCriteria.IncomingUser.Id.Should().NotBeEmpty();
+            searchCriteria.CurrentUser.Id.Should().NotBeEmpty();
             searchCriteria.SearchAdvanced.Should().NotBeNull();
 
             searchCriteria.SearchAdvanced.CompanyName.Should().NotBeNull();

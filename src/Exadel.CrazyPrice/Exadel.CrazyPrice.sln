@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEvents", "Exadel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailBuilder", "Exadel.CrazyPrice.Services\Mail\MailBuilder\MailBuilder.csproj", "{CD2C270B-B72D-481F-9C51-368F32ADBF36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography", "Exadel.CrazyPrice.Services\Common\Cryptography\Cryptography.csproj", "{D3131A27-8CB7-49A7-958D-9A29762FB755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{CD2C270B-B72D-481F-9C51-368F32ADBF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD2C270B-B72D-481F-9C51-368F32ADBF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD2C270B-B72D-481F-9C51-368F32ADBF36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3131A27-8CB7-49A7-958D-9A29762FB755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3131A27-8CB7-49A7-958D-9A29762FB755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3131A27-8CB7-49A7-958D-9A29762FB755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3131A27-8CB7-49A7-958D-9A29762FB755}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{60BCC393-26D0-4E01-9AD7-610E001AB8A4} = {27E2D815-5656-40F7-94BD-13F2EE8B9D17}
 		{ECF80FD5-9C8E-486C-8650-D1E6948DDA01} = {60BCC393-26D0-4E01-9AD7-610E001AB8A4}
 		{CD2C270B-B72D-481F-9C51-368F32ADBF36} = {A44B76B6-8B5E-45FB-8DE1-39FBA3418BC0}
+		{D3131A27-8CB7-49A7-958D-9A29762FB755} = {60BCC393-26D0-4E01-9AD7-610E001AB8A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3094045A-D91C-4865-B6CA-1136457E8A22}

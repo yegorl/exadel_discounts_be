@@ -205,6 +205,8 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     "+SzcAYCGZcD+eov22e4GpybKoLsaoguAIPS0D3Ntj2ATCpcQvvbsitFLFT1IZOTEzjvxTOQ/ISdxSW9x+VmtV1UFTGgIgKPZPKMtkWmyL7SOza6iuFbikXRr6olGNkdRK6KEOSyY0d+S1VZ9RbcGl9eYfppPM5s8xVc7w0FsODw=",
                 Salt = "IZmh6o3UgDIHs5rXD3L5hD2momUnLQdyJUrpQNW/",
                 Roles = RoleOption.Employee,
+                DefaultLanguage = LanguageOption.Ru,
+                PhotoUrl = "https://www.continental.com/resource/blob/226362/39eeb873a15ef89264b8be398d0f015f/20200703-frank-petznick-img-profil--en--data.jpg",
                 ExternalUsers = new List<DbExternalUser>()
             },
             // password: 2222
@@ -219,6 +221,8 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     "+fs8G3LGPEg3HFHyJNfv4jAe+a9zKCj4AgZDBVatsGcHW625Ce+QO6cTcI/oLFn2ArUvvYPs7Hs664OPojKm3A6kPAQ77ysqzigxg75xbKS2Cel5Un7BaIBMN+BFRU5CnaXnPQ4rmOENf8p70FbdwWr359pvmTttFWsQAG2iCjI=",
                 Salt = "sOVqvk4NWiJ4gbTeVJ19M3V2gG5jOdootBQbTv6v",
                 Roles = RoleOption.Moderator,
+                DefaultLanguage = LanguageOption.Ru,
+                PhotoUrl = "https://www.jonesday.com/-/media/images/attorneys/g/cgoulding.jpg",
                 ExternalUsers = new List<DbExternalUser>()
             },
             // password: 3333
@@ -233,6 +237,8 @@ namespace Exadel.CrazyPrice.Data.Seeder.Data
                     "voWfJR7QxiT3sTuLZMu+iuYswOika7FU+VTtRhATkhSdzznn7pOnSH1VEsZbNlqWOaRpvTskIlBUmvXwct5KZ94cg3T93dVLmSCenh8VjPmFKTiGHxP+dboJLXjeKQ6BUNoNwn3w5v16OFRH+QgGesrdkWsLi2V5QQ/+BO9VDVA=",
                 Salt = "wQFhWPjNcYukdImNixjiATqeQLemqaJA55jQkfgg",
                 Roles = RoleOption.Administrator,
+                DefaultLanguage = LanguageOption.Ru,
+                PhotoUrl = "https://pbs.twimg.com/profile_images/1263637756934148097/_dEcJIUQ.jpg",
                 ExternalUsers = new List<DbExternalUser>()
             }
         };

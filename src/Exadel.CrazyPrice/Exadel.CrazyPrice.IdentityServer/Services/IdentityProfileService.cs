@@ -29,7 +29,8 @@ namespace Exadel.CrazyPrice.IdentityServer.Services
             {
                 new("role", user.Roles.ToString()),
                 new("name", user.Name),
-                new("mail", user.Mail)
+                new("mail", user.Mail),
+                new("language", user.Language.ToString())
             };
 
             var surname = user.Surname.ToStringWithValue("Surname", string.Empty,  false);

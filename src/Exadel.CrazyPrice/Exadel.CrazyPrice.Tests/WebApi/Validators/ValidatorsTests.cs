@@ -154,7 +154,7 @@ namespace Exadel.CrazyPrice.Tests.WebApi.Validators
                     SearchShowDeleted = false,
                     SearchSortFieldOption = SortFieldOption.DateStart,
                     SearchSortOption = SortOption.Asc,
-                    IncomingUser = new IncomingUser()
+                    CurrentUser = new CurrentUser()
                     {
                         Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
                         Role = RoleOption.Employee
