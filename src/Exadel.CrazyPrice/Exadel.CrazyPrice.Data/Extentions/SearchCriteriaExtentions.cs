@@ -24,7 +24,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
             var startDateSort = searchCriteria.SearchSortFieldOption == SortFieldOption.DateStart ? "" : ", \"startDate\": -1";
             var endDateSort = searchCriteria.SearchSortFieldOption == SortFieldOption.DateEnd ? "" : ", \"endDate\": 1";
 
-            return "{ \"" + searchCriteria.GetTranslationsPrefix() + searchCriteria.SearchSortFieldOption.ToStringLookup() + "\": " +
+            return "{ \"" + searchCriteria.GetTranslationsPrefixForSortField() + searchCriteria.SearchSortFieldOption.ToStringLookup() + "\": " +
                    (int)searchCriteria.SearchSortOption + startDateSort + endDateSort + "}";
         }
 
@@ -321,8 +321,13 @@ namespace Exadel.CrazyPrice.Data.Extentions
 
             return builder.ToString().Trim(comma);
         }
-
+        
         private static string GetTranslationsPrefix(this SearchCriteria searchCriteria) =>
             "".GetWithTranslationsPrefix(searchCriteria.SearchLanguage, true);
+
+        private static string GetTranslationsPrefixForSortField(this SearchCriteria searchCriteria) =>
+            searchCriteria.SearchSortFieldOption is SortFieldOption.NameDiscount or SortFieldOption.CompanyName
+                ? "".GetWithTranslationsPrefix(searchCriteria.SearchLanguage, true)
+                : string.Empty;
     }
 }
