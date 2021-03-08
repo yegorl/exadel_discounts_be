@@ -85,7 +85,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpGet, Route("get"),
-         ProducesResponseType(typeof(Employee), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(UserInfo), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
          ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
@@ -98,7 +98,7 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             var incomingUser = ControllerContext.IncomingUser();
 
             var user = await _repository.GetUserByUidAsync(incomingUser.Id);
-            var employee = user.ToEmployee();
+            var employee = user.ToUserInfo();
 
             if (employee.IsEmpty())
             {
@@ -111,18 +111,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         }
 
         /// <summary>
-        /// Updates myself user.
+        /// Updates UserInfo.
         /// </summary>
         /// <returns></returns>
-        /// <response code="200">Employee found.</response>
+        /// <response code="200">UserInfo found.</response>
         /// <response code="400">Bad request.</response>
         /// <response code="401">Unauthorized.</response>
         /// <response code="403">Already voted.</response>
-        /// <response code="404">No employee found.</response>
+        /// <response code="404">No UserInfo found.</response>
         /// <response code="405">Method not allowed.</response>
         /// <response code="500">Internal server error.</response>
         [HttpPost, Route("update"),
-         ProducesResponseType(typeof(Employee), StatusCodes.Status200OK),
+         ProducesResponseType(typeof(UserInfo), StatusCodes.Status200OK),
          ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest),
          ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized),
          ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden),
@@ -136,9 +136,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             var user = (await _repository.GetUserByUidAsync(incomingUser.Id)).UpdateUser(request);
 
-            var updatedUser = (await _repository.UpdateUserAsync(user)).ToEmployee();
+            var updatedUser = (await _repository.UpdateUserAsync(user)).ToUserInfo();
 
-            _logger.LogInformation("Update User. User: {@incomingUser}.", incomingUser);
+            _logger.LogInformation("Update UserInfo. Result: {@userInfo} User: {@incomingUser}.", updatedUser, incomingUser);
             return Ok(updatedUser);
         }
     }

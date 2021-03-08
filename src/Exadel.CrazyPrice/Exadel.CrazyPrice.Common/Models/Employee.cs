@@ -17,9 +17,5 @@ namespace Exadel.CrazyPrice.Common.Models
         public string PhoneNumber { get; set; }
 
         public string Mail { get; set; }
-
-        public string PhotoUrl { get; set; }
-
-        public LanguageOption Language { get; set; }
     }
 }

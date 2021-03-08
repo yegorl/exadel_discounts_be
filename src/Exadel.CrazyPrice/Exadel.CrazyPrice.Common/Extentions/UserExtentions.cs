@@ -24,6 +24,23 @@ namespace Exadel.CrazyPrice.Common.Extentions
                 Name = user.Name,
                 Surname = user.Surname,
                 PhoneNumber = user.PhoneNumber,
+                Mail = user.Mail
+            };
+        }
+
+        /// <summary>
+        /// Gets the UserInfo User entity.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static UserInfo ToUserInfo(this User user)
+        {
+            return user == null ? null : new UserInfo
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                PhoneNumber = user.PhoneNumber,
                 Mail = user.Mail,
                 PhotoUrl = user.PhotoUrl,
                 Language = user.Language
