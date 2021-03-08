@@ -21,23 +21,72 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => x.Id)
                     .NotEmpty();
 
-                RuleFor(x => x.Name)
-                    .NotEmpty()
-                    .MinimumLength(3)
-                    .MaximumLength(200)
-                    .ValidCharacters(CharOptions.Letter |
-                                     CharOptions.Number |
-                                     CharOptions.Punctuation |
-                                     CharOptions.Symbol, " ,.-");
 
-                RuleFor(x => x.Description)
-                    .NotEmpty()
-                    .MinimumLength(3)
-                    .MaximumLength(5000)
-                    .ValidCharacters(CharOptions.Letter |
-                                     CharOptions.Number |
-                                     CharOptions.Punctuation |
-                                     CharOptions.Symbol, " ,.-");
+                #region CanTranslate
+
+                When(x =>
+                        x.Name.IsNullOrEmpty()
+                        && x.Description.IsNullOrEmpty()
+                        && x.Tags.IsNullOrEmpty()
+                        && x.Address.Country.IsNullOrEmpty()
+                        && x.Address.City.IsNullOrEmpty()
+                        && x.Address.Street.IsNullOrEmpty()
+                        && x.Company.Name.IsNullOrEmpty()
+                        && x.Company.Description.IsNullOrEmpty()
+                    , () =>
+                    {
+                        CascadeMode = CascadeMode.Stop;
+
+                        RuleFor(x => x.Translations)
+                            .NotNull()
+                            .WithMessage("When all russian fields are empty Translations must be defined.");
+                    });
+
+                When(x =>
+                            !x.Name.IsNullOrEmpty()
+                            || !x.Description.IsNullOrEmpty()
+                            || !x.Tags.IsNullOrEmpty()
+                            || !x.Address.Country.IsNullOrEmpty()
+                            || !x.Address.City.IsNullOrEmpty()
+                            || !x.Address.Street.IsNullOrEmpty()
+                            || !x.Company.Name.IsNullOrEmpty()
+                            || !x.Company.Description.IsNullOrEmpty()
+                            , () =>
+                        {
+                            CascadeMode = CascadeMode.Stop;
+
+                            RuleFor(x => x.Name)
+                                                        .NotEmpty()
+                                                        .MinimumLength(3)
+                                                        .MaximumLength(200)
+                                                        .ValidCharacters(CharOptions.Letter |
+                                                                         CharOptions.Number |
+                                                                         CharOptions.Punctuation |
+                                                                         CharOptions.Symbol, " ,.-");
+
+                            RuleFor(x => x.Description)
+                                                .NotEmpty()
+                                                .MinimumLength(3)
+                                                .MaximumLength(5000)
+                                                .ValidCharacters(CharOptions.Letter |
+                                                                 CharOptions.Number |
+                                                                 CharOptions.Punctuation |
+                                                                 CharOptions.Symbol, " ,.-");
+
+                            RuleFor(x => string.Join(" ", x.Tags))
+                                .NotEmpty()
+                                .ValidCharacters(CharOptions.Letter | CharOptions.Digit, " ");
+
+                            RuleFor(x => x.Company)
+                                .SetValidator(companyValidator);
+
+                            RuleFor(x => x.Address)
+                                .SetValidator(addressValidator);
+                        });
+
+                #endregion
+
+
 
                 RuleFor(x => x.AmountOfDiscount == null ? null : (decimal?)(Math.Truncate((decimal)x.AmountOfDiscount * 100) / 100))
                     .Must(x => x == null || x >= 0)
@@ -50,16 +99,6 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                 RuleFor(x => new { x.StartDate, x.EndDate })
                     .Must(x => x.EndDate == null || (x.StartDate != null && x.EndDate > x.StartDate))
                     .WithMessage("The EndDate musts be null or great than StartDate");
-
-                RuleFor(x => string.Join(" ", x.Tags))
-                    .NotEmpty()
-                    .ValidCharacters(CharOptions.Letter | CharOptions.Digit, " ");
-
-                RuleFor(x => x.Company)
-                    .SetValidator(companyValidator);
-
-                RuleFor(x => x.Address)
-                    .SetValidator(addressValidator);
 
                 RuleFor(x => x.WorkingDaysOfTheWeek)
                     .NotEmpty()
@@ -75,7 +114,14 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                     {
                         i.CascadeMode = CascadeMode.Stop;
 
-                        i.When(t => !t.Name.IsNullOrEmpty(), () =>
+                        i.When(t =>
+                            !t.Name.IsNullOrEmpty()
+                            || !t.Description.IsNullOrEmpty()
+                            || !t.Description.IsNullOrEmpty()
+                            || !t.Tags.IsNullOrEmpty()
+                            || t.Address != null
+                            || t.Company != null
+                            , () =>
                         {
                             i.RuleFor(t => t.Name)
                                 .MinimumLength(3)
@@ -83,10 +129,7 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                                 .ValidCharacters(CharOptions.Letter |
                                                  CharOptions.Number |
                                                  CharOptions.Symbol, " ,.-");
-                        });
 
-                        i.When(t => !t.Description.IsNullOrEmpty(), () =>
-                        {
                             i.RuleFor(t => t.Description)
                             .NotEmpty()
                             .MinimumLength(3)
@@ -95,59 +138,50 @@ namespace Exadel.CrazyPrice.WebApi.Validators
                                              CharOptions.Number |
                                              CharOptions.Punctuation |
                                              CharOptions.Symbol, " ,.-");
+
+                            i.RuleFor(t => t.Address.Country)
+                                .NotEmpty()
+                                .MinimumLength(3)
+                                .MaximumLength(50)
+                                .ValidCharacters(CharOptions.Letter, " -");
+
+                            i.RuleFor(t => t.Address.City)
+                                .NotEmpty()
+                                .MinimumLength(3)
+                                .MaximumLength(30)
+                                .ValidCharacters(CharOptions.Letter, " -");
+
+                            i.RuleFor(t => t.Address.Street)
+                                .NotEmpty()
+                                .MinimumLength(3)
+                                .MaximumLength(300)
+                                .ValidCharacters(CharOptions.Letter |
+                                                 CharOptions.Number |
+                                                 CharOptions.Punctuation |
+                                                 CharOptions.Symbol, " ,.-");
+
+                            i.RuleFor(t => t.Company.Name)
+                                .NotEmpty()
+                                .MinimumLength(3)
+                                .MaximumLength(200)
+                                .ValidCharacters(CharOptions.Letter |
+                                                 CharOptions.Number |
+                                                 CharOptions.Punctuation |
+                                                 CharOptions.Symbol, " ,.-");
+
+                            i.RuleFor(t => t.Company.Description)
+                                .NotEmpty()
+                                .MinimumLength(3)
+                                .MaximumLength(2000)
+                                .ValidCharacters(CharOptions.Letter |
+                                                 CharOptions.Number |
+                                                 CharOptions.Punctuation |
+                                                 CharOptions.Symbol, " ,.-");
+
+                            i.RuleFor(t => string.Join(" ", t.Tags))
+                            .NotEmpty()
+                            .ValidCharacters(CharOptions.Letter | CharOptions.Digit, " ");
                         });
-
-                        i.When(t => t.Address != null, () =>
-                         {
-                             i.RuleFor(t => t.Address.Country)
-                                 .NotEmpty()
-                                 .MinimumLength(3)
-                                 .MaximumLength(50)
-                                 .ValidCharacters(CharOptions.Letter, " -");
-
-                             i.RuleFor(t => t.Address.City)
-                                 .NotEmpty()
-                                 .MinimumLength(3)
-                                 .MaximumLength(30)
-                                 .ValidCharacters(CharOptions.Letter, " -");
-
-                             i.RuleFor(t => t.Address.Street)
-                                 .NotEmpty()
-                                 .MinimumLength(3)
-                                 .MaximumLength(300)
-                                 .ValidCharacters(CharOptions.Letter |
-                                                  CharOptions.Number |
-                                                  CharOptions.Punctuation |
-                                                  CharOptions.Symbol, " ,.-");
-                         });
-
-                        i.When(t => t.Company != null, () =>
-                          {
-                              i.RuleFor(t => t.Company.Name)
-                                  .NotEmpty()
-                                  .MinimumLength(3)
-                                  .MaximumLength(200)
-                                  .ValidCharacters(CharOptions.Letter |
-                                                   CharOptions.Number |
-                                                   CharOptions.Punctuation |
-                                                   CharOptions.Symbol, " ,.-");
-
-                              i.RuleFor(t => t.Company.Description)
-                                  .NotEmpty()
-                                  .MinimumLength(3)
-                                  .MaximumLength(2000)
-                                  .ValidCharacters(CharOptions.Letter |
-                                                   CharOptions.Number |
-                                                   CharOptions.Punctuation |
-                                                   CharOptions.Symbol, " ,.-");
-                          });
-
-                        i.When(t => !t.Tags.IsNullOrEmpty(), () =>
-                             {
-                                 i.RuleFor(t => string.Join(" ", t.Tags))
-                                 .NotEmpty()
-                                 .ValidCharacters(CharOptions.Letter | CharOptions.Digit, " ");
-                             });
                     });
                 });
             });
