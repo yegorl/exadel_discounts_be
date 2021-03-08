@@ -52,7 +52,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "",
-                IncomingUser = new IncomingUser()
+                CurrentUser = new CurrentUser()
                 {
                     Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
                     Role = RoleOption.Employee
@@ -104,7 +104,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "Text",
-                IncomingUser = new IncomingUser()
+                CurrentUser = new CurrentUser()
                 {
                     Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
                     Role = RoleOption.Employee
@@ -129,7 +129,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "Text",
-                IncomingUser = new IncomingUser()
+                CurrentUser = new CurrentUser()
                 {
                     Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
                     Role = RoleOption.Employee
@@ -154,7 +154,7 @@ namespace Exadel.CrazyPrice.Tests.Data.Extentions
                 SearchShowDeleted = false,
                 SearchSortFieldOption = SortFieldOption.DateStart,
                 SearchText = "Text or tag",
-                IncomingUser = new IncomingUser()
+                CurrentUser = new CurrentUser()
                 {
                     Id = Guid.Parse("82cabda2-2e10-4fe5-a78f-ade3bcb6d854"),
                     Role = RoleOption.Employee

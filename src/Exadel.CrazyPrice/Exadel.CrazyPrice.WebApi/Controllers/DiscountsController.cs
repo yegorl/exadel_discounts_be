@@ -74,18 +74,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetDiscount([FromRoute] Guid id, [FromRoute] LanguageOption language)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var discount = (await _discounts.GetDiscountByUidAsync(id)).TransformUsersPromocodes(incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            var discount = (await _discounts.GetDiscountByUidAsync(id)).TransformUsersPromocodes(currentUser);
 
             if (discount.IsEmpty())
             {
-                _logger.LogWarning("Get Discount. Guid: {@id}. Language: {@language}. Result is Empty.  User: {@incomingUser}.", id, language, incomingUser);
+                _logger.LogWarning("Get Discount. Guid: {@id}. Language: {@language}. Result is Empty.  User: {@currentUser}.", id, language, currentUser);
                 return NotFound("No discount found.");
             }
 
             var response = discount.Translate(language).ToDiscountResponse();
 
-            _logger.LogInformation("Get Discount. Guid: {@id}. Language: {@language}. Result: {@response}.  User: {@incomingUser}.", id, language, response, incomingUser);
+            _logger.LogInformation("Get Discount. Guid: {@id}. Language: {@language}. Result: {@response}.  User: {@currentUser}.", id, language, response, currentUser);
             return Ok(response);
         }
 
@@ -112,26 +112,26 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetDiscounts([FromBody, CustomizeValidator(RuleSet = "SearchCriteria")] SearchCriteria searchCriteria)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            searchCriteria.IncomingUser = incomingUser;
+            var currentUser = ControllerContext.CurrentUser();
+            searchCriteria.CurrentUser = currentUser;
 
-            if (searchCriteria.IsNotAdministratorSortByDateCreate(incomingUser.Role))
+            if (searchCriteria.IsNotAdministratorSortByDateCreate(currentUser.Role))
             {
-                _logger.LogWarning("Get Discounts. SearchCriteria: {@searchCriteria}. Result is Empty, user does not have permission. User: {@incomingUser}.", searchCriteria, incomingUser);
+                _logger.LogWarning("Get Discounts. SearchCriteria: {@searchCriteria}. Result is Empty, user does not have permission. User: {@currentUser}.", searchCriteria, currentUser);
                 return Unauthorized();
             }
 
-            var discounts = (await _discounts.GetDiscountsAsync(searchCriteria)).TransformUsersPromocodes(incomingUser);
+            var discounts = (await _discounts.GetDiscountsAsync(searchCriteria)).TransformUsersPromocodes(currentUser);
 
             if (discounts == null || discounts.Count == 0)
             {
-                _logger.LogWarning("Get Discounts. SearchCriteria: {@searchCriteria}. Result is Empty. User: {@incomingUser}.", searchCriteria, incomingUser);
+                _logger.LogWarning("Get Discounts. SearchCriteria: {@searchCriteria}. Result is Empty. User: {@currentUser}.", searchCriteria, currentUser);
                 return NotFound("No discounts found.");
             }
 
             var discountsResponse = discounts.ToListDiscountResponse(searchCriteria.SearchLanguage);
 
-            _logger.LogInformation("Get Discounts. SearchCriteria: {@searchCriteria}. Result: {@discountsResponse}. User: {@incomingUser}.", searchCriteria, discountsResponse, incomingUser);
+            _logger.LogInformation("Get Discounts. SearchCriteria: {@searchCriteria}. Result: {@discountsResponse}. User: {@currentUser}.", searchCriteria, discountsResponse, currentUser);
             return Ok(discountsResponse);
         }
 
@@ -158,18 +158,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> GetUpsertDiscount([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
             var discount = (await _discounts.GetDiscountByUidAsync(id));
 
             if (discount.IsEmpty())
             {
-                _logger.LogWarning("Get Upsert Discount. Guid: {@id}. Result is Empty. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogWarning("Get Upsert Discount. Guid: {@id}. Result is Empty. User: {@currentUser}.", id, currentUser);
                 return NotFound("No discount found.");
             }
 
             var response = discount.ToUpsertDiscountRequest();
 
-            _logger.LogInformation("Get Upsert Discount. Guid: {@id}. Result: {@response}. User: {@incomingUser}.", id, response, incomingUser);
+            _logger.LogInformation("Get Upsert Discount. Guid: {@id}. Result: {@response}. User: {@currentUser}.", id, response, currentUser);
             return Ok(response);
         }
 
@@ -194,8 +194,8 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> UpsertDiscount([FromBody, CustomizeValidator(RuleSet = "UpsertDiscount")] UpsertDiscountRequest upsertDiscountRequest)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var user = (await _users.GetUserByUidAsync(incomingUser.Id)).ToUserLikeEmployee();
+            var currentUser = ControllerContext.CurrentUser();
+            var user = (await _users.GetUserByUidAsync(currentUser.Id)).ToUserLikeEmployee();
 
             var discount = upsertDiscountRequest.ToDiscount().AddChangeUserTime(user);
 
@@ -203,13 +203,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
 
             if (responseDiscount.IsEmpty())
             {
-                _logger.LogWarning("Upsert Discount. UpsertDiscountRequest: {@upsertDiscountRequest}. Result is Empty. User: {@incomingUser}.", upsertDiscountRequest, incomingUser);
+                _logger.LogWarning("Upsert Discount. UpsertDiscountRequest: {@upsertDiscountRequest}. Result is Empty. User: {@currentUser}.", upsertDiscountRequest, currentUser);
                 return BadRequest("No discounts were create or update.");
             }
 
             var response = responseDiscount.ToUpsertDiscountRequest();
 
-            _logger.LogInformation("Upsert Discount. UpsertDiscountRequest: {@upsertDiscountRequest}. Result: {@response}. User: {@incomingUser}.", upsertDiscountRequest, response, incomingUser);
+            _logger.LogInformation("Upsert Discount. UpsertDiscountRequest: {@upsertDiscountRequest}. Result: {@response}. User: {@currentUser}.", upsertDiscountRequest, response, currentUser);
             return Ok(response);
         }
 
@@ -234,9 +234,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> DeleteDiscount([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            await _discounts.RemoveDiscountByUidAsync(id, incomingUser.Id);
-            _logger.LogInformation("Delete Discount. Guid: {@id}. Result: deleted. User: {@incomingUser}.", id, incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            await _discounts.RemoveDiscountByUidAsync(id, currentUser.Id);
+            _logger.LogInformation("Delete Discount. Guid: {@id}. Result: deleted. User: {@currentUser}.", id, currentUser);
 
             return Ok();
         }
@@ -262,9 +262,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Moderator,Administrator")]
         public async Task<IActionResult> DeleteDiscounts([FromBody] List<Guid> ids)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            await _discounts.RemoveDiscountAsync(ids, incomingUser.Id);
-            _logger.LogInformation("Delete Discounts. Guid[]: {@ids}. Result: deleted. User: {@incomingUser}", ids, incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            await _discounts.RemoveDiscountAsync(ids, currentUser.Id);
+            _logger.LogInformation("Delete Discounts. Guid[]: {@ids}. Result: deleted. User: {@currentUser}", ids, currentUser);
 
             return Ok();
         }
@@ -292,16 +292,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> ExistsInFavorites([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var exists = await _discounts.ExistsInFavoritesAsync(id, incomingUser.Id);
+            var currentUser = ControllerContext.CurrentUser();
+            var exists = await _discounts.ExistsInFavoritesAsync(id, currentUser.Id);
 
             if (!exists)
             {
-                _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Not exists. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Not exists. User: {@currentUser}.", id, currentUser);
                 return NotFound("Discount not exists in Favorites.");
             }
 
-            _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Exists. User: {@incomingUser}.", id, incomingUser);
+            _logger.LogInformation("Exists In Favorites. Guid: {@id}. Result: Exists. User: {@currentUser}.", id, currentUser);
 
             return Ok();
         }
@@ -327,9 +327,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> AddToFavorites([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            await _discounts.AddToFavoritesAsync(id, incomingUser.Id);
-            _logger.LogInformation("Add To Favorites. Guid: {@id}. Result: added. User: {@incomingUser}.", id, incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            await _discounts.AddToFavoritesAsync(id, currentUser.Id);
+            _logger.LogInformation("Add To Favorites. Guid: {@id}. Result: added. User: {@currentUser}.", id, currentUser);
 
             return Ok();
         }
@@ -355,9 +355,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> DeleteFromFavorites([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            await _discounts.RemoveFromFavoritesAsync(id, incomingUser.Id);
-            _logger.LogInformation("Delete From Favorites. Guid: {@id}. Result: deleted. User: {@incomingUser}.", id, incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            await _discounts.RemoveFromFavoritesAsync(id, currentUser.Id);
+            _logger.LogInformation("Delete From Favorites. Guid: {@id}. Result: deleted. User: {@currentUser}.", id, currentUser);
 
             return Ok();
         }
@@ -383,16 +383,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetSubscriptions([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var userPromocodes = await _discounts.GetSubscriptionsAsync(id, incomingUser.Id);
+            var currentUser = ControllerContext.CurrentUser();
+            var userPromocodes = await _discounts.GetSubscriptionsAsync(id, currentUser.Id);
 
             if (userPromocodes.IsEmpty())
             {
-                _logger.LogWarning("Get Subscriptions. Guid: {@id}. Result is Empty. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogWarning("Get Subscriptions. Guid: {@id}. Result is Empty. User: {@currentUser}.", id, currentUser);
                 return BadRequest("Not found the subscriptions of discount.");
             }
 
-            _logger.LogInformation("Gets subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, userPromocodes, incomingUser);
+            _logger.LogInformation("Gets subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@currentUser}.", id, userPromocodes, currentUser);
 
             return Ok(userPromocodes);
         }
@@ -420,16 +420,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> ExistsInSubscriptions([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var userPromocodes = await _discounts.GetSubscriptionsAsync(id, incomingUser.Id);
+            var currentUser = ControllerContext.CurrentUser();
+            var userPromocodes = await _discounts.GetSubscriptionsAsync(id, currentUser.Id);
 
             if (userPromocodes.IsEmpty())
             {
-                _logger.LogInformation("Exists In Subscriptions. Guid: {@id}. Result: Not exists. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogInformation("Exists In Subscriptions. Guid: {@id}. Result: Not exists. User: {@currentUser}.", id, currentUser);
                 return NotFound("Discount not exists in Subscriptions.");
             }
 
-            _logger.LogInformation("Exists In Subscriptions. Guid: {@id}. Result: Exists. User: {@incomingUser}.", id, incomingUser);
+            _logger.LogInformation("Exists In Subscriptions. Guid: {@id}. Result: Exists. User: {@currentUser}.", id, currentUser);
 
             return Ok();
         }
@@ -455,13 +455,13 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> AddToSubscriptions([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var discountUserPromocodes = await _discounts.AddToSubscriptionsAsync(id, incomingUser.Id);
-            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@incomingUser}.", id, discountUserPromocodes, incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            var discountUserPromocodes = await _discounts.AddToSubscriptionsAsync(id, currentUser.Id);
+            _logger.LogInformation("Add To Subscriptions. Guid: {@id}. Result: {@userPromocodes}. User: {@currentUser}.", id, discountUserPromocodes, currentUser);
 
             if (discountUserPromocodes != null && !discountUserPromocodes.CurrentPromocode.IsEmpty())
             {
-                var employee = (await _users.GetUserByUidAsync(incomingUser.Id)).ToEmployee();
+                var employee = (await _users.GetUserByUidAsync(currentUser.Id)).ToEmployee();
 
                 var userEvent = new PromocodeAddedIntegrationEvent<UserMailContent>
                     (new UserMailContent(employee, id, discountUserPromocodes.DiscountName,
@@ -508,9 +508,9 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> DeleteFromSubscriptions([FromRoute] Guid discountId, [FromRoute] Guid promocodeId)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var userPromocodes = await _discounts.RemoveFromSubscriptionsAsync(discountId, incomingUser.Id, promocodeId);
-            _logger.LogInformation("Delete From Subscriptions. Guid: {@discountId}. Promocode id: {@promocodeId}. Result: {@userPromocodes}. User: {@incomingUser}.", discountId, promocodeId, userPromocodes, incomingUser);
+            var currentUser = ControllerContext.CurrentUser();
+            var userPromocodes = await _discounts.RemoveFromSubscriptionsAsync(discountId, currentUser.Id, promocodeId);
+            _logger.LogInformation("Delete From Subscriptions. Guid: {@discountId}. Promocode id: {@promocodeId}. Result: {@userPromocodes}. User: {@currentUser}.", discountId, promocodeId, userPromocodes, currentUser);
 
             return Ok(userPromocodes);
         }
@@ -537,15 +537,15 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> AddVote([FromRoute] Guid id, [FromRoute, CustomizeValidator(RuleSet = "VoteValue")] int value)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var result = await _discounts.VoteDiscountAsync(value, id, incomingUser.Id);
+            var currentUser = ControllerContext.CurrentUser();
+            var result = await _discounts.VoteDiscountAsync(value, id, currentUser.Id);
             if (!result)
             {
-                _logger.LogWarning("Add Vote. Guid: {@id}. Vote: {@value}. Result is Empty, user already voted. User id: {@incomingUser}.", id, value, incomingUser);
+                _logger.LogWarning("Add Vote. Guid: {@id}. Vote: {@value}. Result is Empty, user already voted. User id: {@currentUser}.", id, value, currentUser);
                 return Forbid();
             }
 
-            _logger.LogInformation("Add Vote. Guid: {@id}. Vote: {@value}. Result: user voted. User: {@incomingUser}.", id, value, incomingUser);
+            _logger.LogInformation("Add Vote. Guid: {@id}. Vote: {@value}. Result: user voted. User: {@currentUser}.", id, value, currentUser);
 
             return Ok();
         }
@@ -573,16 +573,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> ExistsVote([FromRoute] Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
-            var exists = await _discounts.ExistsVoteAsync(id, incomingUser.Id);
+            var currentUser = ControllerContext.CurrentUser();
+            var exists = await _discounts.ExistsVoteAsync(id, currentUser.Id);
 
             if (!exists)
             {
-                _logger.LogInformation("Exists Vote. Guid: {@id}. Result: Not voted. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogInformation("Exists Vote. Guid: {@id}. Result: Not voted. User: {@currentUser}.", id, currentUser);
                 return NotFound("Discount not voted.");
             }
 
-            _logger.LogInformation("Exists Vote. Guid: {@id}. Result: Voted. User: {@incomingUser}.", id, incomingUser);
+            _logger.LogInformation("Exists Vote. Guid: {@id}. Result: Voted. User: {@currentUser}.", id, currentUser);
 
             return Ok();
         }

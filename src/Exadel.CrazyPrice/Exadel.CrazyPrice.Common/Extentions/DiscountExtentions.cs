@@ -185,7 +185,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <param name="discount"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static Discount TransformUsersPromocodes(this Discount discount, IncomingUser user)
+        public static Discount TransformUsersPromocodes(this Discount discount, CurrentUser user)
         {
             if (discount.IsEmpty())
             {
@@ -202,7 +202,7 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <param name="discounts"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static List<Discount> TransformUsersPromocodes(this List<Discount> discounts, IncomingUser user) =>
+        public static List<Discount> TransformUsersPromocodes(this List<Discount> discounts, CurrentUser user) =>
             discounts.Select(discount => discount.TransformUsersPromocodes(user)).ToList();
 
         /// <summary>

@@ -56,17 +56,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetCompanyNames([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string companyName)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var companies = await _repository.GetCompanyNamesAsync(companyName);
 
             if (companies.IsNullOrEmpty())
             {
-                _logger.LogWarning("Get Company names. Company name: {companyName}. Result is Empty. User: {@incomingUser}.", companyName, incomingUser);
+                _logger.LogWarning("Get Company names. Company name: {companyName}. Result is Empty. User: {@currentUser}.", companyName, currentUser);
                 return NotFound("No company names found.");
             }
 
-            _logger.LogInformation("Get Company names. Company name: {companyName}. Result: {@companies}. User: {@incomingUser}.", companyName, companies, incomingUser);
+            _logger.LogInformation("Get Company names. Company name: {companyName}. Result: {@companies}. User: {@currentUser}.", companyName, companies, currentUser);
             return Ok(companies);
         }
     }

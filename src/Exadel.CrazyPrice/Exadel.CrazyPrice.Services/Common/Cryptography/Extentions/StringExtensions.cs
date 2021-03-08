@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -23,7 +24,8 @@ namespace Exadel.CrazyPrice.Services.Common.Cryptography.Extentions
             rng.GetBytes(salt);
 
             //generate hash from test password and original salt and iterations
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt, IterationCount, HashAlgorithmName.SHA256))
+            using (var rfc2898DeriveBytes =
+                new Rfc2898DeriveBytes(password, salt, IterationCount, HashAlgorithmName.SHA256))
             {
                 hash = rfc2898DeriveBytes.GetBytes(HashSize);
             }
@@ -31,7 +33,7 @@ namespace Exadel.CrazyPrice.Services.Common.Cryptography.Extentions
             return (Convert.ToBase64String(hash), Convert.ToBase64String(salt));
         }
 
-        
+
         public static bool IsValidPasswordHash(this string password, string hashedPassword, string salt)
         {
             var saltByte = Convert.FromBase64String(salt);
@@ -39,18 +41,16 @@ namespace Exadel.CrazyPrice.Services.Common.Cryptography.Extentions
             byte[] testHash;
 
             //generate hash from test password and original salt and iterations
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltByte, IterationCount, HashAlgorithmName.SHA256))
+            using (var rfc2898DeriveBytes =
+                new Rfc2898DeriveBytes(password, saltByte, IterationCount, HashAlgorithmName.SHA256))
             {
                 testHash = rfc2898DeriveBytes.GetBytes(HashSize);
             }
 
             try
             {
-                //if hash values match then return success
-                if (Convert.ToBase64String(testHash) == hashedPassword)
-                {
-                    result = true;
-                }
+                result = StructuralComparisons.StructuralEqualityComparer.Equals(
+                    Convert.FromBase64String(hashedPassword), testHash);
             }
             catch (Exception)
             {

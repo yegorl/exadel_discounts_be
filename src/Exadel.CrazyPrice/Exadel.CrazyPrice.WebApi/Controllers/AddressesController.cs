@@ -51,17 +51,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountries([FromRoute, CustomizeValidator(RuleSet = "SearchString")] string searchCountry)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var countries = await _repository.GetCountriesAsync(searchCountry, searchCountry.GetLanguageFromFirstLetter());
 
             if (countries.IsNullOrEmpty())
             {
-                _logger.LogWarning("Get countries. Country: {searchCountry}. Result is Empty. User: {@incomingUser}.", searchCountry, incomingUser);
+                _logger.LogWarning("Get countries. Country: {searchCountry}. Result is Empty. User: {@currentUser}.", searchCountry, currentUser);
                 return NotFound("No countries found.");
             }
 
-            _logger.LogInformation("Get countries. Country: {searchCountry}. Result: {@countries}. User: {@incomingUser}.", searchCountry, countries, incomingUser);
+            _logger.LogInformation("Get countries. Country: {searchCountry}. Result: {@countries}. User: {@currentUser}.", searchCountry, countries, currentUser);
             return Ok(countries);
         }
 
@@ -86,17 +86,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountriesAll([FromRoute] LanguageOption language)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var countries = await _repository.GetCountriesAsync(string.Empty, language);
 
             if (countries.IsNullOrEmpty())
             {
-                _logger.LogWarning("Get all countries. Language: {@language}. Result Empty. User: {@incomingUser}.", language, incomingUser);
+                _logger.LogWarning("Get all countries. Language: {@language}. Result Empty. User: {@currentUser}.", language, currentUser);
                 return NotFound("No countries found.");
             }
 
-            _logger.LogInformation("Get all countries. Language: {@language}. Result: {@countries}. User: {@incomingUser}.", language, countries, incomingUser);
+            _logger.LogInformation("Get all countries. Language: {@language}. Result: {@countries}. User: {@currentUser}.", language, countries, currentUser);
             return Ok(countries);
         }
 
@@ -125,17 +125,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
             [FromRoute, CustomizeValidator(RuleSet = "SearchString")] string searchCountry,
             [FromRoute, CustomizeValidator(RuleSet = "SearchString")] string searchCity)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var cities = await _repository.GetCitiesAsync(searchCountry, searchCity, searchCity.GetLanguageFromFirstLetter());
 
             if (cities.IsNullOrEmpty())
             {
-                _logger.LogWarning("Get Cities. Country: {searchCountry}. City: {searchCity}. Result is Empty. User: {@incomingUser}.", searchCountry, searchCity, incomingUser);
+                _logger.LogWarning("Get Cities. Country: {searchCountry}. City: {searchCity}. Result is Empty. User: {@currentUser}.", searchCountry, searchCity, currentUser);
                 return NotFound("No cities found.");
             }
 
-            _logger.LogInformation("Get Cities. Country: {searchCountry}. City: {searchCity}. Result: {@cities}. User: {@incomingUser}.", searchCountry, searchCity, cities, incomingUser);
+            _logger.LogInformation("Get Cities. Country: {searchCountry}. City: {searchCity}. Result: {@cities}. User: {@currentUser}.", searchCountry, searchCity, cities, currentUser);
             return Ok(cities);
         }
 
@@ -162,17 +162,17 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCitiesAll([FromRoute] LanguageOption language, [FromRoute, CustomizeValidator(RuleSet = "SearchString")] string searchCountry)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var cities = await _repository.GetCitiesAsync(searchCountry, string.Empty, language);
 
             if (cities.IsNullOrEmpty())
             {
-                _logger.LogWarning("Get All Cities. Language: {@language}. Country: {searchCountry}. Result is Empty. User: {@incomingUser}.", language, searchCountry, incomingUser);
+                _logger.LogWarning("Get All Cities. Language: {@language}. Country: {searchCountry}. Result is Empty. User: {@currentUser}.", language, searchCountry, currentUser);
                 return NotFound("No cities found.");
             }
 
-            _logger.LogInformation("Get All Cities. Language: {@language}. Country: {searchCountry}. Result: {@cities}. User: {@incomingUser}.", language, searchCountry, cities, incomingUser);
+            _logger.LogInformation("Get All Cities. Language: {@language}. Country: {searchCountry}. Result: {@cities}. User: {@currentUser}.", language, searchCountry, cities, currentUser);
             return Ok(cities);
         }
     }

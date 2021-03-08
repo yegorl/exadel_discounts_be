@@ -45,7 +45,7 @@ namespace Exadel.CrazyPrice.Data.Extentions
         {
             searchCriteria.SearchText = searchCriteria.SearchText.GetValidContent(CharOptions.Letter, " ");
 
-            searchCriteria.SearchShowDeleted = searchCriteria.IncomingUser.Role == RoleOption.Administrator;
+            searchCriteria.SearchShowDeleted = searchCriteria.CurrentUser.Role == RoleOption.Administrator;
 
             var queryBuilder = new StringBuilder();
             queryBuilder.Append('{');
@@ -246,8 +246,8 @@ namespace Exadel.CrazyPrice.Data.Extentions
         private static string GetDiscountOptionCondition(this SearchCriteria searchCriteria) =>
             searchCriteria.SearchDiscountOption switch
             {
-                DiscountOption.Favorites => ", {\"favoritesUsersId\" : \"" + searchCriteria.IncomingUser.Id + "\"}",
-                DiscountOption.Subscriptions => ", {\"usersPromocodes.userId\" : \"" + searchCriteria.IncomingUser.Id + "\", \"usersPromocodes.promocodes.deleted\" : false }",
+                DiscountOption.Favorites => ", {\"favoritesUsersId\" : \"" + searchCriteria.CurrentUser.Id + "\"}",
+                DiscountOption.Subscriptions => ", {\"usersPromocodes.userId\" : \"" + searchCriteria.CurrentUser.Id + "\", \"usersPromocodes.promocodes.deleted\" : false }",
                 _ => string.Empty
             };
 

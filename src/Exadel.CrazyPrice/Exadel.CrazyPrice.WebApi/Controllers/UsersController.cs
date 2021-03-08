@@ -58,18 +58,18 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
         [Authorize(Roles = "Employee,Moderator,Administrator")]
         public async Task<IActionResult> GetUser(Guid id)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
             var user = await _repository.GetUserByUidAsync(id);
             var employee = user.ToEmployee();
 
             if (employee.IsEmpty())
             {
-                _logger.LogWarning("Get User. Guid: {@id}. Result is Empty. User: {@incomingUser}.", id, incomingUser);
+                _logger.LogWarning("Get User. Guid: {@id}. Result is Empty. User: {@currentUser}.", id, currentUser);
                 return NotFound("No employee found.");
             }
 
-            _logger.LogInformation("Get User. Guid: {@id}. Result: {@employee}. User: {@incomingUser}.", id, employee, incomingUser);
+            _logger.LogInformation("Get User. Guid: {@id}. Result: {@employee}. User: {@currentUser}.", id, employee, currentUser);
             return Ok(employee);
         }
 
@@ -93,20 +93,20 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Employee,Moderator,Administrator")]
-        public async Task<IActionResult> GetMyselfUser()
+        public async Task<IActionResult> GetCurrentUser()
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
-            var user = await _repository.GetUserByUidAsync(incomingUser.Id);
+            var user = await _repository.GetUserByUidAsync(currentUser.Id);
             var employee = user.ToUserInfo();
 
             if (employee.IsEmpty())
             {
-                _logger.LogWarning("Get Myself. Result is Empty. User: {@incomingUser}.", incomingUser);
+                _logger.LogWarning("Get Myself. Result is Empty. User: {@currentUser}.", currentUser);
                 return NotFound("No employee found.");
             }
 
-            _logger.LogInformation("Get Myself. Result: {@employee}. User: {@incomingUser}.", employee, incomingUser);
+            _logger.LogInformation("Get Myself. Result: {@employee}. User: {@currentUser}.", employee, currentUser);
             return Ok(employee);
         }
 
@@ -130,16 +130,16 @@ namespace Exadel.CrazyPrice.WebApi.Controllers
          ProducesResponseType(typeof(string), StatusCodes.Status405MethodNotAllowed),
          ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Employee,Moderator,Administrator")] 
-        public async Task<IActionResult> UpdateUser([FromBody, CustomizeValidator(RuleSet = "UpdateUser")] UpdateUserRequest request)
+        public async Task<IActionResult> UpdateMyUserInfo([FromBody, CustomizeValidator(RuleSet = "UpdateUser")] UpdateUserRequest request)
         {
-            var incomingUser = ControllerContext.IncomingUser();
+            var currentUser = ControllerContext.CurrentUser();
 
-            var user = (await _repository.GetUserByUidAsync(incomingUser.Id)).UpdateUser(request);
+            var updatedUser = (await _repository.GetUserByUidAsync(currentUser.Id)).UpdateUser(request);
 
-            var updatedUser = (await _repository.UpdateUserAsync(user)).ToUserInfo();
+            var updatedUserInfo = (await _repository.UpdateUserAsync(updatedUser)).ToUserInfo();
 
-            _logger.LogInformation("Update UserInfo. Result: {@userInfo} User: {@incomingUser}.", updatedUser, incomingUser);
-            return Ok(updatedUser);
+            _logger.LogInformation("Update UserInfo. Result: {@userInfo} User: {@currentUser}.", updatedUserInfo, currentUser);
+            return Ok(updatedUserInfo);
         }
     }
 }
