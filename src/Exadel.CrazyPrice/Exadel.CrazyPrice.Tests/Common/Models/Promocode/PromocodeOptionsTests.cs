@@ -24,13 +24,15 @@ namespace Exadel.CrazyPrice.Tests.Common.Models.Promocode
                 CountActivePromocodePerUser = countActivePromocodePerUser,
                 CountSymbolsPromocode = countSymbolsPromocode,
                 DaysDurationPromocode = daysDurationPromocode,
-                TimeLimitAddingInSeconds = timeLimitAddingInSeconds
+                TimeLimitAddingInSeconds = timeLimitAddingInSeconds,
+                EnabledPromocodes = true
             };
 
             promocodeOptions.CountActivePromocodePerUser.Should().Be(countActivePromocodePerUser);
             promocodeOptions.CountSymbolsPromocode.Should().Be(countSymbolsPromocode);
             promocodeOptions.DaysDurationPromocode.Should().Be(daysDurationPromocode);
             promocodeOptions.TimeLimitAddingInSeconds.Should().Be(timeLimitAddingInSeconds);
+            promocodeOptions.EnabledPromocodes.Should().BeTrue();
         }
     }
 }

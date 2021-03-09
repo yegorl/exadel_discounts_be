@@ -365,5 +365,25 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             Action action = () => value.ToRoleOption(defaultValue, true);
             action.Should().Throw<ArgumentException>();
         }
+
+        [Theory]
+        [InlineData("1", 0, false, 1)]
+        [InlineData("2", 1, false, 2)]
+        [InlineData("-3", 1, false, -3)]
+        public void ToIntReturnsTrueTest(string value, int defaultValue, bool raiseException, int expectedResult)
+        {
+            value.ToInt(defaultValue, raiseException).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("-1.2", 0, true)]
+        [InlineData("a", 1, true)]
+        [InlineData("2,5", 1, true)]
+        [InlineData("2.5", 1, true)]
+        public void ToIntRaiseExceptionsTest(string value, int defaultValue, bool raiseException)
+        {
+            Action action = () => value.ToInt(defaultValue, raiseException);
+            action.Should().Throw<ArgumentException>();
+        }
     }
 }
