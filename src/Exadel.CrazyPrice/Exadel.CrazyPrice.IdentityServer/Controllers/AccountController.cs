@@ -206,9 +206,8 @@ namespace Exadel.CrazyPrice.IdentityServer.Controllers
                         _logger.LogWarning("Login. Validate Credentials was failed. User: id {Id}, name {Name}, " +
                                                "Surname {Surname}, mail {Mail}.", user.Id, user.Name, user.Surname, user.Mail);
                     }
+                    _logger.LogWarning("Login. User with email {email} not exist.", model.Email.ToLower());
                 }
-
-                _logger.LogWarning("Login. User with email {email} not exist.", model.Email.ToLower());
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials", clientId: context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, _localizer["Invalid_email_or_password"].Value);

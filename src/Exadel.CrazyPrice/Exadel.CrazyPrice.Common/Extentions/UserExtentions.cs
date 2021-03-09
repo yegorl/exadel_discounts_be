@@ -55,7 +55,8 @@ namespace Exadel.CrazyPrice.Common.Extentions
         /// <returns></returns>
         public static User UpdateUser(this User user, UpdateUserRequest request)
         {
-            var (hashPassword, salt) = request.Password.GetCryptPassword();
+            
+            var (hashPassword, salt) = request.Password.IsNullOrEmpty() ? (null, null) : request.Password.GetCryptPassword();
             return new User
             {
                 Id = user.Id,
