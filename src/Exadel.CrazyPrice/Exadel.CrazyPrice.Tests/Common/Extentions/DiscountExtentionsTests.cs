@@ -138,6 +138,43 @@ namespace Exadel.CrazyPrice.Tests.Common.Extentions
             }.ToDbPromocode();
             value.Should().NotBeNull();
         }
+        
+        [Fact]
+        public void TransformUsersPromocodesEmptyTest()
+        {
+            var value = new Discount();
+            var currentUser = new CurrentUser();
 
+            value.TransformUsersPromocodes(currentUser).Should().BeEquivalentTo(new Discount());
+        }
+
+        [Fact]
+        public void TransformUsersPromocodesOnlyCurrentUserTest()
+        {
+            var value = new Discount()
+            {
+                Id = Guid.Parse("4f491c24-40c1-4b76-9abd-43b23fe1ffe6"),
+                UsersPromocodes = new List<UserPromocodes>()
+                {
+                    new UserPromocodes()
+                    {
+                        UserId = Guid.Parse("7e19f829-cd6c-4b01-a4ee-50370f964d16"),
+                        Promocodes = new List<Promocode>()
+                        {
+                            new Promocode()
+                            {
+                                Id = Guid.Parse("ac096540-b016-419d-95f8-1c6036a801dd")
+                            }
+                        }
+                    }
+                }
+            };
+            var currentUser = new CurrentUser()
+            {
+                Id = Guid.Parse("7e19f829-cd6c-4b01-a4ee-50370f964d16")
+            };
+
+            value.TransformUsersPromocodes(currentUser).UsersPromocodes.Count.Should().Be(1);
+        }
     }
 }
