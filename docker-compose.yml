@@ -109,7 +109,7 @@ services:
    - ASPNETCORE_ENVIRONMENT=Docker
    - ASPNETCORE_Kestrel__Certificates__Default__Password=password
    - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx   
-  entrypoint: bash -c "/https-root/update-ca-cert.sh && dotnet Exadel.CrazyPrice.WebApi.dll"
+  entrypoint: bash -c "chmod 744 /https-root/update-ca-cert.sh && /https-root/update-ca-cert.sh && dotnet Exadel.CrazyPrice.WebApi.dll"
   links:
    - database
    - identityserver
