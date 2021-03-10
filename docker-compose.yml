@@ -15,8 +15,7 @@ services:
    - database
   volumes:
    - ./volumes/database/seed:/seed/
-  command:
-   /seed/import.sh
+  command: bash -c "chmod 744 /seed/import.sh && /seed/import.sh"
   depends_on:
    - database
 
