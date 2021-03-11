@@ -36,7 +36,8 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
                             .WithOrigins(config.Origins)
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
-                            .AllowAnyMethod();
+                            .AllowAnyMethod()
+                            .WithMethods("PUT", "DELETE", "GET", "OPTIONS");
                     });
             });
 
@@ -67,9 +68,9 @@ namespace Exadel.CrazyPrice.IdentityServer.Extentions
                     options.ClientSecret = config.FacebookClientSecret;
                 });
 
-            builder
-                .AddSigningCredential(new X509Certificate2(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    config.CertificateName), config.CertificatePassword));
+            builder.AddDeveloperSigningCredential();
+            //builder.AddSigningCredential(new X509Certificate2(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+            //        config.CertificateName), config.CertificatePassword));
 
             return services;
         }
