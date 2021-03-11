@@ -46,8 +46,9 @@ namespace Exadel.CrazyPrice.IdentityServer
             // uncomment if you want to add MVC
             app.UseStaticFiles();
             app.UseRouting();
-
+            
             app.UseCrazyPriceIdentityServer(Configuration);
+            app.UseHttpsRedirection();
 
             app.UseCustomForwardedHeaders();
 
