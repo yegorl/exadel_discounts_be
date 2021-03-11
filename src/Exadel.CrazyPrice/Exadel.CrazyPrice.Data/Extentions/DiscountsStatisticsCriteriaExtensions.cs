@@ -11,18 +11,19 @@ namespace Exadel.CrazyPrice.Data.Extentions
         {
             var matchBuilder = new StringBuilder();
             matchBuilder.Append("{");
+            matchBuilder.Append("$and: [");
             if (!string.IsNullOrEmpty(criteria.SearchAddressCountry))
             {
-                matchBuilder.Append($"\"address.country\": \"{criteria.SearchAddressCountry}\", ");
+                matchBuilder.Append("{" + $"\"address.country\": \"{criteria.SearchAddressCountry}\", " + "},");
                 if (!string.IsNullOrEmpty(criteria.SearchAddressCity))
                 {
-                    matchBuilder.Append($"\"address.city\": \"{criteria.SearchAddressCity}\" ");
+                    matchBuilder.Append("{" + $"\"address.city\": \"{criteria.SearchAddressCity}\" " + "}," );
                 }
             }
 
             if (criteria.CreateStartDate != null || criteria.CreateEndDate != null)
             {
-                matchBuilder.Append("\"createDate\": {");
+                matchBuilder.Append("{" + "\"createDate\": {");
                 if (criteria.CreateStartDate != null)
                 {
                     matchBuilder.Append($"$gt: {criteria.CreateStartDate.ToIsoDate()},");
@@ -31,11 +32,11 @@ namespace Exadel.CrazyPrice.Data.Extentions
                 {
                     matchBuilder.Append($"$lt: {criteria.CreateEndDate.ToIsoDate()}");
                 }
-
-                matchBuilder.Append("}");
+                matchBuilder.Append("}},");
             }
 
-            matchBuilder.Append("}");
+            matchBuilder.Append("{favoritesUsersId: {$exists: true}},{ratingUsersId: {$exists: true}}");
+            matchBuilder.Append("]}");
             return matchBuilder.ToString();
         }
 
